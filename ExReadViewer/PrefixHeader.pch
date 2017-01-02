@@ -1,0 +1,33 @@
+//
+//  PrefixHeader.pch
+//  ExReadViewer
+//
+//  Created by 覃江 on 2016/12/26.
+//  Copyright © 2016年 茅野瓜子. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "SVProgressHUD.h"
+#import "UIImageView+WebCache.h"
+#import "MJRefresh.h"
+//屏幕计算
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define kScreenWidth  [UIScreen mainScreen].bounds.size.width
+//分类颜色
+#define DOUJINSHI_COLOR [UIColor colorWithRed:0.957 green:0.263 blue:0.212 alpha:1.00]
+#define MANGA_COLOR [UIColor colorWithRed:1.000 green:0.596 blue:0.000 alpha:1.00]
+#define ARTISTCG_COLOR [UIColor colorWithRed:0.984 green:0.753 blue:0.176 alpha:1.00]
+#define GAMECG_COLOR [UIColor colorWithRed:0.298 green:0.686 blue:0.314 alpha:1.00]
+#define WESTERN_COLOR [UIColor colorWithRed:0.545 green:0.765 blue:0.290 alpha:1.00]
+#define NONH_COLOR [UIColor colorWithRed:0.129 green:0.588 blue:0.953 alpha:1.00]
+#define IMAGESET_COLOR [UIColor colorWithRed:0.247 green:0.318 blue:0.710 alpha:1.00]
+#define COSPLAY_COLOR [UIColor colorWithRed:0.612 green:0.153 blue:0.690 alpha:1.00]
+#define ASIANPORN_COLOR [UIColor colorWithRed:0.584 green:0.459 blue:0.804 alpha:1.00]
+#define MISC_COLOR [UIColor colorWithRed:0.941 green:0.384 blue:0.573 alpha:1.00]
+
+#endif /* PrefixHeader_pch */

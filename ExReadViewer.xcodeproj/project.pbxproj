@@ -1,0 +1,684 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5A3A3C361E10C4F200704F81 /* QJMainListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C341E10C4F200704F81 /* QJMainListCell.m */; };
+		5A3A3C371E10C4F200704F81 /* QJMainListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3A3C351E10C4F200704F81 /* QJMainListCell.xib */; };
+		5A3A3C3F1E10C51300704F81 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C3A1E10C51300704F81 /* TFHpple.m */; };
+		5A3A3C401E10C51300704F81 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C3C1E10C51300704F81 /* TFHppleElement.m */; };
+		5A3A3C411E10C51300704F81 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C3E1E10C51300704F81 /* XPathQuery.m */; };
+		5A3A3C431E10C5AD00704F81 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3A3C421E10C5AD00704F81 /* libxml2.2.tbd */; };
+		5A3A3C551E11150B00704F81 /* HentaiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C541E11150B00704F81 /* HentaiParser.m */; };
+		5A57ECDC1E11570000B28D37 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A57ECDE1E11570000B28D37 /* Localizable.strings */; };
+		5A956E741E176F7B001720B5 /* QJTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A956E731E176F7B001720B5 /* QJTagView.m */; };
+		5A956E7B1E17F661001720B5 /* QJTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A956E7A1E17F661001720B5 /* QJTagViewController.m */; };
+		5A956E851E17FDC0001720B5 /* QJCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A956E831E17FDC0001720B5 /* QJCommentCell.m */; };
+		5A956E861E17FDC0001720B5 /* QJCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A956E841E17FDC0001720B5 /* QJCommentCell.xib */; };
+		5A956E8D1E180875001720B5 /* UILabel+LinkUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A956E8C1E180875001720B5 /* UILabel+LinkUrl.m */; };
+		5A956E921E180F9C001720B5 /* QJAllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A956E911E180F9C001720B5 /* QJAllCommentViewController.m */; };
+		5AC789BD1E0F850800DFFAA3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC789BC1E0F850800DFFAA3 /* main.m */; };
+		5AC789C01E0F850800DFFAA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC789BF1E0F850800DFFAA3 /* AppDelegate.m */; };
+		5AC789C31E0F850800DFFAA3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC789C21E0F850800DFFAA3 /* ViewController.m */; };
+		5AC789C61E0F850800DFFAA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AC789C41E0F850800DFFAA3 /* Main.storyboard */; };
+		5AC789C81E0F850800DFFAA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AC789C71E0F850800DFFAA3 /* Assets.xcassets */; };
+		5AC789CB1E0F850800DFFAA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AC789C91E0F850800DFFAA3 /* LaunchScreen.storyboard */; };
+		5AC789DC1E0F868600DFFAA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AC789DE1E0F868600DFFAA3 /* InfoPlist.strings */; };
+		5AE738F51E18CC9300CCF605 /* QJThumbImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE738F31E18CC9300CCF605 /* QJThumbImageCell.m */; };
+		5AE738F61E18CC9300CCF605 /* QJThumbImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE738F41E18CC9300CCF605 /* QJThumbImageCell.xib */; };
+		5AF1D42A1E13E978005D465C /* QJIntroInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF1D4291E13E978005D465C /* QJIntroInfoModel.m */; };
+		5AFD23B41E159BCF0003B905 /* QJIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD23B21E159BCF0003B905 /* QJIntroViewController.m */; };
+		5AFD23B51E159BCF0003B905 /* QJIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD23B31E159BCF0003B905 /* QJIntroViewController.xib */; };
+		61C6FAE954856155D80D50DF /* libPods-ExReadViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADB6691A1526C9215945DC6 /* libPods-ExReadViewer.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0D3287C0245623183D78C405 /* Pods-ExReadViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExReadViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExReadViewer/Pods-ExReadViewer.release.xcconfig"; sourceTree = "<group>"; };
+		2ADB6691A1526C9215945DC6 /* libPods-ExReadViewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExReadViewer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34A82DA07F8B8395FA4867DC /* Pods-ExReadViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExReadViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExReadViewer/Pods-ExReadViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		5A3A3C331E10C4F200704F81 /* QJMainListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJMainListCell.h; sourceTree = "<group>"; };
+		5A3A3C341E10C4F200704F81 /* QJMainListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJMainListCell.m; sourceTree = "<group>"; };
+		5A3A3C351E10C4F200704F81 /* QJMainListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJMainListCell.xib; sourceTree = "<group>"; };
+		5A3A3C391E10C51300704F81 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
+		5A3A3C3A1E10C51300704F81 /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
+		5A3A3C3B1E10C51300704F81 /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
+		5A3A3C3C1E10C51300704F81 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
+		5A3A3C3D1E10C51300704F81 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		5A3A3C3E1E10C51300704F81 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		5A3A3C421E10C5AD00704F81 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		5A3A3C531E11150B00704F81 /* HentaiParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HentaiParser.h; sourceTree = "<group>"; };
+		5A3A3C541E11150B00704F81 /* HentaiParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HentaiParser.m; sourceTree = "<group>"; };
+		5A57ECD91E11462D00B28D37 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		5A57ECDD1E11570000B28D37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5A57ECDF1E11570200B28D37 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5A956E721E176F7B001720B5 /* QJTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTagView.h; sourceTree = "<group>"; };
+		5A956E731E176F7B001720B5 /* QJTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTagView.m; sourceTree = "<group>"; };
+		5A956E791E17F661001720B5 /* QJTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTagViewController.h; sourceTree = "<group>"; };
+		5A956E7A1E17F661001720B5 /* QJTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTagViewController.m; sourceTree = "<group>"; };
+		5A956E821E17FDC0001720B5 /* QJCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJCommentCell.h; sourceTree = "<group>"; };
+		5A956E831E17FDC0001720B5 /* QJCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJCommentCell.m; sourceTree = "<group>"; };
+		5A956E841E17FDC0001720B5 /* QJCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJCommentCell.xib; sourceTree = "<group>"; };
+		5A956E8B1E180875001720B5 /* UILabel+LinkUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+LinkUrl.h"; sourceTree = "<group>"; };
+		5A956E8C1E180875001720B5 /* UILabel+LinkUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LinkUrl.m"; sourceTree = "<group>"; };
+		5A956E901E180F9C001720B5 /* QJAllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJAllCommentViewController.h; sourceTree = "<group>"; };
+		5A956E911E180F9C001720B5 /* QJAllCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJAllCommentViewController.m; sourceTree = "<group>"; };
+		5AC789B81E0F850800DFFAA3 /* ExReadViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExReadViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AC789BC1E0F850800DFFAA3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5AC789BE1E0F850800DFFAA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5AC789BF1E0F850800DFFAA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5AC789C11E0F850800DFFAA3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		5AC789C21E0F850800DFFAA3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5AC789C51E0F850800DFFAA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5AC789C71E0F850800DFFAA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5AC789CA1E0F850800DFFAA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5AC789CC1E0F850800DFFAA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5AC789DD1E0F868600DFFAA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5AC789DF1E0F86AC00DFFAA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		5AC789E01E0F86AC00DFFAA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		5AC789E11E0F86AC00DFFAA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		5AE738F21E18CC9300CCF605 /* QJThumbImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJThumbImageCell.h; sourceTree = "<group>"; };
+		5AE738F31E18CC9300CCF605 /* QJThumbImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJThumbImageCell.m; sourceTree = "<group>"; };
+		5AE738F41E18CC9300CCF605 /* QJThumbImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJThumbImageCell.xib; sourceTree = "<group>"; };
+		5AF1D4281E13E978005D465C /* QJIntroInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJIntroInfoModel.h; sourceTree = "<group>"; };
+		5AF1D4291E13E978005D465C /* QJIntroInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJIntroInfoModel.m; sourceTree = "<group>"; };
+		5AFD23B11E159BCF0003B905 /* QJIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJIntroViewController.h; sourceTree = "<group>"; };
+		5AFD23B21E159BCF0003B905 /* QJIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJIntroViewController.m; sourceTree = "<group>"; };
+		5AFD23B31E159BCF0003B905 /* QJIntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJIntroViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5AC789B51E0F850800DFFAA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A3A3C431E10C5AD00704F81 /* libxml2.2.tbd in Frameworks */,
+				61C6FAE954856155D80D50DF /* libPods-ExReadViewer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		521FFF550CFF362327DBF2C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5A3A3C421E10C5AD00704F81 /* libxml2.2.tbd */,
+				2ADB6691A1526C9215945DC6 /* libPods-ExReadViewer.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A3A3C121E10B00B00704F81 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E781E17F637001720B5 /* Tag */,
+				5A956E771E17F624001720B5 /* Main */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		5A3A3C131E10B01800704F81 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A3A3C331E10C4F200704F81 /* QJMainListCell.h */,
+				5A3A3C341E10C4F200704F81 /* QJMainListCell.m */,
+				5A3A3C351E10C4F200704F81 /* QJMainListCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		5A3A3C191E10C35A00704F81 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				5A3A3C381E10C51300704F81 /* Hpple */,
+			);
+			name = ThirdParty;
+			sourceTree = "<group>";
+		};
+		5A3A3C381E10C51300704F81 /* Hpple */ = {
+			isa = PBXGroup;
+			children = (
+				5A3A3C391E10C51300704F81 /* TFHpple.h */,
+				5A3A3C3A1E10C51300704F81 /* TFHpple.m */,
+				5A3A3C3B1E10C51300704F81 /* TFHppleElement.h */,
+				5A3A3C3C1E10C51300704F81 /* TFHppleElement.m */,
+				5A3A3C3D1E10C51300704F81 /* XPathQuery.h */,
+				5A3A3C3E1E10C51300704F81 /* XPathQuery.m */,
+			);
+			path = Hpple;
+			sourceTree = "<group>";
+		};
+		5A3A3C511E1114F100704F81 /* Commom */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E871E1807BC001720B5 /* LabelWithUrl */,
+				5A3A3C521E11150000704F81 /* HentaiParser */,
+			);
+			name = Commom;
+			sourceTree = "<group>";
+		};
+		5A3A3C521E11150000704F81 /* HentaiParser */ = {
+			isa = PBXGroup;
+			children = (
+				5A3A3C531E11150B00704F81 /* HentaiParser.h */,
+				5A3A3C541E11150B00704F81 /* HentaiParser.m */,
+			);
+			name = HentaiParser;
+			sourceTree = "<group>";
+		};
+		5A956E751E176F81001720B5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5AE738F11E18CC6700CCF605 /* ImageCell */,
+				5A956E7C1E17FB04001720B5 /* CommentView */,
+				5A956E761E176F8C001720B5 /* TagView */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		5A956E761E176F8C001720B5 /* TagView */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E721E176F7B001720B5 /* QJTagView.h */,
+				5A956E731E176F7B001720B5 /* QJTagView.m */,
+			);
+			name = TagView;
+			sourceTree = "<group>";
+		};
+		5A956E771E17F624001720B5 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5A3A3C131E10B01800704F81 /* View */,
+				5AC789C11E0F850800DFFAA3 /* ViewController.h */,
+				5AC789C21E0F850800DFFAA3 /* ViewController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		5A956E781E17F637001720B5 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E791E17F661001720B5 /* QJTagViewController.h */,
+				5A956E7A1E17F661001720B5 /* QJTagViewController.m */,
+			);
+			name = Tag;
+			sourceTree = "<group>";
+		};
+		5A956E7C1E17FB04001720B5 /* CommentView */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E821E17FDC0001720B5 /* QJCommentCell.h */,
+				5A956E831E17FDC0001720B5 /* QJCommentCell.m */,
+				5A956E841E17FDC0001720B5 /* QJCommentCell.xib */,
+			);
+			name = CommentView;
+			sourceTree = "<group>";
+		};
+		5A956E871E1807BC001720B5 /* LabelWithUrl */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E8B1E180875001720B5 /* UILabel+LinkUrl.h */,
+				5A956E8C1E180875001720B5 /* UILabel+LinkUrl.m */,
+			);
+			name = LabelWithUrl;
+			sourceTree = "<group>";
+		};
+		5A956E8E1E180F2C001720B5 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E751E176F81001720B5 /* View */,
+				5AF1D4271E13E946005D465C /* Model */,
+				5AFD23B11E159BCF0003B905 /* QJIntroViewController.h */,
+				5AFD23B21E159BCF0003B905 /* QJIntroViewController.m */,
+				5AFD23B31E159BCF0003B905 /* QJIntroViewController.xib */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		5A956E8F1E180F76001720B5 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E901E180F9C001720B5 /* QJAllCommentViewController.h */,
+				5A956E911E180F9C001720B5 /* QJAllCommentViewController.m */,
+			);
+			name = Comment;
+			sourceTree = "<group>";
+		};
+		5AC789AF1E0F850800DFFAA3 = {
+			isa = PBXGroup;
+			children = (
+				5AC789BA1E0F850800DFFAA3 /* ExReadViewer */,
+				5AC789B91E0F850800DFFAA3 /* Products */,
+				E0041627B9CFF4008BBC777A /* Pods */,
+				521FFF550CFF362327DBF2C5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5AC789B91E0F850800DFFAA3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AC789B81E0F850800DFFAA3 /* ExReadViewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5AC789BA1E0F850800DFFAA3 /* ExReadViewer */ = {
+			isa = PBXGroup;
+			children = (
+				5A3A3C511E1114F100704F81 /* Commom */,
+				5A3A3C191E10C35A00704F81 /* ThirdParty */,
+				5AF1D4231E13E79C005D465C /* Intro */,
+				5A3A3C121E10B00B00704F81 /* Main */,
+				5AC789BE1E0F850800DFFAA3 /* AppDelegate.h */,
+				5AC789BF1E0F850800DFFAA3 /* AppDelegate.m */,
+				5AC789C41E0F850800DFFAA3 /* Main.storyboard */,
+				5AC789C71E0F850800DFFAA3 /* Assets.xcassets */,
+				5AC789C91E0F850800DFFAA3 /* LaunchScreen.storyboard */,
+				5AC789CC1E0F850800DFFAA3 /* Info.plist */,
+				5AC789BB1E0F850800DFFAA3 /* Supporting Files */,
+			);
+			path = ExReadViewer;
+			sourceTree = "<group>";
+		};
+		5AC789BB1E0F850800DFFAA3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5AC789BC1E0F850800DFFAA3 /* main.m */,
+				5AC789DE1E0F868600DFFAA3 /* InfoPlist.strings */,
+				5A57ECDE1E11570000B28D37 /* Localizable.strings */,
+				5A57ECD91E11462D00B28D37 /* PrefixHeader.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5AE738F11E18CC6700CCF605 /* ImageCell */ = {
+			isa = PBXGroup;
+			children = (
+				5AE738F21E18CC9300CCF605 /* QJThumbImageCell.h */,
+				5AE738F31E18CC9300CCF605 /* QJThumbImageCell.m */,
+				5AE738F41E18CC9300CCF605 /* QJThumbImageCell.xib */,
+			);
+			name = ImageCell;
+			sourceTree = "<group>";
+		};
+		5AF1D4231E13E79C005D465C /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E8F1E180F76001720B5 /* Comment */,
+				5A956E8E1E180F2C001720B5 /* Main */,
+			);
+			name = Intro;
+			sourceTree = "<group>";
+		};
+		5AF1D4271E13E946005D465C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5AF1D4281E13E978005D465C /* QJIntroInfoModel.h */,
+				5AF1D4291E13E978005D465C /* QJIntroInfoModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		E0041627B9CFF4008BBC777A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				34A82DA07F8B8395FA4867DC /* Pods-ExReadViewer.debug.xcconfig */,
+				0D3287C0245623183D78C405 /* Pods-ExReadViewer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5AC789B71E0F850800DFFAA3 /* ExReadViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5AC789CF1E0F850800DFFAA3 /* Build configuration list for PBXNativeTarget "ExReadViewer" */;
+			buildPhases = (
+				3E058AEF71C81A3438411726 /* [CP] Check Pods Manifest.lock */,
+				5AC789B41E0F850800DFFAA3 /* Sources */,
+				5AC789B51E0F850800DFFAA3 /* Frameworks */,
+				5AC789B61E0F850800DFFAA3 /* Resources */,
+				85BDB9E264A32BB98F2D8429 /* [CP] Embed Pods Frameworks */,
+				D790FCC1723417534B424F15 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ExReadViewer;
+			productName = ExReadViewer;
+			productReference = 5AC789B81E0F850800DFFAA3 /* ExReadViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5AC789B01E0F850800DFFAA3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "茅野瓜子";
+				TargetAttributes = {
+					5AC789B71E0F850800DFFAA3 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = T383NXR73L;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 5AC789B31E0F850800DFFAA3 /* Build configuration list for PBXProject "ExReadViewer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 5AC789AF1E0F850800DFFAA3;
+			productRefGroup = 5AC789B91E0F850800DFFAA3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5AC789B71E0F850800DFFAA3 /* ExReadViewer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5AC789B61E0F850800DFFAA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5AC789CB1E0F850800DFFAA3 /* LaunchScreen.storyboard in Resources */,
+				5A57ECDC1E11570000B28D37 /* Localizable.strings in Resources */,
+				5AC789DC1E0F868600DFFAA3 /* InfoPlist.strings in Resources */,
+				5A3A3C371E10C4F200704F81 /* QJMainListCell.xib in Resources */,
+				5AFD23B51E159BCF0003B905 /* QJIntroViewController.xib in Resources */,
+				5A956E861E17FDC0001720B5 /* QJCommentCell.xib in Resources */,
+				5AE738F61E18CC9300CCF605 /* QJThumbImageCell.xib in Resources */,
+				5AC789C81E0F850800DFFAA3 /* Assets.xcassets in Resources */,
+				5AC789C61E0F850800DFFAA3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3E058AEF71C81A3438411726 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		85BDB9E264A32BB98F2D8429 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ExReadViewer/Pods-ExReadViewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D790FCC1723417534B424F15 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ExReadViewer/Pods-ExReadViewer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5AC789B41E0F850800DFFAA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A3A3C401E10C51300704F81 /* TFHppleElement.m in Sources */,
+				5A3A3C411E10C51300704F81 /* XPathQuery.m in Sources */,
+				5A956E8D1E180875001720B5 /* UILabel+LinkUrl.m in Sources */,
+				5A956E741E176F7B001720B5 /* QJTagView.m in Sources */,
+				5A956E851E17FDC0001720B5 /* QJCommentCell.m in Sources */,
+				5A3A3C3F1E10C51300704F81 /* TFHpple.m in Sources */,
+				5AC789C31E0F850800DFFAA3 /* ViewController.m in Sources */,
+				5AC789C01E0F850800DFFAA3 /* AppDelegate.m in Sources */,
+				5A956E7B1E17F661001720B5 /* QJTagViewController.m in Sources */,
+				5AC789BD1E0F850800DFFAA3 /* main.m in Sources */,
+				5A3A3C361E10C4F200704F81 /* QJMainListCell.m in Sources */,
+				5AE738F51E18CC9300CCF605 /* QJThumbImageCell.m in Sources */,
+				5A3A3C551E11150B00704F81 /* HentaiParser.m in Sources */,
+				5A956E921E180F9C001720B5 /* QJAllCommentViewController.m in Sources */,
+				5AFD23B41E159BCF0003B905 /* QJIntroViewController.m in Sources */,
+				5AF1D42A1E13E978005D465C /* QJIntroInfoModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5A57ECDE1E11570000B28D37 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A57ECDD1E11570000B28D37 /* en */,
+				5A57ECDF1E11570200B28D37 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5AC789C41E0F850800DFFAA3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5AC789C51E0F850800DFFAA3 /* Base */,
+				5AC789DF1E0F86AC00DFFAA3 /* zh-Hans */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5AC789C91E0F850800DFFAA3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5AC789CA1E0F850800DFFAA3 /* Base */,
+				5AC789E01E0F86AC00DFFAA3 /* zh-Hans */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		5AC789DE1E0F868600DFFAA3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5AC789DD1E0F868600DFFAA3 /* en */,
+				5AC789E11E0F86AC00DFFAA3 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5AC789CD1E0F850800DFFAA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5AC789CE1E0F850800DFFAA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5AC789D01E0F850800DFFAA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34A82DA07F8B8395FA4867DC /* Pods-ExReadViewer.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = T383NXR73L;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/ExReadViewer/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"${SDKROOT}/usr/include/libxml2",
+				);
+				INFOPLIST_FILE = ExReadViewer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cc.kayanouriko.ExReadViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		5AC789D11E0F850800DFFAA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D3287C0245623183D78C405 /* Pods-ExReadViewer.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = T383NXR73L;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/ExReadViewer/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"${SDKROOT}/usr/include/libxml2",
+				);
+				INFOPLIST_FILE = ExReadViewer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cc.kayanouriko.ExReadViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5AC789B31E0F850800DFFAA3 /* Build configuration list for PBXProject "ExReadViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5AC789CD1E0F850800DFFAA3 /* Debug */,
+				5AC789CE1E0F850800DFFAA3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5AC789CF1E0F850800DFFAA3 /* Build configuration list for PBXNativeTarget "ExReadViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5AC789D01E0F850800DFFAA3 /* Debug */,
+				5AC789D11E0F850800DFFAA3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5AC789B01E0F850800DFFAA3 /* Project object */;
+}

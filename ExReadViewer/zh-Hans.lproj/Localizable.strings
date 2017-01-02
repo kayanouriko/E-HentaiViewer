@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  ExReadViewer
+
+  Created by 覃江 on 2016/12/26.
+  Copyright © 2016年 茅野瓜子. All rights reserved.
+*/
+"searchkey" = "搜索 EHentai";
+"more" = "更多评论";
+"comment" = "评论";
+"nocomment" = "暂无评论";
+"notag" = "暂无标签";
