@@ -2,12 +2,12 @@
 一个EHentai的iOS端阅读器
 
 # Screenshot
-![](https://ww2.sinaimg.cn/large/006tNbRwgw1fbcn5qj3hxj30yi1pcqia.jpg)
+![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbd47i63qtj30yi1pcqia.jpg)
 ![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbcn6ja25xj30yi1pc79p.jpg)
 ![](https://ww1.sinaimg.cn/large/006tNbRwgw1fbcn756g3oj30yi1pcamz.jpg)
 ![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbcn7dthorj30yi1pcwje.jpg)
 ![](https://ww1.sinaimg.cn/large/006tNbRwgw1fbcn7zuko7j30yi1pc4cm.jpg)
-![](https://ww3.sinaimg.cn/large/006tNbRwgw1fbcn8zzzvqj30yi1pcaxr.jpg)
+![](https://ww2.sinaimg.cn/large/006tNbRwgw1fbd47rj146j30yi1pcaxr.jpg)
 
 # 感谢
 这个客户端参考和借鉴了很多开源项目的思路和代码,如果这些作者觉得不合适,请私信我,我立马删除该项目QAQ
@@ -26,7 +26,8 @@
 #说明
 初版自用,基本的功能都有了,暂时只做了表站,有些地区可能需要科学上网配合使用
 测试:xcode8 ip7p iOS 10
-暂不保证能适配全部机型
+iOS 8以上越狱的朋友可以前往这里下载:[https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases),如果无法使用记得告诉我一声
+暂不保证布局能适配全部机型
 
 #TODO
 * 现在的看图界面可能不是很好用,不能调页加载也不太能可控,如果是施法过程可能体验不佳,现开源框架暂时还没有比较好支持看漫画专用的,打算后面自己写一个
