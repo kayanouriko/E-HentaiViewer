@@ -10,10 +10,16 @@
 #import "QJMainListCell.h"
 #import "HentaiParser.h"
 #import "QJIntroViewController.h"
+#import "QJSiderView.h"
+#import "QJSettingViewController.h"
+#import "QJTouchIDViewController.h"
+#import "QJPasswordViewController.h"
+#import "QJHotViewController.h"
+#import "QJFavoritesViewController.h"
 
 #define BASE_URL @"http://g.e-hentai.org/"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,QJSiderViewDelagate>
 
 //tablewview
 @property (strong, nonatomic) UITableView *tableView;
@@ -32,9 +38,11 @@
 @property (strong, nonatomic) NSDictionary *colorDict;
 @property (strong, nonatomic) NSDictionary *searchKeyDict;
 @property (assign, nonatomic) BOOL needRefersh;
+@property (assign, nonatomic) BOOL needTouchID;
 //按钮动作
 - (IBAction)btnAction:(UIButton *)sender;
 - (IBAction)valueChange:(UISwitch *)sender;
+- (IBAction)openSider:(UIBarButtonItem *)sender;
 
 @end
 
@@ -47,10 +55,44 @@
     [self updateResource];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSArray *status = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"privacy"]];
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
+    if (status.count && self.needTouchID && [status[1] boolValue]) {
+        [self pushTouchIDVC];
+        self.needTouchID = NO;
+    }
+    else if (status.count && self.needTouchID && [status[0] boolValue] && password) {
+        [self pushPWDVC];
+        self.needTouchID = NO;
+    }
+    else if (!status.count || !status || (status.count && ![status[0] boolValue] && ![status[1] boolValue])) {
+        self.needTouchID = NO;
+    }
+}
+
+- (void)pushTouchIDVC {
+    QJTouchIDViewController *vc = [QJTouchIDViewController new];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)pushPWDVC {
+    QJPasswordViewController *vc = [QJPasswordViewController new];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 - (void)creatUI {
     //初始化
     self.needRefersh = NO;
-    
+    self.needTouchID = YES;
+    //侧边栏
+    [QJSiderView shareView].delegate = self;
+    //添加侧滑手势
+    UISwipeGestureRecognizer *swipeGest = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(openSider:)];
+    swipeGest.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeGest];
+    //tablewview
     [self.view addSubview:self.tableView];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
@@ -101,6 +143,8 @@
         
         self.switchBtn.on = YES;
         [[NSUserDefaults standardUserDefaults] setObject:@(self.switchBtn.on) forKey:@"onlyChinese"];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     for (NSInteger i = 0; i < 10; i++) {
         UIButton *btn = (UIButton *)[self.view viewWithTag:701 + i];
@@ -155,6 +199,26 @@
     return url;
 }
 
+#pragma mark -侧边栏点击事件
+- (void)didClickSiderWithDict:(NSDictionary *)dict {
+    if ([dict[@"name"] isEqualToString:NSLocalizedString(@"setting", nil)]) {
+        QJSettingViewController *vc = [QJSettingViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if ([dict[@"name"] isEqualToString:NSLocalizedString(@"hot", nil)]) {
+        QJHotViewController *vc = [QJHotViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if ([dict[@"name"] isEqualToString:NSLocalizedString(@"favorites", nil)]) {
+        QJFavoritesViewController *vc = [QJFavoritesViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if ([dict[@"name"] isEqualToString:NSLocalizedString(@"download", nil)]) {
+        [SVProgressHUD showErrorWithStatus:@"功能待开发QAQ"];
+        [SVProgressHUD dismissWithDelay:1.f];
+    }
+}
+
 #pragma mark -按钮点击事件
 - (IBAction)btnAction:(UIButton *)sender {
     //叉
@@ -169,6 +233,7 @@
             if (self.needRefersh) {
                 self.needRefersh = NO;
                 [[NSUserDefaults standardUserDefaults] setObject:self.btnStatusArr forKey:@"searchBtnStatus"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 self.pageIndex = 0;
                 [self.tableView.mj_header beginRefreshing];
                 [self updateResource];
@@ -206,9 +271,14 @@
 
 - (IBAction)valueChange:(UISwitch *)sender {
     [[NSUserDefaults standardUserDefaults] setObject:@(self.switchBtn.on) forKey:@"onlyChinese"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     self.pageIndex = 0;
     [self.tableView.mj_header beginRefreshing];
     [self updateResource];
+}
+
+- (IBAction)openSider:(UIBarButtonItem *)sender {
+    [[QJSiderView shareView] show];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -265,6 +335,7 @@
     NSDictionary *dict = self.datas[indexPath.row];
     QJIntroViewController *vc = [QJIntroViewController new];
     vc.introUrl = dict[@"url"];
+    vc.infoDict = dict;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

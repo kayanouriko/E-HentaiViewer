@@ -11,5 +11,6 @@
 @interface QJIntroViewController : UIViewController
 
 @property (strong, nonatomic) NSString *introUrl;
+@property (strong, nonatomic) NSDictionary *infoDict;
 
 @end

@@ -17,12 +17,21 @@
 #import "QJThumbImageCell.h"
 #import "HentaiParser.h"
 #import "MWPhotoBrowser.h"
+#import "QJScoreView.h"
+#import "QJDataManager.h"
 
-@interface QJIntroViewController ()<QJTagViewDelagate,UICollectionViewDelegate,UICollectionViewDataSource,MWPhotoBrowserDelegate>
+typedef NS_ENUM(NSInteger, introButtonStyle){
+    introButtonStyleDownload, //下载
+    introButtonStyleRead //阅读
+};
+
+@interface QJIntroViewController ()<QJTagViewDelagate,UICollectionViewDelegate,UICollectionViewDataSource,MWPhotoBrowserDelegate,QJScoreViewDelagate>
 //简介部分
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewHeightLine;
 @property (weak, nonatomic) IBOutlet UIView *introButtonView;
+@property (weak, nonatomic) IBOutlet UIButton *downloadBtn;
+@property (weak, nonatomic) IBOutlet UIButton *readBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
@@ -35,8 +44,13 @@
 
 @property (strong, nonatomic) NSString *categoryName;
 @property (strong, nonatomic) NSString *categoryUrl;
-
+//简介类别点击事件
 - (IBAction)categoryBtnAction:(UIButton *)sender;
+//下载和阅读点击事件
+- (IBAction)btnAction:(UIButton *)sender;
+//评分部分
+@property (weak, nonatomic) IBOutlet UIView *scoreView;
+@property (strong, nonatomic) QJScoreView *scoreBgView;
 //tag部分
 @property (weak, nonatomic) IBOutlet UIView *tagView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tagViewHeightLine;
@@ -49,12 +63,12 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *photoViewHeightLine;
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *datas;
-
+//一些数据属性
+@property (assign, nonatomic) BOOL isCollected;
+@property (strong, nonatomic) QJDataManager *manager;
 @property (assign, nonatomic) NSInteger requestCount;//请求页码的次数
 @property (strong, nonatomic) NSMutableArray *bigImageUrlArr;
 @property (strong, nonatomic) NSDictionary *colorDict;
-
-- (IBAction)btnAction:(UIButton *)sender;
 
 @end
 
@@ -82,6 +96,21 @@
 }
 
 - (void)creatUI {
+    //数据库初始化
+    NSString *localPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *filePath = [localPath  stringByAppendingPathComponent:@"QJCoreDataModel.db"];
+    NSLog(@"%@",filePath);
+    self.manager = [[QJDataManager alloc] initWithCoreData:@"Favorites" modelName:@"QJCoreDataModel" sqlPath:filePath success:nil fail:nil];
+    self.isCollected = NO;
+    [self.manager readEntity:@[] ascending:NO filterStr:[NSString stringWithFormat:@"url == '%@'",self.introUrl] success:^(NSArray *results) {
+        if (results.count) {
+            self.isCollected = YES;
+        }
+    } fail:nil];
+    
+    [self.downloadBtn setTitle:NSLocalizedString(@"download", nil) forState:UIControlStateNormal];
+    [self.readBtn setTitle:NSLocalizedString(@"read", nil) forState:UIControlStateNormal];
+    
     self.introButtonView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.introButtonView.layer.shadowOffset = CGSizeMake(4,4);
     self.introButtonView.layer.shadowOpacity = 0.2;
@@ -99,9 +128,16 @@
     [session GET:self.introUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSData *data = responseObject;
         QJIntroInfoModel *model = [[QJIntroInfoModel alloc] initWithData:data];
-        [self refreshUIWithModel:model];
-        //从url获取到的model来请求缩略图
-        [self getAllImageWithUrl:model.allImageUrl model:model];
+        if (model.needUser) {
+            [SVProgressHUD showErrorWithStatus:@"该画廊需要登录,暂不支持浏览"];
+            [SVProgressHUD dismissWithDelay:2.f];
+            return;
+        }
+        else {
+            [self refreshUIWithModel:model];
+            //从url获取到的model来请求缩略图
+            [self getAllImageWithUrl:model.allImageUrl model:model];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
@@ -121,8 +157,16 @@
     self.sizeLabel.text = model.introDict[@"size"];
     self.likeLabel.text = [NSString stringWithFormat:@"❤%@",model.introDict[@"favorited"]];
     self.postedLabel.text = model.introDict[@"posted"];
-    
-    UIFont *font = [UIFont systemFontOfSize:14];
+    //评分部分
+    self.scoreBgView = [[NSBundle mainBundle] loadNibNamed:@"QJScoreView" owner:nil options:nil][0];
+    self.scoreBgView.frame = CGRectMake(0, 0, kScreenWidth, 191);
+    self.scoreBgView.delegate = self;
+    if (self.isCollected) {
+        [self.scoreBgView.collectBtn setImage:[UIImage imageNamed:@"collected"] forState:UIControlStateNormal];
+        self.scoreBgView.favoritesLabel.text = NSLocalizedString(@"favorited", nil);
+    }
+    [self.scoreBgView refreshUI:model.introDict];
+    [self.scoreView addSubview:self.scoreBgView];
     //tag部分
     CGFloat tagViewHeight = 10;
     for (NSArray *subArray in model.tagArr) {
@@ -138,7 +182,7 @@
         UILabel *tagLabel = [UILabel new];
         tagLabel.text = NSLocalizedString(@"notag", nil);
         tagLabel.textAlignment = NSTextAlignmentCenter;
-        tagLabel.font = font;
+        tagLabel.font = kNormalFontSize;
         tagLabel.frame = CGRectMake(0, 0, kScreenWidth, 50);
         tagLabel.textColor = [UIColor lightGrayColor];
         [self.tagView addSubview:tagLabel];
@@ -165,11 +209,11 @@
         self.allCommentArr = model.commentsArr;
         UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [moreBtn setTitle:NSLocalizedString(@"more", nil) forState:UIControlStateNormal];
-        moreBtn.titleLabel.font = font;
+        moreBtn.titleLabel.font = kNormalFontSize;
         [moreBtn addTarget:self action:@selector(pushAllCommentVC) forControlEvents:UIControlEventTouchUpInside];
-        moreBtn.frame = CGRectMake(0, commentViewHeight, kScreenWidth, 50);
+        moreBtn.frame = CGRectMake(0, commentViewHeight, kScreenWidth, 30);
         [self.commentView addSubview:moreBtn];
-        commentViewHeight += 50;
+        commentViewHeight += 30;
     }
     self.commentViewHeightLine.constant = commentViewHeight;
     //如果没有评论,提示没有评论
@@ -177,17 +221,19 @@
         UILabel *commentLabel = [UILabel new];
         commentLabel.text = NSLocalizedString(@"nocomment", nil);
         commentLabel.textAlignment = NSTextAlignmentCenter;
-        commentLabel.font = font;
+        commentLabel.font = kNormalFontSize;
         commentLabel.frame = CGRectMake(0, commentViewHeight, kScreenWidth, 50);
         commentLabel.textColor = [UIColor lightGrayColor];
         [self.commentView addSubview:commentLabel];
         commentViewHeight += 50;
     }
     self.commentViewHeightLine.constant = commentViewHeight;
+    //先更新一次约束线
+    [self updateScrollViewHeight];
 }
 
 - (void)updateScrollViewHeight {
-    self.scrollViewHeightLine.constant = 340 + self.tagViewHeightLine.constant + 1 + self.commentViewHeightLine.constant + 1 + self.photoViewHeightLine.constant;
+    self.scrollViewHeightLine.constant = 340 + 1 + 191 + 1 + self.tagViewHeightLine.constant + 1 + self.commentViewHeightLine.constant + 1 + self.photoViewHeightLine.constant;
 }
 
 - (void)getAllImageWithUrl:(NSString *)imageUrl model:(QJIntroInfoModel *)model {
@@ -229,14 +275,151 @@
 #pragma mark -阅读和下载
 - (IBAction)btnAction:(UIButton *)sender {
     if (self.bigImageUrlArr.count) {
-        MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-        browser.displayActionButton = NO;
-        browser.zoomPhotosToFill = NO;
-        browser.enableGrid = NO;
-        browser.alwaysShowControls = YES;
-        [browser setCurrentPhotoIndex:0];
-        [self.navigationController pushViewController:browser animated:YES];
+        introButtonStyle status = sender.tag - 1000;
+        switch (status) {
+            case introButtonStyleDownload:
+            {
+                [SVProgressHUD showErrorWithStatus:@"功能待开发QAQ"];
+                [SVProgressHUD dismissWithDelay:1.f];
+            }
+                break;
+            case introButtonStyleRead:
+            {
+                MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+                browser.displayActionButton = NO;
+                browser.zoomPhotosToFill = NO;
+                browser.enableGrid = NO;
+                //browser.alwaysShowControls = YES;
+                [browser setCurrentPhotoIndex:0];
+                [self.navigationController pushViewController:browser animated:YES];
+            }
+                break;
+            default:
+                break;
+        }
     }
+}
+
+#pragma mark -QJScoreViewDelagate
+- (void)didClickBtnWithStatus:(ScoreViewType)status {
+    if (self.bigImageUrlArr.count) {
+        switch (status) {
+            case ScoreViewTypeFavorites:
+            {
+                //收藏
+                [self changeFavoritesStatus];
+            }
+                break;
+            case ScoreViewTypeShare:
+            {
+                //分享
+                [self shareInfo];
+                
+            }
+                break;
+            case ScoreViewTypeSimilar:
+            {
+                //搜索类似
+                [self pushSimilarVC];
+            }
+                break;
+            case ScoreViewTypeCover:
+            {
+                //搜索封面
+                [SVProgressHUD showErrorWithStatus:@"功能待开发QAQ"];
+                [SVProgressHUD dismissWithDelay:1.f];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+- (void)pushSimilarVC {
+    NSString *url = [NSString stringWithFormat:@"http://g.e-hentai.org/?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=%@&f_apply=Apply+Filter",[self handleStringWithString:self.titleLabel.text]];
+    QJTagViewController *vc = [QJTagViewController new];
+    vc.tagName = NSLocalizedString(@"similar_gallery", nil);
+    vc.mainUrl = url;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+//傻逼算法
+- (NSString *)handleStringWithString:(NSString *)str {
+    NSMutableString * muStr = [NSMutableString stringWithString:str];
+    while (1) {
+        NSRange range = [muStr rangeOfString:@"("];
+        NSRange range1 = [muStr rangeOfString:@")"];
+        if (range.location != NSNotFound) {
+            NSInteger loc = range.location;
+            NSInteger len = range1.location - range.location;
+            [muStr deleteCharactersInRange:NSMakeRange(loc, len + 1)];
+        }else{
+            NSRange range = [muStr rangeOfString:@"（"];
+            NSRange range1 = [muStr rangeOfString:@"）"];
+            if (range.location != NSNotFound) {
+                NSInteger loc = range.location;
+                NSInteger len = range1.location - range.location;
+                [muStr deleteCharactersInRange:NSMakeRange(loc, len + 1)];
+            }else{
+                NSRange range = [muStr rangeOfString:@"【"];
+                NSRange range1 = [muStr rangeOfString:@"】"];
+                if (range.location != NSNotFound) {
+                    NSInteger loc = range.location;
+                    NSInteger len = range1.location - range.location;
+                    [muStr deleteCharactersInRange:NSMakeRange(loc, len + 1)];
+                }else{
+                    NSRange range = [muStr rangeOfString:@"["];
+                    NSRange range1 = [muStr rangeOfString:@"]"];
+                    if (range.location != NSNotFound) {
+                        NSInteger loc = range.location;
+                        NSInteger len = range1.location - range.location;
+                        [muStr deleteCharactersInRange:NSMakeRange(loc, len + 1)];
+                    }else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    NSString *string = [muStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return string;
+}
+
+- (void)changeFavoritesStatus {
+    if (self.isCollected) {
+        __block NSManagedObject *obj = nil;
+        [self.manager readEntity:@[] ascending:NO filterStr:[NSString stringWithFormat:@"url == '%@'",self.introUrl] success:^(NSArray *results) {
+            if (results.count) {
+                obj = (NSManagedObject *)results.firstObject;
+            }
+        } fail:nil];
+        [self.manager deleteEntity:obj success:^{
+            [self.scoreBgView.collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
+            self.scoreBgView.favoritesLabel.text = NSLocalizedString(@"favorites", nil);
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"remove_from_favorite_success", nil)];
+            [SVProgressHUD dismissWithDelay:1.f];
+        } fail:nil];
+    } else {
+        [self.manager insertNewEntity:self.infoDict success:^{
+            [self.scoreBgView.collectBtn setImage:[UIImage imageNamed:@"collected"] forState:UIControlStateNormal];
+            self.scoreBgView.favoritesLabel.text = NSLocalizedString(@"favorited", nil);
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"add_to_favorite_success", nil)];
+            [SVProgressHUD dismissWithDelay:1.f];
+            
+        } fail:nil];
+    }
+    self.isCollected = !self.isCollected;
+}
+
+- (void)shareInfo {
+    UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[self.titleLabel.text,self.introUrl] applicationActivities:@[[[UIActivity alloc] init]]];
+    UIPopoverPresentationController *popover = activity.popoverPresentationController;
+    if (popover) {
+        popover.sourceView = self.scoreBgView.shareBtn;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    }
+    [self presentViewController:activity animated:YES completion:nil];
 }
 
 #pragma mark -MWPhotoBrowserDelegate
@@ -253,25 +436,31 @@
 
 #pragma mark -跳转类别
 - (IBAction)categoryBtnAction:(UIButton *)sender {
-    QJTagViewController *vc = [QJTagViewController new];
-    vc.mainUrl = self.categoryUrl;
-    vc.tagName = self.categoryName;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (self.bigImageUrlArr.count) {
+        QJTagViewController *vc = [QJTagViewController new];
+        vc.mainUrl = self.categoryUrl;
+        vc.tagName = self.categoryName;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark -跳转全部评论
 - (void)pushAllCommentVC {
-    QJAllCommentViewController *vc = [QJAllCommentViewController new];
-    vc.commentArr = self.allCommentArr;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (self.bigImageUrlArr.count) {
+        QJAllCommentViewController *vc = [QJAllCommentViewController new];
+        vc.commentArr = self.allCommentArr;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark -tag点击事件
 - (void)didClickTagButtonWithModel:(QJCategoryButtonInfo *)model {
-    QJTagViewController *vc = [QJTagViewController new];
-    vc.mainUrl = model.url;
-    vc.tagName = model.name;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (self.bigImageUrlArr.count) {
+        QJTagViewController *vc = [QJTagViewController new];
+        vc.mainUrl = model.url;
+        vc.tagName = model.name;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark -collection协议
@@ -295,7 +484,7 @@
         browser.displayActionButton = NO;
         browser.zoomPhotosToFill = NO;
         browser.enableGrid = NO;
-        browser.alwaysShowControls = YES;
+        //browser.alwaysShowControls = YES;
         [browser setCurrentPhotoIndex:indexPath.row];
         [self.navigationController pushViewController:browser animated:YES];
     }

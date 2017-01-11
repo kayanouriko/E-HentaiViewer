@@ -12,6 +12,7 @@
 
 #define hentaiAPIURL @"http://g.e-hentai.org/api.php"
 #define exHentaiAPIURL @"http://exhentai.org/api.php"
+#define BASE_URL @"http://g.e-hentai.org/"
 
 @implementation NSMutableArray (Hentai)
 
@@ -25,10 +26,68 @@
 
 @end
 
-
 @implementation HentaiParser
 
 #pragma mark - class method
++ (void)requestHotListForExHentai:(BOOL)isForExHentai completion:(void (^)(HentaiParserStatus, NSArray *))completion {
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:BASE_URL]];
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[self defaultOperationQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        if (connectionError) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(HentaiParserStatusNetworkFail, nil);
+            });
+        }
+        else {
+            //這段是從 e hentai 的網頁 parse 列表
+            TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
+            NSArray *photoURL = [xpathParser searchWithXPathQuery:@"//div [@class='id3']//a"];
+            
+            //如果 parse 有結果, 才做 request api 的動作, 反之 callback HentaiParserStatusParseFail
+            if ([photoURL count]) {
+                NSMutableArray *returnArray = [NSMutableArray array];
+                NSMutableArray *urlStringArray = [NSMutableArray array];
+                
+                for (TFHppleElement * eachTitleWithURL in photoURL) {
+                    [urlStringArray addObject:[eachTitleWithURL attributes][@"href"]];
+                    [returnArray addObject:[NSMutableDictionary dictionaryWithDictionary:@{ @"url": [eachTitleWithURL attributes][@"href"] }]];
+                }
+                
+                //這段是從 e hentai 的 api 抓資料
+                [self requestGDataAPIWithURLStrings:urlStringArray forExHentai:(BOOL)isForExHentai completion: ^(HentaiParserStatus status, NSArray *gMetaData) {
+                    if (status) {
+                        for (NSUInteger i = 0; i < [gMetaData count]; i++) {
+                            NSMutableDictionary *eachDictionary = returnArray[i];
+                            NSDictionary *metaData = gMetaData[i];
+                            eachDictionary[@"thumb"] = metaData[@"thumb"];
+                            eachDictionary[@"title"] = metaData[@"title"];
+                            eachDictionary[@"language"] = [self getLanguageWithTitle:metaData[@"title"]];
+                            eachDictionary[@"title_jpn"] = metaData[@"title_jpn"];
+                            eachDictionary[@"category"] = metaData[@"category"];
+                            eachDictionary[@"uploader"] = metaData[@"uploader"];
+                            eachDictionary[@"filecount"] = metaData[@"filecount"];
+                            eachDictionary[@"filesize"] = [NSByteCountFormatter stringFromByteCount:[metaData[@"filesize"] floatValue] countStyle:NSByteCountFormatterCountStyleFile];
+                            eachDictionary[@"rating"] = metaData[@"rating"];
+                            eachDictionary[@"posted"] = [self dateStringFrom1970:[metaData[@"posted"] doubleValue]];
+                        }
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(HentaiParserStatusSuccess, returnArray);
+                        });
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(HentaiParserStatusNetworkFail, nil);
+                        });
+                    }
+                }];
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(HentaiParserStatusParseFail, nil);
+                });
+            }
+        }
+    }];
+}
 
 + (void)requestListAtFilterUrl:(NSString *)urlString forExHentai:(BOOL)isForExHentai completion:(void (^)(HentaiParserStatus status, NSArray *listArray))completion {
 	NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
@@ -61,6 +120,7 @@
                             NSDictionary *metaData = gMetaData[i];
                             eachDictionary[@"thumb"] = metaData[@"thumb"];
                             eachDictionary[@"title"] = metaData[@"title"];
+                            eachDictionary[@"language"] = [self getLanguageWithTitle:metaData[@"title"]];
                             eachDictionary[@"title_jpn"] = metaData[@"title_jpn"];
                             eachDictionary[@"category"] = metaData[@"category"];
                             eachDictionary[@"uploader"] = metaData[@"uploader"];
@@ -87,6 +147,35 @@
             }
 		}
 	}];
+}
+
+//匹配语种分类,规则来源于Hippo Seven,感谢
++ (NSString *)getLanguageWithTitle:(NSString *)title {
+    NSString *language = @"";
+    NSArray *languageArr = @[
+                             @[@"[(\\[]eng(?:lish)?[)\\]]",@"EN"],
+                             @[@"[(（\\[]ch(?:inese)?[)）\\]]|[汉漢]化|中[国國][语語]|中文",@"ZH"],
+                             @[@"[(\\[]spanish[)\\]]|[(\\[]Español[)\\]]",@"ES"],
+                             @[@"[(\\[]korean?[)\\]]",@"KO"],
+                             @[@"[(\\[]rus(?:sian)?[)\\]]",@"RU"],
+                             @[@"[(\\[]fr(?:ench)?[)\\]]",@"FR"],
+                             @[@"[(\\[]portuguese",@"PT"],
+                             @[@"[(\\[]thai(?: ภาษาไทย)?[)\\]]|แปลไทย",@"TH"],
+                             @[@"[(\\[]german[)\\]]",@"DE"],
+                             @[@"[(\\[]italiano?[)\\]]",@"IT"],
+                             @[@"[(\\[]vietnamese(?: Tiếng Việt)?[)\\]]",@"VN"],
+                             @[@"[(\\[]polish[)\\]]",@"PL"],
+                             @[@"[(\\[]hun(?:garian)?[)\\]]",@"HU"],
+                             @[@"[(\\[]dutch[)\\]]",@"NL"],
+                             ];
+    for (NSArray *subArr in languageArr) {
+        NSRange range = [title rangeOfString:subArr.firstObject options:NSCaseInsensitiveSearch|NSRegularExpressionSearch];
+        if (range.location != NSNotFound) {
+            language = subArr[1];
+            break;
+        }
+    }
+    return language;
 }
 
 + (void)requestImagesAtURL:(NSString *)urlString atIndex:(NSUInteger)index completion:(void (^)(HentaiParserStatus status, NSArray *images))completion {

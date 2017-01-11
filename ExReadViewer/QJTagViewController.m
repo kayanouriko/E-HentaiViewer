@@ -46,7 +46,13 @@
 }
 
 - (void)updateResource {
-    NSString *url = [NSString stringWithFormat:@"%@?page=%ld",self.mainUrl,self.pageIndex];
+    NSString *url = nil;
+    if ([self.tagName isEqualToString:NSLocalizedString(@"similar_gallery", nil)]) {
+        url = [NSString stringWithFormat:@"%@&page=%ld",self.mainUrl,self.pageIndex];
+    }
+    else {
+        url = [NSString stringWithFormat:@"%@?page=%ld",self.mainUrl,self.pageIndex];
+    }
     [HentaiParser requestListAtFilterUrl:url forExHentai:NO completion: ^(HentaiParserStatus status, NSArray *listArray) {
         if (status && [listArray count]) {
             if ([self.tableView.mj_header isRefreshing]) {
@@ -84,6 +90,7 @@
     NSDictionary *dict = self.datas[indexPath.row];
     QJIntroViewController *vc = [QJIntroViewController new];
     vc.introUrl = dict[@"url"];
+    vc.infoDict = dict;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

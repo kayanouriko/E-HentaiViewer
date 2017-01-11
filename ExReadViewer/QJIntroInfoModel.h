@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSArray *commentsArr;//评论信息
 @property (strong, nonatomic) NSString *allImageUrl;//缩略图
 @property (assign, nonatomic) NSInteger requestCount;//总数
+@property (assign, nonatomic) BOOL needUser;//需要登录
 
 - (instancetype)initWithData:(NSData *)data;
 - (NSMutableArray *)getAllImageWithData:(NSData *)data;

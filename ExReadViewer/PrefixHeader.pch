@@ -15,9 +15,13 @@
 #import "SVProgressHUD.h"
 #import "UIImageView+WebCache.h"
 #import "MJRefresh.h"
+//#import <CoreData/CoreData.h>
+
 //屏幕计算
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 #define kScreenWidth  [UIScreen mainScreen].bounds.size.width
+//字体大小
+#define kNormalFontSize [UIFont systemFontOfSize:14.f]
 //分类颜色
 #define DOUJINSHI_COLOR [UIColor colorWithRed:0.957 green:0.263 blue:0.212 alpha:1.00]
 #define MANGA_COLOR [UIColor colorWithRed:1.000 green:0.596 blue:0.000 alpha:1.00]

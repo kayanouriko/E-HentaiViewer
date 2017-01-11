@@ -5,8 +5,46 @@
   Created by 覃江 on 2016/12/26.
   Copyright © 2016年 茅野瓜子. All rights reserved.
 */
+//部分来自来源于Hippo Seven,感谢
 "searchkey" = "Search EHentai";
-"more" = "more";
-"comment" = "comment";
-"nocomment" = "no comments";
-"notag" = "no tags";
+"more" = "More";
+"comment" = "Comment";
+"nocomment" = "No Comments";
+"notag" = "No Tags";
+"ExReader" = "ExReader";
+"download" = "Download";
+"read" = "Read";
+"setting" = "Setting";
+"tip" = "hint";
+"touchidtip" = "Unlock EHentai World";
+"touchidcheck" = "Check Your Touch ID";
+"passwordcheck" = "Set Your Password";
+"passwordinput" = "input your password";
+"passwordinputagain" = "input your password again";
+"passworderror" = "Password Error";
+"ok" = "OK";
+"about" = "About";
+"privacy" = "Privacy";
+"password" = "Password";
+"touchid" = "TouchID";
+"other" = "Other";
+"versions" = "Versions";
+"contact" = "Contact";
+"github" = "GitHub";
+"email" = "Email";
+"thanks" = "Thanks";
+"reference" = "Reference Projects";
+"opensource" = "Open Source Framework";
+"abouttip" = "An E-Hentai Application for iOS";
+"hot" = "Popular";
+//intro
+"favorites" = "Favorites";
+"favorited" = "Favorited";
+"share" = "Share";
+"similar_gallery" = "Similar";
+"search_cover" = "Search Cover";
+"add_to_favorite_success" = "Added to favorites";
+"remove_from_favorite_success" = "Removed from favorites";
+
+
+

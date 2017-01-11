@@ -7,6 +7,7 @@
 //
 
 #import "QJMainListCell.h"
+#import "QJStarView.h"
 
 @interface QJMainListCell ()
 
@@ -16,8 +17,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *uploaderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mangaLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
+@property (weak, nonatomic) IBOutlet QJStarView *starView;
+//@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *postedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *languageLabel;
 
 @property (strong, nonatomic) NSDictionary *colorDict;
 
@@ -41,11 +44,12 @@
 - (void)refreshUI:(NSDictionary *)dict {
     self.titleNameLabel.text = dict[@"title"];
     self.uploaderLabel.text = dict[@"uploader"];
+    self.postedLabel.text = dict[@"posted"];
     NSString *category = [dict[@"category"] uppercaseString];
     self.mangaLabel.text = [NSString stringWithFormat:@"  %@  ",category];
     self.mangaLabel.backgroundColor = self.colorDict[category];
-    self.postedLabel.text = dict[@"posted"];
-    self.ratingLabel.text = dict[@"rating"];
+    [self.starView refreshStarWithCount:[dict[@"rating"] floatValue] width:20.f];
+    self.languageLabel.text = dict[@"language"];
     NSString *imageUrlStr = dict[@"thumb"];
     [self.thumbImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"panda"]];
 }

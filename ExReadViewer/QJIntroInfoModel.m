@@ -31,11 +31,16 @@
 }
 
 - (void)getAllInfoFromData:(NSData *)data {
+    self.needUser = NO;
     TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
     //基本信息
     NSMutableDictionary *introInfoDict = [NSMutableDictionary new];
     //图片
     TFHppleElement *imageUrlElement = [xpathParser searchWithXPathQuery:@"//div[@id='gd1']//img"].firstObject;
+    if (nil == imageUrlElement) {
+        self.needUser = YES;
+        return;
+    }
     introInfoDict[@"imageUrl"]= [imageUrlElement objectForKey:@"src"];
     //类别
     TFHppleElement *categoryElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdc']//img"].firstObject;
@@ -59,6 +64,13 @@
         introInfoDict[otherKeyArr[i]] = secondElment.text;
     }
     introInfoDict[@"posted"] = [self changeTimeToLocalTime:introInfoDict[@"posted"]];
+    //评分人数和评分数
+    TFHppleElement *scoreElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdr']"].firstObject;
+    TFHppleElement *scorePersonElement = [scoreElement searchWithXPathQuery:@"//td[@id='grt3']//span"].firstObject;
+    introInfoDict[@"scorePerson"] = scorePersonElement.text;
+    TFHppleElement *scoreAvgElement = [scoreElement searchWithXPathQuery:@"//td[@id='rating_label']"].firstObject;
+    introInfoDict[@"scoreAvg"] = scoreAvgElement.text;
+    //简介收集完成
     self.introDict = introInfoDict;
     //收集tag
     NSMutableArray *tagArr = [NSMutableArray new];
@@ -117,7 +129,7 @@
         }
         self.commentsArr = commentsArr;
     }
-    //缩略图图片获取
+    //缩略图图片地址的获取
     TFHppleElement *smallImageUrlElement = [xpathParser searchWithXPathQuery:@"//div[@id='gd5']//p[@class='g2']//a"][1];
     NSMutableString *allImageUrl = [NSMutableString stringWithFormat:@"%@",[smallImageUrlElement objectForKey:@"onclick"]];
     NSString *regexString = @"'.*'";
@@ -150,13 +162,13 @@
 
 //获取tagView的高度
 - (CGFloat)getTagViewHeightWithLaftStr:(NSString *)leftStr rightArr:(NSArray *)rightArr {
-    CGFloat leftLabelWidth = [leftStr boundingRectWithSize:CGSizeMake(MAXFLOAT, 25) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:nil].size.width + 20;
+    CGFloat leftLabelWidth = [leftStr boundingRectWithSize:CGSizeMake(MAXFLOAT, 25) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:kNormalFontSize} context:nil].size.width + 20;
     CGFloat buttonViewWidth = kScreenWidth - (leftLabelWidth + 40) - 20;
     CGFloat buttonX = leftLabelWidth + 40;
     NSInteger heihtCount = 0;
     for (int i = 0; i < rightArr.count; i++) {
         QJCategoryButtonInfo *model = rightArr[i];
-        CGFloat buttonWidth = [model.name boundingRectWithSize:CGSizeMake(MAXFLOAT, 25) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:nil].size.width + 20;
+        CGFloat buttonWidth = [model.name boundingRectWithSize:CGSizeMake(MAXFLOAT, 25) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:kNormalFontSize} context:nil].size.width + 20;
         if (buttonWidth > kScreenWidth - (leftLabelWidth + 40) - 20) {
             buttonWidth = kScreenWidth - (leftLabelWidth + 40) - 30;
         }

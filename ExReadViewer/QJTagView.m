@@ -17,11 +17,11 @@
 
 - (void)refreshUI:(NSArray *)array {
     NSString *leftStr = array.firstObject;
-    _leftLabelWidth = [leftStr boundingRectWithSize:CGSizeMake(MAXFLOAT, 25) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:nil].size.width + 20;
+    _leftLabelWidth = [leftStr boundingRectWithSize:CGSizeMake(MAXFLOAT, 25) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:kNormalFontSize} context:nil].size.width + 20;
     UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _leftLabelWidth, 25)];
     leftLabel.text = leftStr;
     leftLabel.textColor = [UIColor whiteColor];
-    leftLabel.font = [UIFont systemFontOfSize:14.0f];
+    leftLabel.font = kNormalFontSize;
     leftLabel.textAlignment = NSTextAlignmentCenter;
     leftLabel.backgroundColor = [UIColor purpleColor];
     leftLabel.layer.cornerRadius = 12.5f;
@@ -34,7 +34,7 @@
     for (QJCategoryButtonInfo *model in _rightArr) {
         UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [addBtn setTitle:model.name forState:UIControlStateNormal];
-        addBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        addBtn.titleLabel.font = kNormalFontSize;
         [addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         addBtn.backgroundColor = [UIColor colorWithRed:0.098 green:0.584 blue:0.533 alpha:1.00];
         addBtn.tag = i + 1000;
@@ -60,7 +60,7 @@
     NSInteger heihtCount = 0;
     for (int i = 0; i < _buttonCount; i++) {
         UIButton *btn = (UIButton *)[self viewWithTag:1000 + i];
-        CGFloat buttonWidth = [btn.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 25) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:nil].size.width + 20;
+        CGFloat buttonWidth = [btn.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 25) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:kNormalFontSize} context:nil].size.width + 20;
         if (buttonWidth > kScreenWidth - (_leftLabelWidth + 40) - 20) {
             buttonWidth = kScreenWidth - (_leftLabelWidth + 40) - 30;
         }

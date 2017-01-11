@@ -1,6 +1,15 @@
 # ExReadViewer
 一个EHentai的iOS端阅读器
 
+#更新内容
+2017.01.11 
+V1.1 
+1 列表添加语种显示(来源Seven,感谢)和评分模块显示
+2 侧边栏完善,添加设置界面功能-隐私功能(密码和TouchID),关于界面完善
+3 详情界面评论列表添加评论人跳转
+4 热门,收藏功能添加
+5 改为通用应用,ipad兼容,但是布局不完美
+
 # Screenshot
 ![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbd47i63qtj30yi1pcqia.jpg)
 ![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbcn6ja25xj30yi1pc79p.jpg)
@@ -24,15 +33,15 @@
 另外还有感谢诸多开源框架,pod文件我也上传了,这里就不贴出来了.
 
 #说明
-初版自用,基本的功能都有了,暂时只做了表站,有些地区可能需要科学上网配合使用
+基本的功能都有了,暂时只做了表站,有些地区可能需要科学上网配合使用
 测试:xcode8 ip7p iOS 10
+推荐ip5 iOS 8以上使用
 iOS 8以上越狱的朋友可以前往这里下载:[https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases),如果无法使用记得告诉我一声
 暂不保证布局能适配全部机型
 
 #TODO
 * 现在的看图界面可能不是很好用,不能调页加载也不太能可控,如果是施法过程可能体验不佳,现开源框架暂时还没有比较好支持看漫画专用的,打算后面自己写一个
 * 详情页的请求逻辑有点傻,所以页面多的可能加载会比较久,请耐心等待
-* 网站的下载,收藏,热门,里站等功能尚未添加
-* 应用私密保护(密码和touchID)
+* 网站的离线,登录和里站等功能尚未添加
 
 

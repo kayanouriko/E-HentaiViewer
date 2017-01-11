@@ -275,7 +275,14 @@
                             <constraint firstItem="jNJ-2m-3TQ" firstAttribute="top" secondItem="ApY-lk-9Ik" secondAttribute="bottom" constant="10" id="tIs-xz-lsn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="EHentai" id="Nuo-JP-Pec"/>
+                    <navigationItem key="navigationItem" title="EHentai" id="Nuo-JP-Pec">
+                        <barButtonItem key="leftBarButtonItem" image="sidebar" style="done" id="yXw-oA-v2f">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="openSider:" destination="BYZ-38-t0r" id="Ib4-lY-ZvN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="crossImageView" destination="e0p-LZ-rmk" id="tcN-d8-zW2"/>
                         <outlet property="searchBarBgView" destination="YVR-Sp-FuJ" id="OHo-aK-gXV"/>
@@ -313,5 +320,6 @@
     </scenes>
     <resources>
         <image name="cross" width="32" height="32"/>
+        <image name="sidebar" width="25" height="25"/>
     </resources>
 </document>

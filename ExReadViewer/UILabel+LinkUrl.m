@@ -37,7 +37,7 @@
     for (NSString *str in arr) {
         [rangeArr addObject:[self rangesOfString:str inString:subStr]];
     }
-    UIFont *font = [UIFont systemFontOfSize:14];
+    UIFont *font = kNormalFontSize;
     NSMutableAttributedString *attributedText;
     attributedText=[[NSMutableAttributedString alloc]initWithString:subStr attributes:@{NSFontAttributeName :font}];
     

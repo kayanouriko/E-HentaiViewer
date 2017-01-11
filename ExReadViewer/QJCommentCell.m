@@ -8,6 +8,7 @@
 
 #import "QJCommentCell.h"
 #import "UILabel+LinkUrl.h"
+#import "QJTagViewController.h"
 
 @interface QJCommentCell ()
 
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (strong, nonatomic) NSString *urlStr;
 
 - (IBAction)btnAction:(UIButton *)sender;
 
@@ -27,6 +29,7 @@
     self.likeLabel.text = dict[@"score"];
     [self.commentLabel setTextWithLinkAttribute:dict[@"content"]];
     self.timeLabel.text = dict[@"repostTime"];
+    self.urlStr = dict[@"reporterUrl"];
 }
 
 - (void)layoutSubviews {
@@ -45,8 +48,22 @@
     [super setSelected:selected animated:animated];
 }
 
+//跳转
 - (IBAction)btnAction:(UIButton *)sender {
-    
+    QJTagViewController *vc = [QJTagViewController new];
+    vc.mainUrl = self.urlStr;
+    vc.tagName = [self.titleBtn titleForState:UIControlStateNormal];
+    [[self viewController].navigationController pushViewController:vc animated:YES];
+}
+
+- (UIViewController*)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
 }
 
 @end
