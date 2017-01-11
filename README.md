@@ -22,21 +22,27 @@ V1.1
 这个客户端参考和借鉴了很多开源项目的思路和代码,如果这些作者觉得不合适,请私信我,我立马删除该项目QAQ
 新手开发,如果有代码方面的优化请多多指教0v0
 
-[@DaidoujiChen](https://github.com/DaidoujiChen)
-[https://github.com/DaidoujiChen/Dai-Hentai](https://github.com/DaidoujiChen/Dai-Hentai)
-还有该项目的老前辈,上面链接有我就不贴了
+<p>[@DaidoujiChen](https://github.com/DaidoujiChen)
+<p>[https://github.com/DaidoujiChen/Dai-Hentai](https://github.com/DaidoujiChen/Dai-Hentai)
+<p>还有该项目的老前辈,上面链接有我就不贴了
 
-[@seven332](https://github.com/seven332)
-[https://github.com/seven332/EhViewer](https://github.com/seven332/EhViewer)
-主要借鉴这个安卓项目的界面布局
+<p>[@seven332](https://github.com/seven332)
+<p>[https://github.com/seven332/EhViewer](https://github.com/seven332/EhViewer)
+<p>主要借鉴这个安卓项目的界面布局
 
 另外还有感谢诸多开源框架,pod文件我也上传了,这里就不贴出来了.
 
 #说明
+<<<<<<< HEAD
 基本的功能都有了,暂时只做了表站,有些地区可能需要科学上网配合使用
 测试:xcode8 ip7p iOS 10
 推荐ip5 iOS 8以上使用
 iOS 8以上越狱的朋友可以前往这里下载:[https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases),如果无法使用记得告诉我一声
+=======
+<p>初版自用,基本的功能都有了,暂时只做了表站,有些地区可能需要科学上网配合使用
+<p>测试:xcode8 ip7p iOS 10
+<p>iOS 8以上越狱的朋友可以前往这里下载:[https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases),如果无法使用记得告诉我一声
+>>>>>>> origin/master
 暂不保证布局能适配全部机型
 
 #TODO
