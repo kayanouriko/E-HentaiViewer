@@ -9,6 +9,7 @@
 <p>3 详情界面评论列表添加评论人跳转
 <p>4 热门,收藏功能添加
 <p>5 改为通用应用,ipad兼容,但是布局不完美
+![](https://ww3.sinaimg.cn/large/006tNbRwgw1fbmyw2xfs2j31kw0paqhz.jpg)
 
 # Screenshot
 ![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbd47i63qtj30yi1pcqia.jpg)
@@ -35,6 +36,7 @@
 #说明
 <p>初版自用,基本的功能都有了,暂时只做了表站,有些地区可能需要科学上网配合使用
 <p>测试:xcode8 ip7p iOS 10
+<p>推荐ip5 iOS 8以上
 <p>iOS 8以上越狱的朋友可以前往这里下载:[https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases),如果无法使用记得告诉我一声,暂不保证布局能适配全部机型
 
 #TODO
