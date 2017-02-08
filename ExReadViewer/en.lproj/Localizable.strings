@@ -6,7 +6,17 @@
   Copyright © 2016年 茅野瓜子. All rights reserved.
 */
 //部分来自来源于Hippo Seven,感谢
-"searchkey" = "Search EHentai";
+"username" = "Username";
+"passwordname" = "Password";
+"login" = "Login";
+"gotologin" = "Go to login";
+"loginsuccess" = "Login Success!";
+"loginfailed" = "Login Failed!";
+"validcookie" = "Valid Cookie!";
+"invalidcookie" = "Invalid Cookie!";
+"select_scene" = "Which gallery site do you want to select?";
+"cancel" = "Cancel";
+"searchkey" = "Search Hentai";
 "more" = "More";
 "comment" = "Comment";
 "nocomment" = "No Comments";

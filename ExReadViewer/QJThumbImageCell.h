@@ -10,6 +10,6 @@
 
 @interface QJThumbImageCell : UICollectionViewCell
 
-- (void)refreshUI:(NSString *)imageUrl row:(NSInteger)row;
+- (void)refreshUI:(NSDictionary *)imageDict row:(NSInteger)row;
 
 @end

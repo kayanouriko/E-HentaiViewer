@@ -48,10 +48,10 @@
 - (void)updateResource {
     NSString *url = nil;
     if ([self.tagName isEqualToString:NSLocalizedString(@"similar_gallery", nil)]) {
-        url = [NSString stringWithFormat:@"%@&page=%ld",self.mainUrl,self.pageIndex];
+        url = [NSString stringWithFormat:@"%@&page=%ld",self.mainUrl,(long)self.pageIndex];
     }
     else {
-        url = [NSString stringWithFormat:@"%@?page=%ld",self.mainUrl,self.pageIndex];
+        url = [NSString stringWithFormat:@"%@?page=%ld",self.mainUrl,(long)self.pageIndex];
     }
     [HentaiParser requestListAtFilterUrl:url forExHentai:NO completion: ^(HentaiParserStatus status, NSArray *listArray) {
         if (status && [listArray count]) {

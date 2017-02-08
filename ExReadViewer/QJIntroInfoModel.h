@@ -20,7 +20,7 @@
 @property (strong, nonatomic) NSDictionary *introDict;//简介信息
 @property (strong, nonatomic) NSArray *tagArr;//tag信息
 @property (strong, nonatomic) NSArray *commentsArr;//评论信息
-@property (strong, nonatomic) NSString *allImageUrl;//缩略图
+@property (strong, nonatomic) NSMutableArray *allImageUrlArr;//缩略图
 @property (assign, nonatomic) NSInteger requestCount;//总数
 @property (assign, nonatomic) BOOL needUser;//需要登录
 

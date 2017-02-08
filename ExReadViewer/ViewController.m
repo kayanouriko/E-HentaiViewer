@@ -16,11 +16,15 @@
 #import "QJPasswordViewController.h"
 #import "QJHotViewController.h"
 #import "QJFavoritesViewController.h"
+#import "QJTopButtonView.h"
+#import "DiveExHentaiV2.h"
 
-#define BASE_URL @"http://g.e-hentai.org/"
+#define EHentai_URL @"https://e-hentai.org/"
+#define ExHentai_URL @"https://exhentai.org//"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,QJSiderViewDelagate>
-
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,QJSiderViewDelagate,QJTopButtonViewDelagate>
+//导航栏
+@property (strong, nonatomic) QJTopButtonView *topButtonView;
 //tablewview
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datas;
@@ -39,6 +43,7 @@
 @property (strong, nonatomic) NSDictionary *searchKeyDict;
 @property (assign, nonatomic) BOOL needRefersh;
 @property (assign, nonatomic) BOOL needTouchID;
+@property (assign, nonatomic) BOOL isExHentai;
 //按钮动作
 - (IBAction)btnAction:(UIButton *)sender;
 - (IBAction)valueChange:(UISwitch *)sender;
@@ -51,6 +56,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self creatUI];
+    //如果Cookie有问题,则进来不刷新数据
+    if (self.isExHentai && ![DiveExHentaiV2 checkCookie]) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"invalidcookie", nil)];
+        [SVProgressHUD dismissWithDelay:2.f];
+        return;
+    }
     [self.tableView.mj_header beginRefreshing];
     [self updateResource];
 }
@@ -86,6 +97,8 @@
     //初始化
     self.needRefersh = NO;
     self.needTouchID = YES;
+    //中间按钮视图
+    self.navigationItem.titleView = self.topButtonView;
     //侧边栏
     [QJSiderView shareView].delegate = self;
     //添加侧滑手势
@@ -126,7 +139,16 @@
     [self.view bringSubviewToFront:self.searchBarBgView];
     [self.view bringSubviewToFront:self.searchKeyView];
     [self.view bringSubviewToFront:self.searchBarView];
-    
+    //设置板块状态
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ehentaiStatus"]) {
+        self.isExHentai = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ehentaiStatus"] boolValue];
+    }
+    else {
+        self.isExHentai = NO;
+        [[NSUserDefaults standardUserDefaults] setObject:@(self.isExHentai) forKey:@"ehentaiStatus"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    self.topButtonView.titleLabel.text = self.isExHentai ? @"ExHentai" : @"EHentai";
     //设置按钮状态
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"searchBtnStatus"]) {
         [self.btnStatusArr addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"searchBtnStatus"]];
@@ -166,8 +188,13 @@
 }
 
 - (void)updateResource {
+    if (self.isExHentai && ![DiveExHentaiV2 checkCookie]) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"invalidcookie", nil)];
+        [SVProgressHUD dismissWithDelay:2.f];
+        return;
+    }
     NSString *url = [self getUrlWithAllCondition];
-    [HentaiParser requestListAtFilterUrl:url forExHentai:NO completion: ^(HentaiParserStatus status, NSArray *listArray) {
+    [HentaiParser requestListAtFilterUrl:url forExHentai:self.isExHentai completion: ^(HentaiParserStatus status, NSArray *listArray) {
         if (status && [listArray count]) {
             if ([self.tableView.mj_header isRefreshing]) {
                 [self.datas removeAllObjects];
@@ -190,13 +217,31 @@
 }
 
 - (NSString *)getUrlWithAllCondition {
-    NSMutableString *url = [NSMutableString stringWithFormat:@"%@?page=%ld", BASE_URL,self.pageIndex];
+    NSMutableString *url = [NSMutableString stringWithFormat:@"%@?page=%ld", self.isExHentai ? ExHentai_URL : EHentai_URL,(long)self.pageIndex];
     for (NSArray *subArr in self.btnStatusArr) {
         [url appendFormat:@"%@%@",self.searchKeyDict[subArr[0]],subArr[1]];
     }
     [url appendFormat:@"&f_search=%@%@",self.switchBtn.on ? @"language:chinese+" : @"",[self.searchTextField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [url appendString:@"&f_apply=Apply+Filter"];
     return url;
+}
+
+#pragma mark -导航栏点击选择画廊
+- (void)didClickChannelWithName:(NSString *)title {
+    self.isExHentai = [title isEqualToString:@"ExHentai"];
+    //保存在沙盒
+    [[NSUserDefaults standardUserDefaults] setObject:@(self.isExHentai) forKey:@"ehentaiStatus"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (self.isExHentai && ![DiveExHentaiV2 checkCookie]) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"invalidcookie", nil)];
+        [SVProgressHUD dismissWithDelay:2.f];
+        return;
+    }
+    //刷新tableview
+    self.searchBarTopLine.constant = 10.f;
+    [self.tableView.mj_header beginRefreshing];
+    self.pageIndex = 0;
+    [self updateResource];
 }
 
 #pragma mark -侧边栏点击事件
@@ -394,7 +439,7 @@
                        @"IMAGE SET":@"&f_imageset=",
                        @"COSPLAY":@"&f_cosplay=",
                        @"ASIAN PORN":@"&f_asianporn=",
-                       @"MISC":@"f_misc="
+                       @"MISC":@"&f_misc="
                        };
     }
     return _searchKeyDict;
@@ -405,6 +450,15 @@
         _btnStatusArr = [NSMutableArray new];
     }
     return _btnStatusArr;
+}
+
+- (QJTopButtonView *)topButtonView {
+    if (nil == _topButtonView) {
+        _topButtonView = [[NSBundle mainBundle] loadNibNamed:@"QJTopButtonView" owner:nil options:nil].firstObject;
+        _topButtonView.frame = CGRectMake(0, 0, 110, 44);
+        _topButtonView.delegate = self;
+    }
+    return _topButtonView;
 }
 
 - (void)didReceiveMemoryWarning {

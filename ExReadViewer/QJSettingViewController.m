@@ -10,6 +10,7 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import "QJAboutViewController.h"
 #import "QJPasswordViewController.h"
+#import "QJLoginViewController.h"
 
 @interface QJSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -56,6 +57,9 @@
     NSArray *row = self.datas[indexPath.section][@"row"];
     cell.textLabel.text = row[indexPath.row];
     if (indexPath.section == 0) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    else if (indexPath.section == 1) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         //开关
         UISwitch *swichBtn = [UISwitch new];
@@ -69,7 +73,7 @@
         [cell addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[swichBtn]-20-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(swichBtn)]];
         [cell addConstraint:[NSLayoutConstraint constraintWithItem:swichBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
-    else if (indexPath.section == 1) {
+    else if (indexPath.section == 2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
@@ -165,8 +169,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         QJAboutViewController *vc = [QJAboutViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (indexPath.section == 0) {
+        QJLoginViewController *vc = [QJLoginViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -186,6 +194,10 @@
 - (NSArray *)datas {
     if (nil == _datas) {
         _datas = @[
+                   @{
+                       @"title":NSLocalizedString(@"login", nil),
+                       @"row":@[NSLocalizedString(@"gotologin", nil)],
+                       },
                    @{
                        @"title":NSLocalizedString(@"privacy", nil),
                        @"row":@[NSLocalizedString(@"password", nil),NSLocalizedString(@"touchid", nil)],

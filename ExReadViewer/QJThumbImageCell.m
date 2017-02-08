@@ -7,6 +7,8 @@
 //
 
 #import "QJThumbImageCell.h"
+#import "WUIImage.h"
+#import "SDWebImageDownloader.h"
 
 @interface QJThumbImageCell ()
 
@@ -21,9 +23,14 @@
     [super awakeFromNib];
 }
 
-- (void)refreshUI:(NSString *)imageUrl row:(NSInteger)row {
-    [self.thumbImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"panda"]];
-    self.numberLabel.text = [NSString stringWithFormat:@"%ld",row];
+- (void)refreshUI:(NSDictionary *)imageDict row:(NSInteger)row {
+    self.thumbImageView.image = [UIImage imageNamed:@"panda"];
+    [[SDWebImageManager sharedManager] downloadImageWithURL:imageDict[@"url"] options:SDWebImageHandleCookies progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        CGRect rect = CGRectMake([imageDict[@"x"] integerValue], 0, [imageDict[@"width"] integerValue], [imageDict[@"height"] integerValue]);
+        UIImage *thumbImage = [WUIImage SeparateImage:image withRect:rect];
+        self.thumbImageView.image = thumbImage;
+    }];
+    self.numberLabel.text = [NSString stringWithFormat:@"%ld",(long)row + 1];
 }
 
 @end

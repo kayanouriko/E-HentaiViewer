@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A22E0A21E211735008837FC /* QJSiderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A22E0A11E211735008837FC /* QJSiderView.m */; };
 		5A22E0A41E211767008837FC /* QJSiderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A22E0A31E211767008837FC /* QJSiderView.xib */; };
+		5A39F8881E49546100A45090 /* WUIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A39F8871E49546100A45090 /* WUIImage.m */; };
 		5A3A3C361E10C4F200704F81 /* QJMainListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C341E10C4F200704F81 /* QJMainListCell.m */; };
 		5A3A3C371E10C4F200704F81 /* QJMainListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3A3C351E10C4F200704F81 /* QJMainListCell.xib */; };
 		5A3A3C3F1E10C51300704F81 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C3A1E10C51300704F81 /* TFHpple.m */; };
@@ -16,7 +17,9 @@
 		5A3A3C411E10C51300704F81 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C3E1E10C51300704F81 /* XPathQuery.m */; };
 		5A3A3C431E10C5AD00704F81 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3A3C421E10C5AD00704F81 /* libxml2.2.tbd */; };
 		5A3A3C551E11150B00704F81 /* HentaiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C541E11150B00704F81 /* HentaiParser.m */; };
+		5A3BA4F51E287928000ADEDA /* QJDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3BA4F41E287928000ADEDA /* QJDownloadManager.m */; };
 		5A57ECDC1E11570000B28D37 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A57ECDE1E11570000B28D37 /* Localizable.strings */; };
+		5A7A54E51E4828F9002A817C /* DiveExHentaiV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A54E41E4828F9002A817C /* DiveExHentaiV2.m */; };
 		5A8441E61E22445200896D7A /* QJSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8441E51E22445200896D7A /* QJSettingViewController.m */; };
 		5A89A46C1E2312E4009C82B2 /* QJStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A89A46B1E2312E4009C82B2 /* QJStarView.m */; };
 		5A89A46E1E2321AD009C82B2 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A89A46D1E2321AD009C82B2 /* LocalAuthentication.framework */; };
@@ -48,9 +51,13 @@
 		5AC789C81E0F850800DFFAA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AC789C71E0F850800DFFAA3 /* Assets.xcassets */; };
 		5AC789CB1E0F850800DFFAA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AC789C91E0F850800DFFAA3 /* LaunchScreen.storyboard */; };
 		5AC789DC1E0F868600DFFAA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AC789DE1E0F868600DFFAA3 /* InfoPlist.strings */; };
+		5AD4A4161E31A2E3004514AF /* QJLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD4A4141E31A2E3004514AF /* QJLoginViewController.m */; };
+		5AD4A4171E31A2E3004514AF /* QJLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD4A4151E31A2E3004514AF /* QJLoginViewController.xib */; };
+		5ADF4AAA1E41FD2700739557 /* QJTopButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4AA91E41FD2700739557 /* QJTopButtonView.xib */; };
 		5AE738F51E18CC9300CCF605 /* QJThumbImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE738F31E18CC9300CCF605 /* QJThumbImageCell.m */; };
 		5AE738F61E18CC9300CCF605 /* QJThumbImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE738F41E18CC9300CCF605 /* QJThumbImageCell.xib */; };
 		5AF1D42A1E13E978005D465C /* QJIntroInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF1D4291E13E978005D465C /* QJIntroInfoModel.m */; };
+		5AF42D561E42F52900BEC584 /* QJTopButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF42D551E42F52900BEC584 /* QJTopButtonView.m */; };
 		5AFD23B41E159BCF0003B905 /* QJIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD23B21E159BCF0003B905 /* QJIntroViewController.m */; };
 		5AFD23B51E159BCF0003B905 /* QJIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD23B31E159BCF0003B905 /* QJIntroViewController.xib */; };
 		61C6FAE954856155D80D50DF /* libPods-ExReadViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ADB6691A1526C9215945DC6 /* libPods-ExReadViewer.a */; };
@@ -63,6 +70,8 @@
 		5A22E0A01E211735008837FC /* QJSiderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSiderView.h; sourceTree = "<group>"; };
 		5A22E0A11E211735008837FC /* QJSiderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSiderView.m; sourceTree = "<group>"; };
 		5A22E0A31E211767008837FC /* QJSiderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSiderView.xib; sourceTree = "<group>"; };
+		5A39F8861E49546100A45090 /* WUIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WUIImage.h; sourceTree = "<group>"; };
+		5A39F8871E49546100A45090 /* WUIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WUIImage.m; sourceTree = "<group>"; };
 		5A3A3C331E10C4F200704F81 /* QJMainListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJMainListCell.h; sourceTree = "<group>"; };
 		5A3A3C341E10C4F200704F81 /* QJMainListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJMainListCell.m; sourceTree = "<group>"; };
 		5A3A3C351E10C4F200704F81 /* QJMainListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJMainListCell.xib; sourceTree = "<group>"; };
@@ -75,9 +84,13 @@
 		5A3A3C421E10C5AD00704F81 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		5A3A3C531E11150B00704F81 /* HentaiParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HentaiParser.h; sourceTree = "<group>"; };
 		5A3A3C541E11150B00704F81 /* HentaiParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HentaiParser.m; sourceTree = "<group>"; };
+		5A3BA4F31E287928000ADEDA /* QJDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJDownloadManager.h; sourceTree = "<group>"; };
+		5A3BA4F41E287928000ADEDA /* QJDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJDownloadManager.m; sourceTree = "<group>"; };
 		5A57ECD91E11462D00B28D37 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		5A57ECDD1E11570000B28D37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A57ECDF1E11570200B28D37 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5A7A54E31E4828F9002A817C /* DiveExHentaiV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiveExHentaiV2.h; sourceTree = "<group>"; };
+		5A7A54E41E4828F9002A817C /* DiveExHentaiV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiveExHentaiV2.m; sourceTree = "<group>"; };
 		5A8441E41E22445200896D7A /* QJSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSettingViewController.h; sourceTree = "<group>"; };
 		5A8441E51E22445200896D7A /* QJSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSettingViewController.m; sourceTree = "<group>"; };
 		5A89A46A1E2312E4009C82B2 /* QJStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJStarView.h; sourceTree = "<group>"; };
@@ -133,11 +146,17 @@
 		5AC789DF1E0F86AC00DFFAA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		5AC789E01E0F86AC00DFFAA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		5AC789E11E0F86AC00DFFAA3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		5AD4A4131E31A2E3004514AF /* QJLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJLoginViewController.h; sourceTree = "<group>"; };
+		5AD4A4141E31A2E3004514AF /* QJLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJLoginViewController.m; sourceTree = "<group>"; };
+		5AD4A4151E31A2E3004514AF /* QJLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJLoginViewController.xib; sourceTree = "<group>"; };
+		5ADF4AA91E41FD2700739557 /* QJTopButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJTopButtonView.xib; sourceTree = "<group>"; };
 		5AE738F21E18CC9300CCF605 /* QJThumbImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJThumbImageCell.h; sourceTree = "<group>"; };
 		5AE738F31E18CC9300CCF605 /* QJThumbImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJThumbImageCell.m; sourceTree = "<group>"; };
 		5AE738F41E18CC9300CCF605 /* QJThumbImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJThumbImageCell.xib; sourceTree = "<group>"; };
 		5AF1D4281E13E978005D465C /* QJIntroInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJIntroInfoModel.h; sourceTree = "<group>"; };
 		5AF1D4291E13E978005D465C /* QJIntroInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJIntroInfoModel.m; sourceTree = "<group>"; };
+		5AF42D541E42F52900BEC584 /* QJTopButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTopButtonView.h; sourceTree = "<group>"; };
+		5AF42D551E42F52900BEC584 /* QJTopButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTopButtonView.m; sourceTree = "<group>"; };
 		5AFD23B11E159BCF0003B905 /* QJIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJIntroViewController.h; sourceTree = "<group>"; };
 		5AFD23B21E159BCF0003B905 /* QJIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJIntroViewController.m; sourceTree = "<group>"; };
 		5AFD23B31E159BCF0003B905 /* QJIntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJIntroViewController.xib; sourceTree = "<group>"; };
@@ -189,6 +208,15 @@
 			name = SiderView;
 			sourceTree = "<group>";
 		};
+		5A39F8821E49530D00A45090 /* ImageSeparate */ = {
+			isa = PBXGroup;
+			children = (
+				5A39F8861E49546100A45090 /* WUIImage.h */,
+				5A39F8871E49546100A45090 /* WUIImage.m */,
+			);
+			name = ImageSeparate;
+			sourceTree = "<group>";
+		};
 		5A3A3C121E10B00B00704F81 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +231,7 @@
 		5A3A3C131E10B01800704F81 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5ADF4AA81E41FCE600739557 /* TopButtonView */,
 				5A89A4681E2311F0009C82B2 /* StarView */,
 				5A22E09F1E211610008837FC /* SiderView */,
 				5A22E09E1E211603008837FC /* ListCell */,
@@ -234,6 +263,9 @@
 		5A3A3C511E1114F100704F81 /* Commom */ = {
 			isa = PBXGroup;
 			children = (
+				5A39F8821E49530D00A45090 /* ImageSeparate */,
+				5A7A54E21E48237B002A817C /* DiveExHentaiV2 */,
+				5A3BA4F21E2878C6000ADEDA /* DownloadManager */,
 				5A956E871E1807BC001720B5 /* LabelWithUrl */,
 				5A3A3C521E11150000704F81 /* HentaiParser */,
 			);
@@ -247,6 +279,24 @@
 				5A3A3C541E11150B00704F81 /* HentaiParser.m */,
 			);
 			name = HentaiParser;
+			sourceTree = "<group>";
+		};
+		5A3BA4F21E2878C6000ADEDA /* DownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				5A3BA4F31E287928000ADEDA /* QJDownloadManager.h */,
+				5A3BA4F41E287928000ADEDA /* QJDownloadManager.m */,
+			);
+			name = DownloadManager;
+			sourceTree = "<group>";
+		};
+		5A7A54E21E48237B002A817C /* DiveExHentaiV2 */ = {
+			isa = PBXGroup;
+			children = (
+				5A7A54E31E4828F9002A817C /* DiveExHentaiV2.h */,
+				5A7A54E41E4828F9002A817C /* DiveExHentaiV2.m */,
+			);
+			name = DiveExHentaiV2;
 			sourceTree = "<group>";
 		};
 		5A89A4681E2311F0009C82B2 /* StarView */ = {
@@ -494,6 +544,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5AD4A40F1E30A8F0004514AF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5AD4A4131E31A2E3004514AF /* QJLoginViewController.h */,
+				5AD4A4141E31A2E3004514AF /* QJLoginViewController.m */,
+				5AD4A4151E31A2E3004514AF /* QJLoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		5ADF4AA81E41FCE600739557 /* TopButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				5AF42D541E42F52900BEC584 /* QJTopButtonView.h */,
+				5AF42D551E42F52900BEC584 /* QJTopButtonView.m */,
+				5ADF4AA91E41FD2700739557 /* QJTopButtonView.xib */,
+			);
+			name = TopButtonView;
+			sourceTree = "<group>";
+		};
 		5AE738F11E18CC6700CCF605 /* ImageCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,6 +577,7 @@
 		5AED26A31E2238F4002F53CE /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				5AD4A40F1E30A8F0004514AF /* Login */,
 				5A89A4741E2329A4009C82B2 /* About */,
 				5A89A4731E232999009C82B2 /* Main */,
 			);
@@ -609,9 +680,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ADF4AAA1E41FD2700739557 /* QJTopButtonView.xib in Resources */,
 				5AC789CB1E0F850800DFFAA3 /* LaunchScreen.storyboard in Resources */,
 				5A89A4831E23696C009C82B2 /* QJTouchIDViewController.xib in Resources */,
 				5A22E0A41E211767008837FC /* QJSiderView.xib in Resources */,
+				5AD4A4171E31A2E3004514AF /* QJLoginViewController.xib in Resources */,
 				5A57ECDC1E11570000B28D37 /* Localizable.strings in Resources */,
 				5AC789DC1E0F868600DFFAA3 /* InfoPlist.strings in Resources */,
 				5A3A3C371E10C4F200704F81 /* QJMainListCell.xib in Resources */,
@@ -680,11 +753,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A39F8881E49546100A45090 /* WUIImage.m in Sources */,
 				5A8ADC881E25DEBC0075C5F6 /* Favorites+CoreDataProperties.m in Sources */,
 				5A3A3C401E10C51300704F81 /* TFHppleElement.m in Sources */,
 				5A3A3C411E10C51300704F81 /* XPathQuery.m in Sources */,
 				5A8ADC731E25CE420075C5F6 /* QJDataManager.m in Sources */,
+				5AF42D561E42F52900BEC584 /* QJTopButtonView.m in Sources */,
 				5A8CA8B51E24C560008CB68D /* QJScoreView.m in Sources */,
+				5AD4A4161E31A2E3004514AF /* QJLoginViewController.m in Sources */,
+				5A7A54E51E4828F9002A817C /* DiveExHentaiV2.m in Sources */,
 				5A956E8D1E180875001720B5 /* UILabel+LinkUrl.m in Sources */,
 				5A956E741E176F7B001720B5 /* QJTagView.m in Sources */,
 				5A8CA8B11E246944008CB68D /* QJHotViewController.m in Sources */,
@@ -700,6 +777,7 @@
 				5AE738F51E18CC9300CCF605 /* QJThumbImageCell.m in Sources */,
 				5A89A4821E23696C009C82B2 /* QJTouchIDViewController.m in Sources */,
 				5A22E0A21E211735008837FC /* QJSiderView.m in Sources */,
+				5A3BA4F51E287928000ADEDA /* QJDownloadManager.m in Sources */,
 				5A3A3C551E11150B00704F81 /* HentaiParser.m in Sources */,
 				5A89A46C1E2312E4009C82B2 /* QJStarView.m in Sources */,
 				5A8ADC661E25CBCC0075C5F6 /* QJCoreDataModel.xcdatamodeld in Sources */,

@@ -89,7 +89,7 @@
     }
     else if (indexPath.section == 2) {
         QJAboutListViewController *vc = [QJAboutListViewController new];
-        vc.type = [NSString stringWithFormat:@"%ld",indexPath.row];
+        vc.type = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

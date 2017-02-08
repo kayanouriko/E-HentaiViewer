@@ -10,9 +10,9 @@
 #import "TFHpple.h"
 #import <objc/runtime.h>
 
-#define hentaiAPIURL @"http://g.e-hentai.org/api.php"
-#define exHentaiAPIURL @"http://exhentai.org/api.php"
-#define BASE_URL @"http://g.e-hentai.org/"
+#define hentaiAPIURL @"https://e-hentai.org/api.php"
+#define exHentaiAPIURL @"https://exhentai.org/api.php"
+#define BASE_URL @"https://e-hentai.org/"
 
 @implementation NSMutableArray (Hentai)
 

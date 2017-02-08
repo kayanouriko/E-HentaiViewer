@@ -101,7 +101,7 @@
             //发布日期
             TFHppleElement *repostTime = [oneCommentElement searchWithXPathQuery:@"//div[@class='c3']"].firstObject;
             oneCommentDict[@"repostTime"] = [self getDateWithLocalStyle:repostTime.text];
-            //名字
+            //名字和跳转名字搜索的url
             TFHppleElement *reporter = [oneCommentElement searchWithXPathQuery:@"//div[@class='c3']//a"].firstObject;
             oneCommentDict[@"reporterUrl"] = [reporter objectForKey:@"href"];
             oneCommentDict[@"reporter"] = reporter.text;
@@ -124,25 +124,57 @@
                 }
             }
             oneCommentDict[@"content"] = content;
-            //c8是修改日期,暂时没爬取
+            //TODO c8是修改日期,暂时没爬取
             [commentsArr addObject:oneCommentDict];
         }
         self.commentsArr = commentsArr;
     }
-    //缩略图图片地址的获取
-    TFHppleElement *smallImageUrlElement = [xpathParser searchWithXPathQuery:@"//div[@id='gd5']//p[@class='g2']//a"][1];
-    NSMutableString *allImageUrl = [NSMutableString stringWithFormat:@"%@",[smallImageUrlElement objectForKey:@"onclick"]];
-    NSString *regexString = @"'.*'";
-    allImageUrl = [[self matchString:allImageUrl toRegexString:regexString].firstObject mutableCopy];
-    allImageUrl = [[allImageUrl stringByReplacingOccurrencesOfString:@"'" withString:@""] mutableCopy];
-    [allImageUrl appendString:@"&type=wiki"];
-    self.allImageUrl = allImageUrl;
     //获取大图总页数
     TFHppleElement *requestCountElement = [xpathParser searchWithXPathQuery:@"//p[@class='gpc']"].firstObject;
     NSArray *requestCountArr = [requestCountElement.text componentsSeparatedByString:@" "];
     NSInteger currCount = [requestCountArr[3] integerValue];
     NSInteger totalCount = [requestCountArr[5] integerValue];
     self.requestCount = totalCount % currCount ? totalCount / currCount : totalCount / currCount - 1;
+    //缩略图图片的获取
+    /*
+     //老的遍历方法,但是里站没有,所以废弃,改用下面的图片切割
+     TFHppleElement *smallImageUrlElement = [xpathParser searchWithXPathQuery:@"//div[@id='gd5']//p[@class='g2']//a"][1];
+     NSMutableString *allImageUrl = [NSMutableString stringWithFormat:@"%@",[smallImageUrlElement objectForKey:@"onclick"]];
+     NSString *regexString = @"'.*'";
+     allImageUrl = [[self matchString:allImageUrl toRegexString:regexString].firstObject mutableCopy];
+     allImageUrl = [[allImageUrl stringByReplacingOccurrencesOfString:@"'" withString:@""] mutableCopy];
+     [allImageUrl appendString:@"&type=wiki"];
+     self.allImageUrl = allImageUrl;
+     */
+    self.allImageUrlArr = [NSMutableArray new];
+    NSArray *smallImageUrlArr = [xpathParser searchWithXPathQuery:@"//div[@id='gdt']//div[@class='gdtm']//div"];
+    for (TFHppleElement *smallImageUrlElement in smallImageUrlArr) {
+        TFHppleElement *imageUrlElement = [smallImageUrlElement searchWithXPathQuery:@"//div"].firstObject;
+        NSMutableString *smallImageUrlStr = [NSMutableString stringWithFormat:@"%@",[imageUrlElement objectForKey:@"style"]];
+        NSString *regexString = @"http.*jpg";
+        NSString *smallImageUrl = [[self matchString:smallImageUrlStr toRegexString:regexString].firstObject copy];
+        
+        NSString *widthRegexString = @"width.*?px";
+        NSString *widthString = [[self matchString:smallImageUrlStr toRegexString:widthRegexString].firstObject copy];
+        widthString = [widthString substringWithRange:NSMakeRange(6, widthString.length - 8)];
+        
+        NSString *heightRegexString = @"height.*?px";
+        NSString *heightString = [[self matchString:smallImageUrlStr toRegexString:heightRegexString].firstObject copy];
+        heightString = [heightString substringWithRange:NSMakeRange(7, heightString.length - 9)];
+        
+        NSString *xRegexString = @"-.*?px";
+        NSString *xString = [[self matchString:smallImageUrlStr toRegexString:xRegexString].firstObject copy];
+        xString = [xString componentsSeparatedByString:@" "][1];
+        xString = [xString substringWithRange:NSMakeRange(1, xString.length - 3)];
+        
+        NSDictionary *dict = @{
+                               @"url":smallImageUrl,
+                               @"x":xString,
+                               @"width":widthString,
+                               @"height":heightString
+                               };
+        [self.allImageUrlArr addObject:dict];
+    }
 }
 
 - (NSArray *)matchString:(NSString *)string toRegexString:(NSString *)regexStr {
@@ -194,7 +226,7 @@
     NSString *year = [array[4] substringWithRange:NSMakeRange(0, 4)];
     NSString *hourAndMintime = array[5];
     
-    NSString *utcTime = [NSString stringWithFormat:@"%4ld-%2ld-%2ld %@",[year integerValue],month,[day integerValue],hourAndMintime];
+    NSString *utcTime = [NSString stringWithFormat:@"%4ld-%2ld-%2ld %@",(long)[year integerValue],(long)month,(long)[day integerValue],hourAndMintime];
     NSString *dateNowStr = [self changeTimeToLocalTime:utcTime];
     return dateNowStr;
 }

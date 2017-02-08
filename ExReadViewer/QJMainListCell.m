@@ -51,7 +51,7 @@
     [self.starView refreshStarWithCount:[dict[@"rating"] floatValue] width:20.f];
     self.languageLabel.text = dict[@"language"];
     NSString *imageUrlStr = dict[@"thumb"];
-    [self.thumbImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"panda"]];
+    [self.thumbImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"panda"] options:SDWebImageHandleCookies];
 }
 
 #pragma mark -懒加载

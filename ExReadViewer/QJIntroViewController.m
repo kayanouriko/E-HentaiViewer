@@ -19,6 +19,7 @@
 #import "MWPhotoBrowser.h"
 #import "QJScoreView.h"
 #import "QJDataManager.h"
+#import "QJDownloadManager.h"
 
 typedef NS_ENUM(NSInteger, introButtonStyle){
     introButtonStyleDownload, //下载
@@ -68,6 +69,7 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 @property (strong, nonatomic) QJDataManager *manager;
 @property (assign, nonatomic) NSInteger requestCount;//请求页码的次数
 @property (strong, nonatomic) NSMutableArray *bigImageUrlArr;
+@property (strong, nonatomic) NSMutableArray *downImageUrlArr;
 @property (strong, nonatomic) NSDictionary *colorDict;
 
 @end
@@ -129,14 +131,23 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
         NSData *data = responseObject;
         QJIntroInfoModel *model = [[QJIntroInfoModel alloc] initWithData:data];
         if (model.needUser) {
-            [SVProgressHUD showErrorWithStatus:@"该画廊需要登录,暂不支持浏览"];
+            [SVProgressHUD showErrorWithStatus:@"该画廊需要额外处理,暂不支持浏览QAQ"];
             [SVProgressHUD dismissWithDelay:2.f];
             return;
         }
         else {
             [self refreshUIWithModel:model];
-            //从url获取到的model来请求缩略图
-            [self getAllImageWithUrl:model.allImageUrl model:model];
+            //缩略图部分
+            self.datas = model.allImageUrlArr;
+            [self.collectionView reloadData];
+            CGFloat itemWidth = (kScreenWidth - 10) / 3 - 10;
+            CGFloat itemHeight = itemWidth * 190 / 120 + 10;
+            self.photoViewHeightLine.constant = (self.datas.count % 3 ? (self.datas.count / 3) + 1 : self.datas.count / 3) * itemHeight;
+            [self updateScrollViewHeight];
+            //获取大图地址
+            self.requestCount = model.requestCount;
+            [self getAllBigImageUrlWithPageCount:0];
+            
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -145,7 +156,7 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 
 - (void)refreshUIWithModel:(QJIntroInfoModel *)model {
     //简介部分
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:model.introDict[@"imageUrl"]] placeholderImage:[UIImage imageNamed:@"panda"]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:model.introDict[@"imageUrl"]] placeholderImage:[UIImage imageNamed:@"panda"] options:SDWebImageHandleCookies];
     self.titleLabel.text = model.introDict[@"title"];
     self.authorLabel.text = model.introDict[@"author"];
     [self.categoryBtn setTitle:[NSString stringWithFormat:@"  %@  ",model.introDict[@"category"]] forState:UIControlStateNormal];
@@ -236,28 +247,10 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
     self.scrollViewHeightLine.constant = 340 + 1 + 191 + 1 + self.tagViewHeightLine.constant + 1 + self.commentViewHeightLine.constant + 1 + self.photoViewHeightLine.constant;
 }
 
-- (void)getAllImageWithUrl:(NSString *)imageUrl model:(QJIntroInfoModel *)model {
-    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    session.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [session GET:imageUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSData *data = responseObject;
-        self.datas = [model getAllImageWithData:data];
-        [self.collectionView reloadData];
-        CGFloat itemWidth = (kScreenWidth - 10) / 3 - 10;
-        CGFloat itemHeight = itemWidth * 190 / 120 + 10;
-        self.photoViewHeightLine.constant = (self.datas.count % 3 ? (self.datas.count / 3) + 1 : self.datas.count / 3) * itemHeight;
-        [self updateScrollViewHeight];
-        //获取大图地址
-        self.requestCount = model.requestCount;
-        [self getAllBigImageUrlWithPageCount:0];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-}
-
 - (void)getAllBigImageUrlWithPageCount:(NSInteger)index {
     [HentaiParser requestImagesAtURL:self.introUrl atIndex:index completion:^(HentaiParserStatus status, NSArray *images) {
         if (status == HentaiParserStatusSuccess) {
+            [self.downImageUrlArr addObjectsFromArray:images];
             for (NSString *iamgeUrl in images) {
                 [self.bigImageUrlArr addObject:[MWPhoto photoWithURL:[NSURL URLWithString:iamgeUrl]]];
             }
@@ -279,8 +272,7 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
         switch (status) {
             case introButtonStyleDownload:
             {
-                [SVProgressHUD showErrorWithStatus:@"功能待开发QAQ"];
-                [SVProgressHUD dismissWithDelay:1.f];
+                [[QJDownloadManager shareQueue] addOneBookDownQueueWithImageUrlArr:self.downImageUrlArr bookName:self.infoDict[@"title"]];
             }
                 break;
             case introButtonStyleRead:
@@ -289,7 +281,6 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
                 browser.displayActionButton = NO;
                 browser.zoomPhotosToFill = NO;
                 browser.enableGrid = NO;
-                //browser.alwaysShowControls = YES;
                 [browser setCurrentPhotoIndex:0];
                 [self.navigationController pushViewController:browser animated:YES];
             }
@@ -543,6 +534,13 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
         _bigImageUrlArr = [NSMutableArray new];
     }
     return _bigImageUrlArr;
+}
+
+- (NSMutableArray *)downImageUrlArr {
+    if (nil == _downImageUrlArr) {
+        _downImageUrlArr = [NSMutableArray new];
+    }
+    return _downImageUrlArr;
 }
 
 @end
