@@ -272,7 +272,11 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
         switch (status) {
             case introButtonStyleDownload:
             {
+                [SVProgressHUD showErrorWithStatus:@"功能待开发QAQ"];
+                [SVProgressHUD dismissWithDelay:1.f];
+                /*
                 [[QJDownloadManager shareQueue] addOneBookDownQueueWithImageUrlArr:self.downImageUrlArr bookName:self.infoDict[@"title"]];
+                 */
             }
                 break;
             case introButtonStyleRead:

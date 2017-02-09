@@ -1,6 +1,8 @@
 # ExReadViewer
 一个EHentai的iOS端阅读器
 
+[https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases)
+
 #更新内容
 2017.02.08 v1.2
 
@@ -33,28 +35,36 @@
 ![](https://ww2.sinaimg.cn/large/006tNbRwgw1fbd47rj146j30yi1pcaxr.jpg)
 
 # 感谢
-<p>这个客户端参考和借鉴了很多开源项目的思路和代码,如果这些作者觉得不合适,请私信我,我立马删除该项目QAQ
-<p>新手开发,如果有代码方面的优化请多多指教0v0
+这个客户端参考和借鉴了很多开源项目的思路和代码,如果这些作者觉得不合适,请私信我,我立马删除该项目QAQ
 
-<p>[@DaidoujiChen](https://github.com/DaidoujiChen)
-<p>[https://github.com/DaidoujiChen/Dai-Hentai](https://github.com/DaidoujiChen/Dai-Hentai)
-<p>还有该项目的老前辈,上面链接有我就不贴了
+新手开发,如果有代码方面的优化请多多指教OvO
 
-<p>[@seven332](https://github.com/seven332)
-<p>[https://github.com/seven332/EhViewer](https://github.com/seven332/EhViewer)
-<p>主要借鉴这个安卓项目的界面布局
+[@DaidoujiChen](https://github.com/DaidoujiChen)
 
-<p>另外还有感谢诸多开源框架,pod文件我也上传了,这里就不贴出来了.
+[https://github.com/DaidoujiChen/Dai-Hentai](https://github.com/DaidoujiChen/Dai-Hentai)
+
+还有该项目的老前辈,上面链接有我就不贴了
+
+[@seven332](https://github.com/seven332)
+
+[https://github.com/seven332/EhViewer](https://github.com/seven332/EhViewer)
+
+主要借鉴这个安卓项目的界面布局
+
+另外还有感谢诸多开源框架,pod文件我也上传了,这里就不贴出来了.
 
 #说明
-<p>初版自用,基本的功能都有了,暂时只做了表站,有些地区可能需要科学上网配合使用
-<p>测试:xcode8 ip7p iOS 10
-<p>推荐ip5 iOS 8以上
-<p>iOS 8以上越狱的朋友可以前往这里下载:[https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases),如果无法使用记得告诉我一声,暂不保证布局能适配全部机型
+主要是自用应用,而且还是新手,更新周期可能会比较长,有刚性需求的同学可以用DaidoujiChen的成熟应用
+
+测试:xcode8 ip7p iOS 10
+
+推荐ip5 iOS 8以上
 
 #TODO
-* 现在的看图界面可能不是很好用,不能调页加载也不太能可控,如果是施法过程可能体验不佳,现开源框架暂时还没有比较好支持看漫画专用的,打算后面自己写一个
-* 详情页的请求逻辑有点傻,所以页面多的可能加载会比较久,请耐心等待
-* 网站的离线,登录和里站等功能尚未添加
+* 添加拥有账号的可操作的可能性
+* 下载功能
+* iPhone和iPad布局适配
+* 现在的看图界面可能不是很好用,不能调页加载也不太能可控,如果是施法过程可能体验不佳,现开源框架暂时还没有比较好支持看漫画专用的,打算后面自己写一个(待优化)
+* 详情页的请求逻辑有点傻,所以页面多的可能加载会比较久,请耐心等待(待优化)
 
 
