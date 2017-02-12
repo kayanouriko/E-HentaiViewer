@@ -24,15 +24,12 @@
 
 5 改为通用应用,ipad兼容,但是布局不完美
 
-![](https://ww3.sinaimg.cn/large/006tNbRwgw1fbmyw2xfs2j31kw0paqhz.jpg)
-
 # Screenshot
-![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbd47i63qtj30yi1pcqia.jpg)
-![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbcn6ja25xj30yi1pc79p.jpg)
-![](https://ww1.sinaimg.cn/large/006tNbRwgw1fbcn756g3oj30yi1pcamz.jpg)
-![](https://ww4.sinaimg.cn/large/006tNbRwgw1fbcn7dthorj30yi1pcwje.jpg)
-![](https://ww1.sinaimg.cn/large/006tNbRwgw1fbcn7zuko7j30yi1pc4cm.jpg)
-![](https://ww2.sinaimg.cn/large/006tNbRwgw1fbd47rj146j30yi1pcaxr.jpg)
+大概4M
+
+[https://ww2.sinaimg.cn/large/006tKfTcgy1fcnweq4qg6g308l0fu7wj.gif](https://ww2.sinaimg.cn/large/006tKfTcgy1fcnweq4qg6g308l0fu7wj.gif)
+
+![](https://ww2.sinaimg.cn/large/006tKfTcgy1fcnweq4qg6g308l0fu7wj.gif)
 
 # 感谢
 这个客户端参考和借鉴了很多开源项目的思路和代码,如果这些作者觉得不合适,请私信我,我立马删除该项目QAQ
