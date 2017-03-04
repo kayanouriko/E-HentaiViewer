@@ -17,6 +17,12 @@
 
 static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
+@interface MWPhotoBrowser ()
+
+
+
+@end
+
 @implementation MWPhotoBrowser
 
 #pragma mark - Init
@@ -180,6 +186,9 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
     }
     
+    [self.view addSubview:self.slider];
+    [self.slider addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+    
     // Update
     [self reloadData];
     
@@ -193,6 +202,26 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 	// Super
     [super viewDidLoad];
 	
+}
+
+/*
+- (UISlider *)slider {
+    if (nil == _slider) {
+        _slider = [[UISlider alloc] initWithFrame:CGRectMake(20, [UIScreen mainScreen].bounds.size.height - 31, [UIScreen mainScreen].bounds.size.width - 40, 31)];
+        [_slider addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+        _slider.minimumTrackTintColor = [UIColor colorWithRed:0.082 green:0.584 blue:0.533 alpha:1.00];
+        _slider.maximumTrackTintColor = [UIColor whiteColor];
+        _slider.alpha = 1;
+        [_slider setThumbImage:[UIImage imageNamed:@"slider_small"] forState:UIControlStateNormal];
+        [_slider setThumbImage:[UIImage imageNamed:@"slider_normal"] forState:UIControlStateHighlighted];
+    }
+    return _slider;
+}
+ */
+
+- (void)changePage:(UISlider *)slider {
+    NSInteger index = _photoCount * slider.value / 1;
+    [self jumpToPageAtIndex:index animated:NO];
 }
 
 - (void)performLayout {
@@ -390,7 +419,11 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     }
     
     _viewHasAppearedInitially = YES;
-        
+    
+    // 禁用 iOS7 返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -425,6 +458,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 	// Super
 	[super viewWillDisappear:animated];
     
+    // 开启
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
 }
 
 - (void)willMoveToParentViewController:(UIViewController *)parent {
@@ -1099,6 +1136,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         } else {
             self.title = [NSString stringWithFormat:@"%lu %@ %lu", (unsigned long)(_currentPageIndex+1), NSLocalizedString(@"of", @"Used in the context: 'Showing 1 of 3 items'"), (unsigned long)numberOfPhotos];
         }
+        self.slider.value = _currentPageIndex / (CGFloat)numberOfPhotos;
 	} else {
 		self.title = nil;
 	}
@@ -1485,6 +1523,9 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
                 v.frame = newFrame;
             }
         }
+        
+        //slider
+        self.slider.alpha = alpha;
 
     } completion:^(BOOL finished) {}];
     

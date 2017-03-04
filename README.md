@@ -4,6 +4,12 @@
 [https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases)
 
 #更新内容
+2017.03.04 v1.21
+
+1 更新爬虫逻辑
+
+2 浏览图添加进度滑块,现在可以随意跳转页数啦
+
 2017.02.08 v1.2
 
 1 添加登录账号(来自DaidoujiChen,感恩)和里站功能

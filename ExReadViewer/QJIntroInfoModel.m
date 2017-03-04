@@ -9,6 +9,8 @@
 #import "QJIntroInfoModel.h"
 #import "TFHpple.h"
 
+#define isError(key) if (nil == key){self.needUser = YES;return;}
+
 @implementation QJCategoryButtonInfo
 
 @end
@@ -36,23 +38,29 @@
     //基本信息
     NSMutableDictionary *introInfoDict = [NSMutableDictionary new];
     //图片
+    /*
     TFHppleElement *imageUrlElement = [xpathParser searchWithXPathQuery:@"//div[@id='gd1']//img"].firstObject;
     if (nil == imageUrlElement) {
         self.needUser = YES;
         return;
     }
     introInfoDict[@"imageUrl"]= [imageUrlElement objectForKey:@"src"];
+     */
     //类别
     TFHppleElement *categoryElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdc']//img"].firstObject;
+    isError(categoryElement);
     NSString *category = [categoryElement objectForKey:@"alt"];
     introInfoDict[@"category"] = [category uppercaseString];
     TFHppleElement *categoryUrlElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdc']//a"].firstObject;
+    isError(categoryUrlElement);
     introInfoDict[@"categoryUrl"] = [categoryUrlElement objectForKey:@"href"];
     //标题
     TFHppleElement *titleElement = [xpathParser searchWithXPathQuery:@"//h1[@id='gn']"].firstObject;
+    isError(titleElement);
     introInfoDict[@"title"] = titleElement.text;
     //作者
     TFHppleElement *authorElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdn']//a"].firstObject;
+    isError(authorElement);
     introInfoDict[@"author"] = authorElement.text;
     //解析一个表格
     //排序:上传时间,Parent(???父类),是否可见(???),语言,文件大小,总页数,喜欢数
@@ -66,9 +74,12 @@
     introInfoDict[@"posted"] = [self changeTimeToLocalTime:introInfoDict[@"posted"]];
     //评分人数和评分数
     TFHppleElement *scoreElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdr']"].firstObject;
+    isError(scoreElement);
     TFHppleElement *scorePersonElement = [scoreElement searchWithXPathQuery:@"//td[@id='grt3']//span"].firstObject;
+    isError(scorePersonElement);
     introInfoDict[@"scorePerson"] = scorePersonElement.text;
     TFHppleElement *scoreAvgElement = [scoreElement searchWithXPathQuery:@"//td[@id='rating_label']"].firstObject;
+    isError(scoreAvgElement);
     introInfoDict[@"scoreAvg"] = scoreAvgElement.text;
     //简介收集完成
     self.introDict = introInfoDict;

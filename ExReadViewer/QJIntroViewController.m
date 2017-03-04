@@ -72,6 +72,9 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 @property (strong, nonatomic) NSMutableArray *downImageUrlArr;
 @property (strong, nonatomic) NSDictionary *colorDict;
 
+//浏览器部分
+@property (strong, nonatomic) MWPhotoBrowser *browser;
+
 @end
 
 @implementation QJIntroViewController
@@ -88,6 +91,8 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+    self.browser = nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -129,6 +134,8 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:self.introUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSData *data = responseObject;
+        NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",html);
         QJIntroInfoModel *model = [[QJIntroInfoModel alloc] initWithData:data];
         if (model.needUser) {
             [SVProgressHUD showErrorWithStatus:@"该画廊需要额外处理,暂不支持浏览QAQ"];
@@ -156,7 +163,7 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 
 - (void)refreshUIWithModel:(QJIntroInfoModel *)model {
     //简介部分
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:model.introDict[@"imageUrl"]] placeholderImage:[UIImage imageNamed:@"panda"] options:SDWebImageHandleCookies];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.infoDict[@"thumb"]] placeholderImage:[UIImage imageNamed:@"panda"] options:SDWebImageHandleCookies];
     self.titleLabel.text = model.introDict[@"title"];
     self.authorLabel.text = model.introDict[@"author"];
     [self.categoryBtn setTitle:[NSString stringWithFormat:@"  %@  ",model.introDict[@"category"]] forState:UIControlStateNormal];
@@ -253,13 +260,12 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
             [self.downImageUrlArr addObjectsFromArray:images];
             for (NSString *iamgeUrl in images) {
                 [self.bigImageUrlArr addObject:[MWPhoto photoWithURL:[NSURL URLWithString:iamgeUrl]]];
+                [SVProgressHUD dismiss];
+                [self.browser reloadData];
             }
             NSInteger i = index + 1;
             if (i <= self.requestCount) {
                 [self getAllBigImageUrlWithPageCount:i];
-            }
-            else {
-                [SVProgressHUD dismiss];
             }
         }
     }];
@@ -272,21 +278,18 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
         switch (status) {
             case introButtonStyleDownload:
             {
+                
                 [SVProgressHUD showErrorWithStatus:@"功能待开发QAQ"];
                 [SVProgressHUD dismissWithDelay:1.f];
-                /*
-                [[QJDownloadManager shareQueue] addOneBookDownQueueWithImageUrlArr:self.downImageUrlArr bookName:self.infoDict[@"title"]];
-                 */
+                
+                //[[QJDownloadManager shareQueue] addOneBookDownQueueWithImageUrlArr:self.downImageUrlArr bookName:self.infoDict[@"title"]];
+                
             }
                 break;
             case introButtonStyleRead:
             {
-                MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-                browser.displayActionButton = NO;
-                browser.zoomPhotosToFill = NO;
-                browser.enableGrid = NO;
-                [browser setCurrentPhotoIndex:0];
-                [self.navigationController pushViewController:browser animated:YES];
+                [self.browser setCurrentPhotoIndex:0];
+                [self.navigationController pushViewController:self.browser animated:YES];
             }
                 break;
             default:
@@ -474,14 +477,9 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.bigImageUrlArr.count) {
-        MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-        browser.displayActionButton = NO;
-        browser.zoomPhotosToFill = NO;
-        browser.enableGrid = NO;
-        //browser.alwaysShowControls = YES;
-        [browser setCurrentPhotoIndex:indexPath.row];
-        [self.navigationController pushViewController:browser animated:YES];
+    if (self.bigImageUrlArr.count >= indexPath.row) {
+        [self.browser setCurrentPhotoIndex:indexPath.row];
+        [self.navigationController pushViewController:self.browser animated:YES];
     }
 }
 
@@ -524,6 +522,25 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
         [_collectionView registerNib:[UINib nibWithNibName:@"QJThumbImageCell" bundle:nil] forCellWithReuseIdentifier:@"item"];
     }
     return _collectionView;
+}
+
+- (MWPhotoBrowser *)browser {
+    if (nil == _browser) {
+        _browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+        _browser.displayActionButton = NO;
+        _browser.zoomPhotosToFill = NO;
+        _browser.enableGrid = NO;
+        
+        UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(20, [UIScreen mainScreen].bounds.size.height - 31, [UIScreen mainScreen].bounds.size.width - 40, 31)];
+        slider.minimumTrackTintColor = [UIColor colorWithRed:0.082 green:0.584 blue:0.533 alpha:1.00];
+        slider.maximumTrackTintColor = [UIColor whiteColor];
+        slider.alpha = 1;
+        [slider setThumbImage:[UIImage imageNamed:@"slider_small"] forState:UIControlStateNormal];
+        [slider setThumbImage:[UIImage imageNamed:@"slider_normal"] forState:UIControlStateHighlighted];
+        
+        _browser.slider = slider;
+    }
+    return _browser;
 }
 
 - (NSArray *)datas {
