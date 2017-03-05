@@ -4,6 +4,16 @@
 [https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases)
 
 #更新内容
+2017.03.05 v1.3
+
+调整UI更加符合iOS逻辑
+
+4M流量
+
+[https://ww2.sinaimg.cn/large/006tNbRwgy1fdc9mfkfo0g308l0fwx6r.gif](https://ww2.sinaimg.cn/large/006tNbRwgy1fdc9mfkfo0g308l0fwx6r.gif)
+
+![](https://ww2.sinaimg.cn/large/006tNbRwgy1fdc9mfkfo0g308l0fwx6r.gif)
+
 2017.03.04 v1.21
 
 1 更新爬虫逻辑

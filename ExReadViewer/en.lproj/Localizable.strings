@@ -14,6 +14,8 @@
 "loginfailed" = "Login Failed!";
 "validcookie" = "Valid Cookie!";
 "invalidcookie" = "Invalid Cookie!";
+"deletecookie" = "Cookie Clear!";
+"deletefcookie" = "Cookie Clear Failed!";
 "select_scene" = "Which gallery site do you want to select?";
 "cancel" = "Cancel";
 "searchkey" = "Search Hentai";

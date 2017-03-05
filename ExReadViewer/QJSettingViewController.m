@@ -11,6 +11,7 @@
 #import "QJAboutViewController.h"
 #import "QJPasswordViewController.h"
 #import "QJLoginViewController.h"
+#import "QJSettingUserCell.h"
 
 @interface QJSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -30,6 +31,12 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    QJSettingUserCell *cell = [self.view viewWithTag:900];
+    [cell readUserName];
+}
+
 #pragma mark -tableView协议
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.datas.count;
@@ -40,8 +47,21 @@
     return row.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section) {
+        return 45.f;
+    }
+    else {
+        return 90.f;
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40.f;
+    if (section) {
+        return 40.f;
+    } else {
+        return 20.f;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -53,13 +73,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        QJSettingUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"usercell"];
+        cell.tag = 900;
+        [cell readUserName];
+        return cell;
+    }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     NSArray *row = self.datas[indexPath.section][@"row"];
     cell.textLabel.text = row[indexPath.row];
-    if (indexPath.section == 0) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    else if (indexPath.section == 1) {
+    if (indexPath.section == 1) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         //开关
         UISwitch *swichBtn = [UISwitch new];
@@ -171,10 +194,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 2) {
         QJAboutViewController *vc = [QJAboutViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (indexPath.section == 0) {
         QJLoginViewController *vc = [QJLoginViewController new];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -187,6 +212,7 @@
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+        [_tableView registerNib:[UINib nibWithNibName:@"QJSettingUserCell" bundle:nil] forCellReuseIdentifier:@"usercell"];
     }
     return _tableView;
 }
@@ -195,8 +221,8 @@
     if (nil == _datas) {
         _datas = @[
                    @{
-                       @"title":NSLocalizedString(@"login", nil),
-                       @"row":@[NSLocalizedString(@"gotologin", nil)],
+                       @"title":@"",
+                       @"row":@[@""],
                        },
                    @{
                        @"title":NSLocalizedString(@"privacy", nil),

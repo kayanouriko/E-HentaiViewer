@@ -134,8 +134,6 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
     [session GET:self.introUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSData *data = responseObject;
-        NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",html);
         QJIntroInfoModel *model = [[QJIntroInfoModel alloc] initWithData:data];
         if (model.needUser) {
             [SVProgressHUD showErrorWithStatus:@"该画廊需要额外处理,暂不支持浏览QAQ"];
@@ -164,11 +162,12 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 - (void)refreshUIWithModel:(QJIntroInfoModel *)model {
     //简介部分
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.infoDict[@"thumb"]] placeholderImage:[UIImage imageNamed:@"panda"] options:SDWebImageHandleCookies];
-    self.titleLabel.text = model.introDict[@"title"];
-    self.authorLabel.text = model.introDict[@"author"];
-    [self.categoryBtn setTitle:[NSString stringWithFormat:@"  %@  ",model.introDict[@"category"]] forState:UIControlStateNormal];
-    self.categoryName = model.introDict[@"category"];
-    self.categoryBtn.backgroundColor = self.colorDict[model.introDict[@"category"]];
+    self.titleLabel.text = self.infoDict[@"title"];
+    self.authorLabel.text = self.infoDict[@"uploader"];
+    NSString *category = [self.infoDict[@"category"] uppercaseString];
+    [self.categoryBtn setTitle:[NSString stringWithFormat:@"  %@  ",category] forState:UIControlStateNormal];
+    self.categoryName = category;
+    self.categoryBtn.backgroundColor = self.colorDict[category];
     self.categoryUrl = model.introDict[@"categoryUrl"];
     self.pageLabel.text = model.introDict[@"length"];
     self.languageLabel.text = model.introDict[@"language"];
@@ -493,11 +492,11 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
         _colorDict = @{
                        @"DOUJINSHI":DOUJINSHI_COLOR,
                        @"MANGA":MANGA_COLOR,
-                       @"ARTISTCG":ARTISTCG_COLOR,
-                       @"GAMECG":GAMECG_COLOR,
+                       @"ARTIST CG SETS":ARTISTCG_COLOR,
+                       @"GAME CG SETS":GAMECG_COLOR,
                        @"WESTERN":WESTERN_COLOR,
                        @"NON-H":NONH_COLOR,
-                       @"IMAGESET":IMAGESET_COLOR,
+                       @"IMAGE SETS":IMAGESET_COLOR,
                        @"COSPLAY":COSPLAY_COLOR,
                        @"ASIAN PORN":ASIANPORN_COLOR,
                        @"MISC":MISC_COLOR

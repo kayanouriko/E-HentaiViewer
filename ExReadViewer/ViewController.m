@@ -10,7 +10,6 @@
 #import "QJMainListCell.h"
 #import "HentaiParser.h"
 #import "QJIntroViewController.h"
-#import "QJSiderView.h"
 #import "QJSettingViewController.h"
 #import "QJTouchIDViewController.h"
 #import "QJPasswordViewController.h"
@@ -22,9 +21,10 @@
 #define EHentai_URL @"https://e-hentai.org/"
 #define ExHentai_URL @"https://exhentai.org//"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,QJSiderViewDelagate,QJTopButtonViewDelagate>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,QJTopButtonViewDelagate>
 //导航栏
 @property (strong, nonatomic) QJTopButtonView *topButtonView;
+@property (strong, nonatomic) UIView *statueView;
 //tablewview
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datas;
@@ -47,7 +47,6 @@
 //按钮动作
 - (IBAction)btnAction:(UIButton *)sender;
 - (IBAction)valueChange:(UISwitch *)sender;
-- (IBAction)openSider:(UIBarButtonItem *)sender;
 
 @end
 
@@ -99,16 +98,11 @@
     self.needTouchID = YES;
     //中间按钮视图
     self.navigationItem.titleView = self.topButtonView;
-    //侧边栏
-    [QJSiderView shareView].delegate = self;
-    //添加侧滑手势
-    UISwipeGestureRecognizer *swipeGest = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(openSider:)];
-    swipeGest.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeGest];
+    
+    //状态栏
+    [self.view addSubview:self.statueView];
     //tablewview
     [self.view addSubview:self.tableView];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.pageIndex = 0;
@@ -322,10 +316,6 @@
     [self updateResource];
 }
 
-- (IBAction)openSider:(UIBarButtonItem *)sender {
-    [[QJSiderView shareView] show];
-}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     self.needRefersh = YES;
     return YES;
@@ -347,22 +337,37 @@
 #pragma mark -uitableview滚动
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     float contentOffsetY = scrollView.contentOffset.y;
-    if (self.oldOffsetY && contentOffsetY > -65.f) {
+    if (self.oldOffsetY && contentOffsetY > 0) {
         float changeOffset = self.oldOffsetY - contentOffsetY;
-        if (changeOffset > 0 && self.searchBarTopLine.constant <= 10.f) {
-            self.searchBarTopLine.constant += changeOffset;
-            if (self.searchBarTopLine.constant > 10.f) {
+        if (changeOffset > 0) {
+            self.tableView.bounces = YES;
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewShow" object:nil];
+            [UIView animateWithDuration:0.25f animations:^{
                 self.searchBarTopLine.constant = 10.f;
-            }
-        }
-        else if (changeOffset < 0 && self.searchBarTopLine.constant >= -70.f) {
-            self.searchBarTopLine.constant += changeOffset;
-            if (self.searchBarTopLine.constant < -65.f) {
-                self.searchBarTopLine.constant = -65.f;
-            }
+                self.statueView.alpha = 0;
+                [self.view layoutIfNeeded];
+            }];
+        } else {
+            self.tableView.bounces = NO;
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewHide" object:nil];
+            [UIView animateWithDuration:0.25f animations:^{
+                self.searchBarTopLine.constant = -70.f;
+                self.statueView.alpha = 1;
+                [self.view layoutIfNeeded];
+            }];
         }
     }
     self.oldOffsetY = contentOffsetY;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewShow" object:nil];
+    self.tabBarController.tabBar.alpha = 1;
+    self.searchBarTopLine.constant = 10.f;
+    self.statueView.alpha = 0;
 }
 
 #pragma mark -tableView协议
@@ -377,10 +382,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewHide" object:nil];
     NSDictionary *dict = self.datas[indexPath.row];
     QJIntroViewController *vc = [QJIntroViewController new];
     vc.introUrl = dict[@"url"];
     vc.infoDict = dict;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -388,14 +396,14 @@
 - (UITableView *)tableView {
     if (nil == _tableView) {
         _tableView = [UITableView new];
+        _tableView.frame = CGRectMake(0, 20, kScreenWidth, kScreenHeight - 20);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 157.f;
         _tableView.tableFooterView = [UIView new];
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.contentInset = UIEdgeInsetsMake(65, 0, 0, 0);
-        [_tableView setContentOffset:CGPointMake(0, -65) animated:YES];
+        _tableView.contentInset = UIEdgeInsetsMake(45, 0, 0, 0);
+        [_tableView setContentOffset:CGPointMake(0, -45) animated:YES];
         //注册
         [_tableView registerNib:[UINib nibWithNibName:@"QJMainListCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     }
@@ -459,6 +467,15 @@
         _topButtonView.delegate = self;
     }
     return _topButtonView;
+}
+
+- (UIView *)statueView {
+    if (nil == _statueView) {
+        _statueView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
+        _statueView.backgroundColor = APP_COLOR;
+        _statueView.alpha = 0;
+    }
+    return _statueView;
 }
 
 - (void)didReceiveMemoryWarning {

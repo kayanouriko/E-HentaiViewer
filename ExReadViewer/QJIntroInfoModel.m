@@ -45,15 +45,16 @@
         return;
     }
     introInfoDict[@"imageUrl"]= [imageUrlElement objectForKey:@"src"];
-     */
     //类别
     TFHppleElement *categoryElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdc']//img"].firstObject;
     isError(categoryElement);
     NSString *category = [categoryElement objectForKey:@"alt"];
     introInfoDict[@"category"] = [category uppercaseString];
+     */
     TFHppleElement *categoryUrlElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdc']//a"].firstObject;
     isError(categoryUrlElement);
     introInfoDict[@"categoryUrl"] = [categoryUrlElement objectForKey:@"href"];
+    /*
     //标题
     TFHppleElement *titleElement = [xpathParser searchWithXPathQuery:@"//h1[@id='gn']"].firstObject;
     isError(titleElement);
@@ -62,6 +63,7 @@
     TFHppleElement *authorElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdn']//a"].firstObject;
     isError(authorElement);
     introInfoDict[@"author"] = authorElement.text;
+     */
     //解析一个表格
     //排序:上传时间,Parent(???父类),是否可见(???),语言,文件大小,总页数,喜欢数
     NSArray *otherArr = [xpathParser searchWithXPathQuery:@"//div[@id='gdd']//tr"];

@@ -13,6 +13,8 @@
 "loginfailed" = "登录失败!QAQ";
 "validcookie" = "Cookie有效!";
 "invalidcookie" = "Cookie无效!";
+"deletecookie" = "Cookie已清除!";
+"deletefcookie" = "Cookie清除失败!";
 "select_scene" = "你想选择哪个画廊站点?";
 "cancel" = "取消";
 "searchkey" = "搜索 Hentai";

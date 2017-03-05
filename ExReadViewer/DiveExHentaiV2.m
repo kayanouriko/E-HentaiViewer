@@ -24,11 +24,18 @@
     configuration.HTTPAdditionalHeaders = [self additionalHeaders];
     
     [[[NSURLSession sessionWithConfiguration:configuration] dataTaskWithRequest:request completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!error) {
                 BOOL isSuccess = [self checkCookie];
                 if (isSuccess) {
+                    //获取用户名
+                    NSString *regexStr = @"<p>You are now logged in as.*?<br />";
+                    NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    NSString *userName = [[self matchString:html toRegexString:regexStr].firstObject copy];
+                    userName = [userName stringByReplacingOccurrencesOfString:@"<p>You are now logged in as: " withString:@""];
+                    userName = [userName stringByReplacingOccurrencesOfString:@"<br />" withString:@""];
+                    [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"loginName"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                     [self replaceCookies];
                 }
                 completion(isSuccess);
@@ -38,6 +45,21 @@
             }
         });
     }] resume];
+}
+
++ (NSArray *)matchString:(NSString *)string toRegexString:(NSString *)regexStr {
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray * matches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
+    //match: 所有匹配到的字符,根据() 包含级
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSTextCheckingResult *match in matches) {
+        for (int i = 0; i < [match numberOfRanges]; i++) {
+            //以正则中的(),划分成不同的匹配部分
+            NSString *component = [string substringWithRange:[match rangeAtIndex:i]];
+            [array addObject:component];
+        }
+    }
+    return array;
 }
 
 #pragma mark * request 相關
@@ -131,6 +153,15 @@
         }
     }
     return NO;
+}
+
++ (BOOL)deleteCokie {
+    NSURL *hentaiURL = [NSURL URLWithString:@"http://g.e-hentai.org"];
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [cookieJar cookiesForURL:hentaiURL]) {
+        [cookieJar deleteCookie:cookie];
+    }
+    return YES;
 }
 
 + (void)diveBy:(NSString *)username andPassword:(NSString *)password completion:(void (^)(BOOL isSuccess))completion {

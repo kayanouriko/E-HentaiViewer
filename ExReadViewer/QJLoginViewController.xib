@@ -66,7 +66,7 @@
                 <button opaque="NO" tag="302" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSj-GS-aUw">
                     <rect key="frame" x="212.5" y="206" width="122.5" height="28"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <state key="normal" title="网页登录"/>
+                    <state key="normal" title="清除Cookie"/>
                     <connections>
                         <action selector="btnAction:" destination="-1" eventType="touchUpInside" id="mSI-WM-otA"/>
                     </connections>

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A22E0A21E211735008837FC /* QJSiderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A22E0A11E211735008837FC /* QJSiderView.m */; };
-		5A22E0A41E211767008837FC /* QJSiderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A22E0A31E211767008837FC /* QJSiderView.xib */; };
 		5A39F8881E49546100A45090 /* WUIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A39F8871E49546100A45090 /* WUIImage.m */; };
 		5A3A3C361E10C4F200704F81 /* QJMainListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C341E10C4F200704F81 /* QJMainListCell.m */; };
 		5A3A3C371E10C4F200704F81 /* QJMainListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3A3C351E10C4F200704F81 /* QJMainListCell.xib */; };
@@ -19,6 +17,9 @@
 		5A3A3C551E11150B00704F81 /* HentaiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A3C541E11150B00704F81 /* HentaiParser.m */; };
 		5A3BA4F51E287928000ADEDA /* QJDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3BA4F41E287928000ADEDA /* QJDownloadManager.m */; };
 		5A57ECDC1E11570000B28D37 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A57ECDE1E11570000B28D37 /* Localizable.strings */; };
+		5A66701F1E6B150C0038551D /* QJMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A66701E1E6B150C0038551D /* QJMainTabBarViewController.m */; };
+		5A6D5B361E6C329E008AE79E /* QJSettingUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6D5B341E6C329E008AE79E /* QJSettingUserCell.m */; };
+		5A6D5B371E6C329E008AE79E /* QJSettingUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6D5B351E6C329E008AE79E /* QJSettingUserCell.xib */; };
 		5A7A54E51E4828F9002A817C /* DiveExHentaiV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A54E41E4828F9002A817C /* DiveExHentaiV2.m */; };
 		5A8441E61E22445200896D7A /* QJSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8441E51E22445200896D7A /* QJSettingViewController.m */; };
 		5A89A46C1E2312E4009C82B2 /* QJStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A89A46B1E2312E4009C82B2 /* QJStarView.m */; };
@@ -67,9 +68,6 @@
 		0D3287C0245623183D78C405 /* Pods-ExReadViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExReadViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExReadViewer/Pods-ExReadViewer.release.xcconfig"; sourceTree = "<group>"; };
 		2ADB6691A1526C9215945DC6 /* libPods-ExReadViewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExReadViewer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A82DA07F8B8395FA4867DC /* Pods-ExReadViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExReadViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExReadViewer/Pods-ExReadViewer.debug.xcconfig"; sourceTree = "<group>"; };
-		5A22E0A01E211735008837FC /* QJSiderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSiderView.h; sourceTree = "<group>"; };
-		5A22E0A11E211735008837FC /* QJSiderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSiderView.m; sourceTree = "<group>"; };
-		5A22E0A31E211767008837FC /* QJSiderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSiderView.xib; sourceTree = "<group>"; };
 		5A39F8861E49546100A45090 /* WUIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WUIImage.h; sourceTree = "<group>"; };
 		5A39F8871E49546100A45090 /* WUIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WUIImage.m; sourceTree = "<group>"; };
 		5A3A3C331E10C4F200704F81 /* QJMainListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJMainListCell.h; sourceTree = "<group>"; };
@@ -89,6 +87,11 @@
 		5A57ECD91E11462D00B28D37 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		5A57ECDD1E11570000B28D37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A57ECDF1E11570200B28D37 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5A66701D1E6B150C0038551D /* QJMainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJMainTabBarViewController.h; sourceTree = "<group>"; };
+		5A66701E1E6B150C0038551D /* QJMainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJMainTabBarViewController.m; sourceTree = "<group>"; };
+		5A6D5B331E6C329E008AE79E /* QJSettingUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSettingUserCell.h; sourceTree = "<group>"; };
+		5A6D5B341E6C329E008AE79E /* QJSettingUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSettingUserCell.m; sourceTree = "<group>"; };
+		5A6D5B351E6C329E008AE79E /* QJSettingUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSettingUserCell.xib; sourceTree = "<group>"; };
 		5A7A54E31E4828F9002A817C /* DiveExHentaiV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiveExHentaiV2.h; sourceTree = "<group>"; };
 		5A7A54E41E4828F9002A817C /* DiveExHentaiV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiveExHentaiV2.m; sourceTree = "<group>"; };
 		5A8441E41E22445200896D7A /* QJSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSettingViewController.h; sourceTree = "<group>"; };
@@ -198,16 +201,6 @@
 			name = ListCell;
 			sourceTree = "<group>";
 		};
-		5A22E09F1E211610008837FC /* SiderView */ = {
-			isa = PBXGroup;
-			children = (
-				5A22E0A01E211735008837FC /* QJSiderView.h */,
-				5A22E0A11E211735008837FC /* QJSiderView.m */,
-				5A22E0A31E211767008837FC /* QJSiderView.xib */,
-			);
-			name = SiderView;
-			sourceTree = "<group>";
-		};
 		5A39F8821E49530D00A45090 /* ImageSeparate */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +213,7 @@
 		5A3A3C121E10B00B00704F81 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				5A66701C1E6B14D30038551D /* TabBar */,
 				5A8ADC621E25CAE30075C5F6 /* Favorites */,
 				5A8CA8AE1E2468FB008CB68D /* Hot */,
 				5A956E781E17F637001720B5 /* Tag */,
@@ -233,7 +227,6 @@
 			children = (
 				5ADF4AA81E41FCE600739557 /* TopButtonView */,
 				5A89A4681E2311F0009C82B2 /* StarView */,
-				5A22E09F1E211610008837FC /* SiderView */,
 				5A22E09E1E211603008837FC /* ListCell */,
 			);
 			name = View;
@@ -290,6 +283,25 @@
 			name = DownloadManager;
 			sourceTree = "<group>";
 		};
+		5A66701C1E6B14D30038551D /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				5A66701D1E6B150C0038551D /* QJMainTabBarViewController.h */,
+				5A66701E1E6B150C0038551D /* QJMainTabBarViewController.m */,
+			);
+			name = TabBar;
+			sourceTree = "<group>";
+		};
+		5A6D5B321E6C326E008AE79E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A6D5B331E6C329E008AE79E /* QJSettingUserCell.h */,
+				5A6D5B341E6C329E008AE79E /* QJSettingUserCell.m */,
+				5A6D5B351E6C329E008AE79E /* QJSettingUserCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		5A7A54E21E48237B002A817C /* DiveExHentaiV2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +323,7 @@
 		5A89A4731E232999009C82B2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				5A6D5B321E6C326E008AE79E /* View */,
 				5A8441E41E22445200896D7A /* QJSettingViewController.h */,
 				5A8441E51E22445200896D7A /* QJSettingViewController.m */,
 			);
@@ -683,7 +696,6 @@
 				5ADF4AAA1E41FD2700739557 /* QJTopButtonView.xib in Resources */,
 				5AC789CB1E0F850800DFFAA3 /* LaunchScreen.storyboard in Resources */,
 				5A89A4831E23696C009C82B2 /* QJTouchIDViewController.xib in Resources */,
-				5A22E0A41E211767008837FC /* QJSiderView.xib in Resources */,
 				5AD4A4171E31A2E3004514AF /* QJLoginViewController.xib in Resources */,
 				5A57ECDC1E11570000B28D37 /* Localizable.strings in Resources */,
 				5AC789DC1E0F868600DFFAA3 /* InfoPlist.strings in Resources */,
@@ -694,6 +706,7 @@
 				5AE738F61E18CC9300CCF605 /* QJThumbImageCell.xib in Resources */,
 				5AC789C81E0F850800DFFAA3 /* Assets.xcassets in Resources */,
 				5A8CA8B71E24C579008CB68D /* QJScoreView.xib in Resources */,
+				5A6D5B371E6C329E008AE79E /* QJSettingUserCell.xib in Resources */,
 				5AC789C61E0F850800DFFAA3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -776,17 +789,18 @@
 				5A8ADC871E25DEBC0075C5F6 /* Favorites+CoreDataClass.m in Sources */,
 				5AE738F51E18CC9300CCF605 /* QJThumbImageCell.m in Sources */,
 				5A89A4821E23696C009C82B2 /* QJTouchIDViewController.m in Sources */,
-				5A22E0A21E211735008837FC /* QJSiderView.m in Sources */,
 				5A3BA4F51E287928000ADEDA /* QJDownloadManager.m in Sources */,
 				5A3A3C551E11150B00704F81 /* HentaiParser.m in Sources */,
 				5A89A46C1E2312E4009C82B2 /* QJStarView.m in Sources */,
 				5A8ADC661E25CBCC0075C5F6 /* QJCoreDataModel.xcdatamodeld in Sources */,
+				5A6D5B361E6C329E008AE79E /* QJSettingUserCell.m in Sources */,
 				5A8ADC8B1E2603C20075C5F6 /* QJFavoritesViewController.m in Sources */,
 				5A89A4771E2329CD009C82B2 /* QJAboutViewController.m in Sources */,
 				5A8441E61E22445200896D7A /* QJSettingViewController.m in Sources */,
 				5A956E921E180F9C001720B5 /* QJAllCommentViewController.m in Sources */,
 				5AFD23B41E159BCF0003B905 /* QJIntroViewController.m in Sources */,
 				5AF1D42A1E13E978005D465C /* QJIntroInfoModel.m in Sources */,
+				5A66701F1E6B150C0038551D /* QJMainTabBarViewController.m in Sources */,
 				5A89A47C1E235CF7009C82B2 /* QJAboutListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

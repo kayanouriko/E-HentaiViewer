@@ -34,4 +34,6 @@
 #define ASIANPORN_COLOR [UIColor colorWithRed:0.584 green:0.459 blue:0.804 alpha:1.00]
 #define MISC_COLOR [UIColor colorWithRed:0.941 green:0.384 blue:0.573 alpha:1.00]
 
+#define APP_COLOR [UIColor colorWithRed:0.098 green:0.584 blue:0.533 alpha:1.00]
+
 #endif /* PrefixHeader_pch */

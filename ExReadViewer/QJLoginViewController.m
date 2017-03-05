@@ -64,8 +64,15 @@
             break;
         case 2:
         {
-            [SVProgressHUD showErrorWithStatus:@"功能待开发QAQ"];
-            [SVProgressHUD dismissWithDelay:1.f];
+            [SVProgressHUD show];
+            if ([DiveExHentaiV2 deleteCokie]) {
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"deletecookie", nil)];
+                [SVProgressHUD dismissWithDelay:1.f];
+            }
+            else {
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"deletefcookie", nil)];
+                [SVProgressHUD dismissWithDelay:1.f];
+            }
         }
             break;
         default:
