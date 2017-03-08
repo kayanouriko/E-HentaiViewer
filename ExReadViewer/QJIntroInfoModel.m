@@ -33,6 +33,16 @@
 }
 
 - (void)getAllInfoFromData:(NSData *)data {
+    //获取一些基本的画廊参数,账号操作相关
+    //我的解析太烂了,东一块西一块
+    NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    //base_url
+    NSString *baseurlRegexString = @"var base_url.*?;";
+    NSString *baseurlString = [[self matchString:html toRegexString:baseurlRegexString].firstObject copy];
+    baseurlString = [baseurlString substringFromIndex:16];
+    baseurlString = [baseurlString substringToIndex:baseurlString.length - 2];
+    self.baseUrl = baseurlString;
+    
     self.needUser = NO;
     TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
     //基本信息
@@ -83,6 +93,9 @@
     TFHppleElement *scoreAvgElement = [scoreElement searchWithXPathQuery:@"//td[@id='rating_label']"].firstObject;
     isError(scoreAvgElement);
     introInfoDict[@"scoreAvg"] = scoreAvgElement.text;
+    //是否已收藏
+    TFHppleElement *favoriteElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdf']//a"].firstObject;
+    introInfoDict[@"favoriteStatus"] = favoriteElement.text;
     //简介收集完成
     self.introDict = introInfoDict;
     //收集tag

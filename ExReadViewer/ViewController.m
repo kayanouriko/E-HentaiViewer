@@ -17,6 +17,8 @@
 #import "QJFavoritesViewController.h"
 #import "QJTopButtonView.h"
 #import "DiveExHentaiV2.h"
+#import "AFNetworking.h"
+#import "QJTagMainViewController.h"
 
 #define EHentai_URL @"https://e-hentai.org/"
 #define ExHentai_URL @"https://exhentai.org//"
@@ -24,7 +26,7 @@
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,QJTopButtonViewDelagate>
 //导航栏
 @property (strong, nonatomic) QJTopButtonView *topButtonView;
-@property (strong, nonatomic) UIView *statueView;
+//@property (strong, nonatomic) UIView *statueView;
 //tablewview
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datas;
@@ -58,7 +60,7 @@
     //如果Cookie有问题,则进来不刷新数据
     if (self.isExHentai && ![DiveExHentaiV2 checkCookie]) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"invalidcookie", nil)];
-        [SVProgressHUD dismissWithDelay:2.f];
+        [SVProgressHUD dismissWithDelay:1.f];
         return;
     }
     [self.tableView.mj_header beginRefreshing];
@@ -98,11 +100,22 @@
     self.needTouchID = YES;
     //中间按钮视图
     self.navigationItem.titleView = self.topButtonView;
+    //判断状态
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ehentaiStatus"]) {
+        self.isExHentai = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ehentaiStatus"] boolValue];
+    }
+    else {
+        self.isExHentai = NO;
+        [[NSUserDefaults standardUserDefaults] setObject:@(self.isExHentai) forKey:@"ehentaiStatus"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     //状态栏
-    [self.view addSubview:self.statueView];
+    //[self.view addSubview:self.statueView];
     //tablewview
     [self.view addSubview:self.tableView];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.pageIndex = 0;
@@ -134,14 +147,6 @@
     [self.view bringSubviewToFront:self.searchKeyView];
     [self.view bringSubviewToFront:self.searchBarView];
     //设置板块状态
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ehentaiStatus"]) {
-        self.isExHentai = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ehentaiStatus"] boolValue];
-    }
-    else {
-        self.isExHentai = NO;
-        [[NSUserDefaults standardUserDefaults] setObject:@(self.isExHentai) forKey:@"ehentaiStatus"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
     self.topButtonView.titleLabel.text = self.isExHentai ? @"ExHentai" : @"EHentai";
     //设置按钮状态
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"searchBtnStatus"]) {
@@ -179,6 +184,59 @@
             [btn setTitleColor:selectColor forState:UIControlStateNormal];
         }
     }
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame=CGRectMake(0, 0, 44, 24);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 0, 24, 24)];
+    imageView.image = [UIImage imageNamed:@"ic_zyhc"];
+    [btn addSubview:imageView];
+    [btn addTarget:self action:@selector(tagSearch)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = item;
+    /*
+     留言测试
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"发言" style:UIBarButtonItemStylePlain target:self action:@selector(sendSMS)];
+    self.navigationItem.rightBarButtonItem = item;
+     */
+}
+
+#pragma mark -本地保存的tag搜索
+- (void)tagSearch {
+    QJTagMainViewController *vc = [QJTagMainViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)sendSMS {
+    /*
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    [session.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [session POST:@"https://exhentai.org/g/1021714/d2cdad1c4a/" parameters:@{@"commenttext":@"惊了这结局...",@"postcomment":@"Post Comment"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error: %@",error);
+    }];
+    
+    [session setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
+        if (request) {
+            //this is the redirected url
+            NSLog(@"%@",request.URL);
+            return nil;
+        }
+        return request;
+    }];
+    */
+}
+
+- (void)refreshUI {
+    if (![self.tableView.mj_header isRefreshing] && ![self.tableView.mj_footer isRefreshing]) {
+        self.searchBarTopLine.constant = 10.f;
+        [self.tableView.mj_header beginRefreshing];
+        self.pageIndex = 0;
+        [self updateResource];
+    }
 }
 
 - (void)updateResource {
@@ -193,6 +251,7 @@
             if ([self.tableView.mj_header isRefreshing]) {
                 [self.datas removeAllObjects];
                 [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
             }
             else if ([self.tableView.mj_footer isRefreshing]) {
                 [self.tableView.mj_footer endRefreshing];
@@ -204,8 +263,12 @@
             [self.tableView reloadData];
         }
         else {
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
+            if ([self.tableView.mj_header isRefreshing]) {
+                [self.tableView.mj_header endRefreshing];
+                [self.datas removeAllObjects];
+            }
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            [self.tableView reloadData];
         }
     }];
 }
@@ -337,24 +400,28 @@
 #pragma mark -uitableview滚动
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     float contentOffsetY = scrollView.contentOffset.y;
-    if (self.oldOffsetY && contentOffsetY > 0) {
+    if (self.oldOffsetY && contentOffsetY > -65) {
         float changeOffset = self.oldOffsetY - contentOffsetY;
         if (changeOffset > 0) {
+            /*
             self.tableView.bounces = YES;
             [self.navigationController setNavigationBarHidden:NO animated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewShow" object:nil];
+             */
             [UIView animateWithDuration:0.25f animations:^{
                 self.searchBarTopLine.constant = 10.f;
-                self.statueView.alpha = 0;
+                //self.statueView.alpha = 0;
                 [self.view layoutIfNeeded];
             }];
         } else {
+            /*
             self.tableView.bounces = NO;
             [self.navigationController setNavigationBarHidden:YES animated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewHide" object:nil];
+             */
             [UIView animateWithDuration:0.25f animations:^{
-                self.searchBarTopLine.constant = -70.f;
-                self.statueView.alpha = 1;
+                self.searchBarTopLine.constant = -60.f;
+                //self.statueView.alpha = 1;
                 [self.view layoutIfNeeded];
             }];
         }
@@ -362,6 +429,7 @@
     self.oldOffsetY = contentOffsetY;
 }
 
+/*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewShow" object:nil];
@@ -369,6 +437,7 @@
     self.searchBarTopLine.constant = 10.f;
     self.statueView.alpha = 0;
 }
+*/
 
 #pragma mark -tableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -396,14 +465,15 @@
 - (UITableView *)tableView {
     if (nil == _tableView) {
         _tableView = [UITableView new];
-        _tableView.frame = CGRectMake(0, 20, kScreenWidth, kScreenHeight - 20);
+        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        //_tableView.frame = CGRectMake(0, 20, kScreenWidth, kScreenHeight - 20);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 157.f;
         _tableView.tableFooterView = [UIView new];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.contentInset = UIEdgeInsetsMake(45, 0, 0, 0);
-        [_tableView setContentOffset:CGPointMake(0, -45) animated:YES];
+        _tableView.contentInset = UIEdgeInsetsMake(65, 0, 0, 0);
+        [_tableView setContentOffset:CGPointMake(0, -65) animated:YES];
         //注册
         [_tableView registerNib:[UINib nibWithNibName:@"QJMainListCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     }
@@ -469,6 +539,7 @@
     return _topButtonView;
 }
 
+/*
 - (UIView *)statueView {
     if (nil == _statueView) {
         _statueView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
@@ -477,6 +548,7 @@
     }
     return _statueView;
 }
+*/
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

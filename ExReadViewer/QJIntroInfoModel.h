@@ -17,12 +17,13 @@
 
 @interface QJIntroInfoModel : NSObject
 
+@property (strong, nonatomic) NSString *baseUrl;
 @property (strong, nonatomic) NSDictionary *introDict;//简介信息
 @property (strong, nonatomic) NSArray *tagArr;//tag信息
 @property (strong, nonatomic) NSArray *commentsArr;//评论信息
 @property (strong, nonatomic) NSMutableArray *allImageUrlArr;//缩略图
 @property (assign, nonatomic) NSInteger requestCount;//总数
-@property (assign, nonatomic) BOOL needUser;//需要登录
+@property (assign, nonatomic) BOOL needUser;//有问题的判断需要进一步处理
 
 - (instancetype)initWithData:(NSData *)data;
 - (NSMutableArray *)getAllImageWithData:(NSData *)data;

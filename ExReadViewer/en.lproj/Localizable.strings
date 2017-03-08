@@ -56,7 +56,12 @@
 "similar_gallery" = "Similar";
 "search_cover" = "Search Cover";
 "add_to_favorite_success" = "Added to favorites";
+"add_to_favorite_failed" = "Added to favorites failed";
 "remove_from_favorite_success" = "Removed from favorites";
+"remove_from_favorite_failed" = "Removed from favorites failed";
+"error404" = "Gallery had deleted!";
 
-
+"sign_in_first" = "Please sign in first";
+"choose" = "Choose";
+"tagSearch" = "Tag Search";
 

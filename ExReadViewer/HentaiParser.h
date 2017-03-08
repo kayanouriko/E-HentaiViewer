@@ -7,6 +7,7 @@
 //
 //  17-01-08 新增语种筛选,规则来源于Hippo Seven
 //  17-01-10 新增热门列表
+//  17-03-07 新增收藏和取消收藏操作(需登录账号)
 
 #import <Foundation/Foundation.h>
 
@@ -26,5 +27,8 @@ typedef enum {
 
 //取得某一本漫畫中的圖片連結
 + (void)requestImagesAtURL:(NSString *)urlString atIndex:(NSUInteger)index completion:(void (^)(HentaiParserStatus status, NSArray *images))completion;
+
+//收藏或者取消收藏
++ (void)operateFavoritesAtUrl:(NSString *)url fromData:(NSDictionary *)dict completion:(void (^)(HentaiParserStatus status))completion;
 
 @end

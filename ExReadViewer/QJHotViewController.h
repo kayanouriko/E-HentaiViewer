@@ -10,4 +10,6 @@
 
 @interface QJHotViewController : UIViewController
 
+- (void)refreshUI;
+
 @end

@@ -10,4 +10,6 @@
 
 @interface QJFavoritesViewController : UIViewController
 
+- (void)refreshUI;
+
 @end

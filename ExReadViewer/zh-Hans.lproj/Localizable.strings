@@ -54,5 +54,12 @@
 "similar_gallery" = "类似画廊";
 "search_cover" = "搜索封面";
 "add_to_favorite_success" = "已添加至收藏!";
+"add_to_favorite_failed" = "添加收藏失败!";
 "remove_from_favorite_success" = "移除收藏!";
+"remove_from_favorite_failed" = "移除收藏失败!";
 "favorited" = "已收藏";
+"error404" = "该画廊已被删除!";
+
+"sign_in_first" = "请先登录!";
+"choose" = "选择";
+"tagSearch" = "标签快速搜索";

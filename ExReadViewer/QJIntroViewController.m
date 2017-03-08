@@ -20,13 +20,15 @@
 #import "QJScoreView.h"
 #import "QJDataManager.h"
 #import "QJDownloadManager.h"
+#import "DiveExHentaiV2.h"
+#import "QJFavoritesChooseController.h"
 
 typedef NS_ENUM(NSInteger, introButtonStyle){
     introButtonStyleDownload, //下载
     introButtonStyleRead //阅读
 };
 
-@interface QJIntroViewController ()<QJTagViewDelagate,UICollectionViewDelegate,UICollectionViewDataSource,MWPhotoBrowserDelegate,QJScoreViewDelagate>
+@interface QJIntroViewController ()<QJTagViewDelagate,UICollectionViewDelegate,UICollectionViewDataSource,MWPhotoBrowserDelegate,QJScoreViewDelagate,QJFavoritesChooseControllerDelagate>
 //简介部分
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewHeightLine;
@@ -65,8 +67,10 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *datas;
 //一些数据属性
-@property (assign, nonatomic) BOOL isCollected;
-@property (strong, nonatomic) QJDataManager *manager;
+@property (assign, nonatomic) BOOL canUpdateResource;
+@property (strong, nonatomic) NSString *baseUrl;
+@property (assign, nonatomic) BOOL isCollected;//判断收藏状态
+//@property (strong, nonatomic) QJDataManager *manager;
 @property (assign, nonatomic) NSInteger requestCount;//请求页码的次数
 @property (strong, nonatomic) NSMutableArray *bigImageUrlArr;
 @property (strong, nonatomic) NSMutableArray *downImageUrlArr;
@@ -100,10 +104,13 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
     [SVProgressHUD dismiss];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
+    
+    self.canUpdateResource = NO;
 }
 
 - (void)creatUI {
     //数据库初始化
+    /*
     NSString *localPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [localPath  stringByAppendingPathComponent:@"QJCoreDataModel.db"];
     NSLog(@"%@",filePath);
@@ -114,6 +121,8 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
             self.isCollected = YES;
         }
     } fail:nil];
+    */
+    self.canUpdateResource = YES;
     
     [self.downloadBtn setTitle:NSLocalizedString(@"download", nil) forState:UIControlStateNormal];
     [self.readBtn setTitle:NSLocalizedString(@"read", nil) forState:UIControlStateNormal];
@@ -122,6 +131,15 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
     self.introButtonView.layer.shadowOffset = CGSizeMake(4,4);
     self.introButtonView.layer.shadowOpacity = 0.2;
     self.introButtonView.layer.shadowRadius = 4;
+    
+    //简介提前显示部分
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.infoDict[@"thumb"]] placeholderImage:[UIImage imageNamed:@"panda"] options:SDWebImageHandleCookies];
+    self.titleLabel.text = self.infoDict[@"title"];
+    self.authorLabel.text = self.infoDict[@"uploader"];
+    NSString *category = [self.infoDict[@"category"] uppercaseString];
+    [self.categoryBtn setTitle:[NSString stringWithFormat:@"  %@  ",category] forState:UIControlStateNormal];
+    self.categoryName = category;
+    self.categoryBtn.backgroundColor = self.colorDict[category];
     
     [self.photoView addSubview:self.collectionView];
     [self.photoView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_collectionView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_collectionView)]];
@@ -132,7 +150,8 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
     [SVProgressHUD show];
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     session.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [session GET:self.introUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@?nw=always",self.introUrl];
+    [session GET:urlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSData *data = responseObject;
         QJIntroInfoModel *model = [[QJIntroInfoModel alloc] initWithData:data];
         if (model.needUser) {
@@ -141,6 +160,9 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
             return;
         }
         else {
+            //基础url
+            self.baseUrl = model.baseUrl;
+            //简介部分
             [self refreshUIWithModel:model];
             //缩略图部分
             self.datas = model.allImageUrlArr;
@@ -151,23 +173,21 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
             [self updateScrollViewHeight];
             //获取大图地址
             self.requestCount = model.requestCount;
-            [self getAllBigImageUrlWithPageCount:0];
-            
+            if (self.canUpdateResource) {
+                [self getAllBigImageUrlWithPageCount:0];
+            }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"error404", nil)];
+        [SVProgressHUD dismissWithDelay:1.f];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }];
 }
 
 - (void)refreshUIWithModel:(QJIntroInfoModel *)model {
     //简介部分
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.infoDict[@"thumb"]] placeholderImage:[UIImage imageNamed:@"panda"] options:SDWebImageHandleCookies];
-    self.titleLabel.text = self.infoDict[@"title"];
-    self.authorLabel.text = self.infoDict[@"uploader"];
-    NSString *category = [self.infoDict[@"category"] uppercaseString];
-    [self.categoryBtn setTitle:[NSString stringWithFormat:@"  %@  ",category] forState:UIControlStateNormal];
-    self.categoryName = category;
-    self.categoryBtn.backgroundColor = self.colorDict[category];
     self.categoryUrl = model.introDict[@"categoryUrl"];
     self.pageLabel.text = model.introDict[@"length"];
     self.languageLabel.text = model.introDict[@"language"];
@@ -178,6 +198,7 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
     self.scoreBgView = [[NSBundle mainBundle] loadNibNamed:@"QJScoreView" owner:nil options:nil][0];
     self.scoreBgView.frame = CGRectMake(0, 0, kScreenWidth, 191);
     self.scoreBgView.delegate = self;
+    self.isCollected = ![model.introDict[@"favoriteStatus"] isEqualToString:@" Add to Favorites"];
     if (self.isCollected) {
         [self.scoreBgView.collectBtn setImage:[UIImage imageNamed:@"collected"] forState:UIControlStateNormal];
         self.scoreBgView.favoritesLabel.text = NSLocalizedString(@"favorited", nil);
@@ -263,7 +284,7 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
                 [self.browser reloadData];
             }
             NSInteger i = index + 1;
-            if (i <= self.requestCount) {
+            if (i <= self.requestCount && self.canUpdateResource) {
                 [self getAllBigImageUrlWithPageCount:i];
             }
         }
@@ -384,7 +405,34 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 }
 
 - (void)changeFavoritesStatus {
+    if (![DiveExHentaiV2 checkCookie]) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"sign_in_first", nil)];
+        [SVProgressHUD dismissWithDelay:1.f];
+        return;
+    }
     if (self.isCollected) {
+        //取消收藏
+        [SVProgressHUD show];
+        NSString *url = [NSString stringWithFormat:@"%@gallerypopups.php?gid=%@&t=%@&act=addfav",self.baseUrl,self.infoDict[@"gid"],self.infoDict[@"token"]];
+        NSDictionary *dict = @{
+                               @"favcat":@"favdel",
+                               @"favnote":@"",//留言
+                               @"apply":@"Apply Changes",
+                               @"update":@"1"
+                               };
+        [HentaiParser operateFavoritesAtUrl:url fromData:dict completion:^(HentaiParserStatus status) {
+            if (status == HentaiParserStatusSuccess) {
+                [self.scoreBgView.collectBtn setImage:[UIImage imageNamed:@"collect"] forState:UIControlStateNormal];
+                self.scoreBgView.favoritesLabel.text = NSLocalizedString(@"favorites", nil);
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"remove_from_favorite_success", nil)];
+                [SVProgressHUD dismissWithDelay:1.f];
+                self.isCollected = !self.isCollected;
+            } else {
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"remove_from_favorite_failed", nil)];
+                [SVProgressHUD dismissWithDelay:1.f];
+            }
+        }];
+        /*
         __block NSManagedObject *obj = nil;
         [self.manager readEntity:@[] ascending:NO filterStr:[NSString stringWithFormat:@"url == '%@'",self.introUrl] success:^(NSArray *results) {
             if (results.count) {
@@ -397,7 +445,13 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"remove_from_favorite_success", nil)];
             [SVProgressHUD dismissWithDelay:1.f];
         } fail:nil];
+         */
     } else {
+        //添加收藏
+        QJFavoritesChooseController *vc = [QJFavoritesChooseController new];
+        vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+        /*
         [self.manager insertNewEntity:self.infoDict success:^{
             [self.scoreBgView.collectBtn setImage:[UIImage imageNamed:@"collected"] forState:UIControlStateNormal];
             self.scoreBgView.favoritesLabel.text = NSLocalizedString(@"favorited", nil);
@@ -405,8 +459,36 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
             [SVProgressHUD dismissWithDelay:1.f];
             
         } fail:nil];
+         */
     }
-    self.isCollected = !self.isCollected;
+}
+
+#pragma mark -QJFavoritesChooseControllerDelegate
+- (void)didSelectFavoritesWithIndex:(NSInteger)index {
+    [SVProgressHUD show];
+    NSString *url = [NSString stringWithFormat:@"%@gallerypopups.php?gid=%@&t=%@&act=addfav",self.baseUrl,self.infoDict[@"gid"],self.infoDict[@"token"]];
+    NSInteger indexNew = index;
+    if (indexNew == 10) {
+        indexNew = 0;
+    }
+    NSDictionary *dict = @{
+                           @"favcat":@(indexNew),
+                           @"favnote":@"",//留言
+                           @"apply":@"Add to Favorites",
+                           @"update":@"1"
+                           };
+    [HentaiParser operateFavoritesAtUrl:url fromData:dict completion:^(HentaiParserStatus status) {
+        if (status == HentaiParserStatusSuccess) {
+            [self.scoreBgView.collectBtn setImage:[UIImage imageNamed:@"collected"] forState:UIControlStateNormal];
+            self.scoreBgView.favoritesLabel.text = NSLocalizedString(@"favorited", nil);
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"add_to_favorite_success", nil)];
+            [SVProgressHUD dismissWithDelay:1.f];
+            self.isCollected = !self.isCollected;
+        } else {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"add_to_favorite_failed", nil)];
+            [SVProgressHUD dismissWithDelay:1.f];
+        }
+    }];
 }
 
 - (void)shareInfo {

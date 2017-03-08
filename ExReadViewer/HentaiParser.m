@@ -8,6 +8,7 @@
 
 #import "HentaiParser.h"
 #import "TFHpple.h"
+#import "AFNetworking.h"
 #import <objc/runtime.h>
 
 #define hentaiAPIURL @"https://e-hentai.org/api.php"
@@ -27,6 +28,20 @@
 @end
 
 @implementation HentaiParser
+
+#pragma mark -收藏相关操作
++ (void)operateFavoritesAtUrl:(NSString *)url fromData:(NSDictionary *)dict completion:(void (^)(HentaiParserStatus))completion {
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    session.requestSerializer = [AFHTTPRequestSerializer serializer];
+    session.responseSerializer = [AFHTTPResponseSerializer serializer];
+    session.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [session.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [session POST:url parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        completion(HentaiParserStatusSuccess);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(HentaiParserStatusNetworkFail);
+    }];
+}
 
 #pragma mark - class method
 + (void)requestHotListForExHentai:(BOOL)isForExHentai completion:(void (^)(HentaiParserStatus, NSArray *))completion {
@@ -68,6 +83,9 @@
                             eachDictionary[@"filesize"] = [NSByteCountFormatter stringFromByteCount:[metaData[@"filesize"] floatValue] countStyle:NSByteCountFormatterCountStyleFile];
                             eachDictionary[@"rating"] = metaData[@"rating"];
                             eachDictionary[@"posted"] = [self dateStringFrom1970:[metaData[@"posted"] doubleValue]];
+                            //新增一些操作相关的信息
+                            eachDictionary[@"gid"] = metaData[@"gid"];
+                            eachDictionary[@"token"] = metaData[@"token"];
                         }
                         dispatch_async(dispatch_get_main_queue(), ^{
                             completion(HentaiParserStatusSuccess, returnArray);
@@ -128,6 +146,9 @@
                             eachDictionary[@"filesize"] = [NSByteCountFormatter stringFromByteCount:[metaData[@"filesize"] floatValue] countStyle:NSByteCountFormatterCountStyleFile];
                             eachDictionary[@"rating"] = metaData[@"rating"];
                             eachDictionary[@"posted"] = [self dateStringFrom1970:[metaData[@"posted"] doubleValue]];
+                            //新增一些操作相关的信息
+                            eachDictionary[@"gid"] = metaData[@"gid"];
+                            eachDictionary[@"token"] = metaData[@"token"];
                         }
                         dispatch_async(dispatch_get_main_queue(), ^{
                             completion(HentaiParserStatusSuccess, returnArray);

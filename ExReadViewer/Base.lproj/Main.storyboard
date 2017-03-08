@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--EHentai-->
+        <!--首页-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="mainVC" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
@@ -276,7 +276,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="首页" image="Home" id="cew-ux-Ygf"/>
-                    <navigationItem key="navigationItem" title="EHentai" id="Nuo-JP-Pec"/>
+                    <navigationItem key="navigationItem" id="Nuo-JP-Pec"/>
                     <connections>
                         <outlet property="crossImageView" destination="e0p-LZ-rmk" id="tcN-d8-zW2"/>
                         <outlet property="searchBarBgView" destination="YVR-Sp-FuJ" id="OHo-aK-gXV"/>

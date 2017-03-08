@@ -14,7 +14,7 @@
 @interface QJHotViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) UIView *statueView;
+//@property (strong, nonatomic) UIView *statueView;
 @property (strong, nonatomic) NSMutableArray *datas;
 @property (assign, nonatomic) float oldOffsetY;//前一次偏移量
 
@@ -29,11 +29,20 @@
     [self updateResource];
 }
 
+- (void)refreshUI {
+    if (![self.tableView.mj_header isRefreshing]) {
+        [self.tableView.mj_header beginRefreshing];
+        [self updateResource];
+    }
+}
+
 - (void)creatUI {
     self.title = NSLocalizedString(@"hot", nil);
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.view addSubview:self.statueView];
+    //[self.view addSubview:self.statueView];
     [self.view addSubview:self.tableView];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self updateResource];
@@ -60,6 +69,7 @@
 }
 
 #pragma mark -uitableview滚动
+/*
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     float contentOffsetY = scrollView.contentOffset.y;
     if (self.oldOffsetY && contentOffsetY > 0) {
@@ -88,7 +98,9 @@
     }
     self.oldOffsetY = contentOffsetY;
 }
+*/
 
+/*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewShow" object:nil];
@@ -97,6 +109,7 @@
     self.statueView.frame = CGRectMake(0, 0, kScreenWidth, 0);
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
 }
+*/
 
 #pragma mark -tableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -110,8 +123,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewHide" object:nil];
+    //[self.navigationController setNavigationBarHidden:NO animated:NO];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewHide" object:nil];
     NSDictionary *dict = self.datas[indexPath.row];
     QJIntroViewController *vc = [QJIntroViewController new];
     vc.introUrl = dict[@"url"];
@@ -124,7 +137,8 @@
 - (UITableView *)tableView {
     if (nil == _tableView) {
         _tableView = [UITableView new];
-        _tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        //_tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - 49);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 157.f;
@@ -136,6 +150,7 @@
     return _tableView;
 }
 
+/*
 - (UIView *)statueView {
     if (nil == _statueView) {
         _statueView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
@@ -144,6 +159,7 @@
     }
     return _statueView;
 }
+ */
 
 - (NSMutableArray *)datas {
     if (nil == _datas) {

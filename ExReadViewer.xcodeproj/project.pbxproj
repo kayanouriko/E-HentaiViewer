@@ -18,6 +18,9 @@
 		5A3BA4F51E287928000ADEDA /* QJDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3BA4F41E287928000ADEDA /* QJDownloadManager.m */; };
 		5A57ECDC1E11570000B28D37 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A57ECDE1E11570000B28D37 /* Localizable.strings */; };
 		5A66701F1E6B150C0038551D /* QJMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A66701E1E6B150C0038551D /* QJMainTabBarViewController.m */; };
+		5A67BF9E1E6FD6610047D25F /* TagCollect+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A67BF9B1E6FD6610047D25F /* TagCollect+CoreDataClass.m */; };
+		5A67BF9F1E6FD6610047D25F /* TagCollect+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A67BF9D1E6FD6610047D25F /* TagCollect+CoreDataProperties.m */; };
+		5A67BFB81E6FE31C0047D25F /* QJTagMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A67BFB71E6FE31C0047D25F /* QJTagMainViewController.m */; };
 		5A6D5B361E6C329E008AE79E /* QJSettingUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6D5B341E6C329E008AE79E /* QJSettingUserCell.m */; };
 		5A6D5B371E6C329E008AE79E /* QJSettingUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6D5B351E6C329E008AE79E /* QJSettingUserCell.xib */; };
 		5A7A54E51E4828F9002A817C /* DiveExHentaiV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A54E41E4828F9002A817C /* DiveExHentaiV2.m */; };
@@ -31,14 +34,15 @@
 		5A8ADC661E25CBCC0075C5F6 /* QJCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A8ADC641E25CBCC0075C5F6 /* QJCoreDataModel.xcdatamodeld */; };
 		5A8ADC731E25CE420075C5F6 /* QJDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8ADC721E25CE420075C5F6 /* QJDataManager.m */; };
 		5A8ADC761E25D8760075C5F6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8ADC741E25D4290075C5F6 /* CoreData.framework */; };
-		5A8ADC871E25DEBC0075C5F6 /* Favorites+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8ADC841E25DEBC0075C5F6 /* Favorites+CoreDataClass.m */; };
-		5A8ADC881E25DEBC0075C5F6 /* Favorites+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8ADC861E25DEBC0075C5F6 /* Favorites+CoreDataProperties.m */; };
 		5A8ADC8B1E2603C20075C5F6 /* QJFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8ADC8A1E2603C20075C5F6 /* QJFavoritesViewController.m */; };
 		5A8CA8B11E246944008CB68D /* QJHotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8CA8B01E246944008CB68D /* QJHotViewController.m */; };
 		5A8CA8B51E24C560008CB68D /* QJScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8CA8B41E24C560008CB68D /* QJScoreView.m */; };
 		5A8CA8B71E24C579008CB68D /* QJScoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CA8B61E24C579008CB68D /* QJScoreView.xib */; };
 		5A8CA8BF1E24F518008CB68D /* QJPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8CA8BD1E24F518008CB68D /* QJPasswordViewController.m */; };
 		5A8CA8C01E24F518008CB68D /* QJPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8CA8BE1E24F518008CB68D /* QJPasswordViewController.xib */; };
+		5A955D031E6EC5A9009DC5C8 /* QJFavoritesChooseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A955D021E6EC5A9009DC5C8 /* QJFavoritesChooseController.m */; };
+		5A955D081E6EC6BA009DC5C8 /* QJFavoritesChooseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A955D061E6EC6BA009DC5C8 /* QJFavoritesChooseCell.m */; };
+		5A955D091E6EC6BA009DC5C8 /* QJFavoritesChooseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A955D071E6EC6BA009DC5C8 /* QJFavoritesChooseCell.xib */; };
 		5A956E741E176F7B001720B5 /* QJTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A956E731E176F7B001720B5 /* QJTagView.m */; };
 		5A956E7B1E17F661001720B5 /* QJTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A956E7A1E17F661001720B5 /* QJTagViewController.m */; };
 		5A956E851E17FDC0001720B5 /* QJCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A956E831E17FDC0001720B5 /* QJCommentCell.m */; };
@@ -89,6 +93,12 @@
 		5A57ECDF1E11570200B28D37 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5A66701D1E6B150C0038551D /* QJMainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJMainTabBarViewController.h; sourceTree = "<group>"; };
 		5A66701E1E6B150C0038551D /* QJMainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJMainTabBarViewController.m; sourceTree = "<group>"; };
+		5A67BF9A1E6FD6610047D25F /* TagCollect+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TagCollect+CoreDataClass.h"; sourceTree = "<group>"; };
+		5A67BF9B1E6FD6610047D25F /* TagCollect+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TagCollect+CoreDataClass.m"; sourceTree = "<group>"; };
+		5A67BF9C1E6FD6610047D25F /* TagCollect+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TagCollect+CoreDataProperties.h"; sourceTree = "<group>"; };
+		5A67BF9D1E6FD6610047D25F /* TagCollect+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TagCollect+CoreDataProperties.m"; sourceTree = "<group>"; };
+		5A67BFB61E6FE31C0047D25F /* QJTagMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTagMainViewController.h; sourceTree = "<group>"; };
+		5A67BFB71E6FE31C0047D25F /* QJTagMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTagMainViewController.m; sourceTree = "<group>"; };
 		5A6D5B331E6C329E008AE79E /* QJSettingUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSettingUserCell.h; sourceTree = "<group>"; };
 		5A6D5B341E6C329E008AE79E /* QJSettingUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSettingUserCell.m; sourceTree = "<group>"; };
 		5A6D5B351E6C329E008AE79E /* QJSettingUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSettingUserCell.xib; sourceTree = "<group>"; };
@@ -110,10 +120,6 @@
 		5A8ADC711E25CE420075C5F6 /* QJDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJDataManager.h; sourceTree = "<group>"; };
 		5A8ADC721E25CE420075C5F6 /* QJDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJDataManager.m; sourceTree = "<group>"; };
 		5A8ADC741E25D4290075C5F6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		5A8ADC831E25DEBC0075C5F6 /* Favorites+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Favorites+CoreDataClass.h"; sourceTree = "<group>"; };
-		5A8ADC841E25DEBC0075C5F6 /* Favorites+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Favorites+CoreDataClass.m"; sourceTree = "<group>"; };
-		5A8ADC851E25DEBC0075C5F6 /* Favorites+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Favorites+CoreDataProperties.h"; sourceTree = "<group>"; };
-		5A8ADC861E25DEBC0075C5F6 /* Favorites+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Favorites+CoreDataProperties.m"; sourceTree = "<group>"; };
 		5A8ADC891E2603C20075C5F6 /* QJFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJFavoritesViewController.h; sourceTree = "<group>"; };
 		5A8ADC8A1E2603C20075C5F6 /* QJFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJFavoritesViewController.m; sourceTree = "<group>"; };
 		5A8CA8AF1E246944008CB68D /* QJHotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJHotViewController.h; sourceTree = "<group>"; };
@@ -124,6 +130,11 @@
 		5A8CA8BC1E24F518008CB68D /* QJPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJPasswordViewController.h; sourceTree = "<group>"; };
 		5A8CA8BD1E24F518008CB68D /* QJPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJPasswordViewController.m; sourceTree = "<group>"; };
 		5A8CA8BE1E24F518008CB68D /* QJPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJPasswordViewController.xib; sourceTree = "<group>"; };
+		5A955D011E6EC5A9009DC5C8 /* QJFavoritesChooseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJFavoritesChooseController.h; sourceTree = "<group>"; };
+		5A955D021E6EC5A9009DC5C8 /* QJFavoritesChooseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJFavoritesChooseController.m; sourceTree = "<group>"; };
+		5A955D051E6EC6BA009DC5C8 /* QJFavoritesChooseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJFavoritesChooseCell.h; sourceTree = "<group>"; };
+		5A955D061E6EC6BA009DC5C8 /* QJFavoritesChooseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJFavoritesChooseCell.m; sourceTree = "<group>"; };
+		5A955D071E6EC6BA009DC5C8 /* QJFavoritesChooseCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJFavoritesChooseCell.xib; sourceTree = "<group>"; };
 		5A956E721E176F7B001720B5 /* QJTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTagView.h; sourceTree = "<group>"; };
 		5A956E731E176F7B001720B5 /* QJTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTagView.m; sourceTree = "<group>"; };
 		5A956E791E17F661001720B5 /* QJTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTagViewController.h; sourceTree = "<group>"; };
@@ -292,6 +303,24 @@
 			name = TabBar;
 			sourceTree = "<group>";
 		};
+		5A67BFB41E6FE2CC0047D25F /* List */ = {
+			isa = PBXGroup;
+			children = (
+				5A956E791E17F661001720B5 /* QJTagViewController.h */,
+				5A956E7A1E17F661001720B5 /* QJTagViewController.m */,
+			);
+			name = List;
+			sourceTree = "<group>";
+		};
+		5A67BFB51E6FE2D60047D25F /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5A67BFB61E6FE31C0047D25F /* QJTagMainViewController.h */,
+				5A67BFB71E6FE31C0047D25F /* QJTagMainViewController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
 		5A6D5B321E6C326E008AE79E /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,8 +408,8 @@
 		5A8ADC621E25CAE30075C5F6 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				5A8ADC891E2603C20075C5F6 /* QJFavoritesViewController.h */,
-				5A8ADC8A1E2603C20075C5F6 /* QJFavoritesViewController.m */,
+				5A955D001E6EC568009DC5C8 /* Choose */,
+				5A955CFF1E6EC55D009DC5C8 /* Main */,
 			);
 			name = Favorites;
 			sourceTree = "<group>";
@@ -388,10 +417,10 @@
 		5A8ADC631E25CB9C0075C5F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				5A8ADC831E25DEBC0075C5F6 /* Favorites+CoreDataClass.h */,
-				5A8ADC841E25DEBC0075C5F6 /* Favorites+CoreDataClass.m */,
-				5A8ADC851E25DEBC0075C5F6 /* Favorites+CoreDataProperties.h */,
-				5A8ADC861E25DEBC0075C5F6 /* Favorites+CoreDataProperties.m */,
+				5A67BF9A1E6FD6610047D25F /* TagCollect+CoreDataClass.h */,
+				5A67BF9B1E6FD6610047D25F /* TagCollect+CoreDataClass.m */,
+				5A67BF9C1E6FD6610047D25F /* TagCollect+CoreDataProperties.h */,
+				5A67BF9D1E6FD6610047D25F /* TagCollect+CoreDataProperties.m */,
 				5A8ADC641E25CBCC0075C5F6 /* QJCoreDataModel.xcdatamodeld */,
 				5A8ADC711E25CE420075C5F6 /* QJDataManager.h */,
 				5A8ADC721E25CE420075C5F6 /* QJDataManager.m */,
@@ -428,6 +457,35 @@
 			name = Password;
 			sourceTree = "<group>";
 		};
+		5A955CFF1E6EC55D009DC5C8 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5A8ADC891E2603C20075C5F6 /* QJFavoritesViewController.h */,
+				5A8ADC8A1E2603C20075C5F6 /* QJFavoritesViewController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		5A955D001E6EC568009DC5C8 /* Choose */ = {
+			isa = PBXGroup;
+			children = (
+				5A955D041E6EC674009DC5C8 /* View */,
+				5A955D011E6EC5A9009DC5C8 /* QJFavoritesChooseController.h */,
+				5A955D021E6EC5A9009DC5C8 /* QJFavoritesChooseController.m */,
+			);
+			name = Choose;
+			sourceTree = "<group>";
+		};
+		5A955D041E6EC674009DC5C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A955D051E6EC6BA009DC5C8 /* QJFavoritesChooseCell.h */,
+				5A955D061E6EC6BA009DC5C8 /* QJFavoritesChooseCell.m */,
+				5A955D071E6EC6BA009DC5C8 /* QJFavoritesChooseCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		5A956E751E176F81001720B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,8 +519,8 @@
 		5A956E781E17F637001720B5 /* Tag */ = {
 			isa = PBXGroup;
 			children = (
-				5A956E791E17F661001720B5 /* QJTagViewController.h */,
-				5A956E7A1E17F661001720B5 /* QJTagViewController.m */,
+				5A67BFB51E6FE2D60047D25F /* Main */,
+				5A67BFB41E6FE2CC0047D25F /* List */,
 			);
 			name = Tag;
 			sourceTree = "<group>";
@@ -702,6 +760,7 @@
 				5A3A3C371E10C4F200704F81 /* QJMainListCell.xib in Resources */,
 				5AFD23B51E159BCF0003B905 /* QJIntroViewController.xib in Resources */,
 				5A8CA8C01E24F518008CB68D /* QJPasswordViewController.xib in Resources */,
+				5A955D091E6EC6BA009DC5C8 /* QJFavoritesChooseCell.xib in Resources */,
 				5A956E861E17FDC0001720B5 /* QJCommentCell.xib in Resources */,
 				5AE738F61E18CC9300CCF605 /* QJThumbImageCell.xib in Resources */,
 				5AC789C81E0F850800DFFAA3 /* Assets.xcassets in Resources */,
@@ -767,15 +826,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A39F8881E49546100A45090 /* WUIImage.m in Sources */,
-				5A8ADC881E25DEBC0075C5F6 /* Favorites+CoreDataProperties.m in Sources */,
 				5A3A3C401E10C51300704F81 /* TFHppleElement.m in Sources */,
 				5A3A3C411E10C51300704F81 /* XPathQuery.m in Sources */,
 				5A8ADC731E25CE420075C5F6 /* QJDataManager.m in Sources */,
 				5AF42D561E42F52900BEC584 /* QJTopButtonView.m in Sources */,
 				5A8CA8B51E24C560008CB68D /* QJScoreView.m in Sources */,
+				5A67BFB81E6FE31C0047D25F /* QJTagMainViewController.m in Sources */,
 				5AD4A4161E31A2E3004514AF /* QJLoginViewController.m in Sources */,
+				5A67BF9F1E6FD6610047D25F /* TagCollect+CoreDataProperties.m in Sources */,
 				5A7A54E51E4828F9002A817C /* DiveExHentaiV2.m in Sources */,
 				5A956E8D1E180875001720B5 /* UILabel+LinkUrl.m in Sources */,
+				5A955D031E6EC5A9009DC5C8 /* QJFavoritesChooseController.m in Sources */,
 				5A956E741E176F7B001720B5 /* QJTagView.m in Sources */,
 				5A8CA8B11E246944008CB68D /* QJHotViewController.m in Sources */,
 				5A956E851E17FDC0001720B5 /* QJCommentCell.m in Sources */,
@@ -786,12 +847,12 @@
 				5AC789BD1E0F850800DFFAA3 /* main.m in Sources */,
 				5A8CA8BF1E24F518008CB68D /* QJPasswordViewController.m in Sources */,
 				5A3A3C361E10C4F200704F81 /* QJMainListCell.m in Sources */,
-				5A8ADC871E25DEBC0075C5F6 /* Favorites+CoreDataClass.m in Sources */,
 				5AE738F51E18CC9300CCF605 /* QJThumbImageCell.m in Sources */,
 				5A89A4821E23696C009C82B2 /* QJTouchIDViewController.m in Sources */,
 				5A3BA4F51E287928000ADEDA /* QJDownloadManager.m in Sources */,
 				5A3A3C551E11150B00704F81 /* HentaiParser.m in Sources */,
 				5A89A46C1E2312E4009C82B2 /* QJStarView.m in Sources */,
+				5A955D081E6EC6BA009DC5C8 /* QJFavoritesChooseCell.m in Sources */,
 				5A8ADC661E25CBCC0075C5F6 /* QJCoreDataModel.xcdatamodeld in Sources */,
 				5A6D5B361E6C329E008AE79E /* QJSettingUserCell.m in Sources */,
 				5A8ADC8B1E2603C20075C5F6 /* QJFavoritesViewController.m in Sources */,
@@ -799,6 +860,7 @@
 				5A8441E61E22445200896D7A /* QJSettingViewController.m in Sources */,
 				5A956E921E180F9C001720B5 /* QJAllCommentViewController.m in Sources */,
 				5AFD23B41E159BCF0003B905 /* QJIntroViewController.m in Sources */,
+				5A67BF9E1E6FD6610047D25F /* TagCollect+CoreDataClass.m in Sources */,
 				5AF1D42A1E13E978005D465C /* QJIntroInfoModel.m in Sources */,
 				5A66701F1E6B150C0038551D /* QJMainTabBarViewController.m in Sources */,
 				5A89A47C1E235CF7009C82B2 /* QJAboutListViewController.m in Sources */,

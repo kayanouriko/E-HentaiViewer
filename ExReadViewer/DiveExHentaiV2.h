@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DiveExHentaiV2 : NSObject
+@interface DiveExHentaiV2 : NSObject<NSURLConnectionDataDelegate>
 
 + (void)replaceCookies;
 + (BOOL)checkCookie;

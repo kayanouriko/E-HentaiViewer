@@ -161,6 +161,8 @@
     for (NSHTTPCookie *cookie in [cookieJar cookiesForURL:hentaiURL]) {
         [cookieJar deleteCookie:cookie];
     }
+    [[NSUserDefaults standardUserDefaults] setObject:@"未登录" forKey:@"loginName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     return YES;
 }
 
