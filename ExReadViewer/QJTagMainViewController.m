@@ -82,8 +82,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    BOOL isExHentai = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ehentaiStatus"] boolValue];
+    NSString *url = self.datas[indexPath.row][@"tagUrl"];
+    if (isExHentai) {
+        url = [url stringByReplacingOccurrencesOfString:@"e-hentai" withString:@"exhentai"];
+    }
+    else {
+        url = [url stringByReplacingOccurrencesOfString:@"exhentai" withString:@"e-hentai"];
+    }
     QJTagViewController *vc = [QJTagViewController new];
-    vc.mainUrl = self.datas[indexPath.row][@"tagUrl"];
+    vc.mainUrl = url;
     vc.tagName = self.datas[indexPath.row][@"tagName"];
     [self.navigationController pushViewController:vc animated:YES];
 }
