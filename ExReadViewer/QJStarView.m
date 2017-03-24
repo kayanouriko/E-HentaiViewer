@@ -14,10 +14,23 @@
     CGFloat _width;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.canChangeStar = NO;
+    }
+    return self;
+}
+
 - (void)refreshStarWithCount:(CGFloat)count width:(CGFloat)width {
     _width = width;
     _halfStar = (NSInteger)(count * 100) % 100;
     _starCount = count / 1;
+    if (self.canChangeStar && _halfStar > 50) {
+        _halfStar = 0;
+        _starCount = _starCount + 1;
+    }
     //cell里面会复用,所以星星需要删除重新生成
     for (id view in self.subviews) {
         if ([view isKindOfClass:[UIImageView class]]) {
@@ -53,6 +66,16 @@
             starWidth = 0;
         }
         yellowImageView.frame = CGRectMake(i * _width, 0, starWidth, _width);
+    }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (self.canChangeStar) {
+        CGPoint touchPoint = [touches.anyObject locationInView:self];
+        CGFloat widthValue = self.frame.size.width;
+        CGFloat count = touchPoint.x / widthValue * 5;
+        [self refreshStarWithCount:count width:_width];
+        self.touchBlock(count);
     }
 }
 

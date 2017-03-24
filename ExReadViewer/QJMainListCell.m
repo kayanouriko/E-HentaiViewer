@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *uploaderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mangaLabel;
 @property (weak, nonatomic) IBOutlet QJStarView *starView;
-//@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *postedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *languageLabel;
 
@@ -30,6 +29,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.thumbImageView.alpha = 0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.cellBgView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.cellBgView.layer.shadowOffset = CGSizeMake(4,4);
@@ -51,7 +51,12 @@
     [self.starView refreshStarWithCount:[dict[@"rating"] floatValue] width:20.f];
     self.languageLabel.text = dict[@"language"];
     NSString *imageUrlStr = dict[@"thumb"];
-    [self.thumbImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"panda"] options:SDWebImageHandleCookies];
+    [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageUrlStr] options:SDWebImageHandleCookies progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        self.thumbImageView.image = image;
+        [UIView animateWithDuration:0.5f animations:^{
+            self.thumbImageView.alpha = 1;
+        }];
+    }];
 }
 
 #pragma mark -懒加载

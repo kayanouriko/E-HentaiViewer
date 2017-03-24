@@ -118,6 +118,9 @@
 	    else {
 	        //這段是從 e hentai 的網頁 parse 列表
 	        TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
+            NSArray *page = [xpathParser searchWithXPathQuery:@"//table[@class='ptt']//td//a"];
+            TFHppleElement *totalElement = page[page.count - 2];
+            
 	        NSArray *photoURL = [xpathParser searchWithXPathQuery:@"//div [@class='it5']//a"];
             
             //如果 parse 有結果, 才做 request api 的動作, 反之 callback HentaiParserStatusParseFail
@@ -149,6 +152,7 @@
                             //新增一些操作相关的信息
                             eachDictionary[@"gid"] = metaData[@"gid"];
                             eachDictionary[@"token"] = metaData[@"token"];
+                            eachDictionary[@"totalPage"] = totalElement.text;
                         }
                         dispatch_async(dispatch_get_main_queue(), ^{
                             completion(HentaiParserStatusSuccess, returnArray);

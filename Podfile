@@ -6,4 +6,5 @@ target 'ExReadViewer' do
  pod 'MJRefresh'
  pod 'AFNetworking'
  pod "MWPhotoBrowser"
+ pod 'MagicalRecord'
 end

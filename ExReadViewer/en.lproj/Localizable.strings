@@ -60,8 +60,22 @@
 "remove_from_favorite_success" = "Removed from favorites";
 "remove_from_favorite_failed" = "Removed from favorites failed";
 "error404" = "Gallery had deleted!";
-
 "sign_in_first" = "Please sign in first";
 "choose" = "Choose";
 "tagSearch" = "Tag Search";
+"accessibility_options" = "Accessibility Options";
+"clear_image_cache" = "Clear Image Cache";
+"tip_clear_image_cache" = "Are you sure clear image cache?";
+"grade" = "Grade";
 
+//评分
+"rank1" = "UNBEARABLE";
+"rank2" = "PAINFUL";
+"rank3" = "AWFUL";
+"rank4" = "BAD";
+"rank5" = "MEDIOCRE";
+"rank6" = "OKAY";
+"rank7" = "GOOD";
+"rank8" = "GREAT";
+"rank9" = "AMAZING";
+"rank10" = "MASTERPIECE";

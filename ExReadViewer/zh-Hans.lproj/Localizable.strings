@@ -59,7 +59,22 @@
 "remove_from_favorite_failed" = "移除收藏失败!";
 "favorited" = "已收藏";
 "error404" = "该画廊已被删除!";
-
 "sign_in_first" = "请先登录!";
 "choose" = "选择";
-"tagSearch" = "标签快速搜索";
+"tagSearch" = "标签";
+"accessibility_options" = "辅助功能";
+"clear_image_cache" = "清除图片缓存";
+"tip_clear_image_cache" = "确定清除全部图片缓存?";
+"grade" = "评分";
+
+//评分
+"rank1" = "快要窒息了";
+"rank2" = "瞎眼";
+"rank3" = "糟糕";
+"rank4" = "不行";
+"rank5" = "一般般";
+"rank6" = "还行";
+"rank7" = "不错";
+"rank8" = "很棒";
+"rank9" = "好极了";
+"rank10" = "根本把持不住";

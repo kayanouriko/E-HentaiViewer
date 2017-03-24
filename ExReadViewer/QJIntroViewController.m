@@ -18,7 +18,6 @@
 #import "HentaiParser.h"
 #import "MWPhotoBrowser.h"
 #import "QJScoreView.h"
-#import "QJDataManager.h"
 #import "QJDownloadManager.h"
 #import "DiveExHentaiV2.h"
 #import "QJFavoritesChooseController.h"
@@ -70,7 +69,6 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
 @property (assign, nonatomic) BOOL canUpdateResource;
 @property (strong, nonatomic) NSString *baseUrl;
 @property (assign, nonatomic) BOOL isCollected;//判断收藏状态
-//@property (strong, nonatomic) QJDataManager *manager;
 @property (assign, nonatomic) NSInteger requestCount;//请求页码的次数
 @property (strong, nonatomic) NSMutableArray *bigImageUrlArr;
 @property (strong, nonatomic) NSMutableArray *downImageUrlArr;
@@ -594,11 +592,13 @@ typedef NS_ENUM(NSInteger, introButtonStyle){
         CGFloat itemWidth = (kScreenWidth - 10) / 3 - 10;
         CGFloat itemHeight = itemWidth * 190 / 120;
         layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+        //layout.estimatedItemSize = CGSizeMake(itemWidth, itemHeight);
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.scrollEnabled = NO;
         _collectionView.backgroundColor = [UIColor whiteColor];
+        //_collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
         _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
         [_collectionView registerNib:[UINib nibWithNibName:@"QJThumbImageCell" bundle:nil] forCellWithReuseIdentifier:@"item"];
     }

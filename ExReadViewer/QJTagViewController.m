@@ -10,17 +10,15 @@
 #import "QJIntroViewController.h"
 #import "QJMainListCell.h"
 #import "HentaiParser.h"
-#import "QJDataManager.h"
+#import "TagCollect+CoreDataClass.h"
 
 @interface QJTagViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
-//@property (strong, nonatomic) UIView *statueView;
 @property (strong, nonatomic) NSMutableArray *datas;
 @property (assign, nonatomic) NSInteger pageIndex;
 @property (assign, nonatomic) float oldOffsetY;//前一次偏移量
 @property (assign, nonatomic) BOOL isExHentai;//判断是表站还是里站
-@property (strong, nonatomic) QJDataManager *manager;
 @property (strong, nonatomic) UIImageView *collectImageView;//收藏图标
 @property (assign, nonatomic) BOOL isCollect;//是否已经收藏
 
@@ -39,17 +37,11 @@
     //初始化
     self.isExHentai = [[[NSUserDefaults standardUserDefaults] objectForKey:@"ehentaiStatus"] boolValue];
     
-    //数据库创建
-    NSString *localPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *filePath = [localPath  stringByAppendingPathComponent:@"tagModel.db"];
-    NSLog(@"%@",filePath);
     self.isCollect = NO;
-    self.manager = [[QJDataManager alloc] initWithCoreData:@"TagCollect" modelName:@"QJCoreDataModel" sqlPath:filePath success:nil fail:nil];
-    [self.manager readEntity:@[] ascending:NO filterStr:[NSString stringWithFormat:@"tagName == '%@'",self.tagName] success:^(NSArray *results) {
-        if (results.count) {
-            self.isCollect = YES;
-        }
-    } fail:nil];
+    NSArray *tagCollectArr = [TagCollect MR_findByAttribute:@"tagName" withValue:self.tagName];
+    if (tagCollectArr.count) {
+        self.isCollect = YES;
+    }
     
     self.title = self.tagName;
     //右上角
@@ -82,29 +74,23 @@
 - (void)tagCollect {
     if (self.isCollect) {
         //已经收藏
-        __block NSManagedObject *obj = nil;
-        [self.manager readEntity:@[] ascending:NO filterStr:[NSString stringWithFormat:@"tagName == '%@'",self.tagName] success:^(NSArray *results) {
-            if (results.count) {
-                obj = (NSManagedObject *)results.firstObject;
-            }
-        } fail:nil];
-        [self.manager deleteEntity:obj success:^{
-            self.collectImageView.image = [[UIImage imageNamed:@"collect"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"remove_from_favorite_success", nil)];
-            [SVProgressHUD dismissWithDelay:1.f];
-        } fail:nil];
+        NSArray *tagArr = [TagCollect MR_findByAttribute:@"tagName" withValue:self.tagName];
+        for (TagCollect *tmp in tagArr) {
+            [tmp MR_deleteEntity];
+        }
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        self.collectImageView.image = [[UIImage imageNamed:@"collect"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"remove_from_favorite_success", nil)];
+        [SVProgressHUD dismissWithDelay:1.f];
     } else {
         //没收藏
-        NSDictionary *dict = @{
-                               @"tagName":self.tagName,
-                               @"tagUrl":self.mainUrl
-                               };
-        [self.manager insertNewEntity:dict success:^{
-            self.collectImageView.image = [[UIImage imageNamed:@"collected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"add_to_favorite_success", nil)];
-            [SVProgressHUD dismissWithDelay:1.f];
-            
-        } fail:nil];
+        TagCollect *tag = [TagCollect MR_createEntity];
+        tag.tagName = self.tagName;
+        tag.tagUrl = self.mainUrl;
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        self.collectImageView.image = [[UIImage imageNamed:@"collected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"add_to_favorite_success", nil)];
+        [SVProgressHUD dismissWithDelay:1.f];
     }
 }
 

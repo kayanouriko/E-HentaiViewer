@@ -96,6 +96,10 @@
                            @"title":@"SVProgressHUD/SVProgressHUD",
                            @"url":@"https://github.com/SVProgressHUD/SVProgressHUD"
                            },
+                       @{
+                           @"title":@"laideybug/MMButtonMenu",
+                           @"url":@"https://github.com/laideybug/MMButtonMenu"
+                           },
                        ];
         }
         else {

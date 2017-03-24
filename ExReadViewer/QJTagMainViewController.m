@@ -7,13 +7,12 @@
 //
 
 #import "QJTagMainViewController.h"
-#import "QJDataManager.h"
 #import "QJTagViewController.h"
+#import "TagCollect+CoreDataClass.h"
 
 @interface QJTagMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) QJDataManager *manager;
 @property (strong, nonatomic) NSMutableArray *datas;
 @property (strong, nonatomic) NSArray *keyArr;
 
@@ -28,22 +27,31 @@
     self.title = NSLocalizedString(@"tagSearch", nil);
     
     [self creatUI];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self readDBInfo];
 }
 
 - (void)creatUI {
-    NSString *localPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *filePath = [localPath  stringByAppendingPathComponent:@"tagModel.db"];
-    NSLog(@"%@",filePath);
-    self.manager = [[QJDataManager alloc] initWithCoreData:@"TagCollect" modelName:@"QJCoreDataModel" sqlPath:filePath success:nil fail:nil];
-    
     [self.view addSubview:self.tableView];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
 }
 
 - (void)readDBInfo {
+    [self.datas removeAllObjects];
+    NSArray *tagCollectArr = [TagCollect MR_findAll];
+    for (TagCollect *tmp in tagCollectArr) {
+        NSDictionary *dict = @{
+                               @"tagName":tmp.tagName,
+                               @"tagUrl":tmp.tagUrl
+                               };
+        [self.datas addObject:dict];
+    }
+    [self.tableView reloadData];
+    /*
     [self.manager readEntity:@[] ascending:NO filterStr:nil success:^(NSArray *results) {
         if (results.count) {
             results = (NSMutableArray *)[[results reverseObjectEnumerator] allObjects];
@@ -57,6 +65,7 @@
             [self.tableView reloadData];
         }
     } fail:nil];
+     */
 }
 
 #pragma mark -tableView协议
@@ -77,6 +86,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.textLabel.text = self.datas[indexPath.row][@"tagName"];
     cell.textLabel.font = [UIFont systemFontOfSize:16];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
@@ -98,17 +108,16 @@
 
 - (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-         NSDictionary *dict = self.datas[indexPath.row];
-         __block NSManagedObject *obj = nil;
-         [self.manager readEntity:@[] ascending:NO filterStr:[NSString stringWithFormat:@"tagName == '%@'",dict[@"tagName"]] success:^(NSArray *results) {
-         if (results.count) {
-         obj = (NSManagedObject *)results.firstObject;
-         }
-         } fail:nil];
-         [self.manager deleteEntity:obj success:^{
-         [self.datas removeObjectAtIndex:indexPath.row];
-         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-         } fail:nil];
+        NSDictionary *dict = self.datas[indexPath.row];
+        
+        NSArray *tagArr = [TagCollect MR_findByAttribute:@"tagName" withValue:dict[@"tagName"]];
+        for (TagCollect *tmp in tagArr) {
+            [tmp MR_deleteEntity];
+        }
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        
+        [self.datas removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     NSArray *arr = @[rowAction];
     return arr;

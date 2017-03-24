@@ -29,6 +29,10 @@
         CGRect rect = CGRectMake([imageDict[@"x"] integerValue], 0, [imageDict[@"width"] integerValue], [imageDict[@"height"] integerValue]);
         UIImage *thumbImage = [WUIImage SeparateImage:image withRect:rect];
         self.thumbImageView.image = thumbImage;
+        [UIView animateWithDuration:0.5f animations:^{
+            self.thumbImageView.alpha = 1;
+        }];
+        
     }];
     self.numberLabel.text = [NSString stringWithFormat:@"%ld",(long)row + 1];
 }

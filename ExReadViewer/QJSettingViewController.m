@@ -35,6 +35,11 @@
     [super viewWillAppear:animated];
     QJSettingUserCell *cell = [self.view viewWithTag:900];
     [cell readUserName];
+    
+    UILabel *cacheLabel = [self.view viewWithTag:1100];
+    NSInteger size = [[[SDWebImageManager sharedManager] imageCache] getSize];
+    NSInteger mbSize = size / (1024 * 1024);
+    cacheLabel.text = [NSString stringWithFormat:@"%ldMB",(long)mbSize];
 }
 
 #pragma mark -tableView协议
@@ -97,6 +102,21 @@
         [cell addConstraint:[NSLayoutConstraint constraintWithItem:swichBtn attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     }
     else if (indexPath.section == 2) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        UILabel *cacheLabel = [UILabel new];
+        cacheLabel.tag = 1100 + indexPath.row;
+        NSInteger size = [[[SDWebImageManager sharedManager] imageCache] getSize];
+        NSInteger mbSize = size / (1024 * 1024);
+        cacheLabel.text = [NSString stringWithFormat:@"%ldMB",(long)mbSize];
+        cacheLabel.font = kNormalFontSize;
+        cacheLabel.textColor = [UIColor lightGrayColor];
+        [cell addSubview:cacheLabel];
+        
+        cacheLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [cell addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cacheLabel]-35-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(cacheLabel)]];
+        [cell addConstraint:[NSLayoutConstraint constraintWithItem:cacheLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    }
+    else {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
@@ -192,7 +212,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 2) {
+    if (indexPath.section == 3) {
         QJAboutViewController *vc = [QJAboutViewController new];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
@@ -201,6 +221,23 @@
         QJLoginViewController *vc = [QJLoginViewController new];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (indexPath.section == 2) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"tip", nil) message:NSLocalizedString(@"tip_clear_image_cache", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [[[SDWebImageManager sharedManager] imageCache] clearDiskOnCompletion:^{
+                UILabel *cacheLabel = [self.view viewWithTag:1100];
+                NSInteger size = [[[SDWebImageManager sharedManager] imageCache] getSize];
+                NSInteger mbSize = size / (1024 * 1024);
+                cacheLabel.text = [NSString stringWithFormat:@"%ldMB",(long)mbSize];
+            }];
+        }];
+        [alertController addAction:okAction];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertController addAction:cancelAction];
+        [self.navigationController presentViewController:alertController animated:YES completion:nil];
     }
 }
 
@@ -229,6 +266,10 @@
                        @"row":@[NSLocalizedString(@"password", nil),NSLocalizedString(@"touchid", nil)],
                        },
                    @{
+                       @"title":NSLocalizedString(@"accessibility_options", nil),
+                       @"row":@[NSLocalizedString(@"clear_image_cache", nil)]
+                       },
+                   @{
                        @"title":NSLocalizedString(@"other", nil),
                        @"row":@[NSLocalizedString(@"about", nil)],
                        }
@@ -236,6 +277,9 @@
     }
     return _datas;
 }
+
+//NSInteger size = [[[SDWebImageManager sharedManager] imageCache]getSize];
+//NSLog(@"%ld",size);
 
 - (NSMutableArray *)privacyArr {
     if (nil == _privacyArr) {

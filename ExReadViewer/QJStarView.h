@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^TouchBlock)(CGFloat score);
+
 @interface QJStarView : UIView
+
+@property (strong, nonatomic) TouchBlock touchBlock;
+@property (assign, nonatomic) BOOL canChangeStar;//默认不能改变星星评价
 
 - (void)refreshStarWithCount:(CGFloat)count width:(CGFloat)width;
 

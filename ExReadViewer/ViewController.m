@@ -19,6 +19,8 @@
 #import "DiveExHentaiV2.h"
 #import "AFNetworking.h"
 #import "QJTagMainViewController.h"
+#import "TagCollect+CoreDataClass.h"
+#import "MMButtonMenu.h"
 
 #define EHentai_URL @"https://e-hentai.org/"
 #define ExHentai_URL @"https://exhentai.org//"
@@ -26,7 +28,7 @@
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,QJTopButtonViewDelagate>
 //导航栏
 @property (strong, nonatomic) QJTopButtonView *topButtonView;
-//@property (strong, nonatomic) UIView *statueView;
+@property (strong, nonatomic) MMButtonMenu *buttonMenu;
 //tablewview
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datas;
@@ -43,9 +45,10 @@
 @property (strong, nonatomic) NSMutableArray *btnStatusArr;
 @property (strong, nonatomic) NSDictionary *colorDict;
 @property (strong, nonatomic) NSDictionary *searchKeyDict;
-@property (assign, nonatomic) BOOL needRefersh;
-@property (assign, nonatomic) BOOL needTouchID;
-@property (assign, nonatomic) BOOL isExHentai;
+@property (assign, nonatomic) BOOL needRefersh;//筛选条件之后是否需要刷新
+@property (assign, nonatomic) BOOL needTouchID;//是否需要TouchID
+@property (assign, nonatomic) BOOL isAddDatas;//下拉的时候是否需要添加旧数据
+@property (assign, nonatomic) BOOL isExHentai;//是否是里站
 //按钮动作
 - (IBAction)btnAction:(UIButton *)sender;
 - (IBAction)valueChange:(UISwitch *)sender;
@@ -56,6 +59,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self creatUI];
     //如果Cookie有问题,则进来不刷新数据
     if (self.isExHentai && ![DiveExHentaiV2 checkCookie]) {
@@ -64,7 +68,6 @@
         return;
     }
     [self.tableView.mj_header beginRefreshing];
-    [self updateResource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -98,6 +101,7 @@
     //初始化
     self.needRefersh = NO;
     self.needTouchID = YES;
+    self.isAddDatas = NO;
     //中间按钮视图
     self.navigationItem.titleView = self.topButtonView;
     //判断状态
@@ -110,19 +114,27 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
+    //悬浮Button
+    [self.view addSubview:self.buttonMenu];
     //状态栏
     //[self.view addSubview:self.statueView];
     //tablewview
     [self.view addSubview:self.tableView];
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        self.pageIndex = 0;
+        self.pageIndex--;
+        if (self.pageIndex < 0) {
+            self.pageIndex = 0;
+            self.isAddDatas = NO;
+        }
         [self updateResource];
     }];
     
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.isAddDatas = NO;
         self.pageIndex++;
         [self updateResource];
     }];
@@ -231,11 +243,13 @@
 }
 
 - (void)refreshUI {
+    if ([self.buttonMenu isExpanded]) {
+        [self.buttonMenu toggleMenu];
+    }
     if (![self.tableView.mj_header isRefreshing] && ![self.tableView.mj_footer isRefreshing]) {
         self.searchBarTopLine.constant = 10.f;
-        [self.tableView.mj_header beginRefreshing];
         self.pageIndex = 0;
-        [self updateResource];
+        [self.tableView.mj_header beginRefreshing];
     }
 }
 
@@ -247,20 +261,39 @@
     }
     NSString *url = [self getUrlWithAllCondition];
     [HentaiParser requestListAtFilterUrl:url forExHentai:self.isExHentai completion: ^(HentaiParserStatus status, NSArray *listArray) {
+        NSArray *tempArr = [NSMutableArray new];
         if (status && [listArray count]) {
-            if ([self.tableView.mj_header isRefreshing]) {
+            if ([self.tableView.mj_header isRefreshing] && self.pageIndex != 0) {
+                tempArr = [self.datas mutableCopy];
                 [self.datas removeAllObjects];
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView.mj_footer endRefreshing];
             }
             else if ([self.tableView.mj_footer isRefreshing]) {
-                [self.tableView.mj_footer endRefreshing];
+                
             }
             else {
                 [self.datas removeAllObjects];
             }
             [self.datas addObjectsFromArray:listArray];
+            
+            NSInteger count = 0;
+            if (self.isAddDatas) {
+                count = listArray.count;
+                [self.datas addObjectsFromArray:tempArr];
+            }
+            
             [self.tableView reloadData];
+            
+            if (tempArr.count && self.isAddDatas) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:count inSection:0];
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            }
+            
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            self.isAddDatas = YES;
+            
+            [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"Page %ld",self.pageIndex + 1]];
+            [SVProgressHUD dismissWithDelay:0.75f];
         }
         else {
             if ([self.tableView.mj_header isRefreshing]) {
@@ -296,29 +329,8 @@
     }
     //刷新tableview
     self.searchBarTopLine.constant = 10.f;
-    [self.tableView.mj_header beginRefreshing];
     self.pageIndex = 0;
-    [self updateResource];
-}
-
-#pragma mark -侧边栏点击事件
-- (void)didClickSiderWithDict:(NSDictionary *)dict {
-    if ([dict[@"name"] isEqualToString:NSLocalizedString(@"setting", nil)]) {
-        QJSettingViewController *vc = [QJSettingViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if ([dict[@"name"] isEqualToString:NSLocalizedString(@"hot", nil)]) {
-        QJHotViewController *vc = [QJHotViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if ([dict[@"name"] isEqualToString:NSLocalizedString(@"favorites", nil)]) {
-        QJFavoritesViewController *vc = [QJFavoritesViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if ([dict[@"name"] isEqualToString:NSLocalizedString(@"download", nil)]) {
-        [SVProgressHUD showErrorWithStatus:@"功能待开发QAQ"];
-        [SVProgressHUD dismissWithDelay:1.f];
-    }
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark -按钮点击事件
@@ -338,7 +350,6 @@
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 self.pageIndex = 0;
                 [self.tableView.mj_header beginRefreshing];
-                [self updateResource];
             }
         }
         else {
@@ -376,7 +387,6 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     self.pageIndex = 0;
     [self.tableView.mj_header beginRefreshing];
-    [self updateResource];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -391,9 +401,8 @@
         self.searchBarBgView.alpha = 0;
         self.searchKeyView.alpha = 0;
     }];
-    [self.tableView.mj_header beginRefreshing];
     self.pageIndex = 0;
-    [self updateResource];
+    [self.tableView.mj_header beginRefreshing];
     return YES;
 }
 
@@ -402,42 +411,25 @@
     float contentOffsetY = scrollView.contentOffset.y;
     if (self.oldOffsetY && contentOffsetY > -65) {
         float changeOffset = self.oldOffsetY - contentOffsetY;
+        if ([self.buttonMenu isExpanded]) {
+            [self.buttonMenu toggleMenu];
+        }
         if (changeOffset > 0) {
-            /*
-            self.tableView.bounces = YES;
-            [self.navigationController setNavigationBarHidden:NO animated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewShow" object:nil];
-             */
             [UIView animateWithDuration:0.25f animations:^{
                 self.searchBarTopLine.constant = 10.f;
-                //self.statueView.alpha = 0;
+                self.buttonMenu.alpha = 1;
                 [self.view layoutIfNeeded];
             }];
         } else {
-            /*
-            self.tableView.bounces = NO;
-            [self.navigationController setNavigationBarHidden:YES animated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewHide" object:nil];
-             */
             [UIView animateWithDuration:0.25f animations:^{
                 self.searchBarTopLine.constant = -60.f;
-                //self.statueView.alpha = 1;
+                self.buttonMenu.alpha = 0;
                 [self.view layoutIfNeeded];
             }];
         }
     }
     self.oldOffsetY = contentOffsetY;
 }
-
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MainTabBarViewShow" object:nil];
-    self.tabBarController.tabBar.alpha = 1;
-    self.searchBarTopLine.constant = 10.f;
-    self.statueView.alpha = 0;
-}
-*/
 
 #pragma mark -tableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -539,16 +531,53 @@
     return _topButtonView;
 }
 
-/*
-- (UIView *)statueView {
-    if (nil == _statueView) {
-        _statueView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
-        _statueView.backgroundColor = APP_COLOR;
-        _statueView.alpha = 0;
+- (MMButtonMenu *)buttonMenu {
+    if (nil == _buttonMenu) {
+        MMButtonMenuItem *menuButtonItem1 = [[MMButtonMenuItem alloc] init];
+        menuButtonItem1.backgroundColor = APP_COLOR;
+        UIImage *actionImage = [[UIImage imageNamed:@"refresh"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [menuButtonItem1 setImage:actionImage forState:UIControlStateNormal];
+        [menuButtonItem1 addTarget:self action:@selector(refreshUI) forControlEvents:UIControlEventTouchUpInside];
+        
+        MMButtonMenuItem *menuButtonItem2 = [[MMButtonMenuItem alloc] init];
+        menuButtonItem2.backgroundColor = APP_COLOR;
+        UIImage *actionImage1 = [[UIImage imageNamed:@"jump"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [menuButtonItem2 setImage:actionImage1 forState:UIControlStateNormal];
+        [menuButtonItem2 addTarget:self action:@selector(jumpPage) forControlEvents:UIControlEventTouchUpInside];
+        
+        _buttonMenu = [[MMButtonMenu alloc] initWithFrame:self.view.frame menuItems:[NSArray arrayWithObjects:menuButtonItem2, menuButtonItem1,nil]];
+        _buttonMenu.mainMenuItem.backgroundColor = APP_COLOR;
     }
-    return _statueView;
+    return _buttonMenu;
 }
-*/
+
+- (void)jumpPage {
+    NSString *totalPages = self.datas.firstObject[@"totalPage"];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"tip", nil) message:[NSString stringWithFormat:@"%@ Pages",totalPages] preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        textField.placeholder = @"Page";
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.tag = 1300;
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        if ([self.buttonMenu isExpanded]) {
+            [self.buttonMenu toggleMenu];
+        }
+        
+        UITextField *pwdTextField = (UITextField *)[alertController.view viewWithTag:1300];
+        self.pageIndex = [pwdTextField.text integerValue];
+        self.isAddDatas = NO;
+        [self.tableView.mj_header beginRefreshing];
+    }];
+    [alertController addAction:okAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

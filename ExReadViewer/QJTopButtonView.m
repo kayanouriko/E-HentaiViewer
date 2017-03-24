@@ -7,6 +7,7 @@
 //
 
 #import "QJTopButtonView.h"
+#import "QJStarView.h"
 
 @interface QJTopButtonView ()
 
@@ -36,7 +37,7 @@
         }
     }];
     [alertController addAction:exhentaiAction];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alertController addAction:cancelAction];
