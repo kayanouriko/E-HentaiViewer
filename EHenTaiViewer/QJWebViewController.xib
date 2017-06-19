@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QJWebViewController">
+            <connections>
+                <outlet property="progressView" destination="SWv-MW-1vj" id="UDb-bk-CKj"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webView" destination="ziH-Je-WPy" id="AT3-MD-rod"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lf8-bM-BnL">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="o5P-wq-MSM"/>
+                    </constraints>
+                    <items>
+                        <navigationItem title="登陆" id="kiy-AT-cRd">
+                            <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="a4e-wL-m7S">
+                                <connections>
+                                    <action selector="backAction:" destination="-1" id="6HO-gs-Ccx"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="aHX-xu-Dk0">
+                                <connections>
+                                    <action selector="refreshAction:" destination="-1" id="z56-0b-byF"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ziH-Je-WPy">
+                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </webView>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SWv-MW-1vj">
+                    <rect key="frame" x="0.0" y="64" width="375" height="2"/>
+                </progressView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="SWv-MW-1vj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9gI-Pf-Phh"/>
+                <constraint firstItem="ziH-Je-WPy" firstAttribute="top" secondItem="lf8-bM-BnL" secondAttribute="bottom" id="APd-Bo-jXY"/>
+                <constraint firstAttribute="bottom" secondItem="ziH-Je-WPy" secondAttribute="bottom" id="BPq-7O-3D6"/>
+                <constraint firstItem="lf8-bM-BnL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HKa-Bk-ple"/>
+                <constraint firstAttribute="trailing" secondItem="ziH-Je-WPy" secondAttribute="trailing" id="Mbw-pL-RIT"/>
+                <constraint firstAttribute="trailing" secondItem="SWv-MW-1vj" secondAttribute="trailing" id="ODj-q1-tWU"/>
+                <constraint firstItem="SWv-MW-1vj" firstAttribute="top" secondItem="lf8-bM-BnL" secondAttribute="bottom" id="cAg-Rq-MXg"/>
+                <constraint firstItem="ziH-Je-WPy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="oZy-F9-tsJ"/>
+                <constraint firstAttribute="trailing" secondItem="lf8-bM-BnL" secondAttribute="trailing" id="tPh-In-rrX"/>
+                <constraint firstItem="lf8-bM-BnL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tWJ-h5-7FZ"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

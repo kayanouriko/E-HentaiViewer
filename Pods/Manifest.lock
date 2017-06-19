@@ -1,52 +1,20 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
-  - DACircularProgress (2.3.1)
-  - MagicalRecord (2.3.2):
-    - MagicalRecord/Core (= 2.3.2)
-  - MagicalRecord/Core (2.3.2)
-  - MBProgressHUD (0.9.2)
-  - MJRefresh (3.1.12)
-  - MWPhotoBrowser (2.1.2):
-    - DACircularProgress (~> 2.3)
-    - MBProgressHUD (~> 0.9)
-    - SDWebImage (!= 3.7.2, ~> 3.7)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
-  - SVProgressHUD (2.1.2)
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
 
 DEPENDENCIES:
-  - AFNetworking
-  - MagicalRecord
-  - MJRefresh
-  - MWPhotoBrowser
-  - SDWebImage
-  - SVProgressHUD
+  - YYWebImage
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
-  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 17521caa2d2fe563c43caa1c66269e67c5f332c3
+PODFILE CHECKSUM: bc9bd9405395b42eada61094fab465430f4efe7a
 
 COCOAPODS: 1.1.1

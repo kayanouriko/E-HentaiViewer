@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="62" id="KGk-i7-Jjw" customClass="QJSecondCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="61.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Yu-FH-53E">
+                        <rect key="frame" x="15" y="15" width="137.5" height="31.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="999" constant="30" id="xsD-lZ-N3I"/>
+                        </constraints>
+                        <state key="normal" title="撰写评论"/>
+                        <connections>
+                            <action selector="btnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hj3-yT-TMW"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7v-Mw-GYC">
+                        <rect key="frame" x="167.5" y="15" width="137.5" height="31.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="999" constant="30" id="dWB-P8-B7i"/>
+                        </constraints>
+                        <state key="normal" title="星级评定"/>
+                        <connections>
+                            <action selector="btnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ftP-wy-XRF"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="w7v-Mw-GYC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="2dN-Kz-ek0"/>
+                    <constraint firstItem="0Yu-FH-53E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="3h8-f2-Jwk"/>
+                    <constraint firstItem="w7v-Mw-GYC" firstAttribute="leading" secondItem="0Yu-FH-53E" secondAttribute="trailing" constant="15" id="Ei2-17-BTk"/>
+                    <constraint firstAttribute="bottom" secondItem="0Yu-FH-53E" secondAttribute="bottom" constant="15" id="Qd6-P1-u7R"/>
+                    <constraint firstAttribute="trailing" secondItem="w7v-Mw-GYC" secondAttribute="trailing" constant="15" id="ae7-GO-mM2"/>
+                    <constraint firstItem="w7v-Mw-GYC" firstAttribute="width" secondItem="0Yu-FH-53E" secondAttribute="width" id="ch1-HR-6NZ"/>
+                    <constraint firstAttribute="bottom" secondItem="w7v-Mw-GYC" secondAttribute="bottom" constant="15" id="jOP-4Q-6YH"/>
+                    <constraint firstItem="0Yu-FH-53E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="tju-4u-vhC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-26" y="31"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,70 @@
+//
+//  PrefixHeader.pch
+//  EHenTaiViewer
+//
+//  Created by QinJ on 2017/5/18.
+//  Copyright © 2017年 kayanouriko. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+/*
+ *  头文件
+ */
+//图片请求
+#import "YYWebImage.h"
+//一个全局的字典变量
+#import "QJGlobalInfo.h"
+//toast
+#import "FFToast.h"
+
+/*
+ *  宏定义
+ */
+//请求链接部分
+#define HENTAI_APIURL @"https://e-hentai.org/api.php"
+#define EXHENTAI_APIURL @"https://exhentai.org/api.php"
+#define HENTAI_URL @"https://e-hentai.org/"
+#define EXHENTAI_URL @"https://exhentai.org/"
+#define FORUMS_URL @"https://forums.e-hentai.org/"
+//屏幕宽度和高度
+#define UIScreenWidth() [UIScreen mainScreen].bounds.size.width
+#define UIScreenHeight() [UIScreen mainScreen].bounds.size.height
+//一些固定参数
+#define UINavigationBarHeight() 64
+#define UITabBarHeight() 48
+#define UISearchBarHeight() 44
+//统一字体大小
+#define AppFontStyle() [UIFont systemFontOfSize:16]
+#define AppFontContentStyle() [UIFont systemFontOfSize:14]
+//分类颜色
+#define DOUJINSHI_COLOR [UIColor colorWithRed:0.957 green:0.263 blue:0.212 alpha:1.00]
+#define MANGA_COLOR [UIColor colorWithRed:1.000 green:0.596 blue:0.000 alpha:1.00]
+#define ARTISTCG_COLOR [UIColor colorWithRed:0.984 green:0.753 blue:0.176 alpha:1.00]
+#define GAMECG_COLOR [UIColor colorWithRed:0.298 green:0.686 blue:0.314 alpha:1.00]
+#define WESTERN_COLOR [UIColor colorWithRed:0.545 green:0.765 blue:0.290 alpha:1.00]
+#define NONH_COLOR [UIColor colorWithRed:0.129 green:0.588 blue:0.953 alpha:1.00]
+#define IMAGESET_COLOR [UIColor colorWithRed:0.247 green:0.318 blue:0.710 alpha:1.00]
+#define COSPLAY_COLOR [UIColor colorWithRed:0.612 green:0.153 blue:0.690 alpha:1.00]
+#define ASIANPORN_COLOR [UIColor colorWithRed:0.584 green:0.459 blue:0.804 alpha:1.00]
+#define MISC_COLOR [UIColor colorWithRed:0.941 green:0.384 blue:0.573 alpha:1.00]
+#define APP_COLOR [UIColor colorWithRed:0.098 green:0.584 blue:0.533 alpha:1.00]
+#define DEFAULT_COLOR [UIColor colorWithRed:0.082 green:0.494 blue:0.984 alpha:1.00]
+//打印运行的方法
+#define NSLogFunc() NSLog(@"%s",__func__)
+//配置存储
+#define NSObjForKey(key) [[NSUserDefaults standardUserDefaults] objectForKey:key]
+#define NSObjSetForKey(key,value) [[NSUserDefaults standardUserDefaults] setObject:value forKey:key]
+#define NSObjSynchronize() [[NSUserDefaults standardUserDefaults] synchronize]
+//通知名
+#define LOGIN_NOTI @"RefreshTableview"
+//状态栏圈圈
+#define NetworkShow() [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES]
+#define NetworkHidden() [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO]
+//toast
+#define ToastSuccess(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeSuccess]
+#define ToastError(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeError]
+#define ToastWarning(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeWarning]
+
+#endif

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QJGoCommentController">
+            <connections>
+                <outlet property="textV" destination="Zxb-0e-0bJ" id="9DC-bW-hpz"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NmL-Ba-QjZ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="8od-6o-NTS"/>
+                    </constraints>
+                    <items>
+                        <navigationItem title="撰写评论" id="90j-cr-iOk">
+                            <barButtonItem key="leftBarButtonItem" title="取消" id="dey-ws-D08">
+                                <connections>
+                                    <action selector="cancelAction:" destination="-1" id="9C7-VZ-bYu"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" title="发送" id="vtA-zd-MW5">
+                                <connections>
+                                    <action selector="sendInfoAction:" destination="-1" id="fy5-Aw-hkt"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Zxb-0e-0bJ">
+                    <rect key="frame" x="20" y="115" width="335" height="522"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5id-9V-K27">
+                    <rect key="frame" x="20" y="84" width="335" height="1"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="URB-at-tHt"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Zxb-0e-0bJ" firstAttribute="top" secondItem="5id-9V-K27" secondAttribute="bottom" constant="30" id="CxV-46-ypy"/>
+                <constraint firstAttribute="bottom" secondItem="Zxb-0e-0bJ" secondAttribute="bottom" constant="30" id="Jkq-N6-fA9"/>
+                <constraint firstItem="NmL-Ba-QjZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TIy-cf-gqx"/>
+                <constraint firstItem="5id-9V-K27" firstAttribute="top" secondItem="NmL-Ba-QjZ" secondAttribute="bottom" constant="20" id="U2Z-QN-NA2"/>
+                <constraint firstAttribute="trailing" secondItem="NmL-Ba-QjZ" secondAttribute="trailing" id="cA0-iF-C9o"/>
+                <constraint firstAttribute="trailing" secondItem="Zxb-0e-0bJ" secondAttribute="trailing" constant="20" id="dTl-bX-Pbf"/>
+                <constraint firstAttribute="trailing" secondItem="5id-9V-K27" secondAttribute="trailing" constant="20" id="fdL-9d-lAm"/>
+                <constraint firstItem="5id-9V-K27" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="mgt-ac-sgf"/>
+                <constraint firstItem="Zxb-0e-0bJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="oOg-5g-faB"/>
+                <constraint firstItem="NmL-Ba-QjZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="rNx-a7-HmV"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+        </view>
+    </objects>
+</document>

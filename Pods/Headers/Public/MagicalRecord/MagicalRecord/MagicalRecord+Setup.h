@@ -1,1 +1,0 @@
-../../../../MagicalRecord/MagicalRecord/Core/MagicalRecord+Setup.h
