@@ -3,7 +3,8 @@
 
 [https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases)
 
-#更新内容
+# 更新内容
+
 2017.06.19 重构初版
 
 可与之前的版本共存
