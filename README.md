@@ -29,8 +29,6 @@
 
 [https://github.com/seven332/EhViewer](https://github.com/seven332/EhViewer)
 
-主要借鉴这个安卓项目的界面布局
-
 另外还有感谢诸多开源框架,pod文件我也上传了,这里就不贴出来了.
 
 # 说明
