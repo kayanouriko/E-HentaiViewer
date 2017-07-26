@@ -13,18 +13,21 @@
 #import "QJInfoViewController.h"
 #import "QJHeadFreshingView.h"
 #import "QJEnum.h"
+#import "QJScrollHeadView.h"
 
 #import "QJLoginViewController.h"
 
-@interface QJHotAndLikeViewController ()<UITableViewDelegate,UITableViewDataSource,QJHeadFreshingViewDelagate>
+@interface QJHotAndLikeViewController ()<UITableViewDelegate,UITableViewDataSource,QJHeadFreshingViewDelagate,QJScrollHeadViewDelagate,UIScrollViewDelegate>
 
-@property (nonatomic, strong) UISegmentedControl *segControl;
-@property (nonatomic, strong) QJListTableView *tableView;
+@property (nonatomic, strong) QJScrollHeadView *scrollHeadView;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) QJListTableView *hotTableView;
+@property (nonatomic, strong) QJListTableView *likeTableview;
 @property (nonatomic, strong) NSMutableArray *hotDatas;
 @property (nonatomic, strong) NSMutableArray *likeDatas;
 @property (nonatomic, assign) NSInteger pageIndex;
-@property (nonatomic, strong) NSArray *datas;
-@property (nonatomic, strong) QJHeadFreshingView *refreshingView;
+@property (nonatomic, strong) QJHeadFreshingView *hotRefreshingView;
+@property (nonatomic, strong) QJHeadFreshingView *likeRefreshingView;
 @property (nonatomic, assign) QJFreshStatus status;
 @property (nonatomic, assign) BOOL canFreshMore;
 
@@ -35,20 +38,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setContent];
-    [self.refreshingView beginReFreshing];
+    [self.hotRefreshingView beginReFreshing];
 }
+
 
 #pragma mark -QJHeadFreshingViewDelagate
 - (void)beginRefreshing {
-    [self scrollToTop];
-    self.status = QJFreshStatusRefresh;
-    self.segControl.userInteractionEnabled = NO;
-    self.canFreshMore = YES;
-    if (self.segControl.selectedSegmentIndex == 0) {
+    if ([self.hotRefreshingView isReFreshing]) {
         [self updateHotResource];
     }
-    else if (self.segControl.selectedSegmentIndex == 1) {
-        self.pageIndex = 0;
+    else if ([self.likeRefreshingView isReFreshing]) {
         [self updateLikeResource];
     }
 }
@@ -60,12 +59,9 @@
         }
         if (status == QJHenTaiParserStatusSuccess) {
             [self.hotDatas addObjectsFromArray:listArray];
-            self.datas = self.hotDatas;
-            if (self.segControl.selectedSegmentIndex == 0) {
-                [self changeSonmethingWhenDataGet];
-            }
+            [self.hotTableView reloadData];
         }
-        [self changeSomethingAnyTime];
+        [self.hotRefreshingView endRefreshing];
     }];
 }
 
@@ -76,27 +72,10 @@
         }
         if (status == QJHenTaiParserStatusSuccess) {
             [self.likeDatas addObjectsFromArray:listArray];
-            self.datas = self.likeDatas;
-            if (self.segControl.selectedSegmentIndex == 1) {
-                [self changeSonmethingWhenDataGet];
-            }
+            [self.likeTableview reloadData];
         }
-        else if (status == QJHenTaiParserStatusParseNoMore) {
-            self.canFreshMore = NO;
-            self.pageIndex--;
-        }
-        [self changeSomethingAnyTime];
+        [self.likeRefreshingView endRefreshing];
     }];
-}
-
-- (void)changeSonmethingWhenDataGet {
-    [self.tableView reloadData];
-}
-
-- (void)changeSomethingAnyTime {
-    self.segControl.userInteractionEnabled = YES;
-    self.status = QJFreshStatusNone;
-    [self.refreshingView endRefreshing];
 }
 
 - (NSString *)getLikeUrl {
@@ -109,18 +88,28 @@
 - (void)setContent {
     self.canFreshMore = YES;
     self.pageIndex = 0;
-    self.navigationItem.titleView = self.segControl;
-    [self.view addSubview:self.tableView];
+    self.navigationItem.titleView = self.scrollHeadView;
+    [self.view addSubview:self.scrollView];
 }
 
 #pragma mark -tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.datas.count;
+    if (tableView == self.hotTableView) {
+        return self.hotDatas.count;
+    }
+    else {
+        return self.likeDatas.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     QJListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJListCell class])];
-    [cell refreshUI:self.datas[indexPath.row]];
+    if (tableView == self.hotTableView) {
+        [cell refreshUI:self.hotDatas[indexPath.row]];
+    }
+    else {
+        [cell refreshUI:self.likeDatas[indexPath.row]];
+    }
     return cell;
 }
 
@@ -128,98 +117,90 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QJInfoViewController *vc = [QJInfoViewController new];
     vc.hidesBottomBarWhenPushed = YES;
-    vc.item = self.datas[indexPath.row];
+    if (tableView == self.hotTableView) {
+        vc.item = self.hotDatas[indexPath.row];
+    }
+    else {
+        vc.item = self.likeDatas[indexPath.row];
+    }
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.segControl.selectedSegmentIndex == 0) {
-        return;
+    /*
+    if (scrollView == self.likeTableview) {
+        //预加载
+        CGFloat current = scrollView.contentOffset.y + scrollView.frame.size.height;
+        CGFloat total = scrollView.contentSize.height;
+        CGFloat ratio = current / total;
+        
+        CGFloat needRead = 25 * 0.7 + self.pageIndex * 25;
+        CGFloat totalItem = 25 * (self.pageIndex + 1);
+        CGFloat newThreshold = needRead / totalItem;
+        
+        if (self.likeDatas.count && ratio >= newThreshold) {
+            self.status = QJFreshStatusMore;
+            self.pageIndex++;
+            NSLog(@"Request page %ld from server.",self.pageIndex);
+            [self updateLikeResource];
+        }
     }
-    //预加载
-    CGFloat current = scrollView.contentOffset.y + scrollView.frame.size.height;
-    CGFloat total = scrollView.contentSize.height;
-    CGFloat ratio = current / total;
-    
-    CGFloat needRead = 25 * 0.7 + self.pageIndex * 25;
-    CGFloat totalItem = 25 * (self.pageIndex + 1);
-    CGFloat newThreshold = needRead / totalItem;
-    
-    if (self.datas.count && ratio >= newThreshold && self.status == QJFreshStatusNone && self.canFreshMore) {
-        self.status = QJFreshStatusMore;
-        self.pageIndex++;
-        NSLog(@"Request page %ld from server.",self.pageIndex);
-        [self updateLikeResource];
+     */
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == self.scrollView) {
+        self.scrollHeadView.selectedIndex = self.scrollView.contentOffset.x / UIScreenWidth();
     }
 }
 
-#pragma mark -seg点击事件
-- (void)segControlValueChange:(UISegmentedControl *)segControl {
-    if (segControl.selectedSegmentIndex) {
-        self.datas = @[];
-        [self.tableView reloadData];
-        if (![[QJHenTaiParser parser] checkCookie]) {
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"未登录" message:@"是否前往登陆?" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            [alertVC addAction:cancelBtn];
-            UIAlertAction *okBtn = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                QJLoginViewController *vc = [QJLoginViewController new];
-                [self presentViewController:vc animated:YES completion:nil];
-            }];
-            [alertVC addAction:okBtn];
-            [self presentViewController:alertVC animated:YES completion:nil];
-            return;
-        }
-        if (self.likeDatas.count) {
-            self.datas = self.likeDatas;
-            [self.tableView reloadData];
-            [self scrollToTop];
-        }
-        else {
-            self.datas = @[];
-            [self.tableView reloadData];
-            [self.refreshingView beginReFreshing];
-        }
-    } else {
-        if (self.hotDatas.count) {
-            self.datas = self.hotDatas;
-            [self.tableView reloadData];
-            [self scrollToTop];
-        } else {
-            self.datas = @[];
-            [self.tableView reloadData];
-            [self.refreshingView beginReFreshing];
-        }
-    }
+#pragma mark -QJScrollHeadViewDelagate
+- (void)didSelectedTitleWithIndex:(NSInteger)index {
+    [self.scrollView setContentOffset:CGPointMake(UIScreenWidth() * index, 0) animated:YES];
 }
 
-- (void)scrollToTop {
-    if (self.datas.count) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
+#pragma mark -getter
+- (UIScrollView *)scrollView {
+    if (nil == _scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), UIScreenHeight())];
+        _scrollView.contentSize = CGSizeMake(UIScreenWidth() * 2, UIScreenHeight());
+        _scrollView.pagingEnabled = YES;
+        _scrollView.delegate = self;
+        [_scrollView addSubview:self.hotTableView];
+        [_scrollView addSubview:self.likeTableview];
     }
+    return _scrollView;
 }
 
-#pragma mark -懒加载
-- (UISegmentedControl *)segControl {
-    if (!_segControl) {
-        _segControl = [[UISegmentedControl alloc] initWithItems:@[@"热门",@"收藏"]];
-        _segControl.frame = CGRectMake(0, 0, 180, 30);
-        _segControl.selectedSegmentIndex = 0;
-        [_segControl addTarget:self action:@selector(segControlValueChange:) forControlEvents:UIControlEventValueChanged];
+- (QJScrollHeadView *)scrollHeadView {
+    if (!_scrollHeadView) {
+        _scrollHeadView = [[NSBundle mainBundle] loadNibNamed:@"QJScrollHeadView" owner:nil options:nil].firstObject;
+        _scrollHeadView.frame = CGRectMake(0, 0, UIScreenWidth(), UISearchBarHeight());
+        _scrollHeadView.delegate = self;
     }
-    return _segControl;
+    return _scrollHeadView;
 }
 
-- (QJListTableView *)tableView {
-    if (!_tableView) {
-        _tableView = [QJListTableView new];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        [_tableView addSubview:self.refreshingView];
+- (QJListTableView *)hotTableView {
+    if (nil == _hotTableView) {
+        _hotTableView = [QJListTableView new];
+        _hotTableView.delegate = self;
+        _hotTableView.dataSource = self;
+        [_hotTableView addSubview:self.hotRefreshingView];
     }
-    return _tableView;
+    return _hotTableView;
+}
+
+- (QJListTableView *)likeTableview {
+    if (nil == _likeTableview) {
+        _likeTableview = [QJListTableView new];
+        _likeTableview.frame = CGRectMake(UIScreenWidth() + 60, 0, UIScreenWidth() - 120, UIScreenHeight());
+        _likeTableview.delegate = self;
+        _likeTableview.dataSource = self;
+        [_likeTableview addSubview:self.likeRefreshingView];
+    }
+    return _likeTableview;
 }
 
 - (NSMutableArray *)hotDatas {
@@ -236,13 +217,6 @@
     return _likeDatas;
 }
 
-- (NSArray *)datas {
-    if (!_datas) {
-        _datas = [NSArray new];
-    }
-    return _datas;
-}
-
 - (NSInteger)pageIndex {
     if (!_pageIndex) {
         _pageIndex = 0;
@@ -250,12 +224,20 @@
     return _pageIndex;
 }
 
-- (QJHeadFreshingView *)refreshingView {
-    if (!_refreshingView) {
-        _refreshingView = [QJHeadFreshingView new];
-        _refreshingView.delegate = self;
+- (QJHeadFreshingView *)hotRefreshingView {
+    if (nil == _hotRefreshingView) {
+        _hotRefreshingView = [[QJHeadFreshingView alloc] initWithFrame:CGRectMake(0, -kRefreshingViewHeight, isPad ? UIScreenWidth() - 120 : UIScreenWidth(), kRefreshingViewHeight)];
+        _hotRefreshingView.delegate = self;
     }
-    return _refreshingView;
+    return _hotRefreshingView;
+}
+
+- (QJHeadFreshingView *)likeRefreshingView {
+    if (nil == _likeRefreshingView) {
+        _likeRefreshingView = [[QJHeadFreshingView alloc] initWithFrame:CGRectMake(0, -kRefreshingViewHeight, isPad ? UIScreenWidth() - 120 : UIScreenWidth(), kRefreshingViewHeight)];
+        _likeRefreshingView.delegate = self;
+    }
+    return _likeRefreshingView;
 }
 
 - (void)didReceiveMemoryWarning {

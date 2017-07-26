@@ -33,8 +33,9 @@
 #define UIScreenHeight() [UIScreen mainScreen].bounds.size.height
 //一些固定参数
 #define UINavigationBarHeight() 64
-#define UITabBarHeight() 48
+#define UITabBarHeight() 49
 #define UISearchBarHeight() 44
+#define kRefreshingViewHeight 40
 //统一字体大小
 #define AppFontStyle() [UIFont systemFontOfSize:16]
 #define AppFontContentStyle() [UIFont systemFontOfSize:14]
@@ -66,5 +67,7 @@
 #define ToastSuccess(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeSuccess]
 #define ToastError(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeError]
 #define ToastWarning(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeWarning]
+//是否为ipad
+#define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
 #endif

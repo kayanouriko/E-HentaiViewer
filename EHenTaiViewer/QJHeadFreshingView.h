@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) id<QJHeadFreshingViewDelagate>delegate;
 
+@property (nonatomic, assign, getter=isReFreshing) BOOL refreshing;
+
 - (void)beginReFreshing;
 - (void)endRefreshing;
 

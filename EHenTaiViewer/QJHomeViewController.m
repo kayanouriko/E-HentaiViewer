@@ -277,6 +277,7 @@
         QJInfoViewController *vc = [QJInfoViewController new];
         vc.hidesBottomBarWhenPushed = YES;
         vc.item = self.datas[indexPath.row];
+        vc.preferredContentSize = CGSizeMake(150, 150);
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         if (indexPath.section == 1) {
@@ -476,7 +477,7 @@
 
 - (QJHeadFreshingView *)refreshView {
     if (!_refreshView) {
-        _refreshView = [QJHeadFreshingView new];
+        _refreshView = [[QJHeadFreshingView alloc] initWithFrame:CGRectMake(0, -kRefreshingViewHeight, isPad ? UIScreenWidth() - 120 : UIScreenWidth(), kRefreshingViewHeight)];
         _refreshView.delegate = self;
     }
     return _refreshView;

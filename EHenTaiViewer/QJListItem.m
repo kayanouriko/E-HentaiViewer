@@ -109,7 +109,7 @@
     //秒转分钟
     NSInteger minute = time / 60;
     if (minute < 61) {
-        return [NSString stringWithFormat:@"%ld小时前",minute];
+        return [NSString stringWithFormat:@"%ld分钟前",minute];
     }
     //秒转小时
     NSInteger hours = time/3600;

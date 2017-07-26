@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QJTableViewCell.h"
 
-@interface QJInfoOtherCell : UITableViewCell
+@interface QJInfoOtherCell : QJTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleNameLabel;
 

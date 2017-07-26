@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QJTableViewCell.h"
 
 @class QJGalleryItem;
 @class QJListItem;
 
-@interface QJStarViewCell : UITableViewCell
+@interface QJStarViewCell : QJTableViewCell
 
 - (void)refreshUI:(QJGalleryItem *)item listItem:(QJListItem *)listItem;
 

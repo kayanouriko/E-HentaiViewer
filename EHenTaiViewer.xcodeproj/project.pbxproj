@@ -101,6 +101,8 @@
 		5A6ECCAA1EDE975F00DBF9DA /* QJInfoOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECCA81EDE975F00DBF9DA /* QJInfoOtherCell.m */; };
 		5A6ECCAB1EDE975F00DBF9DA /* QJInfoOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECCA91EDE975F00DBF9DA /* QJInfoOtherCell.xib */; };
 		5A6ECCAE1EDE9D8B00DBF9DA /* QJGalleryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECCAD1EDE9D8B00DBF9DA /* QJGalleryItem.m */; };
+		5A7D083F1F25C3B4001B81D7 /* QJScrollHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D083E1F25C3B4001B81D7 /* QJScrollHeadView.m */; };
+		5A7D08411F25C4FD001B81D7 /* QJScrollHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D08401F25C4FD001B81D7 /* QJScrollHeadView.xib */; };
 		5A86C3201ED1608B00A8CD80 /* XHStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A86C31F1ED1608B00A8CD80 /* XHStarRateView.m */; };
 		5A86C3241ED1A07300A8CD80 /* QJGlobalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A86C3231ED1A07300A8CD80 /* QJGlobalInfo.m */; };
 		5A89EAD61EDF1A1500DA434F /* QJCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A89EAD41EDF1A1500DA434F /* QJCommentCell.m */; };
@@ -125,6 +127,9 @@
 		5ABA40EE1ED4326B00B21707 /* QJWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA40EC1ED4326B00B21707 /* QJWebViewController.xib */; };
 		5ABA40F21ED4386400B21707 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA40F11ED4386400B21707 /* NJKWebViewProgressView.m */; };
 		5ABA40F51ED4388100B21707 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA40F41ED4388100B21707 /* NJKWebViewProgress.m */; };
+		5ACA2B611F284133003DF3D0 /* QJIPADMainDockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACA2B601F284133003DF3D0 /* QJIPADMainDockView.xib */; };
+		5ACA2B641F28414D003DF3D0 /* QJIPADMainDockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA2B631F28414D003DF3D0 /* QJIPADMainDockView.m */; };
+		5ACA2B671F2867BE003DF3D0 /* QJTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA2B661F2867BE003DF3D0 /* QJTableViewCell.m */; };
 		5AF51B071ED0AF940034F26A /* YYCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF51B041ED0AF940034F26A /* YYCache.framework */; };
 		5AF51B081ED0AF940034F26A /* YYImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF51B051ED0AF940034F26A /* YYImage.framework */; };
 		5AF51B091ED0AF940034F26A /* YYWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF51B061ED0AF940034F26A /* YYWebImage.framework */; };
@@ -276,6 +281,9 @@
 		5A6ECCA91EDE975F00DBF9DA /* QJInfoOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJInfoOtherCell.xib; sourceTree = "<group>"; };
 		5A6ECCAC1EDE9D8B00DBF9DA /* QJGalleryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJGalleryItem.h; sourceTree = "<group>"; };
 		5A6ECCAD1EDE9D8B00DBF9DA /* QJGalleryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJGalleryItem.m; sourceTree = "<group>"; };
+		5A7D083D1F25C3B4001B81D7 /* QJScrollHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJScrollHeadView.h; sourceTree = "<group>"; };
+		5A7D083E1F25C3B4001B81D7 /* QJScrollHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJScrollHeadView.m; sourceTree = "<group>"; };
+		5A7D08401F25C4FD001B81D7 /* QJScrollHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJScrollHeadView.xib; sourceTree = "<group>"; };
 		5A86C31E1ED1608B00A8CD80 /* XHStarRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHStarRateView.h; sourceTree = "<group>"; };
 		5A86C31F1ED1608B00A8CD80 /* XHStarRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHStarRateView.m; sourceTree = "<group>"; };
 		5A86C3221ED1A07300A8CD80 /* QJGlobalInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJGlobalInfo.h; sourceTree = "<group>"; };
@@ -317,6 +325,11 @@
 		5ABA40F11ED4386400B21707 /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		5ABA40F31ED4388100B21707 /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
 		5ABA40F41ED4388100B21707 /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
+		5ACA2B601F284133003DF3D0 /* QJIPADMainDockView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJIPADMainDockView.xib; sourceTree = "<group>"; };
+		5ACA2B621F28414D003DF3D0 /* QJIPADMainDockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJIPADMainDockView.h; sourceTree = "<group>"; };
+		5ACA2B631F28414D003DF3D0 /* QJIPADMainDockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJIPADMainDockView.m; sourceTree = "<group>"; };
+		5ACA2B651F2867BE003DF3D0 /* QJTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTableViewCell.h; sourceTree = "<group>"; };
+		5ACA2B661F2867BE003DF3D0 /* QJTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTableViewCell.m; sourceTree = "<group>"; };
 		5AF51B041ED0AF940034F26A /* YYCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YYCache.framework; path = "../../Library/Developer/Xcode/DerivedData/EHenTaiViewer-ddxeweikdhtkjufflxartmaaywmv/Build/Products/Debug-iphoneos/YYCache/YYCache.framework"; sourceTree = "<group>"; };
 		5AF51B051ED0AF940034F26A /* YYImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YYImage.framework; path = "../../Library/Developer/Xcode/DerivedData/EHenTaiViewer-ddxeweikdhtkjufflxartmaaywmv/Build/Products/Debug-iphoneos/YYImage/YYImage.framework"; sourceTree = "<group>"; };
 		5AF51B061ED0AF940034F26A /* YYWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YYWebImage.framework; path = "../../Library/Developer/Xcode/DerivedData/EHenTaiViewer-ddxeweikdhtkjufflxartmaaywmv/Build/Products/Debug-iphoneos/YYWebImage/YYWebImage.framework"; sourceTree = "<group>"; };
@@ -529,6 +542,8 @@
 				5A2F792E1ECD2CB900745DA0 /* QJViewController.m */,
 				5A1999C01ED6891100DB6B9D /* QJListTableView.h */,
 				5A1999C11ED6891100DB6B9D /* QJListTableView.m */,
+				5ACA2B651F2867BE003DF3D0 /* QJTableViewCell.h */,
+				5ACA2B661F2867BE003DF3D0 /* QJTableViewCell.m */,
 			);
 			name = "自定义子类";
 			sourceTree = "<group>";
@@ -566,6 +581,7 @@
 		5A39773F1EF75AEE009A2273 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				5ACA2B5F1F28411B003DF3D0 /* View */,
 				5A3977401EF75B18009A2273 /* QJTabBarController.h */,
 				5A3977411EF75B18009A2273 /* QJTabBarController.m */,
 			);
@@ -719,6 +735,7 @@
 		5A6ECC8F1EDE6CBA00DBF9DA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5ACA2B681F286A23003DF3D0 /* 分页控制器 */,
 				5A8A11DB1EE8DF2B001D9444 /* 自定义分享按钮 */,
 				5A0A1F441EE00C36002C8AF8 /* 评分操作 */,
 				5A0A1F3E1EE009C8002C8AF8 /* 评分 */,
@@ -761,6 +778,16 @@
 				5A6ECCA91EDE975F00DBF9DA /* QJInfoOtherCell.xib */,
 			);
 			name = "其他";
+			sourceTree = "<group>";
+		};
+		5A7D083C1F25C379001B81D7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A7D083D1F25C3B4001B81D7 /* QJScrollHeadView.h */,
+				5A7D083E1F25C3B4001B81D7 /* QJScrollHeadView.m */,
+				5A7D08401F25C4FD001B81D7 /* QJScrollHeadView.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		5A86C31D1ED1608B00A8CD80 /* XHStarRateView */ = {
@@ -917,6 +944,7 @@
 		5A90DAEC1ECC4D9C00575145 /* 类别 */ = {
 			isa = PBXGroup;
 			children = (
+				5A7D083C1F25C379001B81D7 /* View */,
 				5A90DAED1ECC4DC000575145 /* QJHotAndLikeViewController.h */,
 				5A90DAEE1ECC4DC000575145 /* QJHotAndLikeViewController.m */,
 			);
@@ -951,6 +979,23 @@
 				5ABA40F11ED4386400B21707 /* NJKWebViewProgressView.m */,
 			);
 			name = NJKWebViewProgress;
+			sourceTree = "<group>";
+		};
+		5ACA2B5F1F28411B003DF3D0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5ACA2B621F28414D003DF3D0 /* QJIPADMainDockView.h */,
+				5ACA2B631F28414D003DF3D0 /* QJIPADMainDockView.m */,
+				5ACA2B601F284133003DF3D0 /* QJIPADMainDockView.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		5ACA2B681F286A23003DF3D0 /* 分页控制器 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "分页控制器";
 			sourceTree = "<group>";
 		};
 		B443D317642A800697D35BDA /* Pods */ = {
@@ -1029,6 +1074,7 @@
 				5A89EAD71EDF1A1500DA434F /* QJCommentCell.xib in Resources */,
 				5A41BF8F1ED51BAA0073659B /* fftoast_info@2x.png in Resources */,
 				5A41BF8D1ED51BAA0073659B /* fftoast_error_highlight@3x.png in Resources */,
+				5A7D08411F25C4FD001B81D7 /* QJScrollHeadView.xib in Resources */,
 				5ABA40EE1ED4326B00B21707 /* QJWebViewController.xib in Resources */,
 				5A41BF911ED51BAA0073659B /* fftoast_info_highlight.png in Resources */,
 				5A41BF861ED51BAA0073659B /* fftoast_dismiss@2x.png in Resources */,
@@ -1050,6 +1096,7 @@
 				5A41BF851ED51BAA0073659B /* fftoast_dismiss.png in Resources */,
 				5A41BFB51ED530770073659B /* QJSettingCell.xib in Resources */,
 				5A41BF881ED51BAA0073659B /* fftoast_error.png in Resources */,
+				5ACA2B611F284133003DF3D0 /* QJIPADMainDockView.xib in Resources */,
 				5A6ECC991EDE771C00DBF9DA /* QJImageCollectionViewCell.xib in Resources */,
 				5A41BF951ED51BAA0073659B /* fftoast_success@2x.png in Resources */,
 				5A41BF8C1ED51BAA0073659B /* fftoast_error_highlight@2x.png in Resources */,
@@ -1148,6 +1195,7 @@
 				5ABA40F51ED4388100B21707 /* NJKWebViewProgress.m in Sources */,
 				5A0A1F421EE009EB002C8AF8 /* QJStarViewCell.m in Sources */,
 				5A1999C21ED6891100DB6B9D /* QJListTableView.m in Sources */,
+				5ACA2B671F2867BE003DF3D0 /* QJTableViewCell.m in Sources */,
 				5A3977421EF75B18009A2273 /* QJTabBarController.m in Sources */,
 				5ABA40ED1ED4326B00B21707 /* QJWebViewController.m in Sources */,
 				5A0780B81ECE8A5600EF00E6 /* QJListItem.m in Sources */,
@@ -1158,6 +1206,7 @@
 				5A6ECCAA1EDE975F00DBF9DA /* QJInfoOtherCell.m in Sources */,
 				5A41BFB41ED530770073659B /* QJSettingCell.m in Sources */,
 				5A0A1F371EDFB7C3002C8AF8 /* QJTagView.m in Sources */,
+				5A7D083F1F25C3B4001B81D7 /* QJScrollHeadView.m in Sources */,
 				5A0A1F481EE00C53002C8AF8 /* QJSecondCell.m in Sources */,
 				5A41BFA41ED51BAA0073659B /* FFToast.m in Sources */,
 				5A25A2371EE2F8EE00A62DCF /* QJBigImageItem.m in Sources */,
@@ -1165,6 +1214,7 @@
 				5A0780A51ECE822100EF00E6 /* XPathQuery.m in Sources */,
 				5A41BFA21ED51BAA0073659B /* FFBaseToastView.m in Sources */,
 				5A2F79661ECD945100745DA0 /* QJSearchClassifyCell.m in Sources */,
+				5ACA2B641F28414D003DF3D0 /* QJIPADMainDockView.m in Sources */,
 				5A41BFA31ED51BAA0073659B /* FFCentreToastView.m in Sources */,
 				5A41BFA01ED51BAA0073659B /* NSString+FFToast.m in Sources */,
 				5A0780A41ECE822100EF00E6 /* TFHppleElement.m in Sources */,

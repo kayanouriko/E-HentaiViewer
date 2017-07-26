@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QJTableViewCell.h"
 
 @class QJGalleryItem;
 
-@interface QJInfoThumbCell : UITableViewCell
+@interface QJInfoThumbCell : QJTableViewCell
 
 - (void)refreshUI:(QJGalleryItem *)item;
 

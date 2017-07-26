@@ -108,6 +108,7 @@
 
 #pragma mark -设置内容
 - (void)setContent {
+    self.view.backgroundColor = [UIColor whiteColor];
     //导航栏部分
     self.navigationItem.rightBarButtonItem = self.likeItem;
     

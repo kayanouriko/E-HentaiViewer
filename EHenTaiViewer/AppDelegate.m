@@ -44,6 +44,14 @@
     //网络监测
     [[QJNetworkTool shareTool] starNotifier];
     
+    /*
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UITabBarController *vc = [storyBoard instantiateViewControllerWithIdentifier:isPad ? @"ipadInput" : @"iphoneInput"];
+    self.window.rootViewController = vc;
+    [self.window makeKeyAndVisible];
+    */
     return YES;
 }
 

@@ -8,8 +8,6 @@
 
 #import "QJHeadFreshingView.h"
 
-#define kRefreshingViewHeight 40
-
 typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
     QJHeadFreshingViewStateNormal,//未下拉状态,未刷新
     QJHeadFreshingViewStatePull,//下拉状态,未刷新
@@ -30,7 +28,8 @@ typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
 {
     self = [super init];
     if (self) {
-        [self commonInit];
+        CGRect frame = CGRectMake(0, -kRefreshingViewHeight, UIScreenWidth(), kRefreshingViewHeight);
+        [self commonInitWithFrame:frame];
     }
     return self;
 }
@@ -39,13 +38,13 @@ typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self commonInit];
+        [self commonInitWithFrame:frame];
     }
     return self;
 }
 
-- (void)commonInit {
-    self.frame = CGRectMake(0, -kRefreshingViewHeight, UIScreenWidth(), kRefreshingViewHeight);
+- (void)commonInitWithFrame:(CGRect)frame {
+    self.frame = frame;
     [self addSubview:self.activity];
     self.currState = QJHeadFreshingViewStateNormal;
 }
@@ -106,10 +105,12 @@ typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
         case QJHeadFreshingViewStateNormal:
         {
             //不作为
+            self.refreshing = NO;
         }
             break;
         case QJHeadFreshingViewStateRefreshing:
         {
+            self.refreshing = YES;
             //开始转动
             [self.activity startAnimating];
             //将scrollView下拉一定距离
@@ -125,6 +126,7 @@ typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
         case QJHeadFreshingViewStatePull:
         {
             //不作为
+            self.refreshing = NO;
         }
             break;
         default:

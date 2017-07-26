@@ -27,6 +27,7 @@
 }
 
 - (void)setContent {
+    self.view.backgroundColor = [UIColor whiteColor];
     self.starView.rateStyle = HalfStar;
 }
 

@@ -58,6 +58,7 @@
 #pragma mark -内容设置
 - (void)setContent {
     self.title = [NSString stringWithFormat:@"(%d / %ld)",1,self.count];
+    self.view.backgroundColor = [UIColor whiteColor];
     //TODO:分享功能暂时不做
     //self.navigationItem.rightBarButtonItem = self.shareItem;
     //添加view

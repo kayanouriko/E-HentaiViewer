@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QJTableViewCell.h"
 
-@interface QJCommentCell : UITableViewCell
+@interface QJCommentCell : QJTableViewCell
 
 - (void)refreshUI:(NSDictionary *)dict;
 

@@ -66,7 +66,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [UITableView new];
-        _tableView.frame = CGRectMake(0, 0, UIScreenWidth(), UIScreenHeight());
+        _tableView.frame = CGRectMake(isPad ? 60 : 0, 0,isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight());
         _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, -10, 0);
         _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _tableView.rowHeight = UITableViewAutomaticDimension;

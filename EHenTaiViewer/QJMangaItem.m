@@ -59,31 +59,42 @@
 
 #pragma mark -创建一个本地离线html
 - (NSString *)getHtmlWithUrl:(NSString *)url x:(NSString *)x y:(NSString *)y {
+    CGFloat bl = UIScreenWidth() / UIScreenHeight();
+    CGFloat imgbl = [x floatValue] / [y floatValue];
+    NSString *css = @"";
+    if (bl > imgbl) {
+        css = @"height:100%;";
+    }
+    else {
+        css = @"width:100%;";
+    }
     NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html>\
                       <html>\
                       <head>\
                       <meta charset=\"utf-8\" />\
                       <title></title>\
                       <style>\
-                      #main {\
+                      div {\
+                        display: flex;\
+                        justify-content: center;\
+                      }\
+                      img {\
+                        %@\
                         position: absolute;\
+                        left: 0;\
+                        top: 0;\
+                        right: 0;\
+                        bottom: 0;\
+                        margin: auto;\
                       }\
                       </style>\
                       </head>\
                       <body>\
-                      <img style=\"width:100%%\" src=\"%@\" id=\"main\" />\
-                      <script type=\"text/javascript\">\
-                      window.onload = function() {\
-                          var windowScreen = document.documentElement;\
-                          var main_div = document.getElementById(\"main\");\
-                          var main_left = (windowScreen.clientWidth - main_div.clientWidth) / 2 + \"px\";\
-                          var main_top = (windowScreen.clientHeight - main_div.clientHeight) / 2 + \"px\";\
-                          main_div.style.left = main_left;\
-                          main_div.style.top = main_top;\
-                      }\
-                      </script>\
+                      <div>\
+                      <img src=\"%@\" />\
+                      </div>\
                       </body>\
-                      </html>",url];
+                      </html>",css , url];
     return html;
 }
 

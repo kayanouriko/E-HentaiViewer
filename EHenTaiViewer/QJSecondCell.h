@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QJTableViewCell.h"
 
 @protocol QJSecondCellDelagate <NSObject>
 
@@ -14,7 +15,7 @@
 
 @end
 
-@interface QJSecondCell : UITableViewCell
+@interface QJSecondCell : QJTableViewCell
 
 @property (weak, nonatomic) id<QJSecondCellDelagate>delegate;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rsu-H3-Gff">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Wqc-i0-cto"/>
@@ -54,7 +54,7 @@
                         <viewControllerLayoutGuide type="bottom" id="5Mp-X8-DjR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nme-DL-fGk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
@@ -67,7 +67,6 @@
         <!--Navigation Controller-->
         <scene sceneID="GU7-1Z-l04">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rNW-x3-6YO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="ssI-2k-Wsd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="setting" id="VAa-8U-OfQ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="B85-hG-xhI">
@@ -78,8 +77,9 @@
                         <segue destination="YU9-ns-58v" kind="relationship" relationship="rootViewController" id="fCE-Z7-byL"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rNW-x3-6YO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1078" y="1636"/>
+            <point key="canvasLocation" x="1089" y="968"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="MEz-Ub-Rbb">
@@ -90,7 +90,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ZTl-yw-dAd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iMk-M2-EUk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
@@ -98,12 +98,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hJ-Ih-1wC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1814" y="1639"/>
+            <point key="canvasLocation" x="1830" y="967"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ade-3D-b4V">
             <objects>
-                <tabBarController id="rsu-H3-Gff" customClass="QJTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="iphoneInput" id="rsu-H3-Gff" customClass="QJTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="SfV-sc-fgu"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="5rN-ZL-TPB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -118,7 +118,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5P0-ou-v85" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-401" y="782"/>
+            <point key="canvasLocation" x="113" y="271"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="u1r-5r-7Ha">

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QJTableViewCell.h"
 
-@interface QJInfoTagCell : UITableViewCell
+@interface QJInfoTagCell : QJTableViewCell
 
 - (void)refreshUI:(NSArray *)array;
 
