@@ -1,8 +1,6 @@
 # EHenTaiViewer
 一个EHentai的iOS端阅读器
 
-[https://github.com/kayanouriko/EHentaiViewer/releases](https://github.com/kayanouriko/EHentaiViewer/releases)
-
 # 更新内容
 
 2017.06.19 重构初版
