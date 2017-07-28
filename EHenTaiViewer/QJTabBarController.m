@@ -7,11 +7,8 @@
 //
 
 #import "QJTabBarController.h"
-#import "QJIPADMainDockView.h"
 
 @interface QJTabBarController ()
-
-@property (nonatomic, strong) QJIPADMainDockView *dock;
 
 @end
 
@@ -24,15 +21,6 @@
         item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
         item.titlePositionAdjustment  = UIOffsetMake(0,20);
     }
-}
-
-#pragma mark -getter
-- (QJIPADMainDockView *)dock {
-    if (nil == _dock) {
-        _dock = [[NSBundle mainBundle] loadNibNamed:@"QJIPADMainDockView" owner:nil options:nil][0];
-        _dock.frame = CGRectMake(0, 0, 70, UIScreenHeight());
-    }
-    return _dock;
 }
 
 - (void)didReceiveMemoryWarning {

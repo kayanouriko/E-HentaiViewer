@@ -24,7 +24,9 @@
                 </button>
                 <button opaque="NO" tag="301" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6Y-Q7-afo">
                     <rect key="frame" x="200" y="7" width="31" height="30"/>
-                    <state key="normal" title="收藏"/>
+                    <state key="normal" title="收藏">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
                         <action selector="btnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="HDq-Bg-79c"/>
                     </connections>

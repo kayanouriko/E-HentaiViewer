@@ -28,6 +28,7 @@
 }
 
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -36,6 +37,7 @@
         ToastWarning(nil, @"评论内容不能为空!");
         return;
     }
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:^{
         [[QJHenTaiParser parser] updateCommentWithContent:self.textV.text url:self.url complete:^(QJHenTaiParserStatus status) {
             

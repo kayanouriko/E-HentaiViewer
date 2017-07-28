@@ -7,8 +7,19 @@
 //
 
 #import "QJFavouriteViewController.h"
+#import "QJFavSelectViewController.h"
+#import "QJFavSelectViewController.h"
 
-@interface QJFavouriteViewController ()
+@interface QJFavouriteViewController ()<QJFavSelectViewControllerDelagate>
+
+@property (weak, nonatomic) IBOutlet UIButton *folderBtn;
+@property (weak, nonatomic) IBOutlet UITextView *contentTextV;
+@property (nonatomic, assign) NSInteger index;
+
+- (IBAction)btnAction:(UIButton *)sender;
+
+- (IBAction)canelAction:(UIBarButtonItem *)sender;
+- (IBAction)likeAction:(UIBarButtonItem *)sender;
 
 @end
 
@@ -16,22 +27,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.view.backgroundColor = [UIColor whiteColor];
+    //默认在收藏夹0
+    self.index = 0;
+    //激活
+    [self.contentTextV becomeFirstResponder];
+}
+
+- (IBAction)btnAction:(UIButton *)sender {
+    QJFavSelectViewController *vc = [QJFavSelectViewController new];
+    vc.delegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark -QJFavSelectViewControllerDelagate
+- (void)didSelectFavFolder:(NSInteger)index {
+    self.index = index;
+    [self.folderBtn setTitle:[NSString stringWithFormat:@"Favorites %ld >",index] forState:UIControlStateNormal];
+}
+
+- (IBAction)canelAction:(UIBarButtonItem *)sender {
+    [self.view endEditing:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)likeAction:(UIBarButtonItem *)sender {
+    [self.view endEditing:YES];
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didSelectFolder:content:)]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.delegate didSelectFolder:self.index content:self.contentTextV.text];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

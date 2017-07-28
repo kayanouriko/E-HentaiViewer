@@ -58,7 +58,7 @@ typedef void (^TorrentListHandler)(QJHenTaiParserStatus status ,NSArray<QJTorren
 
 //操作相关
 //收藏
-- (void)updateFavoriteStatus:(BOOL)isFavorite model:(QJListItem *)item complete:(LoginHandler)completion;
+- (void)updateFavoriteStatus:(BOOL)isFavorite model:(QJListItem *)item index:(NSInteger)index content:(NSString *)content complete:(LoginHandler)completion;
 //评论
 - (void)updateCommentWithContent:(NSString *)content url:(NSString *)url complete:(LoginHandler)completion;
 //评星

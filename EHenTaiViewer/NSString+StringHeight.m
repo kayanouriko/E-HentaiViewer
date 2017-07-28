@@ -25,16 +25,33 @@
 }
 
 - (NSString *)handleString {
-    NSArray *array = @[
-                       @[@"[",@"]"],
-                       @[@"(",@")"],
-                       @[@"【",@"】"],
-                       ];
+    //感谢seven332
+    NSString *prefixRegex = @"^(?:(?:\\([^\\)]*\\))|(?:\\[[^\\]]*\\])|(?:\\{[^\\}]*\\})|(?:~[^~]*~)|\\s+)*";
+    NSString *suffixRegex = @"(?:\\s+ch.[\\s\\d-]+)?(?:(?:\\([^\\)]*\\))|(?:\\[[^\\]]*\\])|(?:\\{[^\\}]*\\})|(?:~[^~]*~)|\\s+)*$";
     NSString *newStr = self;
-    for (NSArray *subArr in array) {
-        newStr = [self startWithStr:subArr.firstObject endStr:subArr.lastObject string:newStr];
+    newStr = [newStr stringByReplacingOccurrencesOfString:[self matchString:newStr toRegexString:prefixRegex].firstObject withString:@""];
+    newStr = [newStr stringByReplacingOccurrencesOfString:[self matchString:newStr toRegexString:suffixRegex].firstObject withString:@""];
+    //标题内还可能包含"|"
+    if ([newStr containsString:@"|"]) {
+        NSRange range = [newStr rangeOfString:@"|"];
+        newStr = [newStr substringWithRange:NSMakeRange(0, range.location)];
     }
     return newStr;
+}
+
+- (NSArray *)matchString:(NSString *)string toRegexString:(NSString *)regexStr {
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray * matches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
+    //match: 所有匹配到的字符,根据() 包含级
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSTextCheckingResult *match in matches) {
+        for (int i = 0; i < [match numberOfRanges]; i++) {
+            //以正则中的(),划分成不同的匹配部分
+            NSString *component = [string substringWithRange:[match rangeAtIndex:i]];
+            [array addObject:component];
+        }
+    }
+    return array;
 }
 
 - (NSString *)startWithStr:(NSString *)start endStr:(NSString *)end string:(NSString *) string {

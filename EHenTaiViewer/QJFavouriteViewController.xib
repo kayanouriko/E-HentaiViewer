@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QJFavouriteViewController">
             <connections>
+                <outlet property="contentTextV" destination="dQL-PR-SAu" id="Isq-fs-Hpk"/>
+                <outlet property="folderBtn" destination="Epu-K6-ucd" id="LQG-OE-JoK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,8 +20,78 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbv-CF-Bre">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="z0d-o2-GSb"/>
+                    </constraints>
+                    <items>
+                        <navigationItem title="收藏" id="NSn-qb-5GQ">
+                            <barButtonItem key="leftBarButtonItem" title="取消" id="6mk-uK-jkd">
+                                <connections>
+                                    <action selector="canelAction:" destination="-1" id="iqG-Vq-jyb"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" title="确定" id="Lnt-Uc-i7N">
+                                <connections>
+                                    <action selector="likeAction:" destination="-1" id="3ca-9p-6bo"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D83-kM-q80">
+                    <rect key="frame" x="20" y="84" width="335" height="1"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Ysu-ES-KH3"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LnY-6t-OOB">
+                    <rect key="frame" x="20" y="125" width="335" height="1"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="0Ob-LW-Qif"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Epu-K6-ucd">
+                    <rect key="frame" x="0.0" y="85" width="375" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="MX4-Bs-VkH"/>
+                    </constraints>
+                    <state key="normal" title="favorites 0 &gt;"/>
+                    <connections>
+                        <action selector="btnAction:" destination="-1" eventType="touchUpInside" id="cQE-SU-K5X"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQL-PR-SAu">
+                    <rect key="frame" x="20" y="146" width="335" height="491"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <point key="canvasLocation" x="-219" y="74"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="LnY-6t-OOB" secondAttribute="trailing" constant="20" id="0kC-S7-Jbo"/>
+                <constraint firstItem="hbv-CF-Bre" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="25c-9v-lsk"/>
+                <constraint firstItem="dQL-PR-SAu" firstAttribute="top" secondItem="LnY-6t-OOB" secondAttribute="bottom" constant="20" id="4fu-A7-rs9"/>
+                <constraint firstItem="Epu-K6-ucd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="50N-sH-swr"/>
+                <constraint firstItem="D83-kM-q80" firstAttribute="top" secondItem="hbv-CF-Bre" secondAttribute="bottom" constant="20" id="7tC-Uo-pc1"/>
+                <constraint firstItem="LnY-6t-OOB" firstAttribute="top" secondItem="Epu-K6-ucd" secondAttribute="bottom" id="DaC-h6-2hK"/>
+                <constraint firstItem="D83-kM-q80" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="PcJ-5b-F9J"/>
+                <constraint firstAttribute="trailing" secondItem="Epu-K6-ucd" secondAttribute="trailing" id="cbO-WB-0ja"/>
+                <constraint firstAttribute="trailing" secondItem="hbv-CF-Bre" secondAttribute="trailing" id="csT-kY-h5D"/>
+                <constraint firstItem="dQL-PR-SAu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="d8c-Ff-Srw"/>
+                <constraint firstAttribute="trailing" secondItem="dQL-PR-SAu" secondAttribute="trailing" constant="20" id="egh-vX-f54"/>
+                <constraint firstItem="Epu-K6-ucd" firstAttribute="top" secondItem="D83-kM-q80" secondAttribute="bottom" id="oD2-8Y-fqn"/>
+                <constraint firstItem="LnY-6t-OOB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="ppF-QH-73Y"/>
+                <constraint firstItem="hbv-CF-Bre" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vM5-NT-w0s"/>
+                <constraint firstAttribute="trailing" secondItem="D83-kM-q80" secondAttribute="trailing" constant="20" id="w80-g1-IOx"/>
+                <constraint firstAttribute="bottom" secondItem="dQL-PR-SAu" secondAttribute="bottom" constant="30" id="xnB-fL-8pm"/>
+            </constraints>
+            <point key="canvasLocation" x="-219.5" y="73.5"/>
         </view>
     </objects>
 </document>

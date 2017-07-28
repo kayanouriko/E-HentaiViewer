@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *thumb;//封面
 @property (nonatomic, strong) NSString *title;//标题
 @property (nonatomic, strong) NSString *title_jpn;//日语标题
+@property (nonatomic, strong) NSString *similarKey;//类似画廊关键字
 @property (nonatomic, strong) NSString *category;//分类
 @property (nonatomic, strong) UIColor *categoryColor;//分类颜色
 @property (nonatomic, strong) NSString *language;//语言

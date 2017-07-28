@@ -32,8 +32,10 @@
 #import "QJTorrentInfoController.h"
 //登陆
 #import "QJLoginViewController.h"
+//收藏
+#import "QJFavouriteViewController.h"
 
-@interface QJInfoViewController ()<UITableViewDelegate,UITableViewDataSource,QJSecondCellDelagate,QJLikeBarButtonItemDelagate>
+@interface QJInfoViewController ()<UITableViewDelegate,UITableViewDataSource,QJSecondCellDelagate,QJLikeBarButtonItemDelagate,UIScrollViewDelegate,QJFavouriteViewControllerDelagate>
 
 @property (nonatomic, strong) QJLikeBarButtonItem *likeItem;
 
@@ -44,15 +46,22 @@
 @property (weak, nonatomic) IBOutlet UILabel *starLabel;
 @property (weak, nonatomic) IBOutlet UIButton *torrentBtn;
 
+@property (weak, nonatomic) IBOutlet UIView *segView;
+@property (weak, nonatomic) IBOutlet UIView *segUnderLine;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *segViewLeftLine;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segController;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+//内容部分
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) UITableView *infoTableView;
+@property (nonatomic, strong) UITableView *conmentTableView;
+
 @property (nonatomic, strong) NSArray *firstArr;
 @property (nonatomic, assign) NSInteger rowCount;
 @property (nonatomic, strong) QJGalleryItem *galleryItem;
+@property (nonatomic, assign, getter=isNeedRefresh) BOOL needRefresh; //是否需要刷新布局
 
-- (IBAction)valueChange:(UISegmentedControl *)sender;
 - (IBAction)btnAction:(UIButton *)sender;
 
 @end
@@ -66,15 +75,16 @@
     [self updateResource];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    CGRect rect = self.headView.frame;
-    self.tableView.contentInset = UIEdgeInsetsMake(rect.origin.y + rect.size.height, 0, 10, 0);
+    if (self.isNeedRefresh) {
+        self.needRefresh = NO;
+        CGRect rect = self.headView.frame;
+        self.infoTableView.contentInset = UIEdgeInsetsMake(rect.origin.y + rect.size.height, 0, 10, 0);
+        self.conmentTableView.contentInset = UIEdgeInsetsMake(rect.origin.y + rect.size.height, 0, 10, 0);
+        self.segViewLeftLine.constant = self.segView.frame.size.width / 4 - 45;
+        self.segUnderLine.hidden = NO;
+    }
 }
 
 #pragma mark -右上角收藏
@@ -97,8 +107,27 @@
         return;
     }
     //正式操作
+    if (self.galleryItem.isFavorite) {
+        self.likeItem.state = QJLikeBarButtonItemStateLoading;
+        //取消收藏
+        [[QJHenTaiParser parser] updateFavoriteStatus:self.galleryItem.isFavorite model:self.item index:0 content:@"" complete:^(QJHenTaiParserStatus status) {
+            if (status == QJHenTaiParserStatusSuccess) {
+                self.galleryItem.isFavorite = !self.galleryItem.isFavorite;
+                [self changeFavoritesStatus];
+            }
+        }];
+    } else {
+        //收藏,跳转收藏界面
+        QJFavouriteViewController *vc = [QJFavouriteViewController new];
+        vc.delegate = self;
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+}
+
+#pragma mark -QJFavouriteViewControllerDelagate
+- (void)didSelectFolder:(NSInteger)index content:(NSString *)content {
     self.likeItem.state = QJLikeBarButtonItemStateLoading;
-    [[QJHenTaiParser parser] updateFavoriteStatus:self.galleryItem.isFavorite model:self.item complete:^(QJHenTaiParserStatus status) {
+    [[QJHenTaiParser parser] updateFavoriteStatus:self.galleryItem.isFavorite model:self.item index:index content:content complete:^(QJHenTaiParserStatus status) {
         if (status == QJHenTaiParserStatusSuccess) {
             self.galleryItem.isFavorite = !self.galleryItem.isFavorite;
             [self changeFavoritesStatus];
@@ -118,6 +147,7 @@
 }
 
 - (void)setHeadPart {
+    self.needRefresh = YES;
     //封面
     [self.thumbImageView yy_setImageWithURL:[NSURL URLWithString:self.item.thumb] options:YYWebImageOptionProgressiveBlur | YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionHandleCookies];
     //标题
@@ -152,19 +182,11 @@
 }
 
 - (void)setTableView {
+    self.scrollView.delegate = self;
+    self.scrollView.contentSize = CGSizeMake(UIScreenWidth() * 2, UIScreenHeight());
     //tableView
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 100;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.tableFooterView = [UIView new];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJInfoThumbCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJInfoThumbCell class])];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJInfoBaseCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJInfoBaseCell class])];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJInfoOtherCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJInfoOtherCell class])];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJCommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJCommentCell class])];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJInfoTagCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJInfoTagCell class])];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSecondCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSecondCell class])];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJStarViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJStarViewCell class])];
+    [self.scrollView addSubview:self.infoTableView];
+    [self.scrollView addSubview:self.conmentTableView];
 }
 
 #pragma mark -请求数据
@@ -180,7 +202,8 @@
             //改变收藏按钮
             [self changeFavoritesStatus];
             //刷新tableview
-            [self.tableView reloadData];
+            [self.infoTableView reloadData];
+            [self.conmentTableView reloadData];
         }
         [self.activity stopAnimating];
     }];
@@ -194,13 +217,6 @@
         self.galleryItem.isFavorite = NO;
         self.likeItem.state = QJLikeBarButtonItemStateUnlike;
     }
-}
-
-#pragma mark -切换标签
-- (IBAction)valueChange:(UISegmentedControl *)sender {
-    [self.tableView reloadData];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
 }
 
 #pragma mark -按钮点击事件
@@ -251,8 +267,46 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case 5:
+        {
+            //详情
+            [self changeUnderLineWithBool:NO isChangeScrollView:YES];
+        }
+            break;
+        case 6:
+        {
+            //评论
+            [self changeUnderLineWithBool:YES isChangeScrollView:YES];
+        }
+            break;
         default:
             break;
+    }
+}
+
+#pragma mark -标签切换
+- (void)changeUnderLineWithBool:(BOOL)isRight isChangeScrollView:(BOOL)isChangeScrollView {
+    //修改下滑线
+    [UIView animateWithDuration:0.25f animations:^{
+        self.segViewLeftLine.constant = isRight ? self.segView.frame.size.width * 3 / 4 - 45 : self.segView.frame.size.width / 4 - 45;
+        [self.segView layoutIfNeeded];
+    }];
+    //修改按钮颜色
+    UIButton *button1 = (UIButton *)[self.view viewWithTag:405];
+    UIButton *button2 = (UIButton *)[self.view viewWithTag:406];
+    [button1 setTitleColor:isRight ? [UIColor blackColor] : DEFAULT_COLOR forState:UIControlStateNormal];
+    [button2 setTitleColor:isRight ? DEFAULT_COLOR : [UIColor blackColor] forState:UIControlStateNormal];
+    //修改scrollview的Offset
+    if (isChangeScrollView) {
+        [self.scrollView setContentOffset:CGPointMake(isRight ? UIScreenWidth() : 0, 0) animated:YES];
+    }
+}
+
+#pragma mark -UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == self.scrollView) {
+        BOOL isRight = self.scrollView.contentOffset.x / UIScreenWidth();
+        [self changeUnderLineWithBool:isRight isChangeScrollView:NO];
     }
 }
 
@@ -289,15 +343,16 @@
 
 #pragma mark -tableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.segController.selectedSegmentIndex == 1) {
+    if (tableView == self.conmentTableView) {
         return self.galleryItem.comments.count + 2;
-    } else {
+    }
+    else {
         return self.rowCount;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.segController.selectedSegmentIndex == 1) {
+    if (tableView == self.conmentTableView) {
         if (indexPath.row == 0) {
             QJStarViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJStarViewCell class])];
             [cell refreshUI:self.galleryItem listItem:self.item];
@@ -313,7 +368,8 @@
             [cell refreshUI:self.galleryItem.comments[indexPath.row - 2]];
             return cell;
         }
-    } else {
+    }
+    else {
         if (indexPath.row == 0) {
             QJInfoThumbCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJInfoThumbCell class])];
             [cell refreshUI:self.galleryItem];
@@ -339,8 +395,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (self.segController.selectedSegmentIndex == 0 && (indexPath.row == 3 || indexPath.row == 4)) {
-        NSString *url = [NSString stringWithFormat:@"?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=%@&f_apply=Apply+Filter",[[self.item.title handleString] urlEncode]];
+    if (tableView == self.infoTableView && (indexPath.row == 3 || indexPath.row == 4)) {
+        NSString *searchKey = [self.item.title handleString];
+        if (indexPath.row == 3 && (nil == searchKey || searchKey.length == 0)) {
+            ToastError(nil,@"暂无类似画廊");
+            return;
+        }
+        NSString *url = [NSString stringWithFormat:@"?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=%@&f_apply=Apply+Filter",[searchKey urlEncode]];
         QJOtherListController *vc = [QJOtherListController new];
         vc.type = indexPath.row == 3 ? QJOtherListControllerTypeTag : QJOtherListControllerTypePerson;
         vc.key = indexPath.row == 3 ? url : self.item.uploader;
@@ -349,7 +410,38 @@
     }
 }
 
-#pragma mark -setter
+#pragma mark -getter
+-  (UITableView *)infoTableView {
+    if (nil == _infoTableView) {
+        _infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(isPad ? 130 : 0, 0, isPad ? UIScreenWidth() - 260 : UIScreenWidth(), UIScreenHeight())];
+        _infoTableView.rowHeight = UITableViewAutomaticDimension;
+        _infoTableView.estimatedRowHeight = 100;
+        _infoTableView.delegate = self;
+        _infoTableView.dataSource = self;
+        _infoTableView.tableFooterView = [UIView new];
+        [_infoTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJInfoThumbCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJInfoThumbCell class])];
+        [_infoTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJInfoBaseCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJInfoBaseCell class])];
+        [_infoTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJInfoOtherCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJInfoOtherCell class])];
+        [_infoTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJInfoTagCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJInfoTagCell class])];
+    }
+    return _infoTableView;
+}
+
+- (UITableView *)conmentTableView {
+    if (nil == _conmentTableView) {
+        _conmentTableView = [[UITableView alloc] initWithFrame:CGRectMake(isPad ?  UIScreenWidth() + 130 : UIScreenWidth(), 0,isPad ? UIScreenWidth() - 260 : UIScreenWidth(), UIScreenHeight())];
+        _conmentTableView.rowHeight = UITableViewAutomaticDimension;
+        _conmentTableView.estimatedRowHeight = 100;
+        _conmentTableView.delegate = self;
+        _conmentTableView.dataSource = self;
+        _conmentTableView.tableFooterView = [UIView new];
+        [_conmentTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJCommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJCommentCell class])];
+        [_conmentTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSecondCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSecondCell class])];
+        [_conmentTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJStarViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJStarViewCell class])];
+    }
+    return _conmentTableView;
+}
+
 - (NSInteger)rowCount {
     if (!_rowCount) {
         _rowCount = 0;

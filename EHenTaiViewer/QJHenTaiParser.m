@@ -135,8 +135,7 @@
 }
 
 #pragma mark -收藏
-//TODO:可以添加收藏候选项和留言,均没做,待处理,默认没留言,收藏夹0
-- (void)updateFavoriteStatus:(BOOL)isFavorite model:(QJListItem *)item complete:(LoginHandler)completion {
+- (void)updateFavoriteStatus:(BOOL)isFavorite model:(QJListItem *)item index:(NSInteger)index content:(NSString *)content complete:(LoginHandler)completion {
     NetworkShow();
     NSString *url = [NSString stringWithFormat:@"%@gallerypopups.php?gid=%@&t=%@&act=addfav",[NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL],item.gid ,item.token];
     NSDictionary *dict = [NSDictionary new];
@@ -151,8 +150,8 @@
     } else {
         //添加
         dict = @{
-                 @"favcat":@(0),
-                 @"favnote":@"",//留言
+                 @"favcat":@(index),
+                 @"favnote":content,//留言
                  @"apply":@"Add to Favorites",
                  @"update":@"1"
                  };

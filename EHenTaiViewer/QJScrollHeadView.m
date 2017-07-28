@@ -34,10 +34,16 @@
 }
 
 - (void)changeUnderLineWithBool:(BOOL)isRight {
+    //修改下划线
     [UIView animateWithDuration:0.25f animations:^{
         self.underLineViewRightLine.constant = isRight ? -55 : 0;
         [self layoutIfNeeded];
     }];
+    //修改颜色
+    UIButton *button1 = (UIButton *)[self viewWithTag:300];
+    UIButton *button2 = (UIButton *)[self viewWithTag:301];
+    [button1 setTitleColor:isRight ? [UIColor blackColor] : DEFAULT_COLOR forState:UIControlStateNormal];
+    [button2 setTitleColor:isRight ? DEFAULT_COLOR : [UIColor blackColor] forState:UIControlStateNormal];
 }
 
 #pragma mark -setter

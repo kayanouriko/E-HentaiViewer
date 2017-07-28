@@ -16,7 +16,7 @@
 - (CGFloat)StringWidthWithFontSize:(UIFont *)font;
 //编码
 - (NSString *)urlEncode;
-//截取字符串,去除[]()【】内容
+//截取字符串,去除[]()【】等内容
 - (NSString *)handleString;
 
 @end

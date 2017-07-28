@@ -148,20 +148,7 @@
             oneCommentDict[@"score"] = score.text != nil ? [NSString stringWithFormat:@"Score %@",score.text] : @"Uploader";
             //评论内容
             TFHppleElement *contentElement = [oneCommentElement searchWithXPathQuery:@"//div[@class='c6']"].firstObject;
-            NSMutableString *content = [NSMutableString new];
-            if (contentElement.children.count) {
-                for (TFHppleElement *subContent in contentElement.children) {
-                    if ([subContent isTextNode]) {
-                        if ([content isEqualToString:@""]) {
-                            [content appendFormat:@"%@",subContent.content];
-                        }
-                        else {
-                            [content appendFormat:@"\n%@",subContent.content];
-                        }
-                    }
-                }
-            }
-            oneCommentDict[@"content"] = content;
+            oneCommentDict[@"content"] = contentElement.raw;
             //TODO c8是修改日期,暂时没爬取
             [commentsArr addObject:oneCommentDict];
         }

@@ -43,7 +43,7 @@
         self.titleName = self.key;
     }
     self.title = self.titleName;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     /*
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(clickShare)];
     self.navigationItem.rightBarButtonItem = item;
@@ -158,7 +158,7 @@
 
 - (QJHeadFreshingView *)freshingView {
     if (!_freshingView) {
-        _freshingView = [QJHeadFreshingView new];
+        _freshingView = [[QJHeadFreshingView alloc] initWithFrame:CGRectMake(0, -kRefreshingViewHeight, isPad ? UIScreenWidth() - 120 : UIScreenWidth(), kRefreshingViewHeight)];
         _freshingView.delegate = self;
     }
     return _freshingView;

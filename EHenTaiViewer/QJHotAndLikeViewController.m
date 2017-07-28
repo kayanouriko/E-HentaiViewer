@@ -14,13 +14,15 @@
 #import "QJHeadFreshingView.h"
 #import "QJEnum.h"
 #import "QJScrollHeadView.h"
+#import "QJScrollView.h"
 
 #import "QJLoginViewController.h"
+#import "QJFavSelectViewController.h"
 
-@interface QJHotAndLikeViewController ()<UITableViewDelegate,UITableViewDataSource,QJHeadFreshingViewDelagate,QJScrollHeadViewDelagate,UIScrollViewDelegate>
+@interface QJHotAndLikeViewController ()<UITableViewDelegate,UITableViewDataSource,QJHeadFreshingViewDelagate,QJScrollHeadViewDelagate,UIScrollViewDelegate,QJFavSelectViewControllerDelagate>
 
 @property (nonatomic, strong) QJScrollHeadView *scrollHeadView;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) QJScrollView *scrollView;
 @property (nonatomic, strong) QJListTableView *hotTableView;
 @property (nonatomic, strong) QJListTableView *likeTableview;
 @property (nonatomic, strong) NSMutableArray *hotDatas;
@@ -30,6 +32,8 @@
 @property (nonatomic, strong) QJHeadFreshingView *likeRefreshingView;
 @property (nonatomic, assign) QJFreshStatus status;
 @property (nonatomic, assign) BOOL canFreshMore;
+@property (nonatomic, strong) UIButton *likeButton;
+@property (nonatomic, strong) UIView *likeBgView;
 
 @end
 
@@ -41,6 +45,12 @@
     [self.hotRefreshingView beginReFreshing];
 }
 
+- (void)fristRefreshLike {
+    if (self.canFreshMore) {
+        self.canFreshMore = NO;
+        [self.likeRefreshingView beginReFreshing];
+    }
+}
 
 #pragma mark -QJHeadFreshingViewDelagate
 - (void)beginRefreshing {
@@ -126,8 +136,30 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return tableView == self.likeTableview ? YES : NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[QJHenTaiParser parser] updateFavoriteStatus:YES model:self.likeDatas[indexPath.row] index:0 content:@"" complete:^(QJHenTaiParserStatus status) {
+        if (status == QJHenTaiParserStatusSuccess) {
+            ToastSuccess(nil, @"取消收藏操作成功!");
+            [self.likeDatas removeObject:self.likeDatas[indexPath.row]];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"取消收藏";
+}
+
 #pragma mark -UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView == self.scrollView) {
+        self.hotTableView.scrollEnabled = NO;
+        self.likeTableview.scrollEnabled = NO;
+    }
     /*
     if (scrollView == self.likeTableview) {
         //预加载
@@ -151,24 +183,46 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView == self.scrollView) {
+        self.hotTableView.scrollEnabled = YES;
+        self.likeTableview.scrollEnabled = YES;
         self.scrollHeadView.selectedIndex = self.scrollView.contentOffset.x / UIScreenWidth();
+        if (self.scrollHeadView.selectedIndex) {
+            [self fristRefreshLike];
+        }
     }
 }
 
 #pragma mark -QJScrollHeadViewDelagate
 - (void)didSelectedTitleWithIndex:(NSInteger)index {
     [self.scrollView setContentOffset:CGPointMake(UIScreenWidth() * index, 0) animated:YES];
+    if (index) {
+        [self fristRefreshLike];
+    }
+}
+
+#pragma mark -跳转收藏夹
+- (void)selectFavFolder {
+    QJFavSelectViewController *vc = [QJFavSelectViewController new];
+    vc.delegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark -QJFavSelectViewControllerDelagate
+- (void)didSelectFavFolder:(NSInteger)index {
+    [self.likeButton setTitle:[NSString stringWithFormat:@"Favorites %ld >",index] forState:UIControlStateNormal];
 }
 
 #pragma mark -getter
-- (UIScrollView *)scrollView {
+- (QJScrollView *)scrollView {
     if (nil == _scrollView) {
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), UIScreenHeight())];
+        _scrollView = [[QJScrollView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), UIScreenHeight())];
         _scrollView.contentSize = CGSizeMake(UIScreenWidth() * 2, UIScreenHeight());
         _scrollView.pagingEnabled = YES;
+        _scrollView.bounces = NO;
         _scrollView.delegate = self;
         [_scrollView addSubview:self.hotTableView];
         [_scrollView addSubview:self.likeTableview];
+        [_scrollView addSubview:self.likeBgView];
     }
     return _scrollView;
 }
@@ -195,7 +249,7 @@
 - (QJListTableView *)likeTableview {
     if (nil == _likeTableview) {
         _likeTableview = [QJListTableView new];
-        _likeTableview.frame = CGRectMake(UIScreenWidth() + 60, 0, UIScreenWidth() - 120, UIScreenHeight());
+        _likeTableview.frame = CGRectMake(isPad ? UIScreenWidth() + 60 : UIScreenWidth(), 40, isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight());
         _likeTableview.delegate = self;
         _likeTableview.dataSource = self;
         [_likeTableview addSubview:self.likeRefreshingView];
@@ -238,6 +292,25 @@
         _likeRefreshingView.delegate = self;
     }
     return _likeRefreshingView;
+}
+
+- (UIButton *)likeButton {
+    if (nil == _likeButton) {
+        _likeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _likeButton.frame = CGRectMake(0, 0, UIScreenWidth(), 40);
+        [_likeButton setTitle:@"全部收藏夹 >" forState:UIControlStateNormal];
+        [_likeButton addTarget:self action:@selector(selectFavFolder) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _likeButton;
+}
+
+- (UIView *)likeBgView {
+    if (nil == _likeBgView) {
+        _likeBgView = [[UIView alloc] initWithFrame:CGRectMake(UIScreenWidth(), UINavigationBarHeight(), UIScreenWidth(),40)];
+        _likeBgView.backgroundColor = [UIColor whiteColor];
+        [_likeBgView addSubview:self.likeButton];
+    }
+    return _likeBgView;
 }
 
 - (void)didReceiveMemoryWarning {

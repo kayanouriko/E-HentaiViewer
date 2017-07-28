@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 @property (weak, nonatomic) IBOutlet UILabel *likeLabel;
+@property (weak, nonatomic) IBOutlet UITextView *commentTextV;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (strong, nonatomic) NSString *urlStr;
@@ -26,7 +27,11 @@
 - (void)refreshUI:(NSDictionary *)dict {
     [self.titleBtn setTitle:dict[@"reporter"] forState:UIControlStateNormal];
     self.likeLabel.text = dict[@"score"];
-    self.commentLabel.text = dict[@"content"];
+    //self.commentLabel.text = dict[@"content"];
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithData:[dict[@"content"] dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    self.commentTextV.attributedText = attri;
+    self.commentTextV.font = AppFontContentStyle();
+    
     self.timeLabel.text = dict[@"repostTime"];
     self.urlStr = dict[@"reporterUrl"];
 }
