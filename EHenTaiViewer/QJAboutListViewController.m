@@ -7,6 +7,7 @@
 //
 
 #import "QJAboutListViewController.h"
+#import <SafariServices/SafariServices.h>
 
 @interface QJAboutListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -20,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"致谢";
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
 }
 
@@ -48,13 +49,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *url = self.datas[indexPath.row][@"url"];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    if ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0) {
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
+        [self presentViewController:safariVC animated:YES completion:nil];
+    }
+    else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }
 }
 
 #pragma mark -懒加载
 - (UITableView *)tableView {
     if (nil == _tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(isPad ? 60 : 0, 0,isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight()) style:UITableViewStyleGrouped];
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
@@ -87,6 +95,10 @@
                        @{
                            @"title":@"huahua0809/XHStarRateView",
                            @"url":@"https://github.com/huahua0809/XHStarRateView"
+                           },
+                       @{
+                           @"title":@"Mapaler/EhTagTranslator",
+                           @"url":@"https://github.com/Mapaler/EhTagTranslator"
                            },
                        ];
         }

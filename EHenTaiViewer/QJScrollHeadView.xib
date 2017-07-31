@@ -16,14 +16,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gQ-FO-cUC">
-                    <rect key="frame" x="144" y="7" width="31" height="30"/>
+                    <rect key="frame" x="140" y="5.5" width="35" height="33"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <state key="normal" title="热门"/>
                     <connections>
                         <action selector="btnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="ncn-0P-nNJ"/>
                     </connections>
                 </button>
                 <button opaque="NO" tag="301" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6Y-Q7-afo">
-                    <rect key="frame" x="200" y="7" width="31" height="30"/>
+                    <rect key="frame" x="200" y="5.5" width="35" height="33"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <state key="normal" title="收藏">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -38,10 +40,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMp-fQ-8c2">
-                    <rect key="frame" x="144" y="42" width="31" height="2"/>
+                    <rect key="frame" x="140" y="42" width="35" height="2"/>
                     <color key="backgroundColor" red="0.0" green="0.47934520244598389" blue="0.99908632040023804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="31" id="Ixg-nm-GUq"/>
+                        <constraint firstAttribute="width" constant="35" id="Ixg-nm-GUq"/>
                         <constraint firstAttribute="height" constant="2" id="OdS-aB-5rc"/>
                     </constraints>
                 </view>

@@ -249,7 +249,7 @@
 - (QJListTableView *)likeTableview {
     if (nil == _likeTableview) {
         _likeTableview = [QJListTableView new];
-        _likeTableview.frame = CGRectMake(isPad ? UIScreenWidth() + 60 : UIScreenWidth(), 40, isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight());
+        _likeTableview.frame = CGRectMake(isPad ? UIScreenWidth() + 60 : UIScreenWidth(), 40, isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight() - 40);
         _likeTableview.delegate = self;
         _likeTableview.dataSource = self;
         [_likeTableview addSubview:self.likeRefreshingView];
@@ -308,6 +308,9 @@
     if (nil == _likeBgView) {
         _likeBgView = [[UIView alloc] initWithFrame:CGRectMake(UIScreenWidth(), UINavigationBarHeight(), UIScreenWidth(),40)];
         _likeBgView.backgroundColor = [UIColor whiteColor];
+        UIView *underLine = [[UIView alloc] initWithFrame:CGRectMake(0, 40 - 0.5f, UIScreenWidth(), 0.5f)];
+        underLine.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        [_likeBgView addSubview:underLine];
         [_likeBgView addSubview:self.likeButton];
     }
     return _likeBgView;

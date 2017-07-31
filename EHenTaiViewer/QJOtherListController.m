@@ -43,7 +43,7 @@
         self.titleName = self.key;
     }
     self.title = self.titleName;
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     /*
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(clickShare)];
     self.navigationItem.rightBarButtonItem = item;
@@ -73,6 +73,9 @@
     }
     else if (self.type == QJOtherListControllerTypeCatgoery) {
         url = [self.key urlEncode];
+    }
+    else if (self.type == QJOtherListControllerTypeTagIncomplete) {
+        url = [NSString stringWithFormat:@"tag/%@",[self.key urlEncode]];
     }
     if (self.pageIndex) {
         if ([url containsString:@"Apply+Filter"]) {

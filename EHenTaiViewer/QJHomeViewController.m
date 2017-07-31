@@ -185,7 +185,8 @@
 
 #pragma mark -设置内容
 - (void)setContent {
-    self.navigationItem.titleView = self.searchBar;
+    //self.navigationItem.titleView = self.searchBar;
+    self.title = [NSObjForKey(@"ExHentaiStatus") boolValue] ? @"ExHentai" : @"EHentai";
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.searchTableView];
 }
@@ -364,7 +365,7 @@
     [self refreshUI];
 }
 
-#pragma mark -懒加载
+#pragma mark -getter
 - (UISearchBar *)searchBar {
     if (!_searchBar) {
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), UISearchBarHeight())];

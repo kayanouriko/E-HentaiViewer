@@ -28,7 +28,6 @@
 
 - (void)setContent {
     self.title = @"种子列表";
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     [self.view addSubview:self.tableView];
 }
@@ -68,13 +67,12 @@
         _tableView = [UITableView new];
         _tableView.frame = CGRectMake(isPad ? 60 : 0, 0,isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight());
         _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, -10, 0);
-        _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 10;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJTorrentInfoCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJTorrentInfoCell class])];
     }
     return _tableView;

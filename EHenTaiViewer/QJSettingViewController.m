@@ -181,6 +181,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(isPad ? 60 : 0, 0,isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight()) style:UITableViewStyleGrouped];
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;

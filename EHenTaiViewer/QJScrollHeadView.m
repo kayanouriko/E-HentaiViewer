@@ -36,7 +36,7 @@
 - (void)changeUnderLineWithBool:(BOOL)isRight {
     //修改下划线
     [UIView animateWithDuration:0.25f animations:^{
-        self.underLineViewRightLine.constant = isRight ? -55 : 0;
+        self.underLineViewRightLine.constant = isRight ? -60 : 0;
         [self layoutIfNeeded];
     }];
     //修改颜色

@@ -54,20 +54,10 @@
     return array;
 }
 
-- (NSString *)startWithStr:(NSString *)start endStr:(NSString *)end string:(NSString *) string {
-    NSMutableString * muStr = [NSMutableString stringWithString:string];
-    while (1) {
-        NSRange range = [muStr rangeOfString:start];
-        NSRange range1 = [muStr rangeOfString:end];
-        if (range.location != NSNotFound) {
-            NSInteger loc = range.location;
-            NSInteger len = range1.location - range.location;
-            [muStr deleteCharactersInRange:NSMakeRange(loc, len + 1)];
-        }else{
-            break;
-        }
-    }
-    return muStr;
+- (NSString *)removeHtmlString {
+    NSRegularExpression *regularExpretion=[NSRegularExpression regularExpressionWithPattern:@"<[^>]*>|\n" options:0 error:nil];
+    NSString *string = [regularExpretion stringByReplacingMatchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length) withTemplate:@""];
+    return string;
 }
 
 @end

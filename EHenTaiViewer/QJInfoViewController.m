@@ -414,6 +414,7 @@
 -  (UITableView *)infoTableView {
     if (nil == _infoTableView) {
         _infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(isPad ? 130 : 0, 0, isPad ? UIScreenWidth() - 260 : UIScreenWidth(), UIScreenHeight())];
+        _infoTableView.showsVerticalScrollIndicator = NO;
         _infoTableView.rowHeight = UITableViewAutomaticDimension;
         _infoTableView.estimatedRowHeight = 100;
         _infoTableView.delegate = self;
@@ -430,6 +431,7 @@
 - (UITableView *)conmentTableView {
     if (nil == _conmentTableView) {
         _conmentTableView = [[UITableView alloc] initWithFrame:CGRectMake(isPad ?  UIScreenWidth() + 130 : UIScreenWidth(), 0,isPad ? UIScreenWidth() - 260 : UIScreenWidth(), UIScreenHeight())];
+        _conmentTableView.showsVerticalScrollIndicator = NO;
         _conmentTableView.rowHeight = UITableViewAutomaticDimension;
         _conmentTableView.estimatedRowHeight = 100;
         _conmentTableView.delegate = self;

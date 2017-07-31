@@ -18,6 +18,8 @@
 #import "QJGlobalInfo.h"
 //toast
 #import "FFToast.h"
+//coredata操作
+#import "MagicalRecord.h"
 
 /*
  *  宏定义
@@ -60,6 +62,7 @@
 #define NSObjSynchronize() [[NSUserDefaults standardUserDefaults] synchronize]
 //通知名
 #define LOGIN_NOTI @"RefreshTableview"
+#define SEARCHHIDDEN_NOTI @"SearchVCHidden"
 //状态栏圈圈
 #define NetworkShow() [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES]
 #define NetworkHidden() [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO]
@@ -69,5 +72,7 @@
 #define ToastWarning(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeWarning]
 //是否为ipad
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+//去null
+#define isnull(key,dict) dict[key] == nil || [dict[key] isKindOfClass:[NSNull class]]  || [dict[key] isEqual:[NSNull null]] ? @"" : [NSString stringWithFormat:@"%@",dict[key]]
 
 #endif

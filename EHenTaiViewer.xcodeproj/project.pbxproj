@@ -101,6 +101,13 @@
 		5A6ECCAA1EDE975F00DBF9DA /* QJInfoOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECCA81EDE975F00DBF9DA /* QJInfoOtherCell.m */; };
 		5A6ECCAB1EDE975F00DBF9DA /* QJInfoOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECCA91EDE975F00DBF9DA /* QJInfoOtherCell.xib */; };
 		5A6ECCAE1EDE9D8B00DBF9DA /* QJGalleryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECCAD1EDE9D8B00DBF9DA /* QJGalleryItem.m */; };
+		5A6F94691F2EB8A50085F0EE /* EhTag_CN.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A6F94681F2EB8A50085F0EE /* EhTag_CN.json */; };
+		5A6F946D1F2EBC4C0085F0EE /* QJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F946C1F2EBC4C0085F0EE /* QJSearchViewController.m */; };
+		5A6F94701F2EC6A90085F0EE /* EhCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F946E1F2EC6A90085F0EE /* EhCoreData.xcdatamodeld */; };
+		5A6F94821F2ECA000085F0EE /* Tag+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F947F1F2ECA000085F0EE /* Tag+CoreDataClass.m */; };
+		5A6F94831F2ECA000085F0EE /* Tag+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F94811F2ECA000085F0EE /* Tag+CoreDataProperties.m */; };
+		5A6F94881F2F02BD0085F0EE /* QJSearchTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F94861F2F02BD0085F0EE /* QJSearchTagCell.m */; };
+		5A6F94891F2F02BD0085F0EE /* QJSearchTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6F94871F2F02BD0085F0EE /* QJSearchTagCell.xib */; };
 		5A7D083F1F25C3B4001B81D7 /* QJScrollHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D083E1F25C3B4001B81D7 /* QJScrollHeadView.m */; };
 		5A7D08411F25C4FD001B81D7 /* QJScrollHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D08401F25C4FD001B81D7 /* QJScrollHeadView.xib */; };
 		5A86C3201ED1608B00A8CD80 /* XHStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A86C31F1ED1608B00A8CD80 /* XHStarRateView.m */; };
@@ -284,6 +291,17 @@
 		5A6ECCA91EDE975F00DBF9DA /* QJInfoOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJInfoOtherCell.xib; sourceTree = "<group>"; };
 		5A6ECCAC1EDE9D8B00DBF9DA /* QJGalleryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJGalleryItem.h; sourceTree = "<group>"; };
 		5A6ECCAD1EDE9D8B00DBF9DA /* QJGalleryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJGalleryItem.m; sourceTree = "<group>"; };
+		5A6F94681F2EB8A50085F0EE /* EhTag_CN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EhTag_CN.json; sourceTree = "<group>"; };
+		5A6F946B1F2EBC4C0085F0EE /* QJSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSearchViewController.h; sourceTree = "<group>"; };
+		5A6F946C1F2EBC4C0085F0EE /* QJSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSearchViewController.m; sourceTree = "<group>"; };
+		5A6F946F1F2EC6A90085F0EE /* EhCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EhCoreData.xcdatamodel; sourceTree = "<group>"; };
+		5A6F947E1F2ECA000085F0EE /* Tag+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tag+CoreDataClass.h"; sourceTree = "<group>"; };
+		5A6F947F1F2ECA000085F0EE /* Tag+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tag+CoreDataClass.m"; sourceTree = "<group>"; };
+		5A6F94801F2ECA000085F0EE /* Tag+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tag+CoreDataProperties.h"; sourceTree = "<group>"; };
+		5A6F94811F2ECA000085F0EE /* Tag+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tag+CoreDataProperties.m"; sourceTree = "<group>"; };
+		5A6F94851F2F02BD0085F0EE /* QJSearchTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSearchTagCell.h; sourceTree = "<group>"; };
+		5A6F94861F2F02BD0085F0EE /* QJSearchTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSearchTagCell.m; sourceTree = "<group>"; };
+		5A6F94871F2F02BD0085F0EE /* QJSearchTagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSearchTagCell.xib; sourceTree = "<group>"; };
 		5A7D083D1F25C3B4001B81D7 /* QJScrollHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJScrollHeadView.h; sourceTree = "<group>"; };
 		5A7D083E1F25C3B4001B81D7 /* QJScrollHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJScrollHeadView.m; sourceTree = "<group>"; };
 		5A7D08401F25C4FD001B81D7 /* QJScrollHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJScrollHeadView.xib; sourceTree = "<group>"; };
@@ -788,6 +806,38 @@
 			name = "其他";
 			sourceTree = "<group>";
 		};
+		5A6F946A1F2EBC350085F0EE /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				5A6F94841F2F029A0085F0EE /* View */,
+				5A6F946B1F2EBC4C0085F0EE /* QJSearchViewController.h */,
+				5A6F946C1F2EBC4C0085F0EE /* QJSearchViewController.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		5A6F94711F2EC6AE0085F0EE /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				5A6F947E1F2ECA000085F0EE /* Tag+CoreDataClass.h */,
+				5A6F947F1F2ECA000085F0EE /* Tag+CoreDataClass.m */,
+				5A6F94801F2ECA000085F0EE /* Tag+CoreDataProperties.h */,
+				5A6F94811F2ECA000085F0EE /* Tag+CoreDataProperties.m */,
+				5A6F946E1F2EC6A90085F0EE /* EhCoreData.xcdatamodeld */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		5A6F94841F2F029A0085F0EE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A6F94851F2F02BD0085F0EE /* QJSearchTagCell.h */,
+				5A6F94861F2F02BD0085F0EE /* QJSearchTagCell.m */,
+				5A6F94871F2F02BD0085F0EE /* QJSearchTagCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		5A7D083C1F25C379001B81D7 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -915,6 +965,8 @@
 		5A90DACE1ECC3D3F00575145 /* EHenTaiViewer */ = {
 			isa = PBXGroup;
 			children = (
+				5A6F94711F2EC6AE0085F0EE /* CoreData */,
+				5A6F946A1F2EBC350085F0EE /* Search */,
 				5A0A1F511EE03B28002C8AF8 /* Brower */,
 				5A0A1F3A1EDFDDB8002C8AF8 /* 其他列表 */,
 				5A2F792B1ECD2C6100745DA0 /* Common */,
@@ -937,6 +989,7 @@
 		5A90DACF1ECC3D3F00575145 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5A6F94681F2EB8A50085F0EE /* EhTag_CN.json */,
 				5A2F792A1ECD2A8500745DA0 /* PrefixHeader.pch */,
 				5A90DAD01ECC3D3F00575145 /* main.m */,
 			);
@@ -1076,6 +1129,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A6F94691F2EB8A50085F0EE /* EhTag_CN.json in Resources */,
 				5A89EAD71EDF1A1500DA434F /* QJCommentCell.xib in Resources */,
 				5A41BF8F1ED51BAA0073659B /* fftoast_info@2x.png in Resources */,
 				5A41BF8D1ED51BAA0073659B /* fftoast_error_highlight@3x.png in Resources */,
@@ -1125,6 +1179,7 @@
 				5A41BF921ED51BAA0073659B /* fftoast_info_highlight@2x.png in Resources */,
 				5A1999CD1ED6A78000DB6B9D /* QJPasswordViewController.xib in Resources */,
 				5A41BF8B1ED51BAA0073659B /* fftoast_error_highlight.png in Resources */,
+				5A6F94891F2F02BD0085F0EE /* QJSearchTagCell.xib in Resources */,
 				5A90DADC1ECC3D3F00575145 /* Assets.xcassets in Resources */,
 				5A0780BE1ECEE9C900EF00E6 /* QJListCell.xib in Resources */,
 				5A6ECC941EDE6CFE00DBF9DA /* QJInfoThumbCell.xib in Resources */,
@@ -1205,6 +1260,7 @@
 				5A1999C21ED6891100DB6B9D /* QJListTableView.m in Sources */,
 				5ACA2B671F2867BE003DF3D0 /* QJTableViewCell.m in Sources */,
 				5A3977421EF75B18009A2273 /* QJTabBarController.m in Sources */,
+				5A6F946D1F2EBC4C0085F0EE /* QJSearchViewController.m in Sources */,
 				5ABA40ED1ED4326B00B21707 /* QJWebViewController.m in Sources */,
 				5A0780B81ECE8A5600EF00E6 /* QJListItem.m in Sources */,
 				5AA0DDE31F2AD0C600ED3020 /* QJScrollView.m in Sources */,
@@ -1229,12 +1285,14 @@
 				5A86C3201ED1608B00A8CD80 /* XHStarRateView.m in Sources */,
 				5A8D333A1ED28B10009567C2 /* QJSettingViewController.m in Sources */,
 				5A07809B1ECE804200EF00E6 /* QJHenTaiParser.m in Sources */,
+				5A6F94701F2EC6A90085F0EE /* EhCoreData.xcdatamodeld in Sources */,
 				5A2F792F1ECD2CB900745DA0 /* QJViewController.m in Sources */,
 				5A8AEA341EF3BAED007E5EEE /* QJFavouriteViewController.m in Sources */,
 				5A0A1F3D1EDFDE49002C8AF8 /* QJOtherListController.m in Sources */,
 				5A6ECC9E1EDE909200DBF9DA /* QJInfoBaseCell.m in Sources */,
 				5A6ECC981EDE771C00DBF9DA /* QJImageCollectionViewCell.m in Sources */,
 				5A0A1F5C1EE03B6B002C8AF8 /* QJMangaFlowLayout.m in Sources */,
+				5A6F94831F2ECA000085F0EE /* Tag+CoreDataProperties.m in Sources */,
 				5A3977461EF76846009A2273 /* QJLikeBarButtonItem.m in Sources */,
 				5A0780BD1ECEE9C900EF00E6 /* QJListCell.m in Sources */,
 				5A0A1F4F1EE0146E002C8AF8 /* QJGoCommentController.m in Sources */,
@@ -1252,9 +1310,11 @@
 				5A89EAD61EDF1A1500DA434F /* QJCommentCell.m in Sources */,
 				5A41BFA11ED51BAA0073659B /* UIImage+FFToast.m in Sources */,
 				5A3FBC811EEA6E3C00373F36 /* QJTorrentItem.m in Sources */,
+				5A6F94881F2F02BD0085F0EE /* QJSearchTagCell.m in Sources */,
 				5A3FBC7D1EEA488200373F36 /* QJTorrentInfoCell.m in Sources */,
 				5A1999CC1ED6A78000DB6B9D /* QJPasswordViewController.m in Sources */,
 				5A0A1F551EE03B5E002C8AF8 /* QJMangaViewController.m in Sources */,
+				5A6F94821F2ECA000085F0EE /* Tag+CoreDataClass.m in Sources */,
 				5A1999C61ED68C9800DB6B9D /* QJProtectTool.m in Sources */,
 				5A1A42811EE7A73700DEDAE0 /* QJAboutListViewController.m in Sources */,
 			);
@@ -1444,6 +1504,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5A6F946E1F2EC6A90085F0EE /* EhCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5A6F946F1F2EC6A90085F0EE /* EhCoreData.xcdatamodel */,
+			);
+			currentVersion = 5A6F946F1F2EC6A90085F0EE /* EhCoreData.xcdatamodel */;
+			name = EhCoreData.xcdatamodeld;
+			path = ../EhCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5A90DAC41ECC3D3F00575145 /* Project object */;
 }

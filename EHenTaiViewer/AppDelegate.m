@@ -4,13 +4,14 @@
 //
 //  Created by QinJ on 2017/5/17.
 //  Copyright © 2017年 kayanouriko. All rights reserved.
-//
+//  TODO:第三方跳转识别
 
 #import "AppDelegate.h"
 #import "QJNetworkTool.h"
 #import "QJProtectTool.h"
 #import "QJTouchIDViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "Tag+CoreDataClass.h"
 
 @interface AppDelegate ()
 
@@ -20,10 +21,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //TODO:检查更新
+    //TODO:检查更新,弹窗提醒
     
-    //TODO:检查相册权限
+    //TODO:检查相册权限,一次性检查
     
+    //设置数据库
+    [self setCoreData];
     //解决iOS遗留bug,导航栏push或者pop存在黑块问题
     self.window.backgroundColor = [UIColor whiteColor];
     //判断全局的版块变量,确保初始化必须有值
@@ -53,6 +56,42 @@
     [self.window makeKeyAndVisible];
     */
     return YES;
+}
+
+- (void)setCoreData {
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"Model.sqlite"];
+    Tag *tag = (Tag *)[Tag MR_findFirst];
+    if (nil == tag) {
+        NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(saveAllTags) object:nil];
+        [thread start];
+    }
+}
+
+- (void)saveAllTags {
+    //存储全部Tag标签,以后备用更新本地离线Tag值
+    //数据库操作
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"EhTag_CN" ofType:@"json"];
+    NSDictionary *tagJson = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:path] options:NSJSONReadingAllowFragments error:nil];
+    NSArray<NSDictionary *> *catgoery = tagJson[@"dataset"];
+    NSInteger i = 0;
+    for (NSDictionary *subCat in catgoery) {
+        NSArray<NSDictionary *> *tags = subCat[@"tags"];
+        for (NSDictionary *tagDic in tags) {
+            NSString *type = isnull(@"type", tagDic);
+            if (![type isEqualToString:@"0"]) {
+                continue;
+            }
+            Tag *tag = [Tag MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
+            tag.name = isnull(@"name", tagDic);
+            tag.cname = isnull(@"cname", tagDic);
+            tag.info = isnull(@"info", tagDic);
+            i++;
+            if (i % 1000 == 0) {
+                [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+            }
+        }
+    }
+    [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

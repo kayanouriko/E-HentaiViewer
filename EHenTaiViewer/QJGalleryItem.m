@@ -8,6 +8,7 @@
 
 #import "QJGalleryItem.h"
 #import "NSString+StringHeight.h"
+#import "Tag+CoreDataClass.h"
 
 @implementation QJGalleryTagItem
 
@@ -91,7 +92,20 @@
         NSMutableArray *rightTagArr = [NSMutableArray new];
         for (TFHppleElement *rightTagElement in rightArr) {
             QJGalleryTagItem *model = [QJGalleryTagItem new];
-            model.name = rightTagElement.text;
+            
+            NSString *tagString = rightTagElement.text;
+            //如果标签有多个含义,则第一个为最原始的含义
+            if ([tagString containsString:@"|"]) {
+                tagString = [tagString componentsSeparatedByString:@" | "].firstObject;
+            }
+            model.name = tagString;
+            Tag *tag = [Tag MR_findFirstByAttribute:@"name" withValue:tagString];
+            if (tag) {
+                model.cname = [tag.cname removeHtmlString];
+            }
+            else {
+                model.cname = tagString;
+            }
             model.url = [rightTagElement objectForKey:@"href"];
             [rightTagArr addObject:model];
         }

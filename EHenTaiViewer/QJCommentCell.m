@@ -8,8 +8,9 @@
 
 #import "QJCommentCell.h"
 #import "QJOtherListController.h"
+#import <SafariServices/SafariServices.h>
 
-@interface QJCommentCell ()
+@interface QJCommentCell ()<UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *titleBtn;
 @property (weak, nonatomic) IBOutlet UILabel *likeLabel;
@@ -39,10 +40,23 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.commentTextV.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+}
+
+//拦截URL,高于iOS9的不跳safari浏览器
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
+    //TODO:如果属于网站链接,则直接跳转页面而不是跳转浏览器
+    
+    if ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0) {
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:URL];
+        [[self viewController] presentViewController:safariVC animated:YES completion:nil];
+        return NO;
+    }
+    return YES;
 }
 
 //跳转

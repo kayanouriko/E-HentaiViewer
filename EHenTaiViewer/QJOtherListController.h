@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, QJOtherListControllerType) {
     QJOtherListControllerTypePerson,//上传人
     QJOtherListControllerTypeTag,//标签
     QJOtherListControllerTypeCatgoery,//分类
+    QJOtherListControllerTypeTagIncomplete,//不完整的标签
 };
 
 @interface QJOtherListController : QJViewController

@@ -12,6 +12,7 @@
 @interface QJGalleryTagItem : NSObject
 
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *cname;//汉化标签
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, assign) CGFloat buttonWidth;
 @property (nonatomic, assign) CGFloat buttonX;

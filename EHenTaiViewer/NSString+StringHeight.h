@@ -18,5 +18,7 @@
 - (NSString *)urlEncode;
 //截取字符串,去除[]()【】等内容
 - (NSString *)handleString;
+//去除html标签
+- (NSString *)removeHtmlString;
 
 @end

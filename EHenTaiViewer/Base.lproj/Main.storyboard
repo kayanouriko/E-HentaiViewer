@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rsu-H3-Gff">
-    <device id="ipad12_9" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,7 +18,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Wqc-i0-cto"/>
@@ -54,7 +54,7 @@
                         <viewControllerLayoutGuide type="bottom" id="5Mp-X8-DjR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nme-DL-fGk">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
@@ -90,7 +90,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ZTl-yw-dAd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iMk-M2-EUk">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
@@ -100,10 +100,46 @@
             </objects>
             <point key="canvasLocation" x="1830" y="967"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="f0Z-2U-LZR">
+            <objects>
+                <navigationController id="Q0c-Xb-sp9" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="search" id="zYi-mw-vfd"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nH1-ga-ZUW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="voZ-XF-bae" kind="relationship" relationship="rootViewController" id="D87-dx-oUp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nIt-8p-JFa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1093" y="1670"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="aCU-Zl-ntT">
+            <objects>
+                <viewController id="voZ-XF-bae" customClass="QJSearchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yPK-py-Prl"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZbS-bv-vTT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o8r-r3-abf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4dT-fz-hRR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EWd-nV-6AN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1832" y="1666"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ade-3D-b4V">
             <objects>
-                <tabBarController storyboardIdentifier="iphoneInput" id="rsu-H3-Gff" customClass="QJTabBarController" sceneMemberID="viewController">
+                <tabBarController id="rsu-H3-Gff" customClass="QJTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="SfV-sc-fgu"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="5rN-ZL-TPB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -112,6 +148,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="S97-EJ-a3o" kind="relationship" relationship="viewControllers" id="iKY-gQ-cLS"/>
+                        <segue destination="Q0c-Xb-sp9" kind="relationship" relationship="viewControllers" id="kir-Sj-zKk"/>
                         <segue destination="FWJ-rF-fhK" kind="relationship" relationship="viewControllers" id="ZA4-2k-dSK"/>
                         <segue destination="ssI-2k-Wsd" kind="relationship" relationship="viewControllers" id="M5w-fe-xjG"/>
                     </connections>
@@ -139,8 +176,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Home" width="16" height="16"/>
-        <image name="hot3" width="16" height="16"/>
-        <image name="setting" width="16" height="16"/>
+        <image name="Home" width="24" height="24"/>
+        <image name="hot3" width="24" height="24"/>
+        <image name="search" width="24" height="24"/>
+        <image name="setting" width="24" height="24"/>
     </resources>
 </document>
