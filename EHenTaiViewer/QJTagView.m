@@ -18,7 +18,7 @@
     NSArray *_rightArr;
 }
 
-- (void)refreshUI:(NSArray *)array {
+- (void)refreshUI:(NSArray *)array isCN:(BOOL)isCN {
     NSString *leftStr = array.firstObject;
     _leftLabelWidth = [leftStr StringWidthWithFontSize:AppFontContentStyle()] + 20;
     UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _leftLabelWidth, 25)];
@@ -36,8 +36,8 @@
     NSInteger i = 0;
     for (QJGalleryTagItem *model in _rightArr) {
         UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [addBtn setTitle:model.name forState:UIControlStateNormal];
-        addBtn.frame = CGRectMake(model.buttonX, model.buttonY, model.buttonWidth, 25);
+        [addBtn setTitle:isCN ? model.cname : model.name forState:UIControlStateNormal];
+        addBtn.frame = CGRectMake(isCN ? model.buttonXCN : model.buttonX, isCN ? model.buttonYCN : model.buttonY, isCN ? model.buttonWidthCN : model.buttonWidth, 25);
         addBtn.titleLabel.font = AppFontContentStyle();
         [addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         addBtn.backgroundColor = [UIColor colorWithRed:0.098 green:0.584 blue:0.533 alpha:1.00];

@@ -7,16 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TFHpple.h"
+
+@class TFHpple;
 
 @interface QJGalleryTagItem : NSObject
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *cname;//汉化标签
 @property (nonatomic, strong) NSString *url;
+//日语的位置
 @property (nonatomic, assign) CGFloat buttonWidth;
 @property (nonatomic, assign) CGFloat buttonX;
 @property (nonatomic, assign) CGFloat buttonY;
+//中文的位置
+@property (nonatomic, assign) CGFloat buttonWidthCN;
+@property (nonatomic, assign) CGFloat buttonXCN;
+@property (nonatomic, assign) CGFloat buttonYCN;
 
 @end
 

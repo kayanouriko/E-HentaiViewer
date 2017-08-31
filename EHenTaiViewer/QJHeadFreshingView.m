@@ -81,6 +81,7 @@ typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
 }
 
 - (void)beginReFreshing {
+    self.refreshing = YES;
     if (self.currState != QJHeadFreshingViewStateRefreshing) {
         self.currState = QJHeadFreshingViewStateRefreshing;
     }
@@ -118,8 +119,8 @@ typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
                 self.superScrollView.contentInset = UIEdgeInsetsMake(self.superScrollView.contentInset.top + kRefreshingViewHeight, self.superScrollView.contentInset.left, self.superScrollView.contentInset.bottom, self.superScrollView.contentInset.right);
             }];
             //代理
-            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(beginRefreshing)]) {
-                [self.delegate beginRefreshing];
+            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didBeginReFreshingWithFreshingView:)]) {
+                [self.delegate didBeginReFreshingWithFreshingView:self];
             }
         }
             break;

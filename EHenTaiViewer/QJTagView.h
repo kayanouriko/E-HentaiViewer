@@ -13,6 +13,6 @@
 /* array构成
  数组分两个元素,第一个为分类名 第二个为tag模型,类名为QJCategoryButtonInfo
  */
-- (void)refreshUI:(NSArray *)array;
+- (void)refreshUI:(NSArray *)array isCN:(BOOL)isCN;
 
 @end

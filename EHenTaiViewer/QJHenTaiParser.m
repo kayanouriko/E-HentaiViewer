@@ -14,6 +14,8 @@
 #import "QJListItem.h"
 #import "QJGalleryItem.h"
 #import "QJTorrentItem.h"
+#import "QJToplistUploaderItem.h"
+#import "QJSettingItem.h"
 
 #define kConfigurationIdentifier @"EHenTaiViewer"
 
@@ -319,6 +321,69 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
                 completion(QJHenTaiParserStatusParseFail, nil);
+            });
+        }
+    }];
+    [task resume];
+}
+
+#pragma mark -toplist爬取
+- (void)updateToplistInfoComplete:(ToplistHandler)completion {
+    NetworkShow();
+    //只有表站有top统计,里站并没有
+    NSString *finalUrl = @"https://e-hentai.org/toplist.php";
+    NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NetworkHidden();
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ToastError(nil, @"网络有点小问题呢...");
+                completion(QJHenTaiParserStatusNetworkFail, nil, nil);
+            });
+            return;
+        }
+        //NSString *html = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+        TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
+        //这里都是取昨天top,后面看如何设置比较好
+        //遍历获取上传者
+        NSArray *uploaderURL = [xpathParser searchWithXPathQuery:@"//div[@class='ido']/div[2]//div[@class='tdo'][4]//table//a"];
+        NSMutableArray *upladers = [NSMutableArray new];
+        for (TFHppleElement *uploaderWithURL in uploaderURL) {
+            QJToplistUploaderItem *item = [QJToplistUploaderItem new];
+            item.name = uploaderWithURL.text;
+            item.url = uploaderWithURL.attributes[@"href"];
+            [upladers addObject:item];
+        }
+        //遍历获取画廊
+        NSArray *photoURL = [xpathParser searchWithXPathQuery:@"//div[@class='dc']//div[@class='tdo'][4]//table//a"];
+        //NSLog(@"%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+        if (photoURL.count) {
+            NSMutableArray *urlStringArray = [NSMutableArray array];
+            for (TFHppleElement * eachTitleWithURL in photoURL) {
+                [urlStringArray addObject:[eachTitleWithURL attributes][@"href"]];
+            }
+            [self requestListInfoFromApi:urlStringArray complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
+                if (status == QJHenTaiParserStatusSuccess) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(status,listArray,upladers);
+                    });
+                }
+                else if (status == QJHenTaiParserStatusParseFail) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                        completion(QJHenTaiParserStatusParseFail,nil,nil);
+                    });
+                }
+                else if (status == QJHenTaiParserStatusNetworkFail) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        ToastError(nil, @"网络有点小问题呢...");
+                        completion(QJHenTaiParserStatusNetworkFail,nil,nil);
+                    });
+                }
+            }];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                completion(QJHenTaiParserStatusParseFail, nil, nil);
             });
         }
     }];
@@ -643,6 +708,74 @@
             completion(QJHenTaiParserStatusSuccess,newTorrents);
         });
         
+    }];
+    [task resume];
+}
+
+#pragma mark -网站设置读取
+- (void)readSettingAllInfoCompletion:(SettingHandler)completion {
+    //https://e-hentai.org/uconfig.php
+    NetworkShow();
+    NSMutableString *finalUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
+    [finalUrl appendString:@"uconfig.php"];
+    NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NetworkHidden();
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(QJHenTaiParserStatusNetworkFail,nil);
+                return;
+            });
+        }
+        TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
+        NSArray *settings = [xpathParser searchWithXPathQuery:@"//div[@class='optmain']"];
+        NSMutableDictionary *allSettingDic = [NSMutableDictionary new];
+        for (TFHppleElement *subElement in settings) {
+            TFHppleElement *nameElement = [subElement searchWithXPathQuery:@"//p"].firstObject;
+            if ([nameElement.text containsString:@"If you wish to hide galleries in certain languages from the gallery list and searches"]) {
+                //排除语言
+                QJSettingItem *model = [QJSettingItem creatModelWithHpple:subElement];
+                [allSettingDic setValue:model forKey:@"排除语言"];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(QJHenTaiParserStatusSuccess,allSettingDic);
+        });
+    }];
+    [task resume];
+}
+
+- (void)postMySettingInfoWithParams:(NSDictionary *)params Completion:(LoginHandler)completion {
+    NetworkShow();
+    //这里的操作只要上传自己想要的就好了,只是排除语言需要每次都上传,不然会遗漏,其他采用默认的就好了
+    NSMutableString *finalUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
+    [finalUrl appendString:@"uconfig.php"];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:params];
+    [dict setValue:@"Apply" forKey:@"apply"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:finalUrl]];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = [[self getFormStringWithDict:dict] dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NetworkHidden();
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ToastError(nil, @"网络有点小问题呢...");
+                completion(QJHenTaiParserStatusNetworkFail);
+            });
+            return;
+        }
+        NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        if ([html containsString:@"If you wish to hide galleries in certain languages from the gallery list and searches"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ToastSuccess(nil, @"设置成功!");
+                completion(QJHenTaiParserStatusSuccess);
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ToastWarning(nil, @"可能网站结构变了,没解析到操作状态呢,但是应该是设置成功了哦~");
+                completion(QJHenTaiParserStatusParseFail);
+            });
+        }
     }];
     [task resume];
 }

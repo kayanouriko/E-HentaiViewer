@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class QJHeadFreshingView;
+
 @protocol QJHeadFreshingViewDelagate <NSObject>
 
-- (void)beginRefreshing;
+- (void)didBeginReFreshingWithFreshingView:(QJHeadFreshingView *)headFreshingView;
 
 @end
 

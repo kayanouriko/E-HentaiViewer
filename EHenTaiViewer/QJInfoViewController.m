@@ -245,12 +245,16 @@
         case 2:
         {
             //阅读
+            if (![NSObjForKey(@"WatchMode") boolValue]) {
+                ToastError(nil, @"想要浏览大图画廊请到设置中打开相关选项");
+                return;
+            }
             QJMangaViewController *vc = [QJMangaViewController new];
             vc.url = self.item.url;
             vc.gid = self.item.gid;
             vc.count = self.item.filecount;
             vc.showkey = self.galleryItem.showkey;
-            [self.navigationController pushViewController:vc animated:YES];
+            [self presentViewController:vc animated:YES completion:nil];
         }
             break;
         case 3:

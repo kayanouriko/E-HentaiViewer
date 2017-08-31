@@ -34,6 +34,7 @@
 @property (nonatomic, assign) BOOL canFreshMore;
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIView *likeBgView;
+@property (nonatomic, strong) NSString *favcat;
 
 @end
 
@@ -53,11 +54,11 @@
 }
 
 #pragma mark -QJHeadFreshingViewDelagate
-- (void)beginRefreshing {
-    if ([self.hotRefreshingView isReFreshing]) {
+- (void)didBeginReFreshingWithFreshingView:(QJHeadFreshingView *)headFreshingView {
+    if (headFreshingView == self.hotRefreshingView && [self.hotRefreshingView isReFreshing]) {
         [self updateHotResource];
     }
-    else if ([self.likeRefreshingView isReFreshing]) {
+    else if (headFreshingView == self.likeRefreshingView && [self.likeRefreshingView isReFreshing]) {
         [self updateLikeResource];
     }
 }
@@ -89,13 +90,27 @@
 }
 
 - (NSString *)getLikeUrl {
-    if (self.pageIndex == 0) {
-        return @"favorites.php";
+    NSString *url = @"favorites.php";
+    if ([self.favcat isEqualToString:@"all"]) {
+        if (self.pageIndex == 0) {
+            return url;
+        } else {
+            return [NSString stringWithFormat:@"%@?page=%ld", url, self.pageIndex];
+        }
     }
-    return [NSString stringWithFormat:@"favorites.php?page=%ld",self.pageIndex];
+    else {
+        url = [NSString stringWithFormat:@"%@?%@",url, self.favcat];
+        if (self.pageIndex == 0) {
+            return url;
+        }
+        else {
+            return [NSString stringWithFormat:@"%@&page=%ld", url, self.pageIndex];
+        }
+    }
 }
 
 - (void)setContent {
+    self.favcat = @"all";
     self.canFreshMore = YES;
     self.pageIndex = 0;
     self.navigationItem.titleView = self.scrollHeadView;
@@ -210,6 +225,10 @@
 #pragma mark -QJFavSelectViewControllerDelagate
 - (void)didSelectFavFolder:(NSInteger)index {
     [self.likeButton setTitle:[NSString stringWithFormat:@"Favorites %ld >",index] forState:UIControlStateNormal];
+    /*
+    self.favcat = [NSString stringWithFormat:@"favcat=%ld",index];
+    [self.likeRefreshingView beginReFreshing];
+     */
 }
 
 #pragma mark -getter

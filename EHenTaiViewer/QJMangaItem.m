@@ -13,6 +13,7 @@
 
 @interface QJMangaItem ()<UIScrollViewDelegate,WKNavigationDelegate,UIGestureRecognizerDelegate>
 
+@property (nonatomic, strong) UIActivityIndicatorView *activity;
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIProgressView *progress;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGes;
@@ -43,9 +44,11 @@
 - (void)customInit {
     [self addSubview:self.webView];
     [self addSubview:self.progress];
+    [self addSubview:self.activity];
 }
 
 - (void)refreshItem:(QJBigImageItem *)item {
+    [self.activity startAnimating];
     self.item = item;
     if (item.realImageUrl) {
         [self.webView loadHTMLString:[self getHtmlWithUrl:item.realImageUrl x:item.x y:item.y] baseURL:nil];
@@ -99,10 +102,25 @@
 }
 
 #pragma mark -UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeWillBegin)]) {
         [self.delegate changeWillBegin];
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeWillBegin)]) {
+        [self.delegate changeWillBegin];
+    }
+}
+
+#pragma mark -WKNavigationDelegate
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+    [self.activity stopAnimating];
+}
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    [self.activity stopAnimating];
 }
 
 #pragma mark -懒加载
@@ -135,6 +153,8 @@
         //控件加载
         [_webView.configuration.userContentController addUserScript:noneSelectScript];
         [_webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+        
+        _webView.navigationDelegate = self;
     }
     return _webView;
 }
@@ -205,23 +225,44 @@
 
 - (void)singleTapGestureAction:(UITapGestureRecognizer *)tapGes {
     CGPoint touchPoint = [tapGes locationInView:self];
-    if (touchPoint.x <= UIScreenWidth() / 3) {
+    CGFloat width = UIScreenWidth() / 3.f;
+    CGFloat height = UIScreenHeight() / 3.f;
+    //中心区域
+    CGRect midRect = CGRectMake(width, height, width, height);
+    //上一页区域
+    CGRect leftRect1 = CGRectMake(width, 0, width, height);
+    CGRect leftRect2 = CGRectMake(0, 0, width, UIScreenHeight());
+    //下一页的区域
+    CGRect rightRect1 = CGRectMake(width, height * 2, width, height);
+    CGRect rightRect2 = CGRectMake(width * 2, 0, width, UIScreenHeight());
+    
+    if (CGRectContainsPoint(midRect, touchPoint)) {
+        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tapInWebView)]) {
+            [self.delegate tapInWebView];
+        }
+    }
+    else if (CGRectContainsPoint(leftRect1, touchPoint) || CGRectContainsPoint(leftRect2, touchPoint)) {
         //上一页
         if (self.delegate != nil && [self.delegate respondsToSelector:@selector(forwardPage)]) {
             [self.delegate forwardPage];
         }
     }
-    else if (touchPoint.x >= UIScreenWidth() * 2 / 3) {
+    else if (CGRectContainsPoint(rightRect1, touchPoint) || CGRectContainsPoint(rightRect2, touchPoint)) {
         //下一页
         if (self.delegate != nil && [self.delegate respondsToSelector:@selector(nextPage)]) {
             [self.delegate nextPage];
         }
     }
-    else {
-        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(tapInWebView)]) {
-            [self.delegate tapInWebView];
-        }
+}
+
+#pragma mark -getter
+- (UIActivityIndicatorView *)activity {
+    if (nil == _activity) {
+        _activity = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(UIScreenWidth() / 2 - 10 , UIScreenHeight() / 2 - 10, 20, 20)];
+        _activity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        _activity.hidesWhenStopped = YES;
     }
+    return _activity;
 }
 
 - (void)dealloc {

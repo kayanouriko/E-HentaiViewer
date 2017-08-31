@@ -8,10 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class QJListItem;
-@class QJGalleryItem;
-@class QJBigImageItem;
-@class QJTorrentItem;
+@class QJListItem, QJGalleryItem, QJBigImageItem, QJTorrentItem, QJToplistUploaderItem, QJSettingItem;
 
 typedef NS_ENUM(NSInteger, QJHenTaiParserStatus) {
     QJHenTaiParserStatusNetworkFail,//网络失败
@@ -27,6 +24,8 @@ typedef void (^ShowkeyHandler)(QJHenTaiParserStatus status,NSString *showkey);
 typedef void (^BigImageHandler)(QJHenTaiParserStatus status,NSString *url,NSString *x,NSString *y);
 typedef void (^BigImageListHandler)(NSArray<QJBigImageItem *> *bigImages);
 typedef void (^TorrentListHandler)(QJHenTaiParserStatus status ,NSArray<QJTorrentItem *> *torrents);
+typedef void (^ToplistHandler)(QJHenTaiParserStatus status ,NSArray<QJListItem *> *listArray, NSArray<QJToplistUploaderItem *> *uploaderArrary);
+typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSString *,QJSettingItem *> *settingDict);
 
 @interface QJHenTaiParser : NSObject
 
@@ -41,7 +40,9 @@ typedef void (^TorrentListHandler)(QJHenTaiParserStatus status ,NSArray<QJTorren
 - (BOOL)saveUserNameWithString:(NSString *)html isWeb:(BOOL)isWeb;
 - (BOOL)checkCookie;
 - (BOOL)deleteCokie;
-
+//读取设置
+- (void)readSettingAllInfoCompletion:(SettingHandler)completion;
+- (void)postMySettingInfoWithParams:(NSDictionary *)params Completion:(LoginHandler)completion;
 //解析相关
 //列表
 - (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion;
@@ -55,6 +56,8 @@ typedef void (^TorrentListHandler)(QJHenTaiParserStatus status ,NSArray<QJTorren
 - (void)updateBigImageUrlWithShowKey:(NSString *)showkey gid:(NSString *)gid url:(NSString *)url count:(NSInteger)count complete:(BigImageListHandler)completion;
 //种子列表
 - (void)updateTorrentInfoWithGid:(NSString *)gid token:(NSString *)token complete:(TorrentListHandler)completion;
+//toplist
+- (void)updateToplistInfoComplete:(ToplistHandler)completion;
 
 //操作相关
 //收藏

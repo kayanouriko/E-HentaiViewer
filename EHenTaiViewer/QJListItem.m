@@ -8,30 +8,28 @@
 
 #import "QJListItem.h"
 
-#define isnull(key) dict[key] == nil || [dict[key] isKindOfClass:[NSNull class]] ? @"" : [NSString stringWithFormat:@"%@",dict[key]]
-
 @implementation QJListItem
 
 - (instancetype)initWithDict:(NSDictionary *)dict classifyArr:(NSArray<NSString *> *)classifyArr colorArr:(NSArray<UIColor *> *)colorArr {
     self = [super init];
     if (self) {
-        self.title = isnull(@"title");
-        self.title_jpn = isnull(@"title_jpn");
-        self.rating = [isnull(@"rating") floatValue];
-        self.category = [self getCategoryNameAndColor:isnull(@"category") classifyArr:classifyArr colorArr:colorArr];
-        self.thumb = isnull(@"thumb");
+        self.title = isnull(@"title", dict);
+        self.title_jpn = isnull(@"title_jpn", dict);
+        self.rating = [isnull(@"rating", dict) floatValue];
+        self.category = [self getCategoryNameAndColor:isnull(@"category", dict) classifyArr:classifyArr colorArr:colorArr];
+        self.thumb = isnull(@"thumb", dict);
         [[YYWebImageManager sharedManager] requestImageWithURL:[NSURL URLWithString:self.thumb] options:YYWebImageOptionProgressiveBlur | YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionHandleCookies progress:nil transform:nil completion:nil];
-        self.uploader = isnull(@"uploader");
-        self.expunged = [isnull(@"expunged") boolValue];
+        self.uploader = isnull(@"uploader", dict);
+        self.expunged = [isnull(@"expunged", dict) boolValue];
         self.tags = dict[@"tags"];
-        self.torrentcount = [isnull(@"torrentcount") integerValue];
-        self.filecount = [isnull(@"filecount") integerValue];
-        self.posted = [self transTime:isnull(@"posted")];
-        CGFloat filesize = [isnull(@"filesize") floatValue];
+        self.torrentcount = [isnull(@"torrentcount", dict) integerValue];
+        self.filecount = [isnull(@"filecount", dict) integerValue];
+        self.posted = [self transTime:isnull(@"posted", dict)];
+        CGFloat filesize = [isnull(@"filesize", dict) floatValue];
         self.filesize = [self transformedValue:filesize];
         self.language = [self getLanguageWithTitle:self.title];
-        self.gid = isnull(@"gid");
-        self.token = isnull(@"token");
+        self.gid = isnull(@"gid", dict);
+        self.token = isnull(@"token", dict);
         self.isShowTag = NO;
     }
     return self;

@@ -29,19 +29,29 @@
     [self setCoreData];
     //解决iOS遗留bug,导航栏push或者pop存在黑块问题
     self.window.backgroundColor = [UIColor whiteColor];
-    //判断全局的版块变量,确保初始化必须有值
+    //判断全局的版块变量,确保初始化必须有值,默认表站
     if (!NSObjForKey(@"ExHentaiStatus")) {
         NSObjSetForKey(@"ExHentaiStatus", @(NO));
         NSObjSynchronize();
     }
     //观看模块
     if (!NSObjForKey(@"WatchMode")) {
-        NSObjSetForKey(@"WatchMode", @(NO));
+        NSObjSetForKey(@"WatchMode", @(YES));
         NSObjSynchronize();
     }
-    //保护模块
+    //保护模块,默认不开启
     if (!NSObjForKey(@"ProtectMode")) {
         NSObjSetForKey(@"ProtectMode", @(NO));
+        NSObjSynchronize();
+    }
+    //中文化模块,默认不开启
+    if (!NSObjForKey(@"TagCnMode")) {
+        NSObjSetForKey(@"ProtectMode", @(NO));
+        NSObjSynchronize();
+    }
+    //日语标题,默认英文标题
+    if (!NSObjForKey(@"TitleJnMode")) {
+        NSObjSetForKey(@"TitleJnMode", @(NO));
         NSObjSynchronize();
     }
     //网络监测
@@ -109,7 +119,7 @@
     if (NSObjForKey(@"ProtectMode") && [NSObjForKey(@"ProtectMode") boolValue]) {
         NSTimeInterval beginTime = [[[QJGlobalInfo sharedInstance] getAttribute:@"BackgroundTime"] integerValue];
         NSTimeInterval endTime = [[NSProcessInfo processInfo] systemUptime];
-        if (endTime - beginTime > 120) {
+        if (endTime - beginTime > 60) {
             if ([[QJProtectTool shareTool] isEnableTouchID]) {
                 //TouchID
                 UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;

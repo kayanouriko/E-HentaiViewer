@@ -10,12 +10,26 @@
 #import "Tag+CoreDataClass.h"
 #import "QJSearchTagCell.h"
 #import "QJOtherListController.h"
+#import "QJSearchClassifyCell.h"
+#import "QJSearchSoreCell.h"
+#import "QJHenTaiParser.h"
+#import "QJSearchGalleryCell.h"
+#import "QJInfoViewController.h"
+#import "QJSearchUploaderCell.h"
+#import "QJSearchHeadView.h"
 
-@interface QJSearchViewController ()<UISearchBarDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource>
+@interface QJSearchViewController ()<UISearchBarDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource ,QJSearchGalleryCellDelagate,QJSearchHeadViewDelagate>
 
 @property (nonatomic, strong) UISearchController *searchVC;
 @property (nonatomic, strong) UITableView *listTableView;//列表搜索
 @property (nonatomic, strong) NSMutableArray<Tag *> *searchDatas;
+@property (nonatomic, strong) NSMutableArray<QJListItem *> *topGallerys;//昨天最流行画廊
+@property (nonatomic, strong) NSMutableArray<QJToplistUploaderItem *> *upladers;//昨天最流行上传主
+
+//搜索设置相关
+@property (nonatomic, strong) UITableView *searchTableView;
+@property (nonatomic, strong) NSArray *headTitles;
+@property (nonatomic, strong) NSMutableArray *otherInfos;
 
 @end
 
@@ -25,57 +39,133 @@
     [super viewDidLoad];
     
     [self setContent];
+    [self updateResource];
 }
 
 - (void)setContent {
     self.navigationItem.titleView = self.searchVC.searchBar;
     [self.view addSubview:self.listTableView];
+    [self.view addSubview:self.searchTableView];
+}
+
+- (void)updateResource {
+    [[QJHenTaiParser parser] updateToplistInfoComplete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray, NSArray<QJToplistUploaderItem *> *uploaderArrary) {
+        if (status == QJHenTaiParserStatusSuccess) {
+            [self.topGallerys addObjectsFromArray:listArray];
+            [self.upladers addObjectsFromArray:uploaderArrary];
+            [self.listTableView reloadData];
+        }
+    }];
+}
+
+#pragma mark -UISearchBarDelegate
+- (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    if (searchBar.searchResultsButtonSelected) {
+        [self searchListHidden];
+    }
+    else {
+        [self searchListShow];
+    }
+}
+
+- (void)searchListShow {
+    [UIView animateWithDuration:0.25f animations:^{
+        self.searchTableView.frame = CGRectMake(0, 0, UIScreenWidth(), UIScreenHeight());
+    }];
+    self.searchVC.searchBar.searchResultsButtonSelected = YES;
+}
+
+- (void)searchListHidden {
+    [UIView animateWithDuration:0.25f animations:^{
+        self.searchTableView.frame = CGRectMake(0, 0, UIScreenWidth(), 0);
+    }];
+    QJSearchClassifyCell *cell = (QJSearchClassifyCell *)[self.view viewWithTag:100];
+    [cell saveButtonState];
+    self.searchVC.searchBar.searchResultsButtonSelected = NO;
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    [self searchListHidden];
+    return YES;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchVCHidden) name:SEARCHHIDDEN_NOTI object:nil];
 }
 
-- (void)searchVCHidden {
-    self.searchVC.active = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.searchVC.active = NO;
+#pragma mark -QJSearchGalleryCellDelagate
+- (void)didClickOneTopGalleryWithItem:(QJListItem *)item {
+    QJInfoViewController *vc = [QJInfoViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.item = item;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -tableView
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.searchVC.active) {
-        return self.searchDatas.count;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (tableView == self.listTableView && !self.searchVC.active) {
+        if (self.topGallerys.count) {
+            //历史搜索,收藏,昨天流行画廊,上传者
+            return 4;
+        }
+        else {
+            //历史搜索,收藏
+            return 2;
+        }
     } else {
-        return 10;
+        return 1;
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == self.listTableView) {
+        if (self.searchVC.active) {
+            return self.searchDatas.count;
+        } else {
+            //画廊,上传者为1
+            if (section == 2 || section == 3) {
+                return 1;
+            }
+            else {
+                return 2;
+            }
+        }
+    } else {
+        return 1;
     }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.searchVC.active) {
-        if (self.searchDatas.count) {
-            return @"相关标签";
-        } else {
+    if (tableView == self.listTableView) {
+        if (self.searchVC.active) {
             return @"";
         }
-    }
-    else {
-        return @"";
+        else {
+            if (section == 1) {
+                return @"收藏";
+            }
+            else if (section == 2) {
+                return @"昨日流行画廊";
+            }
+            else if (section == 3) {
+                return @"活跃上传者";
+            }
+            else {
+                return @"历史搜索";
+            }
+        }
+    } else {
+        return @"分类排除";
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (self.searchVC.active) {
-        if (self.searchDatas.count) {
-            return 35.f;
-        }
-        else {
-            return 0.1f;
-        }
+    if (tableView == self.listTableView && self.searchVC.active) {
+        return 0.1f;
     }
     else {
-        return 0.1f;
+        return 35.f;
     }
 }
 
@@ -84,14 +174,31 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.searchVC.active) {
-        QJSearchTagCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJSearchTagCell class])];
-        [cell refreshUI:self.searchDatas[indexPath.row] searchKey:self.searchVC.searchBar.text];
-        return cell;
-    }
-    else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class])];
-        cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
+    if (tableView == self.listTableView) {
+        if (self.searchVC.active) {
+            QJSearchTagCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJSearchTagCell class])];
+            [cell refreshUI:self.searchDatas[indexPath.row] searchKey:self.searchVC.searchBar.text];
+            return cell;
+        }
+        else {
+            if (indexPath.section == 2) {
+                QJSearchGalleryCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJSearchGalleryCell class])];
+                cell.delegate = self;
+                [cell refrshUI:self.topGallerys];
+                return cell;
+            }
+            else if (indexPath.section == 3) {
+                QJSearchUploaderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJSearchUploaderCell class])];
+                [cell refrshUI:self.upladers];
+                return cell;
+            }
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class])];
+            cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
+            return cell;
+        }
+    } else {
+        QJSearchClassifyCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJSearchClassifyCell class])];
+        cell.tag = 100;
         return cell;
     }
 }
@@ -121,6 +228,10 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSString *searchKey = searchController.searchBar.text;
     if (self.searchVC.active) {
+        //先隐藏
+        self.listTableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, 0, 0);
+        self.tabBarController.tabBar.hidden = YES;
+        
         [self.searchDatas removeAllObjects];
         if (searchKey.length) {
             //搜索
@@ -132,6 +243,8 @@
         [self.listTableView reloadData];
     }
     else {
+        self.listTableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        self.tabBarController.tabBar.hidden = NO;
         [self.listTableView reloadData];
     }
 }
@@ -144,6 +257,7 @@
         _searchVC.dimsBackgroundDuringPresentation = NO;
         _searchVC.hidesNavigationBarDuringPresentation = NO;
         //searchBar的一些设置
+        _searchVC.searchBar.delegate = self;
         _searchVC.searchBar.searchBarStyle = UISearchBarStyleMinimal;
         _searchVC.searchBar.showsSearchResultsButton = YES;
         _searchVC.searchBar.delegate = self;
@@ -157,6 +271,8 @@
     if (nil == _listTableView) {
         _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), UIScreenHeight()) style:UITableViewStyleGrouped];
         _listTableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        _listTableView.backgroundColor = [UIColor whiteColor];
+        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _listTableView.rowHeight = UITableViewAutomaticDimension;
         _listTableView.estimatedRowHeight = 60;
         _listTableView.delegate = self;
@@ -164,6 +280,8 @@
         _listTableView.tableFooterView = [UIView new];
         _listTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         [_listTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSearchTagCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSearchTagCell class])];
+        [_listTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSearchGalleryCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSearchGalleryCell class])];
+        [_listTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSearchUploaderCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSearchUploaderCell class])];
         [_listTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
     }
     return _listTableView;
@@ -174,6 +292,52 @@
         _searchDatas = [NSMutableArray new];
     }
     return _searchDatas;
+}
+
+- (UITableView *)searchTableView {
+    if (!_searchTableView) {
+        _searchTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), 0) style:UITableViewStyleGrouped];
+        _searchTableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        _searchTableView.delegate = self;
+        _searchTableView.dataSource = self;
+        _searchTableView.rowHeight = UITableViewAutomaticDimension;
+        _searchTableView.estimatedRowHeight = 5 * 42;
+        _searchTableView.tableFooterView = [UIView new];
+        [_searchTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSearchClassifyCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSearchClassifyCell class])];
+        [_searchTableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSearchSoreCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSearchSoreCell class])];
+        [_searchTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+    }
+    return _searchTableView;
+}
+
+- (NSArray *)headTitles {
+    if (!_headTitles) {
+        _headTitles = @[@"分类搜索项",@"其他搜索项"];
+    }
+    return _headTitles;
+}
+
+- (NSMutableArray *)otherInfos {
+    if (!_otherInfos) {
+        NSArray *array = @[@"只搜中文",@"设置最低评分"];
+        _otherInfos = [NSMutableArray new];
+        [_otherInfos addObjectsFromArray:array];
+    }
+    return _otherInfos;
+}
+
+- (NSMutableArray<QJListItem *> *)topGallerys {
+    if (nil == _topGallerys) {
+        _topGallerys = [NSMutableArray new];
+    }
+    return _topGallerys;
+}
+
+- (NSMutableArray<QJToplistUploaderItem *> *)upladers {
+    if (nil == _upladers) {
+        _upladers = [NSMutableArray new];
+    }
+    return _upladers;
 }
 
 - (void)didReceiveMemoryWarning {

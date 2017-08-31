@@ -13,13 +13,27 @@
 
 @interface QJMangaViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,QJMangaItemDelagate>
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *navgationBar;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *toolButtomBar;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sliderButtomLine;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *items;
 @property (nonatomic, strong) UIBarButtonItem *shareItem;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navgationBarTopLine;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sliderBarButtomLine;
+//计数部分
+@property (weak, nonatomic) IBOutlet UIView *pageCountView;
+@property (weak, nonatomic) IBOutlet UILabel *pageCountLabel;
 
+//下部显示信息部分
+@property (weak, nonatomic) IBOutlet UIView *infoView;
+@property (weak, nonatomic) IBOutlet UILabel *pageLabel;
+
+- (IBAction)backAction:(UIBarButtonItem *)sender;
+//滑动杆的相关触碰事件
 - (IBAction)sliderValueChange:(UISlider *)sender;
+- (IBAction)fingerIn:(UISlider *)sender;
+- (IBAction)fingerOut:(UISlider *)sender;
 
 @end
 
@@ -29,22 +43,6 @@
     [super viewDidLoad];
     [self setContent];
     [self updateResource];
-}
-
-//该页面不需要侧滑返回,容易造成误操作
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    // 禁用返回手势
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    }
 }
 
 #pragma mark -数据刷新
@@ -57,69 +55,80 @@
 
 #pragma mark -内容设置
 - (void)setContent {
-    self.title = [NSString stringWithFormat:@"(%d / %ld)",1,self.count];
+    self.pageLabel.text = [NSString stringWithFormat:@"%d / %ld",1,self.count];
+    self.navgationBar.topItem.title = self.pageLabel.text;
     self.view.backgroundColor = [UIColor whiteColor];
-    //TODO:分享功能暂时不做
-    //self.navigationItem.rightBarButtonItem = self.shareItem;
+    
     //添加view
     [self.view addSubview:self.collectionView];
-    [self.view bringSubviewToFront:self.slider];
+    [self.view bringSubviewToFront:self.infoView];
+    [self.view bringSubviewToFront:self.pageCountView];
+    [self.view bringSubviewToFront:self.navgationBar];
+    [self.view bringSubviewToFront:self.toolButtomBar];
     //滑杆最大值
     self.slider.maximumValue = self.count - 1;
 }
 
-#pragma mark -右上角分享
-- (void)clickShare {
-    /*
-     UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[self.item.title, self.thumbImageView.image] applicationActivities:nil];
-     activity.excludedActivityTypes = @[UIActivityTypeAirDrop];
-     
-     UIPopoverPresentationController *popover = activity.popoverPresentationController;
-     if (popover) {
-     popover.sourceView = self.shareItem.customView;
-     popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
-     }
-     
-     [self presentViewController:activity animated:YES completion:nil];
-     
-     activity.completionWithItemsHandler = ^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
-     
-     };
-     */
-}
-
 - (void)changeNavbarAndSliderBar {
-    if (self.navigationController.navigationBarHidden) {
-        [self show];
+    if (self.navgationBarTopLine.constant == 0) {
+        [self hidden];
     }
     else {
-        [self hidden];
+        [self show];
     }
 }
 
 - (void)show {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [UIView animateWithDuration:0.25f animations:^{
-        self.sliderButtomLine.constant = 10;
-        [self.view layoutIfNeeded];
-    }];
+    if (self.navgationBarTopLine.constant != 0) {
+        if (self.navgationBar.hidden) {
+            self.navgationBar.hidden = NO;
+        }
+        [UIView animateWithDuration:0.25f animations:^{
+            self.navgationBarTopLine.constant = 0;
+            self.sliderBarButtomLine.constant = 0;
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 - (void)hidden {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [UIView animateWithDuration:0.25f animations:^{
-        self.sliderButtomLine.constant = -41;
-        [self.view layoutIfNeeded];
-    }];
+    if (self.navgationBarTopLine.constant == 0) {
+        [UIView animateWithDuration:0.25f animations:^{
+            self.navgationBarTopLine.constant = -64;
+            self.sliderBarButtomLine.constant = -49;
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 #pragma mark -滑动条值改变
+- (IBAction)backAction:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)sliderValueChange:(UISlider *)sender {
+    CGFloat currValue = sender.value;
+    NSInteger page = currValue / 1;
+    self.pageCountLabel.text = [NSString stringWithFormat:@"%ld",page];
+    self.pageLabel.text = [NSString stringWithFormat:@"%ld / %ld",(long)page,self.count];
+    self.navgationBar.topItem.title = self.pageLabel.text;
+}
+
+- (IBAction)fingerOut:(UISlider *)sender {
     CGFloat currValue = sender.value;
     NSInteger page = currValue / 1;
     CGPoint currOffsize = self.collectionView.contentOffset;
     currOffsize.x = page * UIScreenWidth();
     [self.collectionView setContentOffset:currOffsize animated:NO];
+    
+    self.pageCountView.hidden = YES;
+}
+
+- (IBAction)fingerIn:(UISlider *)sender {
+    self.pageCountView.hidden = NO;
+    CGPoint currOffsize = self.collectionView.contentOffset;
+    NSInteger currCount = currOffsize.x / UIScreenWidth() + 1;
+    self.pageCountLabel.text = [NSString stringWithFormat:@"%ld",currCount];
 }
 
 #pragma mark -QJMangaItemDelagate
@@ -132,7 +141,6 @@
 }
 
 - (void)forwardPage {
-    [self customAction];
     CGPoint currOffsize = self.collectionView.contentOffset;
     currOffsize.x -= UIScreenWidth();
     if (currOffsize.x >= 0) {
@@ -142,7 +150,6 @@
 }
 
 - (void)nextPage {
-    [self customAction];
     CGPoint currOffsize = self.collectionView.contentOffset;
     currOffsize.x += UIScreenWidth();
     if (currOffsize.x <= UIScreenWidth() * (self.items.count - 1)) {
@@ -151,21 +158,22 @@
     }
 }
 
-//一些不能放在滚动代理里面的计算
-- (void)customAction {
-    [self hidden];
-}
-
 #pragma mark -scrollview
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGPoint currOffsize = self.collectionView.contentOffset;
     NSInteger currCount = currOffsize.x / UIScreenWidth() + 1;
-    self.title = [NSString stringWithFormat:@"(%ld / %ld)",(long)currCount,self.count];
+    self.pageLabel.text = [NSString stringWithFormat:@"%ld / %ld",(long)currCount,self.count];
+    self.navgationBar.topItem.title = self.pageLabel.text;
     self.slider.value = currCount - 1;
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     self.view.userInteractionEnabled = YES;
+    [self hidden];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self hidden];
 }
 
 #pragma mark -collection
@@ -201,13 +209,6 @@
         _items = [NSMutableArray new];
     }
     return _items;
-}
-
-- (UIBarButtonItem *)shareItem {
-    if (!_shareItem) {
-        _shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(clickShare)];
-    }
-    return _shareItem;
 }
 
 - (void)didReceiveMemoryWarning {

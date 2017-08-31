@@ -9,6 +9,7 @@
 #import "QJGalleryItem.h"
 #import "NSString+StringHeight.h"
 #import "Tag+CoreDataClass.h"
+#import "TFHpple.h"
 
 @implementation QJGalleryTagItem
 
@@ -109,21 +110,22 @@
             model.url = [rightTagElement objectForKey:@"href"];
             [rightTagArr addObject:model];
         }
-        CGFloat tagViewHeight = [self getTagViewHeightWithLaftStr:leftStr rightArr:rightTagArr];
-        [tagArr addObject:@[leftStr,rightTagArr,@(tagViewHeight)]];
+        CGFloat tagViewHeight = [self getTagViewHeightWithLaftStr:leftStr rightArr:rightTagArr isCN:NO];
+        CGFloat tagViewHeightCN = [self getTagViewHeightWithLaftStr:leftStr rightArr:rightTagArr isCN:YES];
+        [tagArr addObject:@[leftStr,rightTagArr,@(tagViewHeight),@(tagViewHeightCN)]];
     }
     self.tagArr = tagArr;
 }
 
-//获取tagView的高度
-- (CGFloat)getTagViewHeightWithLaftStr:(NSString *)leftStr rightArr:(NSArray *)rightArr {
+//获取tagView的高度,标签的各个位置
+- (CGFloat)getTagViewHeightWithLaftStr:(NSString *)leftStr rightArr:(NSArray *)rightArr isCN:(BOOL)isCN {
     CGFloat leftLabelWidth = [leftStr StringWidthWithFontSize:AppFontContentStyle()] + 20;
     CGFloat buttonViewWidth = UIScreenWidth() - (leftLabelWidth + 40) - 20;
     CGFloat buttonX = leftLabelWidth + 40;
     NSInteger heihtCount = 0;
     for (int i = 0; i < rightArr.count; i++) {
         QJGalleryTagItem *model = rightArr[i];
-        CGFloat buttonWidth = [model.name StringWidthWithFontSize:AppFontContentStyle()] + 20;
+        CGFloat buttonWidth = [isCN ? model.cname : model.name StringWidthWithFontSize:AppFontContentStyle()] + 20;
         if (buttonWidth > UIScreenWidth() - (leftLabelWidth + 40) - 20) {
             buttonWidth = UIScreenWidth() - (leftLabelWidth + 40) - 30;
         }
@@ -133,9 +135,15 @@
             buttonX = leftLabelWidth + 40;
             buttonViewWidth = UIScreenWidth() - (leftLabelWidth + 40) - 20;
         }
-        model.buttonX = buttonX;
-        model.buttonY = heihtCount * 35;
-        model.buttonWidth = buttonWidth;
+        if (isCN) {
+            model.buttonXCN = buttonX;
+            model.buttonYCN = heihtCount * 35;
+            model.buttonWidthCN = buttonWidth;
+        } else {
+            model.buttonX = buttonX;
+            model.buttonY = heihtCount * 35;
+            model.buttonWidth = buttonWidth;
+        }
         //剩余宽度
         buttonViewWidth -= buttonWidth + 10;
         buttonX += buttonWidth + 10;

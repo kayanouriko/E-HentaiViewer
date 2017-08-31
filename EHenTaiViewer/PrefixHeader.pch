@@ -62,7 +62,6 @@
 #define NSObjSynchronize() [[NSUserDefaults standardUserDefaults] synchronize]
 //通知名
 #define LOGIN_NOTI @"RefreshTableview"
-#define SEARCHHIDDEN_NOTI @"SearchVCHidden"
 //状态栏圈圈
 #define NetworkShow() [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES]
 #define NetworkHidden() [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO]

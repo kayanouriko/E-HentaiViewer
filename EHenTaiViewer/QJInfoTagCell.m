@@ -19,15 +19,16 @@
 @implementation QJInfoTagCell
 
 - (void)refreshUI:(NSArray *)array {
+    BOOL isCN = [NSObjForKey(@"TagCnMode") boolValue];
     for (UIView *subView in self.tagView.subviews) {
         [subView removeFromSuperview];
     }
     CGFloat tagViewHeight = 10;
     for (NSArray *subArray in array) {
-        CGFloat viewHeight = [subArray[2] floatValue];
+        CGFloat viewHeight = isCN ? [subArray[3] floatValue] : [subArray[2] floatValue];
         QJTagView *tagView = [[QJTagView alloc] initWithFrame:CGRectMake(0, tagViewHeight, UIScreenWidth(), viewHeight)];
         [self.tagView addSubview:tagView];
-        [tagView refreshUI:subArray];
+        [tagView refreshUI:subArray isCN:isCN];
         tagViewHeight += viewHeight;
     }
     //如果没有tag,提示没有tag

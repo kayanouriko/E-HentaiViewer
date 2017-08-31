@@ -56,7 +56,7 @@
 }
 
 #pragma mark -QJHeadFreshingViewDelagate
-- (void)beginRefreshing {
+- (void)didBeginReFreshingWithFreshingView:(QJHeadFreshingView *)headFreshingView {
     self.canFreshMore = YES;
     self.status = QJFreshStatusRefresh;
     self.pageIndex = 0;
