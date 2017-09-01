@@ -81,6 +81,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section) {
+        if (indexPath.row == 1) {
+            //检测是否登录
+            if (![[QJHenTaiParser parser] checkCookie]) {
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"未登录" message:@"是否前往登陆?" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                [alertVC addAction:cancelBtn];
+                UIAlertAction *okBtn = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    QJLoginViewController *vc = [QJLoginViewController new];
+                    [self presentViewController:vc animated:YES completion:nil];
+                }];
+                [alertVC addAction:okBtn];
+                [self presentViewController:alertVC animated:YES completion:nil];
+                return;
+            }
+        }
         QJSettingWatchSettingController *vc = [QJSettingWatchSettingController new];
         vc.type = indexPath.row;
         vc.title = self.datas[indexPath.row].firstObject;

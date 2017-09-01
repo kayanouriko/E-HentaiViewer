@@ -13,6 +13,8 @@ typedef NS_ENUM(NSInteger, QJFreshStatus) {
     QJFreshStatusNone,//没有加载
     QJFreshStatusRefresh,//重新刷新
     QJFreshStatusMore,//加载更多
+    QJFreshStatusFreshing,//正在加载中
+    QJFreshStatusNotMore,//没有更多
 };
 
 #endif

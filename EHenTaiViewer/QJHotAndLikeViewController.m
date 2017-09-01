@@ -59,13 +59,28 @@
         [self updateHotResource];
     }
     else if (headFreshingView == self.likeRefreshingView && [self.likeRefreshingView isReFreshing]) {
+        //检测是否登录
+        if (![[QJHenTaiParser parser] checkCookie]) {
+            [self.likeRefreshingView endRefreshing];
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"未登录" message:@"是否前往登陆?" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alertVC addAction:cancelBtn];
+            UIAlertAction *okBtn = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                QJLoginViewController *vc = [QJLoginViewController new];
+                [self presentViewController:vc animated:YES completion:nil];
+            }];
+            [alertVC addAction:okBtn];
+            [self presentViewController:alertVC animated:YES completion:nil];
+            return;
+        }
+        self.status = QJFreshStatusFreshing;
         [self updateLikeResource];
     }
 }
 
 - (void)updateHotResource {
     [[QJHenTaiParser parser] updateHotListInfoComplete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
-        if (self.status == QJFreshStatusRefresh) {
+        if ([self.hotRefreshingView isReFreshing]) {
             [self.hotDatas removeAllObjects];
         }
         if (status == QJHenTaiParserStatusSuccess) {
@@ -78,13 +93,14 @@
 
 - (void)updateLikeResource {
     [[QJHenTaiParser parser] updateLikeListInfoWithUrl:[self getLikeUrl] complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
-        if (self.status == QJFreshStatusRefresh) {
+        if ([self.likeRefreshingView isReFreshing]) {
             [self.likeDatas removeAllObjects];
         }
         if (status == QJHenTaiParserStatusSuccess) {
             [self.likeDatas addObjectsFromArray:listArray];
             [self.likeTableview reloadData];
         }
+        self.status = listArray.count ? QJFreshStatusNone : QJFreshStatusNotMore;
         [self.likeRefreshingView endRefreshing];
     }];
 }
@@ -110,6 +126,7 @@
 }
 
 - (void)setContent {
+    self.status = QJFreshStatusNone;
     self.favcat = @"all";
     self.canFreshMore = YES;
     self.pageIndex = 0;
@@ -175,7 +192,7 @@
         self.hotTableView.scrollEnabled = NO;
         self.likeTableview.scrollEnabled = NO;
     }
-    /*
+    
     if (scrollView == self.likeTableview) {
         //预加载
         CGFloat current = scrollView.contentOffset.y + scrollView.frame.size.height;
@@ -186,14 +203,13 @@
         CGFloat totalItem = 25 * (self.pageIndex + 1);
         CGFloat newThreshold = needRead / totalItem;
         
-        if (self.likeDatas.count && ratio >= newThreshold) {
-            self.status = QJFreshStatusMore;
+        if (self.status != QJFreshStatusFreshing && self.status != QJFreshStatusNotMore && self.likeDatas.count && ratio >= newThreshold) {
+            self.status = QJFreshStatusFreshing;
             self.pageIndex++;
             NSLog(@"Request page %ld from server.",self.pageIndex);
             [self updateLikeResource];
         }
     }
-     */
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -225,10 +241,8 @@
 #pragma mark -QJFavSelectViewControllerDelagate
 - (void)didSelectFavFolder:(NSInteger)index {
     [self.likeButton setTitle:[NSString stringWithFormat:@"Favorites %ld >",index] forState:UIControlStateNormal];
-    /*
     self.favcat = [NSString stringWithFormat:@"favcat=%ld",index];
     [self.likeRefreshingView beginReFreshing];
-     */
 }
 
 #pragma mark -getter
@@ -319,6 +333,7 @@
         _likeButton.frame = CGRectMake(0, 0, UIScreenWidth(), 40);
         [_likeButton setTitle:@"全部收藏夹 >" forState:UIControlStateNormal];
         [_likeButton addTarget:self action:@selector(selectFavFolder) forControlEvents:UIControlEventTouchUpInside];
+        _likeButton.enabled = NO;
     }
     return _likeButton;
 }

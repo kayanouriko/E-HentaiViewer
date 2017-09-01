@@ -295,28 +295,53 @@
         NSArray *photoURL = [xpathParser searchWithXPathQuery:searchRule];
         if (photoURL.count) {
             NSMutableArray *urlStringArray = [NSMutableArray array];
-            for (TFHppleElement * eachTitleWithURL in photoURL) {
-                [urlStringArray addObject:[eachTitleWithURL attributes][@"href"]];
+            NSMutableArray *subUrlSringArray = [NSMutableArray new];
+            for (NSInteger i = 0; i < photoURL.count; i++) {
+                TFHppleElement * eachTitleWithURL = photoURL[i];
+                if (subUrlSringArray.count == 25) {
+                    [urlStringArray addObject:[subUrlSringArray mutableCopy]];
+                    [subUrlSringArray removeAllObjects];
+                }
+                [subUrlSringArray addObject:[eachTitleWithURL attributes][@"href"]];
+                if (i == photoURL.count - 1) {
+                    [urlStringArray addObject:[subUrlSringArray mutableCopy]];
+                }
             }
-            [self requestListInfoFromApi:urlStringArray complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
-                if (status == QJHenTaiParserStatusSuccess) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(status,listArray);
-                    });
-                }
-                else if (status == QJHenTaiParserStatusParseFail) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
-                        completion(QJHenTaiParserStatusParseFail,nil);
-                    });
-                }
-                else if (status == QJHenTaiParserStatusNetworkFail) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        ToastError(nil, @"网络有点小问题呢...");
-                        completion(QJHenTaiParserStatusNetworkFail,nil);
-                    });
-                }
-            }];
+            //计数超过25会请求不到,要把接口拆分来获取参数
+            NSMutableArray *allList = [NSMutableArray new];
+            for (NSInteger i = 0; i < photoURL.count; i++) {
+                [allList addObject:@""];
+            }
+            NSInteger count = urlStringArray.count;
+            __block NSInteger weakCount = count;
+            for (NSInteger i = 0; i < urlStringArray.count; i++) {
+                NSArray *subArr = urlStringArray[i];
+                [self requestListInfoFromApi:subArr complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
+                    if (status == QJHenTaiParserStatusSuccess) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            for (NSInteger j = 25 * i; j < subArr.count + 25 * i; j++) {
+                                allList[j] = listArray[j - 25 * i];
+                            }
+                            weakCount--;
+                            if (weakCount == 0) {
+                                completion(QJHenTaiParserStatusSuccess,allList);
+                            }
+                        });
+                    }
+                    else if (status == QJHenTaiParserStatusParseFail) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                            completion(QJHenTaiParserStatusParseFail,nil);
+                        });
+                    }
+                    else if (status == QJHenTaiParserStatusNetworkFail) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            ToastError(nil, @"网络有点小问题呢...");
+                            completion(QJHenTaiParserStatusNetworkFail,nil);
+                        });
+                    }
+                }];
+            }
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
@@ -731,10 +756,10 @@
         NSMutableDictionary *allSettingDic = [NSMutableDictionary new];
         for (TFHppleElement *subElement in settings) {
             TFHppleElement *nameElement = [subElement searchWithXPathQuery:@"//p"].firstObject;
-            if ([nameElement.text containsString:@"If you wish to hide galleries in certain languages from the gallery list and searches"]) {
-                //排除语言
+            if ([nameElement.text containsString:@"What categories would you like to view as default on the front page"] || [nameElement.text containsString:@"If you wish to hide galleries in certain languages from the gallery list and searches"] || [nameElement.text containsString:@"If you want to exclude certain namespaces from a default tag search"]) {
+                //排除语言,主页分类显示,排除标签组
                 QJSettingItem *model = [QJSettingItem creatModelWithHpple:subElement];
-                [allSettingDic setValue:model forKey:@"排除语言"];
+                [allSettingDic setValue:model forKey:model.name];
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -759,21 +784,22 @@
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 ToastError(nil, @"网络有点小问题呢...");
-                completion(QJHenTaiParserStatusNetworkFail);
+                if (completion) completion(QJHenTaiParserStatusNetworkFail);
             });
             return;
         }
         NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if ([html containsString:@"If you wish to hide galleries in certain languages from the gallery list and searches"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastSuccess(nil, @"设置成功!");
-                completion(QJHenTaiParserStatusSuccess);
+                //设置成功之后不需要提示
+                //ToastSuccess(nil, @"设置成功!");
+                if (completion) completion(QJHenTaiParserStatusSuccess);
             });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 ToastWarning(nil, @"可能网站结构变了,没解析到操作状态呢,但是应该是设置成功了哦~");
-                completion(QJHenTaiParserStatusParseFail);
+                if (completion) completion(QJHenTaiParserStatusParseFail);
             });
         }
     }];

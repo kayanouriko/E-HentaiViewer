@@ -28,6 +28,16 @@
 
 @end
 
+@interface QJSettingCheckboxItem : NSObject
+
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, assign, getter=isChecked) BOOL checked;
+
++ (QJSettingCheckboxItem *)creatModelWithLabel:(TFHppleElement *)labelElement input:(TFHppleElement *)inputElement;
+
+@end
+
 @interface QJSettingItem : NSObject
 
 @property (nonatomic, strong) NSString *name;//名字

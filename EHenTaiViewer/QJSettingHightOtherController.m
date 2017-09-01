@@ -1,26 +1,23 @@
 //
-//  QJLanguageOutViewController.m
+//  QJSettingHightOtherController.m
 //  EHenTaiViewer
 //
-//  Created by QinJ on 2017/8/31.
+//  Created by QinJ on 2017/9/1.
 //  Copyright © 2017年 kayanouriko. All rights reserved.
 //
 
-#import "QJLanguageOutViewController.h"
-#import "QJLanguageOutCell.h"
-#import "QJLanguageOutHeadView.h"
+#import "QJSettingHightOtherController.h"
 #import "QJSettingItem.h"
-#import "QJHenTaiParser.h"
 
 static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
 
-@interface QJLanguageOutViewController ()<UITableViewDelegate, UITableViewDataSource, QJLanguageOutCellDelagate>
+@interface QJSettingHightOtherController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
 
-@implementation QJLanguageOutViewController
+@implementation QJSettingHightOtherController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,31 +39,26 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
     [[NSNotificationCenter defaultCenter] postNotificationName:kSaveSettingInfoNoti object:nil];
 }
 
-#pragma mark -QJLanguageOutCellDelagate
-- (void)didClickBtn {
-    [self.tableView reloadData];
-}
-
-#pragma mark -tableView
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    QJLanguageOutHeadView *headView = [[NSBundle mainBundle] loadNibNamed:@"QJLanguageOutHeadView" owner:nil options:nil][0];
-    return headView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40;
-}
-
+#pragma mark -tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.model.subModels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    QJLanguageOutCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJLanguageOutCell class])];
-    QJSettingLanguageItem *model = self.model.subModels[indexPath.row];
-    cell.model = model;
-    cell.delegate = self;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class])];
+    QJSettingCheckboxItem *model = self.model.subModels[indexPath.row];
+    cell.textLabel.text = model.title;
+    cell.textLabel.font = [UIFont systemFontOfSize:14.f];
+    cell.accessoryType = model.isChecked ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    QJSettingCheckboxItem *model = self.model.subModels[indexPath.row];
+    model.checked = !model.isChecked;
+    [tableView reloadData];
 }
 
 #pragma mark -getter
@@ -77,8 +69,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
-        //注册
-        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJLanguageOutCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJLanguageOutCell class])];
+        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:NSStringFromClass(UITableViewCell.class)];
     }
     return _tableView;
 }

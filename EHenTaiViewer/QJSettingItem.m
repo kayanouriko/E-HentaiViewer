@@ -19,6 +19,9 @@
         model.name = hpple.attributes[@"name"];
     }
     model.checked = [hpple.attributes.allKeys containsObject:@"checked"];
+    if ([model.name isEqualToString:@"xl_0"] && NSObjForKey(@"xl_0") && [NSObjForKey(@"xl_0") isEqualToString:@"on"]) {
+        model.checked = YES;
+    }
     return model;
 }
 
@@ -56,6 +59,33 @@
 
 @end
 
+@implementation QJSettingCheckboxItem
+
++ (QJSettingCheckboxItem *)creatModelWithLabel:(TFHppleElement *)labelElement input:(TFHppleElement *)inputElement {
+    QJSettingCheckboxItem *model = [QJSettingCheckboxItem new];
+    if ([labelElement.attributes.allKeys containsObject:@"alt"]) {
+        model.title = labelElement.attributes[@"alt"];
+    }
+    else {
+        model.title = labelElement.text;
+    }
+    model.name = inputElement.attributes[@"name"];
+    model.checked = [inputElement.attributes.allKeys containsObject:@"checked"];
+    return model;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.name = @"";
+        self.checked = NO;
+    }
+    return self;
+}
+
+@end
+
 @implementation QJSettingItem
 
 + (QJSettingItem *)creatModelWithHpple:(TFHppleElement *)hpple {
@@ -73,6 +103,30 @@
                 QJSettingLanguageItem *subModel = [QJSettingLanguageItem creatModelWithHpple:languageElement];
                 [subModels addObject:subModel];
             }
+        }
+        model.subModels = subModels;
+    }
+    else if ([model.name containsString:@"What categories would you like to view as default on the front page"]) {
+        //主页分类显示
+        model.name = @"主页分类显示";
+        NSArray *inputs = [hpple searchWithXPathQuery:@"//input"];
+        NSArray *imgs = [hpple searchWithXPathQuery:@"//label//img"];
+        NSMutableArray *subModels = [NSMutableArray new];
+        for (NSInteger i = 0; i < inputs.count; i++) {
+            QJSettingCheckboxItem *subModel = [QJSettingCheckboxItem creatModelWithLabel:imgs[i] input:inputs[i]];
+            [subModels addObject:subModel];
+        }
+        model.subModels = subModels;
+    }
+    else if ([model.name containsString:@"If you want to exclude certain namespaces from a default tag search"]) {
+        //排除标签组
+        model.name = @"排除标签组";
+        NSArray *inputs = [hpple searchWithXPathQuery:@"//input"];
+        NSArray *imgs = [hpple searchWithXPathQuery:@"//label"];
+        NSMutableArray *subModels = [NSMutableArray new];
+        for (NSInteger i = 0; i < inputs.count; i++) {
+            QJSettingCheckboxItem *subModel = [QJSettingCheckboxItem creatModelWithLabel:imgs[i] input:inputs[i]];
+            [subModels addObject:subModel];
         }
         model.subModels = subModels;
     }

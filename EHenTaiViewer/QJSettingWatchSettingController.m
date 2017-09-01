@@ -14,6 +14,9 @@
 #import <SafariServices/SafariServices.h>
 #import "QJProtectTool.h"
 #import "QJLanguageOutViewController.h"
+#import "QJSettingHightOtherController.h"
+
+static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
 
 @interface QJSettingWatchSettingController ()<UITableViewDelegate, UITableViewDataSource, QJSettingListCellDelagate>
 
@@ -35,6 +38,8 @@
         self.navigationItem.rightBarButtonItem = item;
         
         [self updateResource];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveSettingInfo) name:kSaveSettingInfoNoti object:nil];
         return;
     }
     [self setContent];
@@ -60,6 +65,49 @@
             [self setContent];
         }
     }];
+}
+
+- (void)saveSettingInfo {
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    for (NSString *key in self.settingDict.allKeys) {
+        QJSettingItem *model = self.settingDict[key];
+        if ([key isEqualToString:@"排除语言"]) {
+            for (QJSettingLanguageItem *subModel in model.subModels) {
+                for (QJSettingLanguageCheckBoxItem *checkModel in subModel.models) {
+                    if (checkModel.name.length && checkModel.checked) {
+                        [params setValue:@"on" forKey:checkModel.name];
+                    }
+                    //这个属性网站不能修改,这里本地存储做强制修改
+                    if ([checkModel.name isEqualToString:@"xl_0"]) {
+                        NSObjSetForKey(@"xl_0", checkModel.isChecked ? @"on" : @"");
+                        NSObjSynchronize();
+                    }
+                }
+            }
+        }
+        else {
+            for (QJSettingCheckboxItem *subModel in model.subModels) {
+                if (subModel.name.length && subModel.isChecked) {
+                    [params setValue:@"on" forKey:subModel.name];
+                }
+            }
+        }
+    }
+    /*
+    for (QJSettingLanguageItem *model in self.model.subModels) {
+        for (QJSettingLanguageCheckBoxItem *subModel in model.models) {
+            if (subModel.name.length && subModel.checked) {
+                [params setValue:@"on" forKey:subModel.name];
+            }
+            //这个属性网站不能修改,这里本地存储做强制修改
+            if ([subModel.name isEqualToString:@"xl_0"]) {
+                NSObjSetForKey(@"xl_0", subModel.isChecked ? @"on" : @"");
+                NSObjSynchronize();
+            }
+        }
+    }
+     */
+    [[QJHenTaiParser parser] postMySettingInfoWithParams:params Completion:nil];
 }
 
 #pragma mark -QJSettingListCellDelagate
@@ -137,6 +185,12 @@
     else if (self.type == QJSettingWatchSettingControllerTypeHight) {
         if ([model.title isEqualToString:@"排除语言"]) {
             QJLanguageOutViewController *vc = [QJLanguageOutViewController new];
+            vc.title = model.title;
+            vc.model = self.settingDict[model.title];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else {
+            QJSettingHightOtherController *vc = [QJSettingHightOtherController new];
             vc.title = model.title;
             vc.model = self.settingDict[model.title];
             [self.navigationController pushViewController:vc animated:YES];
