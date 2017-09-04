@@ -17,6 +17,7 @@
 #import "QJInfoViewController.h"
 #import "QJSearchUploaderCell.h"
 #import "QJSearchHeadView.h"
+#import "NSString+StringHeight.h"
 
 @interface QJSearchViewController ()<UISearchBarDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource ,QJSearchGalleryCellDelagate,QJSearchHeadViewDelagate>
 
@@ -31,6 +32,9 @@
 @property (nonatomic, strong) NSArray *headTitles;
 @property (nonatomic, strong) NSMutableArray *otherInfos;
 
+@property (nonatomic, strong) NSArray<NSString *> *classifyArr;
+@property (nonatomic, strong) NSDictionary *searchKeyDict;
+
 @end
 
 @implementation QJSearchViewController
@@ -40,6 +44,11 @@
     
     [self setContent];
     [self updateResource];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = self.searchVC.active;
 }
 
 - (void)setContent {
@@ -91,7 +100,37 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
+    NSString *url = [self makeUrl];
+    QJOtherListController *vc = [QJOtherListController new];
+    vc.titleName = self.searchVC.searchBar.text;
+    vc.key = url;
+    vc.type = QJOtherListControllerTypeTag;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (NSString *)makeUrl {
+    NSMutableString *url = [NSMutableString stringWithString:@"?f_sname=on&f_stags=on&f_sdesc=on&f_apply=Apply+Filter"];
+    NSMutableArray *buttonStateArr = [NSMutableArray new];
+    if (NSObjForKey(@"SearchBtnState")) {
+        [buttonStateArr addObjectsFromArray:NSObjForKey(@"SearchBtnState")];
+    }
+    else {
+        //该循环基本只有第一次运行会用到,故不写在懒加载中,影响性能
+        NSMutableArray *arr = [NSMutableArray new];
+        for (NSInteger i = 0; i < self.classifyArr.count; i++) {
+            [arr addObject:@(1)];
+        }
+        buttonStateArr = arr;
+        NSObjSetForKey(@"SearchBtnState", arr);
+        NSObjSynchronize();
+    }
+    for (NSInteger i = 0; i < buttonStateArr.count; i++) {
+        id value = buttonStateArr[i];
+        [url appendFormat:@"%@%@",self.searchKeyDict[self.classifyArr[i]],value];
+    }
+    [url appendFormat:@"&f_search=%@",[self.searchVC.searchBar.text urlEncode]];
+    return url;
 }
 
 #pragma mark -QJSearchGalleryCellDelagate
@@ -107,11 +146,12 @@
     if (tableView == self.listTableView && !self.searchVC.active) {
         if (self.topGallerys.count) {
             //历史搜索,收藏,昨天流行画廊,上传者
-            return 4;
+            //暂时不做历史搜索和收藏
+            return 2;
         }
         else {
-            //历史搜索,收藏
-            return 2;
+            //TODO:历史搜索,收藏
+            return 0;
         }
     } else {
         return 1;
@@ -123,6 +163,8 @@
         if (self.searchVC.active) {
             return self.searchDatas.count;
         } else {
+            return 1;
+            /*
             //画廊,上传者为1
             if (section == 2 || section == 3) {
                 return 1;
@@ -130,6 +172,7 @@
             else {
                 return 2;
             }
+             */
         }
     } else {
         return 1;
@@ -142,6 +185,13 @@
             return @"";
         }
         else {
+            if (section) {
+                return @"活跃上传者";
+            }
+            else {
+                return @"昨日流行画廊";
+            }
+            /*
             if (section == 1) {
                 return @"收藏";
             }
@@ -154,6 +204,7 @@
             else {
                 return @"历史搜索";
             }
+             */
         }
     } else {
         return @"分类排除";
@@ -181,13 +232,13 @@
             return cell;
         }
         else {
-            if (indexPath.section == 2) {
+            if (indexPath.section == 0) {
                 QJSearchGalleryCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJSearchGalleryCell class])];
                 cell.delegate = self;
                 [cell refrshUI:self.topGallerys];
                 return cell;
             }
-            else if (indexPath.section == 3) {
+            else if (indexPath.section == 1) {
                 QJSearchUploaderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJSearchUploaderCell class])];
                 [cell refrshUI:self.upladers];
                 return cell;
@@ -338,6 +389,40 @@
         _upladers = [NSMutableArray new];
     }
     return _upladers;
+}
+
+- (NSArray<NSString *> *)classifyArr {
+    if (!_classifyArr) {
+        _classifyArr = @[@"DOUJINSHI",
+                         @"MANGA",
+                         @"ARTIST CG",
+                         @"GAME CG",
+                         @"WESTERN",
+                         @"NON-H",
+                         @"IMAGE SET",
+                         @"COSPLAY",
+                         @"ASIAN PORN",
+                         @"MISC"];
+    }
+    return _classifyArr;
+}
+
+- (NSDictionary *)searchKeyDict {
+    if (nil == _searchKeyDict) {
+        _searchKeyDict = @{
+                           @"DOUJINSHI":@"&f_doujinshi=",
+                           @"MANGA":@"&f_manga=",
+                           @"ARTIST CG":@"&f_artistcg=",
+                           @"GAME CG":@"&f_gamecg=",
+                           @"WESTERN":@"&f_western=",
+                           @"NON-H":@"&f_non-h=",
+                           @"IMAGE SET":@"&f_imageset=",
+                           @"COSPLAY":@"&f_cosplay=",
+                           @"ASIAN PORN":@"&f_asianporn=",
+                           @"MISC":@"&f_misc="
+                           };
+    }
+    return _searchKeyDict;
 }
 
 - (void)didReceiveMemoryWarning {

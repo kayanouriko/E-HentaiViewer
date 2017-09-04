@@ -20,6 +20,7 @@
 #import "QJGalleryItem.h"
 #import "NSString+StringHeight.h"
 #import "QJLikeBarButtonItem.h"
+#import "QJNetworkTool.h"
 //其他列表
 #import "QJOtherListController.h"
 //评论
@@ -245,7 +246,7 @@
         case 2:
         {
             //阅读
-            if (![NSObjForKey(@"WatchMode") boolValue]) {
+            if ([[QJNetworkTool shareTool] isEnableMobleNetwork] && ![NSObjForKey(@"WatchMode") boolValue]) {
                 ToastError(nil, @"想要浏览大图画廊请到设置中打开相关选项");
                 return;
             }

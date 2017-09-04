@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<NSArray<NSString *> *> *datas;
 
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+
 @end
 
 @implementation QJSettingViewController
@@ -139,8 +141,14 @@
         _tableView.dataSource = self;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 5 * 42;
-        UIView *settinngInfoView = [[NSBundle mainBundle] loadNibNamed:@"QJSettingInfo" owner:nil options:nil].firstObject;
+        UIView *settinngInfoView = [[NSBundle mainBundle] loadNibNamed:@"QJSettingInfo" owner:self options:nil].firstObject;
         settinngInfoView.frame = CGRectMake(0, 0, UIScreenWidth(), 65);
+        
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *app_Version = infoDictionary[@"CFBundleShortVersionString"];
+        NSString *app_build = infoDictionary[@"CFBundleVersion"];
+        self.versionLabel.text = [NSString stringWithFormat:@"Version %@(%@) ✨ Made by kayanouriko\n应用仅供学习交流使用\n内容来源于e-hentai.org和exhentai.org",app_Version, app_build];
+        
         _tableView.tableFooterView = settinngInfoView;
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSettingLoginCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSettingLoginCell class])];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
