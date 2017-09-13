@@ -12,6 +12,7 @@
 
 @protocol QJMangaItemDelagate <NSObject>
 
+@optional
 - (void)changeWillBegin;
 - (void)tapInWebView;
 - (void)nextPage;

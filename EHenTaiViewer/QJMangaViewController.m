@@ -119,9 +119,7 @@
     NSInteger page = currValue / 1;
     CGPoint currOffsize = self.collectionView.contentOffset;
     currOffsize.x = page * UIScreenWidth();
-    [self.collectionView setContentOffset:currOffsize animated:NO];
-    
-    self.pageCountView.hidden = YES;
+    [self.collectionView setContentOffset:currOffsize animated:YES];
 }
 
 - (IBAction)fingerIn:(UISlider *)sender {
@@ -168,6 +166,7 @@
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if (!self.pageCountView.hidden) self.pageCountView.hidden = YES;
     self.view.userInteractionEnabled = YES;
     [self hidden];
 }
@@ -183,9 +182,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     QJMangaItem *item = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([QJMangaItem class]) forIndexPath:indexPath];
-    if (!item.delegate) {
-        item.delegate = self;
-    }
+    item.delegate = self;
     [item refreshItem:self.items[indexPath.item]];
     return item;
 }

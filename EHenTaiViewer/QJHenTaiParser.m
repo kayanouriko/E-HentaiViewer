@@ -283,6 +283,13 @@
             return;
         }
         NSString *html = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
+        if ([html containsString:@"IP address"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ToastWarning(nil, html);
+                completion(QJHenTaiParserStatusNetworkFail, nil);
+            });
+            return;
+        }
         if ([html containsString:@"No hits found"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 ToastWarning(nil, @"没有更多数据...");
