@@ -139,20 +139,22 @@
 }
 
 - (void)forwardPage {
-    CGPoint currOffsize = self.collectionView.contentOffset;
-    currOffsize.x -= UIScreenWidth();
-    if (currOffsize.x >= 0) {
-        [self.collectionView setContentOffset:currOffsize animated:YES];
-        self.view.userInteractionEnabled = NO;
+    NSIndexPath *indexNow=[self.collectionView indexPathForCell:[self.collectionView visibleCells][0]];
+    if (indexNow.item >= 1) {
+        NSIndexPath *indexPrev=[NSIndexPath indexPathForItem:indexNow.item-1 inSection:indexNow.section];
+        [self.collectionView scrollToItemAtIndexPath:indexPrev atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    } else {
+        [self show];
     }
 }
 
 - (void)nextPage {
-    CGPoint currOffsize = self.collectionView.contentOffset;
-    currOffsize.x += UIScreenWidth();
-    if (currOffsize.x <= UIScreenWidth() * (self.items.count - 1)) {
-        [self.collectionView setContentOffset:currOffsize animated:YES];
-        self.view.userInteractionEnabled = NO;
+    NSIndexPath *indexNow=[self.collectionView indexPathForCell:[self.collectionView visibleCells][0]];
+    if (indexNow.item <= self.items.count-2) {
+        NSIndexPath *indexNext=[NSIndexPath indexPathForItem:indexNow.item+1 inSection:indexNow.section];
+        [self.collectionView scrollToItemAtIndexPath:indexNext atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    } else {
+        [self show];
     }
 }
 
