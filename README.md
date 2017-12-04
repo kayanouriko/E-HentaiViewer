@@ -2,6 +2,15 @@
 一个EHentai的iOS端阅读器
 
 # 更新内容
+
+2017.12.04 1.1.0
+
+* 全新的布局和搜索功能
+* 适配X
+* 已知问题:中文标签由于缓存功能并入存在问题,下版本重新加入,未登录状态缩略图无法读取,浏览器手势翻页三次失效
+
+![](https://ws2.sinaimg.cn/large/006tNc79gy1fm4v04nuxyj30u01hc7ev.jpg) ![](https://ws4.sinaimg.cn/large/006tNc79gy1fm4uzboavqj30yi1pcu10.jpg) ![](https://ws2.sinaimg.cn/large/006tNc79gy1fm4uy941hkj30yi1pc7kj.jpg)
+
 2017.09.04 1.0.1
 
 * 搜索功能拆分出来,筛选项目前只有分类可用,待完善
