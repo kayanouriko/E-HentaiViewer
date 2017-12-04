@@ -17,7 +17,7 @@
 //一个全局的字典变量
 #import "QJGlobalInfo.h"
 //toast
-#import "FFToast.h"
+#import "QJToast.h"
 //coredata操作
 #import "MagicalRecord.h"
 
@@ -33,9 +33,12 @@
 //屏幕宽度和高度
 #define UIScreenWidth() [UIScreen mainScreen].bounds.size.width
 #define UIScreenHeight() [UIScreen mainScreen].bounds.size.height
+#define isIPhoneX (UIScreenWidth() == 375.f && UIScreenHeight() == 812.f ? YES : NO)
 //一些固定参数
-#define UINavigationBarHeight() 64
-#define UITabBarHeight() 49
+#define UIStatusBarHeight() (isIPhoneX ? 44.f : 20.f)
+#define UINavigationBarHeight() (isIPhoneX ? 88.f : 64.f)
+#define UITabBarSafeBottomMargin() (isIPhoneX ? 34.f : 0.f)
+#define UITabBarHeight() (isIPhoneX ? (49.f + 34.f) : 49.f)
 #define UISearchBarHeight() 44
 #define kRefreshingViewHeight 40
 //统一字体大小
@@ -63,12 +66,14 @@
 //通知名
 #define LOGIN_NOTI @"RefreshTableview"
 //状态栏圈圈
-#define NetworkShow() [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES]
-#define NetworkHidden() [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO]
+#define NetworkShow() dispatch_async(dispatch_get_main_queue(), ^{\
+[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];\
+})
+#define NetworkHidden() dispatch_async(dispatch_get_main_queue(), ^{\
+[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];\
+})
 //toast
-#define ToastSuccess(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeSuccess]
-#define ToastError(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeError]
-#define ToastWarning(titleStr,messageStr) [FFToast showToastWithTitle:titleStr message:messageStr iconImage:nil duration:2 toastType:FFToastTypeWarning]
+#define Toast(tip) [QJToast showWithTip:tip]
 //是否为ipad
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 //去null

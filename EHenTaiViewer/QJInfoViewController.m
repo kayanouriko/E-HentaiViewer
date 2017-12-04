@@ -19,10 +19,10 @@
 #import "QJListItem.h"
 #import "QJGalleryItem.h"
 #import "NSString+StringHeight.h"
-#import "QJLikeBarButtonItem.h"
 #import "QJNetworkTool.h"
 //其他列表
 #import "QJOtherListController.h"
+#import "QJSearchViewController.h"
 //评论
 #import "QJGoCommentController.h"
 //评星
@@ -36,9 +36,7 @@
 //收藏
 #import "QJFavouriteViewController.h"
 
-@interface QJInfoViewController ()<UITableViewDelegate,UITableViewDataSource,QJSecondCellDelagate,QJLikeBarButtonItemDelagate,UIScrollViewDelegate,QJFavouriteViewControllerDelagate>
-
-@property (nonatomic, strong) QJLikeBarButtonItem *likeItem;
+@interface QJInfoViewController ()<UITableViewDelegate,UITableViewDataSource,QJSecondCellDelagate,UIScrollViewDelegate,QJFavouriteViewControllerDelagate>
 
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *headView;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbImageView;
@@ -50,7 +48,6 @@
 @property (weak, nonatomic) IBOutlet UIView *segView;
 @property (weak, nonatomic) IBOutlet UIView *segUnderLine;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *segViewLeftLine;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segController;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 
 //内容部分
@@ -90,6 +87,7 @@
 
 #pragma mark -右上角收藏
 - (void)didClickItem {
+    /*
     //正在操作状态
     if (self.likeItem.state == QJLikeBarButtonItemStateLoading) {
         return;
@@ -123,8 +121,10 @@
         vc.delegate = self;
         [self presentViewController:vc animated:YES completion:nil];
     }
+     */
 }
 
+/*
 #pragma mark -QJFavouriteViewControllerDelagate
 - (void)didSelectFolder:(NSInteger)index content:(NSString *)content {
     self.likeItem.state = QJLikeBarButtonItemStateLoading;
@@ -135,12 +135,12 @@
         }
     }];
 }
-
+*/
 #pragma mark -设置内容
 - (void)setContent {
     self.view.backgroundColor = [UIColor whiteColor];
     //导航栏部分
-    self.navigationItem.rightBarButtonItem = self.likeItem;
+    //self.navigationItem.rightBarButtonItem = self.likeItem;
     
     [self setHeadPart];
     [self setButton];
@@ -186,6 +186,10 @@
     self.scrollView.delegate = self;
     self.scrollView.contentSize = CGSizeMake(UIScreenWidth() * 2, UIScreenHeight());
     //tableView
+    if (@available(iOS 11.0, *)) {
+        self.infoTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        self.conmentTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self.scrollView addSubview:self.infoTableView];
     [self.scrollView addSubview:self.conmentTableView];
 }
@@ -211,6 +215,7 @@
 }
 
 - (void)changeFavoritesStatus {
+    /*
     if (self.galleryItem.isFavorite) {
         self.galleryItem.isFavorite = YES;
         self.likeItem.state = QJLikeBarButtonItemStateLike;
@@ -218,6 +223,7 @@
         self.galleryItem.isFavorite = NO;
         self.likeItem.state = QJLikeBarButtonItemStateUnlike;
     }
+     */
 }
 
 #pragma mark -按钮点击事件
@@ -226,28 +232,20 @@
         case 0:
         {
             //上传者
-            /*
-            QJOtherListController *vc = [QJOtherListController new];
-            vc.type = QJOtherListControllerTypePerson;
-            vc.key = self.item.uploader;
-            [self.navigationController pushViewController:vc animated:YES];
-             */
+            //废弃
         }
             break;
         case 1:
         {
             //分类
-            QJOtherListController *vc = [QJOtherListController new];
-            vc.type = QJOtherListControllerTypeCatgoery;
-            vc.key = [self.item.category lowercaseString];
-            [self.navigationController pushViewController:vc animated:YES];
+            //废弃
         }
             break;
         case 2:
         {
             //阅读
             if ([[QJNetworkTool shareTool] isEnableMobleNetwork] && ![NSObjForKey(@"WatchMode") boolValue]) {
-                ToastError(nil, @"想要浏览大图画廊请到设置中打开相关选项");
+                Toast(@"想要浏览大图画廊请到设置中打开相关选项");
                 return;
             }
             QJMangaViewController *vc = [QJMangaViewController new];
@@ -401,16 +399,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.infoTableView && (indexPath.row == 3 || indexPath.row == 4)) {
-        NSString *searchKey = [self.item.title handleString];
-        if (indexPath.row == 3 && (nil == searchKey || searchKey.length == 0)) {
-            ToastError(nil,@"暂无类似画廊");
+        NSString *searchKey = @"";
+        NSString *url = @"";
+        if (indexPath.row == 3) {
+            searchKey = [self.item.title handleString];
+            url = [NSString stringWithFormat:@"?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=%@&f_apply=Apply+Filter",[searchKey urlEncode]];
+        }
+        else {
+            searchKey = [NSString stringWithFormat:@"uploader:%@", self.item.uploader];
+            url = [NSString stringWithFormat:@"uploader/%@/", self.item.uploader];
+        }
+        if (indexPath.row == 3 && searchKey.length == 0) {
+            Toast(@"暂无类似画廊");
             return;
         }
-        NSString *url = [NSString stringWithFormat:@"?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=%@&f_apply=Apply+Filter",[searchKey urlEncode]];
-        QJOtherListController *vc = [QJOtherListController new];
-        vc.type = indexPath.row == 3 ? QJOtherListControllerTypeTag : QJOtherListControllerTypePerson;
-        vc.key = indexPath.row == 3 ? url : self.item.uploader;
-        vc.titleName = indexPath.row == 3 ? @"类似画廊" : nil;
+        
+        QJGalleryTagItem *model = [QJGalleryTagItem new];
+        model.searchKey = searchKey;
+        model.url = url;
+        
+        QJSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([QJSearchViewController class])];
+        vc.model = model;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -458,17 +467,9 @@
 
 - (NSArray *)firstArr {
     if (!_firstArr) {
-        _firstArr = @[@"类似画廊",@"上传者上传的其他画廊"];
+        _firstArr = @[@"类似画廊",@"上传者的其他画廊"];
     }
     return _firstArr;
-}
-
-- (QJLikeBarButtonItem *)likeItem {
-    if (!_likeItem) {
-        _likeItem = [QJLikeBarButtonItem new];
-        _likeItem.delegate = self;
-    }
-    return _likeItem;
 }
 
 - (void)didReceiveMemoryWarning {

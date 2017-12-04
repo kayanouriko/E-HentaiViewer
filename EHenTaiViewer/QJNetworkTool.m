@@ -53,12 +53,12 @@
     switch (netStatus)
     {
         case NotReachable:{
-            ToastError(nil, @"貌似现在没有任何网络连接哦~");
+            Toast(@"没有任何网络连接");
             break;
         }
             
         case ReachableViaWWAN:{
-            ToastWarning(nil, @"你现在是在移动数据下浏览,注意流量哦~");
+            Toast(@"正在移动数据下浏览");
             break;
         }
         case ReachableViaWiFi:{

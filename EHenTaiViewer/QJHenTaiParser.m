@@ -56,7 +56,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail);
             });
             return;
@@ -64,22 +64,22 @@
         if ([self checkCookie]) {
             //登陆成功
             NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            if ([self saveUserNameWithString:html isWeb:NO]) {
+            if ([self saveUserNameWithString:html]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    ToastSuccess(nil, @"登陆成功!");
+                    Toast(@"登陆成功");
                     completion(QJHenTaiParserStatusSuccess);
                 });
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    ToastWarning(nil, @"可能网站结构变了,没获取到你的名字呢,但是登陆成功了哦~");
+                    Toast(@"登陆成功,没获取到账号名字");
                     completion(QJHenTaiParserStatusParseFail);
                 });
             }
         } else {
             //登陆失败
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"登陆失败了呢,可以尝试网页登陆...");
+                Toast(@"登陆失败,请尝试网页登陆");
                 completion(QJHenTaiParserStatusParseFail);
             });
         }
@@ -89,16 +89,16 @@
 }
 
 #pragma mark -获取用户名
-- (BOOL)saveUserNameWithString:(NSString *)html isWeb:(BOOL)isWeb {
-    NSString *regexStr = isWeb ? @"<p>You are now logged in as.*?<br>" : @"<p>You are now logged in as.*?<br />";
+- (BOOL)saveUserNameWithString:(NSString *)html {
+    NSString *regexStr = @"(?<=:\\h).*?(?=\\<)";
     NSString *userName = [[self matchString:html toRegexString:regexStr].firstObject copy];
-    userName = [userName stringByReplacingOccurrencesOfString:@"<p>You are now logged in as: " withString:@""];
-    userName = [userName stringByReplacingOccurrencesOfString:isWeb ? @"<br>" : @"<br />" withString:@""];
     if (userName.length) {
         NSObjSetForKey(@"loginName", userName);
         NSObjSynchronize();
         return YES;
     }
+    NSObjSetForKey(@"loginName", @"");
+    NSObjSynchronize();
     return NO;
 }
 
@@ -132,6 +132,8 @@
         [cookieJar deleteCookie:cookie];
     }
     NSObjSetForKey(@"loginName", @"未登录");
+    NSObjSetForKey(@"xl_0", @"");
+    NSObjSetForKey(@"ExHentaiStatus", @(NO));
     NSObjSynchronize();
     return YES;
 }
@@ -165,7 +167,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail);
             });
             return;
@@ -177,7 +179,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastWarning(nil, @"可能网站结构变了,没解析到操作状态呢,但是应该是操作成功了哦~");
+                Toast(@"操作或成功,但检测不到操作状态");
                 completion(QJHenTaiParserStatusSuccess);
             });
         }
@@ -205,7 +207,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail);
             });
             return;
@@ -213,13 +215,13 @@
         NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse *)response;
         if (urlResponse.statusCode == 301 || urlResponse.statusCode == 302) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastSuccess(nil, @"回复成功!");
+                Toast(@"回复成功");
                 completion(QJHenTaiParserStatusSuccess);
             });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastWarning(nil, @"可能网站结构变了,没解析到操作状态呢,但是应该是回复成功了哦~");
+                Toast(@"操作或成功,但检测不到操作状态");
                 completion(QJHenTaiParserStatusSuccess);
             });
         }
@@ -277,7 +279,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail, nil);
             });
             return;
@@ -285,14 +287,14 @@
         NSString *html = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
         if ([html containsString:@"IP address"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastWarning(nil, html);
+                Toast(@"IP被识别为爬虫状态,请更换IP或一两个小时后重试");
                 completion(QJHenTaiParserStatusNetworkFail, nil);
             });
             return;
         }
         if ([html containsString:@"No hits found"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastWarning(nil, @"没有更多数据...");
+                Toast(@"没有更多数据");
                 completion(QJHenTaiParserStatusParseNoMore, nil);
             });
             return;
@@ -337,13 +339,13 @@
                     }
                     else if (status == QJHenTaiParserStatusParseFail) {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                            Toast(@"解析错误,等待升级版本");
                             completion(QJHenTaiParserStatusParseFail,nil);
                         });
                     }
                     else if (status == QJHenTaiParserStatusNetworkFail) {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            ToastError(nil, @"网络有点小问题呢...");
+                            Toast(@"网络错误");
                             completion(QJHenTaiParserStatusNetworkFail,nil);
                         });
                     }
@@ -351,7 +353,7 @@
             }
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                Toast(@"解析错误,等待升级版本");
                 completion(QJHenTaiParserStatusParseFail, nil);
             });
         }
@@ -368,7 +370,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail, nil, nil);
             });
             return;
@@ -401,20 +403,20 @@
                 }
                 else if (status == QJHenTaiParserStatusParseFail) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                        Toast(@"解析错误,等待升级版本");
                         completion(QJHenTaiParserStatusParseFail,nil,nil);
                     });
                 }
                 else if (status == QJHenTaiParserStatusNetworkFail) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        ToastError(nil, @"网络有点小问题呢...");
+                        Toast(@"网络错误");
                         completion(QJHenTaiParserStatusNetworkFail,nil,nil);
                     });
                 }
             }];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                Toast(@"解析错误,等待升级版本");
                 completion(QJHenTaiParserStatusParseFail, nil, nil);
             });
         }
@@ -481,19 +483,21 @@
 - (void)updateGalleryInfoWithUrl:(NSString *)url complete:(GalleryHandler)completion {
     //?inline_set=ts_m 小图,40一页
     //?inline_set=ts_l 大图,20一页
-    NSString *finalUrl = [NSString stringWithFormat:@"%@?inline_set=ts_l&nw=always",url];
+    //hc=1#comments 显示全部评论
+    //nw=always 删除画廊显示??待验证
+    NSString *finalUrl = [NSString stringWithFormat:@"%@?hc=1&inline_set=ts_l&nw=always",url];
     NetworkShow();
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail, nil);
             });
             return;
         }
         if ([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] containsString:@"This gallery has been removed"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"该画廊已被删除!");
+                Toast(@"画廊已删除");
                 completion(QJHenTaiParserStatusParseFail,nil);
             });
             return;
@@ -502,7 +506,7 @@
         QJGalleryItem *item = [[QJGalleryItem alloc] initWithHpple:xpathParser];
         if (nil == item.testUrl && !item.testUrl.length) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                Toast(@"解析错误,等待升级版本");
                 completion(QJHenTaiParserStatusParseFail,nil);
             });
             return;
@@ -539,10 +543,8 @@
             return;
         }
         NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSString *regexStr = @"var showkey=\".*?\";";
+        NSString *regexStr = @"(?<=showkey=\").*?(?=\";)";
         NSString *showkey = [[self matchString:html toRegexString:regexStr].firstObject copy];
-        showkey = [showkey stringByReplacingOccurrencesOfString:@"var showkey=\"" withString:@""];
-        showkey = [showkey stringByReplacingOccurrencesOfString:@"\";" withString:@""];
         if (showkey.length) {
             completion(QJHenTaiParserStatusSuccess,showkey);
         }
@@ -582,7 +584,7 @@
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
             });
             return;
         }
@@ -595,7 +597,7 @@
             NSString *url = e.attributes[@"href"];
             if (!url) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    ToastError(nil, @"可能网站结构变了,解析有点小问题呢...请等待升级版本");
+                    Toast(@"解析错误,等待升级版本");
                 });
                 break;
             }
@@ -636,7 +638,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail,nil,nil,nil);
             });
             return;
@@ -644,10 +646,8 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSString *html = json[@"i3"];
         
-        NSString *regexStr = @"<img id=\"img\" src=\".*?\" style=\"";
+        NSString *regexStr = @"(?<=src=\")http.*?(?=\")";
         NSString *url = [[self matchString:html toRegexString:regexStr].firstObject copy];
-        url = [url stringByReplacingOccurrencesOfString:@"<img id=\"img\" src=\"" withString:@""];
-        url = [url stringByReplacingOccurrencesOfString:@"\" style=\"" withString:@""];
         NSString *x = json[@"x"];
         NSString *y = json[@"y"];
         if (url.length) {
@@ -682,7 +682,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail);
             });
             return;
@@ -690,7 +690,7 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if (json.allKeys.count) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastSuccess(nil, @"评定成功!");
+                Toast(@"评星成功");
                 completion(QJHenTaiParserStatusSuccess);
             });
         }
@@ -708,7 +708,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail, nil);
             });
             return;
@@ -790,7 +790,7 @@
         NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastError(nil, @"网络有点小问题呢...");
+                Toast(@"网络错误");
                 if (completion) completion(QJHenTaiParserStatusNetworkFail);
             });
             return;
@@ -805,7 +805,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ToastWarning(nil, @"可能网站结构变了,没解析到操作状态呢,但是应该是设置成功了哦~");
+                Toast(@"设置或成功,未解析到操作状态");
                 if (completion) completion(QJHenTaiParserStatusParseFail);
             });
         }

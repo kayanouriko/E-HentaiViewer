@@ -21,7 +21,7 @@
 -(void)prepareLayout {
     [super prepareLayout];
     //初始化
-    self.itemSize = CGSizeMake(UIScreenWidth(), UIScreenHeight() - 20);
+    self.itemSize = CGSizeMake(UIScreenWidth(), UIScreenHeight() - UIStatusBarHeight() - UITabBarSafeBottomMargin());
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.minimumLineSpacing = 0;
 }

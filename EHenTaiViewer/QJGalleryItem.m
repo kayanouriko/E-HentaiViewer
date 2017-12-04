@@ -49,17 +49,25 @@
 - (void)parserApiWithHpple:(TFHpple *)xpathParser {
     TFHppleElement *apiElement = [xpathParser searchWithXPathQuery:@"//script[@type='text/javascript']"][1];
     NSString *jsHtml = apiElement.firstChild.content;
-    NSString *regexStr = @"var apiuid =.*?;";
+    NSString *regexStr = @"(?<=apiuid\\h=\\h).*?(?=;)";
     NSString *apiuid = [[self matchString:jsHtml toRegexString:regexStr].firstObject copy];
-    apiuid = [apiuid stringByReplacingOccurrencesOfString:@"var apiuid = " withString:@""];
-    apiuid = [apiuid stringByReplacingOccurrencesOfString:@";" withString:@""];
     self.apiuid = apiuid;
     
-    NSString *regexStr1 = @"var apikey = \".*?\";";
+    NSString *regexStr1 = @"(?<=apikey\\h=\\h\").*?(?=\")";
     NSString *apikey = [[self matchString:jsHtml toRegexString:regexStr1].firstObject copy];
-    apikey = [apikey stringByReplacingOccurrencesOfString:@"var apikey = \"" withString:@""];
-    apikey = [apikey stringByReplacingOccurrencesOfString:@"\";" withString:@""];
     self.apikey = apikey;
+    
+    //获取账号在该画廊的评分
+    NSString *regexStr3 = @"(?<=average_rating\\h=\\h).*?(?=;)";
+    NSString *avgSore = [[self matchString:jsHtml toRegexString:regexStr3].firstObject copy];
+    
+    NSString *regexStr2 = @"(?<=display_rating\\h=\\h).*?(?=;)";
+    NSString *customSore = [[self matchString:jsHtml toRegexString:regexStr2].firstObject copy];
+    if ([avgSore isEqualToString:customSore]) {
+        self.customSore = 0;
+    } else {
+        self.customSore = [customSore floatValue];
+    }
 }
 
 //根据正则表达式筛选
@@ -108,6 +116,8 @@
                 model.cname = tagString;
             }
             model.url = [rightTagElement objectForKey:@"href"];
+            //拼接用于在搜索界面显示的关键字
+            model.searchKey = [NSString stringWithFormat:@"%@:\"%@\"", leftStr, model.name];
             [rightTagArr addObject:model];
         }
         CGFloat tagViewHeight = [self getTagViewHeightWithLaftStr:leftStr rightArr:rightTagArr isCN:NO];
@@ -199,7 +209,12 @@
     for (NSInteger i = 0; i < otherArr.count; i++) {
         TFHppleElement *otherElment = otherArr[i];
         TFHppleElement *secondElment = [otherElment searchWithXPathQuery:@"//td [@class='gdt2']"].firstObject;
-        introInfoDict[otherKeyArr[i]] = secondElment.text;
+        //语言特殊处理一下
+        NSString *value = secondElment.text;
+        if (i == 3) {
+            value  = [value substringToIndex:value.length - 2];
+        }
+        introInfoDict[otherKeyArr[i]] = value;
     }
     introInfoDict[@"posted"] = [self changeTimeToLocalTime:introInfoDict[@"posted"]];
     self.baseInfoDic = introInfoDict;

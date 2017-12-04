@@ -7,6 +7,7 @@
 //
 
 #import "QJHeadFreshingView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
     QJHeadFreshingViewStateNormal,//未下拉状态,未刷新
@@ -74,6 +75,8 @@ typedef NS_ENUM(NSInteger, QJHeadFreshingViewState) {
         //手松开puling->refreshing
         if (self.currState == QJHeadFreshingViewStatePull) {
             //            NSLog(@"切换到Refreshing");
+            AudioServicesPlaySystemSound(1520);
+
             self.currState = QJHeadFreshingViewStateRefreshing;
         }
         

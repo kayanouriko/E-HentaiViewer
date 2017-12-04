@@ -12,6 +12,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.thumbImageView.layer.cornerRadius = 5.f;
+    self.thumbImageView.layer.borderWidth = 0.5f;
+    self.thumbImageView.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
+    self.thumbImageView.layer.masksToBounds = YES;
 }
 
 @end

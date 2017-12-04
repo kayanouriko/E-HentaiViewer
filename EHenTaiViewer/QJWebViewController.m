@@ -10,7 +10,11 @@
 #import "QJHenTaiParser.h"
 #import "NJKWebViewProgress.h"
 
-@interface QJWebViewController ()<UIWebViewDelegate,NJKWebViewProgressDelegate>
+@interface QJWebViewController ()<UIWebViewDelegate, NJKWebViewProgressDelegate, UINavigationBarDelegate>
+
+@property (weak, nonatomic) IBOutlet UINavigationBar *navgationBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarTopLine;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomLine;
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) NJKWebViewProgress *progressProxy;
@@ -25,8 +29,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navgationBar.delegate = self;
+    self.navigationBarTopLine.constant = UIStatusBarHeight();
+    self.webViewBottomLine.constant = UITabBarSafeBottomMargin();
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:FORUMS_URL]]];
     self.webView.delegate = self.progressProxy;
+}
+
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
 }
 
 - (IBAction)backAction:(UIBarButtonItem *)sender {
@@ -59,14 +70,14 @@
     if ([[QJHenTaiParser parser] checkCookie]) {
         NSString *js = @"document.documentElement.innerHTML";
         NSString *html = [webView stringByEvaluatingJavaScriptFromString:js];
-        if ([[QJHenTaiParser parser] saveUserNameWithString:html isWeb:YES]) {
-            ToastSuccess(nil, @"登陆成功!");
-            [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_NOTI object:nil];
-            [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        if ([[QJHenTaiParser parser] saveUserNameWithString:html]) {
+            Toast(@"登陆成功");
         }
         else {
-            ToastWarning(nil, @"可能网站结构变了,没获取到你的名字呢,但是登陆成功了哦~");
+            Toast(@"登陆成功,没获取到账号名字");
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:LOGIN_NOTI object:nil];
+        [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

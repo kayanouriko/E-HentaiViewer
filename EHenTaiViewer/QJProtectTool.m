@@ -22,27 +22,37 @@
 
 - (BOOL)isEnableTouchID {
     LAContext *laContext = [LAContext new];
-    NSError *error;
-    return [laContext canEvaluatePolicy:kLAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
+    return [laContext canEvaluatePolicy:kLAPolicyDeviceOwnerAuthenticationWithBiometrics error:NULL];
+}
+
+//是否支持系统密码验证
+- (BOOL)isSupportDeviceOwnerAuth {
+    if (@available(iOS 9.0, *)) {
+        LAContext *laContext = [LAContext new];
+        return [laContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:NULL];
+    } else {
+        return NO;
+    }
+    return NO;
 }
 
 - (void)showTouchID:(CompletBlock)completion {
-    LAContext *laContext = [LAContext new];
-    NSError *error;
-    if ([laContext canEvaluatePolicy:kLAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
-        [laContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
-                  localizedReason:@"解锁 \"E绅士阅读器\" 的世界"
-                            reply:^(BOOL success, NSError *error) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    if (success) {
-                                        completion(QJProtectToolStatusSuccess);
-                                    }
-                                    if (error) {
-                                        completion(QJProtectToolStatusCannel);
-                                    }
-                                });
-         }];
+    LAContext *context = [LAContext new];
+    NSString *des = @"验证用于打开应用";
+    LAPolicy policy = LAPolicyDeviceOwnerAuthenticationWithBiometrics;
+    if (@available(iOS 9.0, *)) {
+        policy = LAPolicyDeviceOwnerAuthentication;
     }
+    
+    [context evaluatePolicy:policy localizedReason:des reply:^(BOOL success, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (success) {
+                completion(QJProtectToolStatusSuccess);
+            } else {
+                completion(QJProtectToolStatusCannel);
+            }
+        });
+    }];
 }
 
 @end

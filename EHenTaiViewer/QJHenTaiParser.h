@@ -37,7 +37,7 @@ typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSStrin
  */
 //登陆相关
 - (void)loginWithUserName:(NSString *)username password:(NSString *)password complete:(LoginHandler)completion;
-- (BOOL)saveUserNameWithString:(NSString *)html isWeb:(BOOL)isWeb;
+- (BOOL)saveUserNameWithString:(NSString *)html;
 - (BOOL)checkCookie;
 - (BOOL)deleteCokie;
 //读取设置

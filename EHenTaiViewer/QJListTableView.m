@@ -15,10 +15,8 @@
 {
     self = [super init];
     if (self) {
-        self.frame = CGRectMake(isPad ? 60 : 0, 0, isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight());
-        //self.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.showsVerticalScrollIndicator = NO;
-        self.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        self.translatesAutoresizingMaskIntoConstraints = NO;
         self.backgroundColor = [UIColor clearColor];
         self.rowHeight = UITableViewAutomaticDimension;
         self.estimatedRowHeight = 5 * 42;

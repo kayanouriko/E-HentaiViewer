@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QJMangaViewController">
             <connections>
                 <outlet property="infoView" destination="vk9-5d-LS5" id="ell-Tn-EHM"/>
+                <outlet property="infoViewBottomLine" destination="eO6-Ac-u0R" id="auG-nZ-e5V"/>
                 <outlet property="navgationBar" destination="KlT-eW-aDa" id="Qzx-my-Rsd"/>
                 <outlet property="navgationBarTopLine" destination="a6y-T4-9mI" id="aP5-ta-uOn"/>
                 <outlet property="pageCountLabel" destination="YeH-S3-KcI" id="Udb-gZ-Nqx"/>
@@ -63,10 +64,7 @@
                     </constraints>
                 </view>
                 <navigationBar hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KlT-eW-aDa">
-                    <rect key="frame" x="0.0" y="-64" width="375" height="64"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="C0n-L3-Aye"/>
-                    </constraints>
+                    <rect key="frame" x="0.0" y="-64" width="375" height="44"/>
                     <items>
                         <navigationItem id="p68-eV-wKc">
                             <barButtonItem key="rightBarButtonItem" image="cross" id="0xG-hS-ZJT">

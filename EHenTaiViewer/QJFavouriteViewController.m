@@ -10,7 +10,10 @@
 #import "QJFavSelectViewController.h"
 #import "QJFavSelectViewController.h"
 
-@interface QJFavouriteViewController ()<QJFavSelectViewControllerDelagate>
+@interface QJFavouriteViewController ()<QJFavSelectViewControllerDelagate, UINavigationBarDelegate>
+
+@property (weak, nonatomic) IBOutlet UINavigationBar *navgationBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarTopLine;
 
 @property (weak, nonatomic) IBOutlet UIButton *folderBtn;
 @property (weak, nonatomic) IBOutlet UITextView *contentTextV;
@@ -32,6 +35,12 @@
     self.index = 0;
     //激活
     [self.contentTextV becomeFirstResponder];
+    self.navgationBar.delegate = self;
+    self.navigationBarTopLine.constant = UIStatusBarHeight();
+}
+
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
 }
 
 - (IBAction)btnAction:(UIButton *)sender {

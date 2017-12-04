@@ -8,6 +8,10 @@
 
 #import "QJViewController.h"
 
+@class QJGalleryTagItem;
+
 @interface QJSearchViewController : QJViewController
+
+@property (nonatomic, strong) QJGalleryTagItem *model;
 
 @end

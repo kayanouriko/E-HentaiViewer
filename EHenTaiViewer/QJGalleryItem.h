@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *cname;//汉化标签
+@property (nonatomic, strong) NSString *searchKey;//用于在搜索页面显示
 @property (nonatomic, strong) NSString *url;
 //日语的位置
 @property (nonatomic, assign) CGFloat buttonWidth;
@@ -33,6 +34,7 @@
 @property (nonatomic, strong) NSArray *comments;//评论
 @property (nonatomic, strong) NSArray *tagArr;//tag
 @property (nonatomic, assign) BOOL isFavorite;//是否收藏
+@property (nonatomic, assign) CGFloat customSore;//用户评分
 @property (nonatomic, strong) NSString *testUrl;//获取showkey的链接
 @property (nonatomic, strong) NSString *showkey;//24小时变换的token
 @property (nonatomic, strong) NSString *apiuid;

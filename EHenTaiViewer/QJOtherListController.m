@@ -11,7 +11,7 @@
 #import "QJListCell.h"
 #import "QJHenTaiParser.h"
 #import "NSString+StringHeight.h"
-#import "QJInfoViewController.h"
+#import "QJNewInfoViewController.h"
 #import "QJHeadFreshingView.h"
 #import "QJEnum.h"
 
@@ -116,8 +116,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    QJInfoViewController *vc = [QJInfoViewController new];
-    vc.item = self.datas[indexPath.row];
+    QJNewInfoViewController *vc = [QJNewInfoViewController new];
+    vc.model = self.datas[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

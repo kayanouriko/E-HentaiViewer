@@ -35,11 +35,28 @@
 - (void)setContent {
     self.title = @"设置";
     [self.view addSubview:self.tableView];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSuccessLogin) name:LOGIN_NOTI object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (nil == self.tableView.tableFooterView) {
+        UIView *settinngInfoView = [[NSBundle mainBundle] loadNibNamed:@"QJSettingInfo" owner:self options:nil].firstObject;
+        settinngInfoView.frame = CGRectMake(0, 0, UIScreenWidth(), 65);
+        
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *app_Version = infoDictionary[@"CFBundleShortVersionString"];
+        NSString *app_build = infoDictionary[@"CFBundleVersion"];
+        self.versionLabel.text = [NSString stringWithFormat:@"Version %@(%@) ✨ Made by kayanouriko\n应用仅供学习交流使用\n内容来源于e-hentai.org和exhentai.org",app_Version, app_build];
+        
+        _tableView.tableFooterView = settinngInfoView;
+    }
 }
 
 #pragma mark -tableView
@@ -86,15 +103,7 @@
         if (indexPath.row == 1) {
             //检测是否登录
             if (![[QJHenTaiParser parser] checkCookie]) {
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"未登录" message:@"是否前往登陆?" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                [alertVC addAction:cancelBtn];
-                UIAlertAction *okBtn = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    QJLoginViewController *vc = [QJLoginViewController new];
-                    [self presentViewController:vc animated:YES completion:nil];
-                }];
-                [alertVC addAction:okBtn];
-                [self presentViewController:alertVC animated:YES completion:nil];
+                Toast(@"请先前进行登录");
                 return;
             }
         }
@@ -112,7 +121,6 @@
             [alertVC addAction:cancelBtn];
             UIAlertAction *okBtn = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if ([[QJHenTaiParser parser] deleteCokie]) {
-                    NSObjSetForKey(@"ExHentaiStatus", @(NO));
                     [self.tableView reloadData];
                 }
             }];
@@ -134,22 +142,14 @@
 #pragma mark -懒加载
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(isPad ? 60 : 0, 0,isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight()) style:UITableViewStyleGrouped];
+        _tableView = [UITableView new];
+        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 5 * 42;
-        UIView *settinngInfoView = [[NSBundle mainBundle] loadNibNamed:@"QJSettingInfo" owner:self options:nil].firstObject;
-        settinngInfoView.frame = CGRectMake(0, 0, UIScreenWidth(), 65);
-        
-        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *app_Version = infoDictionary[@"CFBundleShortVersionString"];
-        NSString *app_build = infoDictionary[@"CFBundleVersion"];
-        self.versionLabel.text = [NSString stringWithFormat:@"Version %@(%@) ✨ Made by kayanouriko\n应用仅供学习交流使用\n内容来源于e-hentai.org和exhentai.org",app_Version, app_build];
-        
-        _tableView.tableFooterView = settinngInfoView;
+        _tableView.estimatedSectionHeaderHeight = 0;
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSettingLoginCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSettingLoginCell class])];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
     }

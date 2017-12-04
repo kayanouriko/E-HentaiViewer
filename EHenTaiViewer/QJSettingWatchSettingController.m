@@ -36,7 +36,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
         [button addTarget:self action:@selector(showAbount) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.rightBarButtonItem = item;
-        
+        [self showFreshingViewWithTip:nil];
         [self updateResource];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveSettingInfo) name:kSaveSettingInfoNoti object:nil];
@@ -48,7 +48,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
 - (void)setContent {
     [self.view addSubview:self.tableView];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
 }
 
 - (void)showAbount {
@@ -63,6 +63,9 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
         if (status == QJHenTaiParserStatusSuccess) {
             self.settingDict = settingDict;
             [self setContent];
+            if ([self isShowFreshingStatus]) {
+                [self hiddenFreshingView];
+            }
         }
     }];
 }
@@ -113,7 +116,13 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
 #pragma mark -QJSettingListCellDelagate
 - (void)valueChangeWithSwitch:(UISwitch *)switchBtn model:(QJSettingModel *)model {
     if ([model.title isEqualToString:@"画廊站点"]) {
-        NSObjSetForKey(@"ExHentaiStatus", @(switchBtn.on));
+        if (![[QJHenTaiParser parser] checkCookie]) {
+            Toast(@"请先前往设置页面进行登录");
+            NSObjSetForKey(@"ExHentaiStatus", @(0));
+        }
+        else {
+            NSObjSetForKey(@"ExHentaiStatus", @(switchBtn.on));
+        }
     }
     else if ([model.title isEqualToString:@"移动网络浏览"]) {
         NSObjSetForKey(@"WatchMode", @(switchBtn.on));
@@ -140,8 +149,6 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
                 }];
             }
             else {
-                //TODO:密码
-                //暂时直接返回NO
                 [switchBtn setOn:NO animated:YES];
             }
         }

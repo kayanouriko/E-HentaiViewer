@@ -128,6 +128,10 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    for (NSInteger i = 0; i < self.classifyArr.count; i++) {
+        UIButton *btn = (UIButton *)[self viewWithTag:1000 + i];
+        [btn removeObserver:self forKeyPath:@"selected"];
+    }
 }
 
 @end

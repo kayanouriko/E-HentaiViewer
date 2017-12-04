@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QJFavSelectViewController">
             <connections>
+                <outlet property="navgationBar" destination="HfW-f3-u7N" id="goy-uv-WgN"/>
+                <outlet property="navigationBarTopLine" destination="cn5-q7-LKS" id="Q6W-Sr-VAD"/>
                 <outlet property="tableView" destination="65C-tH-3Vl" id="RM7-jv-bFJ"/>
+                <outlet property="tableViewBottomLine" destination="abx-tN-FFm" id="gWi-oq-WZn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,10 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HfW-f3-u7N">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="ltN-Yr-luR"/>
-                    </constraints>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <items>
                         <navigationItem title="请选择收藏夹" id="qKT-K7-3ef">
                             <barButtonItem key="leftBarButtonItem" title="取消" id="w3M-N2-5AV">
@@ -36,7 +36,7 @@
                     </items>
                 </navigationBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="65C-tH-3Vl">
-                    <rect key="frame" x="0.0" y="65" width="375" height="602"/>
+                    <rect key="frame" x="0.0" y="45" width="375" height="622"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>

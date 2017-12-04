@@ -35,6 +35,8 @@
     self.uploaderLabel.text = item.uploader;
     self.starView.currentScore = item.rating;
     self.catgeoryLabel.text = [NSString stringWithFormat:@"  %@  ",item.category];
+    self.catgeoryLabel.layer.cornerRadius = 3.f;
+    self.catgeoryLabel.clipsToBounds = YES;
     self.catgeoryLabel.backgroundColor = item.categoryColor;
     self.langueLabel.text = item.language;
     self.timeLabel.text = item.posted;

@@ -9,7 +9,11 @@
 #import "QJFavSelectViewController.h"
 #import "QJFavSelectedCell.h"
 
-@interface QJFavSelectViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface QJFavSelectViewController ()<UITableViewDelegate, UITableViewDataSource, UINavigationBarDelegate>
+
+@property (weak, nonatomic) IBOutlet UINavigationBar *navgationBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarTopLine;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottomLine;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray<UIColor *> *datas;
@@ -26,7 +30,14 @@
     [self setContent];
 }
 
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
+}
+
 - (void)setContent {
+    self.navgationBar.delegate = self;
+    self.navigationBarTopLine.constant = UIStatusBarHeight();
+    self.tableViewBottomLine.constant = UITabBarSafeBottomMargin();
     //tableView
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

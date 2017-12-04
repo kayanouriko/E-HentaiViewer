@@ -50,14 +50,9 @@
 - (void)refreshItem:(QJBigImageItem *)item {
     [self.activity startAnimating];
     self.item = item;
-    if (item.realImageUrl) {
+    [item getReallyImageUrl:^(NSString *url) {
         [self.webView loadHTMLString:[self getHtmlWithUrl:item.realImageUrl x:item.x y:item.y] baseURL:nil];
-    }
-    else {
-        [item getReallyImageUrl:^(NSString *url) {
-            [self.webView loadHTMLString:[self getHtmlWithUrl:item.realImageUrl x:item.x y:item.y] baseURL:nil];
-        }];
-    }
+    }];
 }
 
 #pragma mark -创建一个本地离线html
@@ -125,7 +120,7 @@
 
 #pragma mark -懒加载
 - (WKWebView *)webView {
-    if (!_webView) {
+    if (nil == _webView) {
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), UIScreenHeight() - 20)];
         _webView.scrollView.delegate = self;
         [_webView addGestureRecognizer:self.tapGes];

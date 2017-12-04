@@ -207,18 +207,6 @@
 		</dict>
 		<dict>
 			<key>title</key>
-			<string>imlifengfeng/FFToast</string>
-			<key>subTitle</key>
-			<string>https://github.com/imlifengfeng/FFToast</string>
-			<key>subTitleSelected</key>
-			<string></string>
-			<key>value</key>
-			<string>https://github.com/imlifengfeng/FFToast</string>
-			<key>type</key>
-			<string>网址</string>
-		</dict>
-		<dict>
-			<key>title</key>
 			<string>ninjinkun/NJKWebViewProgress</string>
 			<key>subTitle</key>
 			<string>https://github.com/ninjinkun/NJKWebViewProgress</string>

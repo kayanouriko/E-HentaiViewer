@@ -27,9 +27,9 @@
 }
 
 - (void)setContent {
-    self.title = @"种子列表";
-    
     [self.view addSubview:self.tableView];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
 }
 
 - (void)updateResource {
@@ -58,15 +58,14 @@
     NSString *magnet = item.magnet;
     UIPasteboard* pasteboard = [UIPasteboard generalPasteboard];
     [pasteboard setString:magnet];
-    ToastSuccess(nil, @"磁力链接复制成功!");
+    Toast(@"磁力链接已复制");
 }
 
 #pragma mark -getter
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [UITableView new];
-        _tableView.frame = CGRectMake(isPad ? 60 : 0, 0,isPad ? UIScreenWidth() - 120 : UIScreenWidth(), UIScreenHeight());
-        _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, -10, 0);
+        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 10;

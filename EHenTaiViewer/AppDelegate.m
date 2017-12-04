@@ -12,8 +12,11 @@
 #import "QJTouchIDViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "Tag+CoreDataClass.h"
+#import "QJTouchIDViewController.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic, assign, getter=isFristTime) BOOL fristTime;
 
 @end
 
@@ -56,25 +59,22 @@
     }
     //网络监测
     [[QJNetworkTool shareTool] starNotifier];
+    //密码验证相关
+    [[QJGlobalInfo sharedInstance] putAttribute:@"BackgroundTime" value:@([[NSProcessInfo processInfo] systemUptime] - 120)];
+    self.fristTime = YES;
     
-    /*
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UITabBarController *vc = [storyBoard instantiateViewControllerWithIdentifier:isPad ? @"ipadInput" : @"iphoneInput"];
-    self.window.rootViewController = vc;
-    [self.window makeKeyAndVisible];
-    */
     return YES;
 }
 
 - (void)setCoreData {
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Model.sqlite"];
+    /*
     Tag *tag = (Tag *)[Tag MR_findFirst];
     if (nil == tag) {
         NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(saveAllTags) object:nil];
         [thread start];
     }
+     */
 }
 
 - (void)saveAllTags {
@@ -116,6 +116,18 @@
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [self checkTouchID];
+}
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    if (self.isFristTime) {
+        self.fristTime = NO;
+        [self checkTouchID];
+    }
+}
+
+- (void)checkTouchID {
     if (NSObjForKey(@"ProtectMode") && [NSObjForKey(@"ProtectMode") boolValue]) {
         NSTimeInterval beginTime = [[[QJGlobalInfo sharedInstance] getAttribute:@"BackgroundTime"] integerValue];
         NSTimeInterval endTime = [[NSProcessInfo processInfo] systemUptime];
@@ -128,16 +140,8 @@
                     [vc presentViewController:subVC animated:nil completion:nil];
                 }
             }
-            else {
-                //密码
-            }
         }
     }
-}
-
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 

@@ -10,7 +10,11 @@
 #import "QJHenTaiParser.h"
 #import "QJWebViewController.h"
 
-@interface QJLoginViewController ()
+@interface QJLoginViewController ()<UINavigationBarDelegate>
+
+@property (weak, nonatomic) IBOutlet UINavigationBar *navgationBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarTopLine;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tipLabelBottomLine;
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextF;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextF;
@@ -30,7 +34,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.navgationBar.delegate = self;
+    self.navigationBarTopLine.constant = UIStatusBarHeight();
+    self.tipLabelBottomLine.constant = UITabBarSafeBottomMargin();
     [self buttonNormalStatus];
+}
+
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
 }
 
 - (void)loginAction {

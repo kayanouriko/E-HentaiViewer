@@ -17,6 +17,9 @@
 @implementation QJBigImageItem
 
 - (void)getReallyImageUrl:(SuccessHandler)successHandler {
+    if (self.realImageUrl) {
+        successHandler(self.realImageUrl);
+    }
     self.block = successHandler;
 }
 

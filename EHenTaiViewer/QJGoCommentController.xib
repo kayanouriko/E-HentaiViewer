@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QJGoCommentController">
             <connections>
+                <outlet property="navgationBar" destination="NmL-Ba-QjZ" id="inn-xu-iYV"/>
+                <outlet property="navigationBarTopLine" destination="rNx-a7-HmV" id="oGz-8T-boz"/>
                 <outlet property="textV" destination="Zxb-0e-0bJ" id="9DC-bW-hpz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,10 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NmL-Ba-QjZ">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="8od-6o-NTS"/>
-                    </constraints>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <items>
                         <navigationItem title="撰写评论" id="90j-cr-iOk">
                             <barButtonItem key="leftBarButtonItem" title="取消" id="dey-ws-D08">
@@ -41,13 +40,13 @@
                     </items>
                 </navigationBar>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Zxb-0e-0bJ">
-                    <rect key="frame" x="20" y="115" width="335" height="522"/>
+                    <rect key="frame" x="20" y="95" width="335" height="542"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5id-9V-K27">
-                    <rect key="frame" x="20" y="84" width="335" height="1"/>
+                    <rect key="frame" x="20" y="64" width="335" height="1"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="URB-at-tHt"/>

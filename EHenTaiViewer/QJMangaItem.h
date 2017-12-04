@@ -22,7 +22,6 @@
 
 @interface QJMangaItem : UICollectionViewCell
 
-@property (nonatomic, strong) UIScrollView *scrollView;
 @property (weak, nonatomic) id<QJMangaItemDelagate>delegate;
 
 - (void)refreshItem:(QJBigImageItem *)item;

@@ -9,9 +9,11 @@
 #import "QJGoCommentController.h"
 #import "QJHenTaiParser.h"
 
-@interface QJGoCommentController ()
+@interface QJGoCommentController ()<UINavigationBarDelegate>
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *navgationBar;
 @property (weak, nonatomic) IBOutlet UITextView *textV;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navigationBarTopLine;
 
 - (IBAction)cancelAction:(UIBarButtonItem *)sender;
 - (IBAction)sendInfoAction:(UIBarButtonItem *)sender;
@@ -25,6 +27,13 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self.textV becomeFirstResponder];
+    
+    self.navgationBar.delegate = self;
+    self.navigationBarTopLine.constant = UIStatusBarHeight();
+}
+
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
 }
 
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
@@ -34,7 +43,7 @@
 
 - (IBAction)sendInfoAction:(UIBarButtonItem *)sender {
     if (!self.textV.text.length) {
-        ToastWarning(nil, @"评论内容不能为空!");
+        Toast(@"评论内容为空");
         return;
     }
     [self.view endEditing:YES];

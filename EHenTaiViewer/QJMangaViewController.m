@@ -11,7 +11,7 @@
 #import "QJMangaItem.h"
 #import "QJHenTaiParser.h"
 
-@interface QJMangaViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,QJMangaItemDelagate>
+@interface QJMangaViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,QJMangaItemDelagate, UINavigationBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navgationBar;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *toolButtomBar;
@@ -28,6 +28,7 @@
 //下部显示信息部分
 @property (weak, nonatomic) IBOutlet UIView *infoView;
 @property (weak, nonatomic) IBOutlet UILabel *pageLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoViewBottomLine;
 
 - (IBAction)backAction:(UIBarButtonItem *)sender;
 //滑动杆的相关触碰事件
@@ -47,6 +48,7 @@
 
 #pragma mark -数据刷新
 - (void)updateResource {
+    
     [[QJHenTaiParser parser] updateBigImageUrlWithShowKey:self.showkey gid:self.gid url:self.url count:self.count complete:^(NSArray<QJBigImageItem *> *bigImages) {
         [self.items addObjectsFromArray:bigImages];
         [self.collectionView reloadData];
@@ -55,22 +57,32 @@
 
 #pragma mark -内容设置
 - (void)setContent {
+    self.navgationBar.delegate = self;
+    
     self.pageLabel.text = [NSString stringWithFormat:@"%d / %ld",1,self.count];
     self.navgationBar.topItem.title = self.pageLabel.text;
     self.view.backgroundColor = [UIColor whiteColor];
     
     //添加view
     [self.view addSubview:self.collectionView];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_collectionView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_collectionView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(StatusBarHeight)-[_collectionView]-(TabBarSafeBottomMargin)-|" options:0 metrics:@{@"StatusBarHeight": @(UIStatusBarHeight()), @"TabBarSafeBottomMargin": @(UITabBarSafeBottomMargin())} views:NSDictionaryOfVariableBindings(_collectionView)]];
+    
     [self.view bringSubviewToFront:self.infoView];
     [self.view bringSubviewToFront:self.pageCountView];
+    self.infoViewBottomLine.constant = UITabBarSafeBottomMargin();
     [self.view bringSubviewToFront:self.navgationBar];
     [self.view bringSubviewToFront:self.toolButtomBar];
     //滑杆最大值
     self.slider.maximumValue = self.count - 1;
 }
 
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
+}
+
 - (void)changeNavbarAndSliderBar {
-    if (self.navgationBarTopLine.constant == 0) {
+    if (self.navgationBarTopLine.constant > 0) {
         [self hidden];
     }
     else {
@@ -79,26 +91,22 @@
 }
 
 - (void)show {
-    if (self.navgationBarTopLine.constant != 0) {
-        if (self.navgationBar.hidden) {
-            self.navgationBar.hidden = NO;
-        }
-        [UIView animateWithDuration:0.25f animations:^{
-            self.navgationBarTopLine.constant = 0;
-            self.sliderBarButtomLine.constant = 0;
-            [self.view layoutIfNeeded];
-        }];
+    if (self.navgationBar.hidden) {
+        self.navgationBar.hidden = NO;
     }
+    [UIView animateWithDuration:0.25f animations:^{
+        self.navgationBarTopLine.constant = UIStatusBarHeight();
+        self.sliderBarButtomLine.constant = UITabBarSafeBottomMargin();
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)hidden {
-    if (self.navgationBarTopLine.constant == 0) {
-        [UIView animateWithDuration:0.25f animations:^{
-            self.navgationBarTopLine.constant = -64;
-            self.sliderBarButtomLine.constant = -49;
-            [self.view layoutIfNeeded];
-        }];
-    }
+    [UIView animateWithDuration:0.25f animations:^{
+        self.navgationBarTopLine.constant = -UINavigationBarHeight();
+        self.sliderBarButtomLine.constant = -UITabBarHeight();
+        [self.view layoutIfNeeded];
+    }];
 }
 
 #pragma mark -滑动条值改变
@@ -117,9 +125,11 @@
 - (IBAction)fingerOut:(UISlider *)sender {
     CGFloat currValue = sender.value;
     NSInteger page = currValue / 1;
-    CGPoint currOffsize = self.collectionView.contentOffset;
-    currOffsize.x = page * UIScreenWidth();
-    [self.collectionView setContentOffset:currOffsize animated:YES];
+    NSIndexPath *indexPrev=[NSIndexPath indexPathForItem:page inSection:0];
+    [self.collectionView scrollToItemAtIndexPath:indexPrev atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    
+    self.pageCountView.hidden = YES;
+    [self hidden];
 }
 
 - (IBAction)fingerIn:(UISlider *)sender {
@@ -194,6 +204,7 @@
     if (!_collectionView) {
         QJMangaFlowLayout *layout = [QJMangaFlowLayout new];
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 20, UIScreenWidth(), UIScreenHeight() - 20) collectionViewLayout:layout];
+        _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.pagingEnabled = YES;
         _collectionView.delegate = self;

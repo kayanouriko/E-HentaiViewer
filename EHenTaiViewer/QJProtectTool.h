@@ -6,6 +6,8 @@
 //  Copyright © 2017年 kayanouriko. All rights reserved.
 //
 
+//感谢maltsugar,终于明白了系统密码调用的方法
+
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, QJProtectToolStatus) {

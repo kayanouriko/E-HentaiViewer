@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +13,8 @@
             <connections>
                 <outlet property="contentTextV" destination="dQL-PR-SAu" id="Isq-fs-Hpk"/>
                 <outlet property="folderBtn" destination="Epu-K6-ucd" id="LQG-OE-JoK"/>
+                <outlet property="navgationBar" destination="hbv-CF-Bre" id="Vtw-ht-aer"/>
+                <outlet property="navigationBarTopLine" destination="vM5-NT-w0s" id="Uu2-Kz-y7g"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,10 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbv-CF-Bre">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="z0d-o2-GSb"/>
-                    </constraints>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <items>
                         <navigationItem title="收藏" id="NSn-qb-5GQ">
                             <barButtonItem key="leftBarButtonItem" title="取消" id="6mk-uK-jkd">
@@ -42,21 +41,21 @@
                     </items>
                 </navigationBar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D83-kM-q80">
-                    <rect key="frame" x="20" y="84" width="335" height="1"/>
+                    <rect key="frame" x="20" y="64" width="335" height="1"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="Ysu-ES-KH3"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LnY-6t-OOB">
-                    <rect key="frame" x="20" y="125" width="335" height="1"/>
+                    <rect key="frame" x="20" y="105" width="335" height="1"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="0Ob-LW-Qif"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Epu-K6-ucd">
-                    <rect key="frame" x="0.0" y="85" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="65" width="375" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="MX4-Bs-VkH"/>
                     </constraints>
@@ -66,7 +65,7 @@
                     </connections>
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQL-PR-SAu">
-                    <rect key="frame" x="20" y="146" width="335" height="491"/>
+                    <rect key="frame" x="20" y="126" width="335" height="511"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

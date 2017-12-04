@@ -16,12 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    /*
     for (UITabBarItem *item in self.tabBar.items) {
         item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
         item.titlePositionAdjustment  = UIOffsetMake(0,20);
     }
-    
+    */
 }
 
 - (void)didReceiveMemoryWarning {
