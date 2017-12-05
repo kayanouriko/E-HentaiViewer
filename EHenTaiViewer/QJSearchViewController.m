@@ -158,7 +158,6 @@
 
 - (NSString *)makeUrl {
     NSMutableString *url = [NSMutableString stringWithString:@"?"];
-    [url appendString:[NSString stringWithFormat:@"page=%ld", self.pageIndex]];
     NSMutableArray *infos = [NSMutableArray new];
     for (NSInteger i = 0; i <= 18; i++) {
         QJButton *button = (QJButton *)[self.view viewWithTag:1000 + i];
