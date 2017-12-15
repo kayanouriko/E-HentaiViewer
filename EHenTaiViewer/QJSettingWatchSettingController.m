@@ -96,20 +96,6 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
             }
         }
     }
-    /*
-    for (QJSettingLanguageItem *model in self.model.subModels) {
-        for (QJSettingLanguageCheckBoxItem *subModel in model.models) {
-            if (subModel.name.length && subModel.checked) {
-                [params setValue:@"on" forKey:subModel.name];
-            }
-            //这个属性网站不能修改,这里本地存储做强制修改
-            if ([subModel.name isEqualToString:@"xl_0"]) {
-                NSObjSetForKey(@"xl_0", subModel.isChecked ? @"on" : @"");
-                NSObjSynchronize();
-            }
-        }
-    }
-     */
     [[QJHenTaiParser parser] postMySettingInfoWithParams:params Completion:nil];
 }
 

@@ -11,6 +11,7 @@
 #import "QJListCell.h"
 #import "QJHenTaiParser.h"
 #import "QJNewInfoViewController.h"
+#import "QJRankingViewController.h"
 
 @interface QJNowViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -44,9 +45,18 @@
 }
 
 - (void)setContent {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Toplist" style:UIBarButtonItemStylePlain target:self action:@selector(clickToplist)];
+    self.navigationItem.rightBarButtonItem = item;
+    
     [self.view addSubview:self.tableview];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+}
+
+- (void)clickToplist {
+    QJRankingViewController *vc = [QJRankingViewController new];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -tableView

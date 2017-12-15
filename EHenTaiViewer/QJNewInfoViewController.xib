@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,6 +21,7 @@
                 <outlet property="commentCollectionView" destination="Ogb-1c-xWb" id="3Jm-CC-zQo"/>
                 <outlet property="commentCollectionViewHeightLine" destination="acz-dX-zPp" id="eGa-1B-fKb"/>
                 <outlet property="commentStarView" destination="BUX-q8-pjG" id="dP8-Ks-4bH"/>
+                <outlet property="commentTipLabel" destination="JsU-KW-eXi" id="SP4-sm-mWz"/>
                 <outlet property="dxLabel" destination="pLM-Pq-tip" id="dNR-ky-2NF"/>
                 <outlet property="fhlLabel" destination="oFL-3X-eau" id="T9S-Vz-vea"/>
                 <outlet property="flLabel" destination="SqP-V3-ZUC" id="f0r-E0-Bwd"/>
@@ -303,7 +304,7 @@
                                     <color key="textColor" red="0.54509803921568623" green="0.5490196078431373" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ogb-1c-xWb">
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ogb-1c-xWb">
                                     <rect key="frame" x="0.0" y="88.333333333333371" width="375" height="170"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>

@@ -1,0 +1,15 @@
+//
+//  QJLikeSearchBar.h
+//  EHenTaiViewer
+//
+//  Created by QinJ on 2017/12/15.
+//  Copyright © 2017年 kayanouriko. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface QJLikeSearchBar : UIView
+
+@property (weak, nonatomic) IBOutlet UITextField *searchTextF;
+
+@end

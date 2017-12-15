@@ -54,13 +54,6 @@
     QJSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([QJSearchViewController class])];
     QJGalleryTagItem *model = _rightArr[button.tag - 1000];
     vc.model = model;
-    /*
-    QJOtherListController *vc = [QJOtherListController new];
-    vc.type = QJOtherListControllerTypeTag;
-    QJGalleryTagItem *model = _rightArr[button.tag - 1000];
-    vc.key = model.url;
-    vc.titleName = model.name;
-     */
     [[self viewController].navigationController pushViewController:vc animated:YES];
 }
 

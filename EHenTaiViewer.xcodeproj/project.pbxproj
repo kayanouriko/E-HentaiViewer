@@ -16,15 +16,8 @@
 		5A0780B81ECE8A5600EF00E6 /* QJListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0780B71ECE8A5600EF00E6 /* QJListItem.m */; };
 		5A0780BD1ECEE9C900EF00E6 /* QJListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0780BB1ECEE9C900EF00E6 /* QJListCell.m */; };
 		5A0780BE1ECEE9C900EF00E6 /* QJListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0780BC1ECEE9C900EF00E6 /* QJListCell.xib */; };
-		5A0845211F4283B400085578 /* QJSearchHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A08451F1F4283B400085578 /* QJSearchHeadView.m */; };
-		5A0845221F4283B400085578 /* QJSearchHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0845201F4283B400085578 /* QJSearchHeadView.xib */; };
 		5A0A1F371EDFB7C3002C8AF8 /* QJTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F361EDFB7C3002C8AF8 /* QJTagView.m */; };
-		5A0A1F391EDFBFCC002C8AF8 /* QJInfoBaseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0A1F381EDFBFCC002C8AF8 /* QJInfoBaseCell.xib */; };
 		5A0A1F3D1EDFDE49002C8AF8 /* QJOtherListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F3C1EDFDE49002C8AF8 /* QJOtherListController.m */; };
-		5A0A1F421EE009EB002C8AF8 /* QJStarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F401EE009EB002C8AF8 /* QJStarViewCell.m */; };
-		5A0A1F431EE009EB002C8AF8 /* QJStarViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0A1F411EE009EB002C8AF8 /* QJStarViewCell.xib */; };
-		5A0A1F481EE00C53002C8AF8 /* QJSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F461EE00C53002C8AF8 /* QJSecondCell.m */; };
-		5A0A1F491EE00C53002C8AF8 /* QJSecondCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0A1F471EE00C53002C8AF8 /* QJSecondCell.xib */; };
 		5A0A1F4F1EE0146E002C8AF8 /* QJGoCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F4D1EE0146E002C8AF8 /* QJGoCommentController.m */; };
 		5A0A1F551EE03B5E002C8AF8 /* QJMangaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F531EE03B5E002C8AF8 /* QJMangaViewController.m */; };
 		5A0A1F561EE03B5E002C8AF8 /* QJMangaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0A1F541EE03B5E002C8AF8 /* QJMangaViewController.xib */; };
@@ -51,8 +44,6 @@
 		5A34DBA61FC26011007B0A5F /* QJNewInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A34DBA41FC26011007B0A5F /* QJNewInfoViewController.xib */; };
 		5A372D1E1FCAFD1B005CEBB8 /* UITextView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A372D1D1FCAFD1B005CEBB8 /* UITextView+Addition.m */; };
 		5A3977421EF75B18009A2273 /* QJTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3977411EF75B18009A2273 /* QJTabBarController.m */; };
-		5A39B7EF1EEE705400FC8DC6 /* QJGoStarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A39B7ED1EEE705400FC8DC6 /* QJGoStarController.m */; };
-		5A39B7F01EEE705400FC8DC6 /* QJGoStarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A39B7EE1EEE705400FC8DC6 /* QJGoStarController.xib */; };
 		5A3FBC781EEA47B800373F36 /* QJTorrentInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FBC771EEA47B800373F36 /* QJTorrentInfoController.m */; };
 		5A3FBC7D1EEA488200373F36 /* QJTorrentInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FBC7B1EEA488200373F36 /* QJTorrentInfoCell.m */; };
 		5A3FBC7E1EEA488200373F36 /* QJTorrentInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FBC7C1EEA488200373F36 /* QJTorrentInfoCell.xib */; };
@@ -60,6 +51,14 @@
 		5A41BFAA1ED524850073659B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A41BFA91ED524850073659B /* SystemConfiguration.framework */; };
 		5A41BFAD1ED525C00073659B /* QJNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A41BFAC1ED525C00073659B /* QJNetworkTool.m */; };
 		5A41BFB01ED529690073659B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A41BFAF1ED529690073659B /* Reachability.m */; };
+		5A48AF291FDFC42700E9F35B /* QJFavoritesSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A48AF281FDFC42700E9F35B /* QJFavoritesSelectController.m */; };
+		5A48AF2E1FDFC60F00E9F35B /* QJFavoritesSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A48AF2C1FDFC60F00E9F35B /* QJFavoritesSelectCell.m */; };
+		5A48AF2F1FDFC60F00E9F35B /* QJFavoritesSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A48AF2D1FDFC60F00E9F35B /* QJFavoritesSelectCell.xib */; };
+		5A4D64321FE3512F00E5555B /* QJRankingHeadInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4D64301FE3512F00E5555B /* QJRankingHeadInfoCell.m */; };
+		5A4D64331FE3512F00E5555B /* QJRankingHeadInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4D64311FE3512F00E5555B /* QJRankingHeadInfoCell.xib */; };
+		5A4D64371FE3933500E5555B /* QJLikeSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4D64361FE3933500E5555B /* QJLikeSearchBar.m */; };
+		5A4D64391FE3934600E5555B /* QJLikeSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4D64381FE3934600E5555B /* QJLikeSearchBar.xib */; };
+		5A4D643D1FE3ADB500E5555B /* QJCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4D643C1FE3ADB500E5555B /* QJCollectionViewFlowLayout.m */; };
 		5A56B6681F57970D00F30BD5 /* QJLanguageOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56B6671F57970D00F30BD5 /* QJLanguageOutViewController.m */; };
 		5A56B6971F57AEAC00F30BD5 /* QJLanguageOutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56B6951F57AEAC00F30BD5 /* QJLanguageOutCell.m */; };
 		5A56B6981F57AEAC00F30BD5 /* QJLanguageOutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56B6961F57AEAC00F30BD5 /* QJLanguageOutCell.xib */; };
@@ -69,27 +68,14 @@
 		5A57E0451F4EC4310033663B /* QJSettingListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A57E0431F4EC4310033663B /* QJSettingListCell.m */; };
 		5A57E0461F4EC4310033663B /* QJSettingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A57E0441F4EC4310033663B /* QJSettingListCell.xib */; };
 		5A6E60D31F5514230097C5B3 /* QJSettingInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6E60D21F5514230097C5B3 /* QJSettingInfo.xib */; };
-		5A6ECC8C1EDE505400DBF9DA /* QJInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECC8A1EDE505400DBF9DA /* QJInfoViewController.m */; };
-		5A6ECC8D1EDE505400DBF9DA /* QJInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECC8B1EDE505400DBF9DA /* QJInfoViewController.xib */; };
-		5A6ECC931EDE6CFE00DBF9DA /* QJInfoThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECC911EDE6CFE00DBF9DA /* QJInfoThumbCell.m */; };
-		5A6ECC941EDE6CFE00DBF9DA /* QJInfoThumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECC921EDE6CFE00DBF9DA /* QJInfoThumbCell.xib */; };
 		5A6ECC981EDE771C00DBF9DA /* QJImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECC961EDE771C00DBF9DA /* QJImageCollectionViewCell.m */; };
 		5A6ECC991EDE771C00DBF9DA /* QJImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECC971EDE771C00DBF9DA /* QJImageCollectionViewCell.xib */; };
-		5A6ECC9E1EDE909200DBF9DA /* QJInfoBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECC9C1EDE909200DBF9DA /* QJInfoBaseCell.m */; };
-		5A6ECCA41EDE94EE00DBF9DA /* QJInfoTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECCA21EDE94EE00DBF9DA /* QJInfoTagCell.m */; };
-		5A6ECCA51EDE94EE00DBF9DA /* QJInfoTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECCA31EDE94EE00DBF9DA /* QJInfoTagCell.xib */; };
-		5A6ECCAA1EDE975F00DBF9DA /* QJInfoOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECCA81EDE975F00DBF9DA /* QJInfoOtherCell.m */; };
-		5A6ECCAB1EDE975F00DBF9DA /* QJInfoOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECCA91EDE975F00DBF9DA /* QJInfoOtherCell.xib */; };
 		5A6ECCAE1EDE9D8B00DBF9DA /* QJGalleryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECCAD1EDE9D8B00DBF9DA /* QJGalleryItem.m */; };
 		5A6F94691F2EB8A50085F0EE /* EhTag_CN.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A6F94681F2EB8A50085F0EE /* EhTag_CN.json */; };
 		5A6F946D1F2EBC4C0085F0EE /* QJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F946C1F2EBC4C0085F0EE /* QJSearchViewController.m */; };
 		5A6F94701F2EC6A90085F0EE /* EhCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F946E1F2EC6A90085F0EE /* EhCoreData.xcdatamodeld */; };
 		5A6F94821F2ECA000085F0EE /* Tag+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F947F1F2ECA000085F0EE /* Tag+CoreDataClass.m */; };
 		5A6F94831F2ECA000085F0EE /* Tag+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F94811F2ECA000085F0EE /* Tag+CoreDataProperties.m */; };
-		5A6F94881F2F02BD0085F0EE /* QJSearchTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F94861F2F02BD0085F0EE /* QJSearchTagCell.m */; };
-		5A6F94891F2F02BD0085F0EE /* QJSearchTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6F94871F2F02BD0085F0EE /* QJSearchTagCell.xib */; };
-		5A7D083F1F25C3B4001B81D7 /* QJScrollHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D083E1F25C3B4001B81D7 /* QJScrollHeadView.m */; };
-		5A7D08411F25C4FD001B81D7 /* QJScrollHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D08401F25C4FD001B81D7 /* QJScrollHeadView.xib */; };
 		5A82B5E11F5403100005B6B8 /* QJSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82B5E01F5403100005B6B8 /* QJSettingModel.m */; };
 		5A82B5E31F5403320005B6B8 /* QJSettingModel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A82B5E21F5403320005B6B8 /* QJSettingModel.plist */; };
 		5A842FDD1FC7AC260069AD4C /* QJAllCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A842FDC1FC7AC260069AD4C /* QJAllCommentController.m */; };
@@ -112,20 +98,17 @@
 		5A90DADC1ECC3D3F00575145 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A90DADB1ECC3D3F00575145 /* Assets.xcassets */; };
 		5A90DADF1ECC3D3F00575145 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A90DADD1ECC3D3F00575145 /* LaunchScreen.storyboard */; };
 		5A90DAEF1ECC4DC000575145 /* QJHotAndLikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A90DAEE1ECC4DC000575145 /* QJHotAndLikeViewController.m */; };
+		5A93CF861FE29026009E9C5A /* QJRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93CF841FE29026009E9C5A /* QJRankingViewController.m */; };
+		5A93CF871FE29026009E9C5A /* QJRankingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A93CF851FE29026009E9C5A /* QJRankingViewController.xib */; };
+		5A93CF8C1FE29426009E9C5A /* QJRankingInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93CF8A1FE29426009E9C5A /* QJRankingInfoCell.m */; };
+		5A93CF8D1FE29426009E9C5A /* QJRankingInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A93CF8B1FE29426009E9C5A /* QJRankingInfoCell.xib */; };
 		5A958CB11EF11DC400AF3D68 /* QJGoCommentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A958CB01EF11DC400AF3D68 /* QJGoCommentController.xib */; };
+		5A96E6CA1FD92EA9002D6B44 /* QJNewBrowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A96E6C81FD92EA9002D6B44 /* QJNewBrowerViewController.m */; };
+		5A96E6CB1FD92EA9002D6B44 /* QJNewBrowerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A96E6C91FD92EA9002D6B44 /* QJNewBrowerViewController.xib */; };
+		5A96E6CF1FD9325A002D6B44 /* QJMangaBrowerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A96E6CE1FD9325A002D6B44 /* QJMangaBrowerManager.m */; };
+		5A96E6D21FD94227002D6B44 /* QJMangaURLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A96E6D11FD94227002D6B44 /* QJMangaURLSession.m */; };
 		5AA0DDE31F2AD0C600ED3020 /* QJScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA0DDE21F2AD0C600ED3020 /* QJScrollView.m */; };
-		5AA0DDEB1F2B1A4B00ED3020 /* QJFavSelectedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA0DDE91F2B1A4B00ED3020 /* QJFavSelectedCell.m */; };
-		5AA0DDEC1F2B1A4B00ED3020 /* QJFavSelectedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA0DDEA1F2B1A4B00ED3020 /* QJFavSelectedCell.xib */; };
-		5AA0DDF01F2B248600ED3020 /* QJFavSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA0DDEE1F2B248600ED3020 /* QJFavSelectViewController.m */; };
-		5AA0DDF11F2B248600ED3020 /* QJFavSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA0DDEF1F2B248600ED3020 /* QJFavSelectViewController.xib */; };
 		5AAC5A351F315B560074DE9C /* QJToplistUploaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC5A341F315B560074DE9C /* QJToplistUploaderItem.m */; };
-		5AAC5A391F3170760074DE9C /* QJSearchGalleryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC5A371F3170760074DE9C /* QJSearchGalleryCell.m */; };
-		5AAC5A3A1F3170760074DE9C /* QJSearchGalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AAC5A381F3170760074DE9C /* QJSearchGalleryCell.xib */; };
-		5AAC5A3E1F3171B30074DE9C /* QJSearchGalleryThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC5A3C1F3171B30074DE9C /* QJSearchGalleryThumbCell.m */; };
-		5AAC5A3F1F3171B30074DE9C /* QJSearchGalleryThumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AAC5A3D1F3171B30074DE9C /* QJSearchGalleryThumbCell.xib */; };
-		5AAC5A461F31A08B0074DE9C /* QJSearchUploaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC5A441F31A08A0074DE9C /* QJSearchUploaderCell.m */; };
-		5AAC5A471F31A08B0074DE9C /* QJSearchUploaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AAC5A451F31A08A0074DE9C /* QJSearchUploaderCell.xib */; };
-		5AAC5A4B1F31A2250074DE9C /* QJLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC5A4A1F31A2250074DE9C /* QJLabelView.m */; };
 		5AB086421F58EC9F00FF39DC /* QJSettingHightOtherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB086411F58EC9F00FF39DC /* QJSettingHightOtherController.m */; };
 		5AB595051EEE28CB005D7CF3 /* QJHeadFreshingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB595041EEE28CB005D7CF3 /* QJHeadFreshingView.m */; };
 		5ABA40ED1ED4326B00B21707 /* QJWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA40EB1ED4326B00B21707 /* QJWebViewController.m */; };
@@ -162,20 +145,10 @@
 		5A0780BA1ECEE9C900EF00E6 /* QJListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJListCell.h; sourceTree = "<group>"; };
 		5A0780BB1ECEE9C900EF00E6 /* QJListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJListCell.m; sourceTree = "<group>"; };
 		5A0780BC1ECEE9C900EF00E6 /* QJListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJListCell.xib; sourceTree = "<group>"; };
-		5A08451E1F4283B400085578 /* QJSearchHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSearchHeadView.h; sourceTree = "<group>"; };
-		5A08451F1F4283B400085578 /* QJSearchHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSearchHeadView.m; sourceTree = "<group>"; };
-		5A0845201F4283B400085578 /* QJSearchHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSearchHeadView.xib; sourceTree = "<group>"; };
 		5A0A1F351EDFB7C3002C8AF8 /* QJTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTagView.h; sourceTree = "<group>"; };
 		5A0A1F361EDFB7C3002C8AF8 /* QJTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTagView.m; sourceTree = "<group>"; };
-		5A0A1F381EDFBFCC002C8AF8 /* QJInfoBaseCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJInfoBaseCell.xib; sourceTree = "<group>"; };
 		5A0A1F3B1EDFDE49002C8AF8 /* QJOtherListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJOtherListController.h; sourceTree = "<group>"; };
 		5A0A1F3C1EDFDE49002C8AF8 /* QJOtherListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJOtherListController.m; sourceTree = "<group>"; };
-		5A0A1F3F1EE009EB002C8AF8 /* QJStarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJStarViewCell.h; sourceTree = "<group>"; };
-		5A0A1F401EE009EB002C8AF8 /* QJStarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJStarViewCell.m; sourceTree = "<group>"; };
-		5A0A1F411EE009EB002C8AF8 /* QJStarViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJStarViewCell.xib; sourceTree = "<group>"; };
-		5A0A1F451EE00C53002C8AF8 /* QJSecondCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSecondCell.h; sourceTree = "<group>"; };
-		5A0A1F461EE00C53002C8AF8 /* QJSecondCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSecondCell.m; sourceTree = "<group>"; };
-		5A0A1F471EE00C53002C8AF8 /* QJSecondCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSecondCell.xib; sourceTree = "<group>"; };
 		5A0A1F4C1EE0146E002C8AF8 /* QJGoCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJGoCommentController.h; sourceTree = "<group>"; };
 		5A0A1F4D1EE0146E002C8AF8 /* QJGoCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJGoCommentController.m; sourceTree = "<group>"; };
 		5A0A1F521EE03B5E002C8AF8 /* QJMangaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJMangaViewController.h; sourceTree = "<group>"; };
@@ -222,9 +195,6 @@
 		5A372D1D1FCAFD1B005CEBB8 /* UITextView+Addition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Addition.m"; sourceTree = "<group>"; };
 		5A3977401EF75B18009A2273 /* QJTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTabBarController.h; sourceTree = "<group>"; };
 		5A3977411EF75B18009A2273 /* QJTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTabBarController.m; sourceTree = "<group>"; };
-		5A39B7EC1EEE705400FC8DC6 /* QJGoStarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJGoStarController.h; sourceTree = "<group>"; };
-		5A39B7ED1EEE705400FC8DC6 /* QJGoStarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJGoStarController.m; sourceTree = "<group>"; };
-		5A39B7EE1EEE705400FC8DC6 /* QJGoStarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJGoStarController.xib; sourceTree = "<group>"; };
 		5A3FBC761EEA47B800373F36 /* QJTorrentInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTorrentInfoController.h; sourceTree = "<group>"; };
 		5A3FBC771EEA47B800373F36 /* QJTorrentInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTorrentInfoController.m; sourceTree = "<group>"; };
 		5A3FBC7A1EEA488200373F36 /* QJTorrentInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTorrentInfoCell.h; sourceTree = "<group>"; };
@@ -238,6 +208,19 @@
 		5A41BFAC1ED525C00073659B /* QJNetworkTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJNetworkTool.m; sourceTree = "<group>"; };
 		5A41BFAE1ED529690073659B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5A41BFAF1ED529690073659B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		5A48AF271FDFC42700E9F35B /* QJFavoritesSelectController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJFavoritesSelectController.h; sourceTree = "<group>"; };
+		5A48AF281FDFC42700E9F35B /* QJFavoritesSelectController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJFavoritesSelectController.m; sourceTree = "<group>"; };
+		5A48AF2B1FDFC60F00E9F35B /* QJFavoritesSelectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJFavoritesSelectCell.h; sourceTree = "<group>"; };
+		5A48AF2C1FDFC60F00E9F35B /* QJFavoritesSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJFavoritesSelectCell.m; sourceTree = "<group>"; };
+		5A48AF2D1FDFC60F00E9F35B /* QJFavoritesSelectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJFavoritesSelectCell.xib; sourceTree = "<group>"; };
+		5A4D642F1FE3512F00E5555B /* QJRankingHeadInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJRankingHeadInfoCell.h; sourceTree = "<group>"; };
+		5A4D64301FE3512F00E5555B /* QJRankingHeadInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJRankingHeadInfoCell.m; sourceTree = "<group>"; };
+		5A4D64311FE3512F00E5555B /* QJRankingHeadInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJRankingHeadInfoCell.xib; sourceTree = "<group>"; };
+		5A4D64351FE3933500E5555B /* QJLikeSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJLikeSearchBar.h; sourceTree = "<group>"; };
+		5A4D64361FE3933500E5555B /* QJLikeSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJLikeSearchBar.m; sourceTree = "<group>"; };
+		5A4D64381FE3934600E5555B /* QJLikeSearchBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJLikeSearchBar.xib; sourceTree = "<group>"; };
+		5A4D643B1FE3ADB500E5555B /* QJCollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		5A4D643C1FE3ADB500E5555B /* QJCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		5A56B6661F57970D00F30BD5 /* QJLanguageOutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJLanguageOutViewController.h; sourceTree = "<group>"; };
 		5A56B6671F57970D00F30BD5 /* QJLanguageOutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJLanguageOutViewController.m; sourceTree = "<group>"; };
 		5A56B6941F57AEAC00F30BD5 /* QJLanguageOutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJLanguageOutCell.h; sourceTree = "<group>"; };
@@ -252,23 +235,9 @@
 		5A57E0431F4EC4310033663B /* QJSettingListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSettingListCell.m; sourceTree = "<group>"; };
 		5A57E0441F4EC4310033663B /* QJSettingListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSettingListCell.xib; sourceTree = "<group>"; };
 		5A6E60D21F5514230097C5B3 /* QJSettingInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSettingInfo.xib; sourceTree = "<group>"; };
-		5A6ECC891EDE505400DBF9DA /* QJInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJInfoViewController.h; sourceTree = "<group>"; };
-		5A6ECC8A1EDE505400DBF9DA /* QJInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJInfoViewController.m; sourceTree = "<group>"; };
-		5A6ECC8B1EDE505400DBF9DA /* QJInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJInfoViewController.xib; sourceTree = "<group>"; };
-		5A6ECC901EDE6CFE00DBF9DA /* QJInfoThumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJInfoThumbCell.h; sourceTree = "<group>"; };
-		5A6ECC911EDE6CFE00DBF9DA /* QJInfoThumbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJInfoThumbCell.m; sourceTree = "<group>"; };
-		5A6ECC921EDE6CFE00DBF9DA /* QJInfoThumbCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJInfoThumbCell.xib; sourceTree = "<group>"; };
 		5A6ECC951EDE771C00DBF9DA /* QJImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJImageCollectionViewCell.h; sourceTree = "<group>"; };
 		5A6ECC961EDE771C00DBF9DA /* QJImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJImageCollectionViewCell.m; sourceTree = "<group>"; };
 		5A6ECC971EDE771C00DBF9DA /* QJImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJImageCollectionViewCell.xib; sourceTree = "<group>"; };
-		5A6ECC9B1EDE909200DBF9DA /* QJInfoBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJInfoBaseCell.h; sourceTree = "<group>"; };
-		5A6ECC9C1EDE909200DBF9DA /* QJInfoBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJInfoBaseCell.m; sourceTree = "<group>"; };
-		5A6ECCA11EDE94EE00DBF9DA /* QJInfoTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJInfoTagCell.h; sourceTree = "<group>"; };
-		5A6ECCA21EDE94EE00DBF9DA /* QJInfoTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJInfoTagCell.m; sourceTree = "<group>"; };
-		5A6ECCA31EDE94EE00DBF9DA /* QJInfoTagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJInfoTagCell.xib; sourceTree = "<group>"; };
-		5A6ECCA71EDE975F00DBF9DA /* QJInfoOtherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJInfoOtherCell.h; sourceTree = "<group>"; };
-		5A6ECCA81EDE975F00DBF9DA /* QJInfoOtherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJInfoOtherCell.m; sourceTree = "<group>"; };
-		5A6ECCA91EDE975F00DBF9DA /* QJInfoOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJInfoOtherCell.xib; sourceTree = "<group>"; };
 		5A6ECCAC1EDE9D8B00DBF9DA /* QJGalleryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJGalleryItem.h; sourceTree = "<group>"; };
 		5A6ECCAD1EDE9D8B00DBF9DA /* QJGalleryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJGalleryItem.m; sourceTree = "<group>"; };
 		5A6F94681F2EB8A50085F0EE /* EhTag_CN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EhTag_CN.json; sourceTree = "<group>"; };
@@ -279,12 +248,6 @@
 		5A6F947F1F2ECA000085F0EE /* Tag+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tag+CoreDataClass.m"; sourceTree = "<group>"; };
 		5A6F94801F2ECA000085F0EE /* Tag+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tag+CoreDataProperties.h"; sourceTree = "<group>"; };
 		5A6F94811F2ECA000085F0EE /* Tag+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tag+CoreDataProperties.m"; sourceTree = "<group>"; };
-		5A6F94851F2F02BD0085F0EE /* QJSearchTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSearchTagCell.h; sourceTree = "<group>"; };
-		5A6F94861F2F02BD0085F0EE /* QJSearchTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSearchTagCell.m; sourceTree = "<group>"; };
-		5A6F94871F2F02BD0085F0EE /* QJSearchTagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSearchTagCell.xib; sourceTree = "<group>"; };
-		5A7D083D1F25C3B4001B81D7 /* QJScrollHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJScrollHeadView.h; sourceTree = "<group>"; };
-		5A7D083E1F25C3B4001B81D7 /* QJScrollHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJScrollHeadView.m; sourceTree = "<group>"; };
-		5A7D08401F25C4FD001B81D7 /* QJScrollHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJScrollHeadView.xib; sourceTree = "<group>"; };
 		5A82B5DF1F5403100005B6B8 /* QJSettingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSettingModel.h; sourceTree = "<group>"; };
 		5A82B5E01F5403100005B6B8 /* QJSettingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSettingModel.m; sourceTree = "<group>"; };
 		5A82B5E21F5403320005B6B8 /* QJSettingModel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QJSettingModel.plist; sourceTree = "<group>"; };
@@ -323,28 +286,24 @@
 		5A90DAE01ECC3D3F00575145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A90DAED1ECC4DC000575145 /* QJHotAndLikeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJHotAndLikeViewController.h; sourceTree = "<group>"; };
 		5A90DAEE1ECC4DC000575145 /* QJHotAndLikeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJHotAndLikeViewController.m; sourceTree = "<group>"; };
+		5A93CF831FE29026009E9C5A /* QJRankingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJRankingViewController.h; sourceTree = "<group>"; };
+		5A93CF841FE29026009E9C5A /* QJRankingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJRankingViewController.m; sourceTree = "<group>"; };
+		5A93CF851FE29026009E9C5A /* QJRankingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJRankingViewController.xib; sourceTree = "<group>"; };
+		5A93CF891FE29426009E9C5A /* QJRankingInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJRankingInfoCell.h; sourceTree = "<group>"; };
+		5A93CF8A1FE29426009E9C5A /* QJRankingInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJRankingInfoCell.m; sourceTree = "<group>"; };
+		5A93CF8B1FE29426009E9C5A /* QJRankingInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJRankingInfoCell.xib; sourceTree = "<group>"; };
 		5A958CB01EF11DC400AF3D68 /* QJGoCommentController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJGoCommentController.xib; sourceTree = "<group>"; };
+		5A96E6C71FD92EA9002D6B44 /* QJNewBrowerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJNewBrowerViewController.h; sourceTree = "<group>"; };
+		5A96E6C81FD92EA9002D6B44 /* QJNewBrowerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJNewBrowerViewController.m; sourceTree = "<group>"; };
+		5A96E6C91FD92EA9002D6B44 /* QJNewBrowerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJNewBrowerViewController.xib; sourceTree = "<group>"; };
+		5A96E6CD1FD9325A002D6B44 /* QJMangaBrowerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJMangaBrowerManager.h; sourceTree = "<group>"; };
+		5A96E6CE1FD9325A002D6B44 /* QJMangaBrowerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJMangaBrowerManager.m; sourceTree = "<group>"; };
+		5A96E6D01FD94227002D6B44 /* QJMangaURLSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJMangaURLSession.h; sourceTree = "<group>"; };
+		5A96E6D11FD94227002D6B44 /* QJMangaURLSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJMangaURLSession.m; sourceTree = "<group>"; };
 		5AA0DDE11F2AD0C600ED3020 /* QJScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJScrollView.h; sourceTree = "<group>"; };
 		5AA0DDE21F2AD0C600ED3020 /* QJScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJScrollView.m; sourceTree = "<group>"; };
-		5AA0DDE81F2B1A4B00ED3020 /* QJFavSelectedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJFavSelectedCell.h; sourceTree = "<group>"; };
-		5AA0DDE91F2B1A4B00ED3020 /* QJFavSelectedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJFavSelectedCell.m; sourceTree = "<group>"; };
-		5AA0DDEA1F2B1A4B00ED3020 /* QJFavSelectedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJFavSelectedCell.xib; sourceTree = "<group>"; };
-		5AA0DDED1F2B248600ED3020 /* QJFavSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJFavSelectViewController.h; sourceTree = "<group>"; };
-		5AA0DDEE1F2B248600ED3020 /* QJFavSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJFavSelectViewController.m; sourceTree = "<group>"; };
-		5AA0DDEF1F2B248600ED3020 /* QJFavSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJFavSelectViewController.xib; sourceTree = "<group>"; };
 		5AAC5A331F315B560074DE9C /* QJToplistUploaderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJToplistUploaderItem.h; sourceTree = "<group>"; };
 		5AAC5A341F315B560074DE9C /* QJToplistUploaderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJToplistUploaderItem.m; sourceTree = "<group>"; };
-		5AAC5A361F3170760074DE9C /* QJSearchGalleryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSearchGalleryCell.h; sourceTree = "<group>"; };
-		5AAC5A371F3170760074DE9C /* QJSearchGalleryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSearchGalleryCell.m; sourceTree = "<group>"; };
-		5AAC5A381F3170760074DE9C /* QJSearchGalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSearchGalleryCell.xib; sourceTree = "<group>"; };
-		5AAC5A3B1F3171B30074DE9C /* QJSearchGalleryThumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSearchGalleryThumbCell.h; sourceTree = "<group>"; };
-		5AAC5A3C1F3171B30074DE9C /* QJSearchGalleryThumbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSearchGalleryThumbCell.m; sourceTree = "<group>"; };
-		5AAC5A3D1F3171B30074DE9C /* QJSearchGalleryThumbCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSearchGalleryThumbCell.xib; sourceTree = "<group>"; };
-		5AAC5A431F31A08A0074DE9C /* QJSearchUploaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSearchUploaderCell.h; sourceTree = "<group>"; };
-		5AAC5A441F31A08A0074DE9C /* QJSearchUploaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSearchUploaderCell.m; sourceTree = "<group>"; };
-		5AAC5A451F31A08A0074DE9C /* QJSearchUploaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSearchUploaderCell.xib; sourceTree = "<group>"; };
-		5AAC5A491F31A2250074DE9C /* QJLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJLabelView.h; sourceTree = "<group>"; };
-		5AAC5A4A1F31A2250074DE9C /* QJLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJLabelView.m; sourceTree = "<group>"; };
 		5AB086401F58EC9F00FF39DC /* QJSettingHightOtherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSettingHightOtherController.h; sourceTree = "<group>"; };
 		5AB086411F58EC9F00FF39DC /* QJSettingHightOtherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSettingHightOtherController.m; sourceTree = "<group>"; };
 		5AB595031EEE28CB005D7CF3 /* QJHeadFreshingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJHeadFreshingView.h; sourceTree = "<group>"; };
@@ -463,16 +422,6 @@
 			name = "列表Cell";
 			sourceTree = "<group>";
 		};
-		5A08451D1F42832200085578 /* 段头 */ = {
-			isa = PBXGroup;
-			children = (
-				5A08451E1F4283B400085578 /* QJSearchHeadView.h */,
-				5A08451F1F4283B400085578 /* QJSearchHeadView.m */,
-				5A0845201F4283B400085578 /* QJSearchHeadView.xib */,
-			);
-			name = "段头";
-			sourceTree = "<group>";
-		};
 		5A0A1F3A1EDFDDB8002C8AF8 /* 其他列表 */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,33 +431,10 @@
 			name = "其他列表";
 			sourceTree = "<group>";
 		};
-		5A0A1F3E1EE009C8002C8AF8 /* 评分 */ = {
-			isa = PBXGroup;
-			children = (
-				5A0A1F3F1EE009EB002C8AF8 /* QJStarViewCell.h */,
-				5A0A1F401EE009EB002C8AF8 /* QJStarViewCell.m */,
-				5A0A1F411EE009EB002C8AF8 /* QJStarViewCell.xib */,
-			);
-			name = "评分";
-			sourceTree = "<group>";
-		};
-		5A0A1F441EE00C36002C8AF8 /* 评分操作 */ = {
-			isa = PBXGroup;
-			children = (
-				5A0A1F451EE00C53002C8AF8 /* QJSecondCell.h */,
-				5A0A1F461EE00C53002C8AF8 /* QJSecondCell.m */,
-				5A0A1F471EE00C53002C8AF8 /* QJSecondCell.xib */,
-			);
-			name = "评分操作";
-			sourceTree = "<group>";
-		};
 		5A0A1F4A1EE01441002C8AF8 /* 主页面 */ = {
 			isa = PBXGroup;
 			children = (
 				5A6ECC8F1EDE6CBA00DBF9DA /* View */,
-				5A6ECC891EDE505400DBF9DA /* QJInfoViewController.h */,
-				5A6ECC8A1EDE505400DBF9DA /* QJInfoViewController.m */,
-				5A6ECC8B1EDE505400DBF9DA /* QJInfoViewController.xib */,
 				5A34DBA21FC26011007B0A5F /* QJNewInfoViewController.h */,
 				5A34DBA31FC26011007B0A5F /* QJNewInfoViewController.m */,
 				5A34DBA41FC26011007B0A5F /* QJNewInfoViewController.xib */,
@@ -576,7 +502,6 @@
 		5A2F792B1ECD2C6100745DA0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				5AECCE951F6CCE6B008388B4 /* UserDefalut */,
 				5AEE63251F6A127B00A558FD /* Toast */,
 				5A3977431EF76811009A2273 /* LikeButton */,
 				5AB595021EEE288A005D7CF3 /* HeadFreshingView */,
@@ -661,16 +586,6 @@
 			name = LikeButton;
 			sourceTree = "<group>";
 		};
-		5A39B7EB1EEE702B00FC8DC6 /* 评星 */ = {
-			isa = PBXGroup;
-			children = (
-				5A39B7EC1EEE705400FC8DC6 /* QJGoStarController.h */,
-				5A39B7ED1EEE705400FC8DC6 /* QJGoStarController.m */,
-				5A39B7EE1EEE705400FC8DC6 /* QJGoStarController.xib */,
-			);
-			name = "评星";
-			sourceTree = "<group>";
-		};
 		5A3FBC751EEA477D00373F36 /* 种子 */ = {
 			isa = PBXGroup;
 			children = (
@@ -700,6 +615,45 @@
 				5A41BFAC1ED525C00073659B /* QJNetworkTool.m */,
 			);
 			name = Reachability;
+			sourceTree = "<group>";
+		};
+		5A48AF261FDFC3E400E9F35B /* 收藏夹 */ = {
+			isa = PBXGroup;
+			children = (
+				5A48AF2A1FDFC5F100E9F35B /* View */,
+				5A48AF271FDFC42700E9F35B /* QJFavoritesSelectController.h */,
+				5A48AF281FDFC42700E9F35B /* QJFavoritesSelectController.m */,
+			);
+			name = "收藏夹";
+			sourceTree = "<group>";
+		};
+		5A48AF2A1FDFC5F100E9F35B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A48AF2B1FDFC60F00E9F35B /* QJFavoritesSelectCell.h */,
+				5A48AF2C1FDFC60F00E9F35B /* QJFavoritesSelectCell.m */,
+				5A48AF2D1FDFC60F00E9F35B /* QJFavoritesSelectCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		5A4D64341FE392E600E5555B /* 搜索框 */ = {
+			isa = PBXGroup;
+			children = (
+				5A4D64351FE3933500E5555B /* QJLikeSearchBar.h */,
+				5A4D64361FE3933500E5555B /* QJLikeSearchBar.m */,
+				5A4D64381FE3934600E5555B /* QJLikeSearchBar.xib */,
+			);
+			name = "搜索框";
+			sourceTree = "<group>";
+		};
+		5A4D643A1FE3AC4700E5555B /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				5A4D643B1FE3ADB500E5555B /* QJCollectionViewFlowLayout.h */,
+				5A4D643C1FE3ADB500E5555B /* QJCollectionViewFlowLayout.m */,
+			);
+			name = Layout;
 			sourceTree = "<group>";
 		};
 		5A56B6651F57968700F30BD5 /* 排除语言 */ = {
@@ -739,7 +693,6 @@
 			isa = PBXGroup;
 			children = (
 				5A8AEA301EF3BAAF007E5EEE /* 收藏 */,
-				5A39B7EB1EEE702B00FC8DC6 /* 评星 */,
 				5A3FBC751EEA477D00373F36 /* 种子 */,
 				5A0A1F4B1EE0144C002C8AF8 /* 评论 */,
 				5A0A1F4A1EE01441002C8AF8 /* 主页面 */,
@@ -750,9 +703,6 @@
 		5A6ECC8E1EDE6CAF00DBF9DA /* 预览 */ = {
 			isa = PBXGroup;
 			children = (
-				5A6ECC901EDE6CFE00DBF9DA /* QJInfoThumbCell.h */,
-				5A6ECC911EDE6CFE00DBF9DA /* QJInfoThumbCell.m */,
-				5A6ECC921EDE6CFE00DBF9DA /* QJInfoThumbCell.xib */,
 				5A6ECC951EDE771C00DBF9DA /* QJImageCollectionViewCell.h */,
 				5A6ECC961EDE771C00DBF9DA /* QJImageCollectionViewCell.m */,
 				5A6ECC971EDE771C00DBF9DA /* QJImageCollectionViewCell.xib */,
@@ -764,47 +714,20 @@
 			isa = PBXGroup;
 			children = (
 				5A8A11DB1EE8DF2B001D9444 /* 自定义分享按钮 */,
-				5A0A1F441EE00C36002C8AF8 /* 评分操作 */,
-				5A0A1F3E1EE009C8002C8AF8 /* 评分 */,
 				5A89EAD21EDF197400DA434F /* 评论 */,
-				5A6ECCA61EDE974800DBF9DA /* 其他 */,
 				5A6ECCA01EDE94D400DBF9DA /* 标签 */,
-				5A6ECC9A1EDE905100DBF9DA /* 基础信息 */,
 				5A6ECC8E1EDE6CAF00DBF9DA /* 预览 */,
 			);
 			name = View;
 			sourceTree = "<group>";
 		};
-		5A6ECC9A1EDE905100DBF9DA /* 基础信息 */ = {
-			isa = PBXGroup;
-			children = (
-				5A6ECC9B1EDE909200DBF9DA /* QJInfoBaseCell.h */,
-				5A6ECC9C1EDE909200DBF9DA /* QJInfoBaseCell.m */,
-				5A0A1F381EDFBFCC002C8AF8 /* QJInfoBaseCell.xib */,
-			);
-			name = "基础信息";
-			sourceTree = "<group>";
-		};
 		5A6ECCA01EDE94D400DBF9DA /* 标签 */ = {
 			isa = PBXGroup;
 			children = (
-				5A6ECCA11EDE94EE00DBF9DA /* QJInfoTagCell.h */,
-				5A6ECCA21EDE94EE00DBF9DA /* QJInfoTagCell.m */,
-				5A6ECCA31EDE94EE00DBF9DA /* QJInfoTagCell.xib */,
 				5A0A1F351EDFB7C3002C8AF8 /* QJTagView.h */,
 				5A0A1F361EDFB7C3002C8AF8 /* QJTagView.m */,
 			);
 			name = "标签";
-			sourceTree = "<group>";
-		};
-		5A6ECCA61EDE974800DBF9DA /* 其他 */ = {
-			isa = PBXGroup;
-			children = (
-				5A6ECCA71EDE975F00DBF9DA /* QJInfoOtherCell.h */,
-				5A6ECCA81EDE975F00DBF9DA /* QJInfoOtherCell.m */,
-				5A6ECCA91EDE975F00DBF9DA /* QJInfoOtherCell.xib */,
-			);
-			name = "其他";
 			sourceTree = "<group>";
 		};
 		5A6F946A1F2EBC350085F0EE /* Search */ = {
@@ -833,21 +756,6 @@
 			isa = PBXGroup;
 			children = (
 				5A1F18F41FAFF4A6009E7B89 /* 搜索 */,
-				5A08451D1F42832200085578 /* 段头 */,
-				5AAC5A481F31A19D0074DE9C /* 标签排列 */,
-				5AAC5A421F319F660074DE9C /* 活跃上传者 */,
-				5AAC5A411F319D4A0074DE9C /* 相关标签 */,
-				5AAC5A401F319D320074DE9C /* 昨日流行画廊 */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		5A7D083C1F25C379001B81D7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D083D1F25C3B4001B81D7 /* QJScrollHeadView.h */,
-				5A7D083E1F25C3B4001B81D7 /* QJScrollHeadView.m */,
-				5A7D08401F25C4FD001B81D7 /* QJScrollHeadView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -912,13 +820,9 @@
 		5A8AEA301EF3BAAF007E5EEE /* 收藏 */ = {
 			isa = PBXGroup;
 			children = (
-				5AA0DDE71F2B19BE00ED3020 /* View */,
 				5A8AEA311EF3BAED007E5EEE /* QJFavouriteViewController.h */,
 				5A8AEA321EF3BAED007E5EEE /* QJFavouriteViewController.m */,
 				5A8AEA331EF3BAED007E5EEE /* QJFavouriteViewController.xib */,
-				5AA0DDED1F2B248600ED3020 /* QJFavSelectViewController.h */,
-				5AA0DDEE1F2B248600ED3020 /* QJFavSelectViewController.m */,
-				5AA0DDEF1F2B248600ED3020 /* QJFavSelectViewController.xib */,
 			);
 			name = "收藏";
 			sourceTree = "<group>";
@@ -968,6 +872,7 @@
 		5A8EC0751F725F3B005C0DF5 /* 当前热门 */ = {
 			isa = PBXGroup;
 			children = (
+				5A93CF7C1FE25F82009E9C5A /* 排名 */,
 				5A8EC0761F7263FB005C0DF5 /* QJNowViewController.h */,
 				5A8EC0771F7263FB005C0DF5 /* QJNowViewController.m */,
 			);
@@ -995,6 +900,7 @@
 		5A90DACE1ECC3D3F00575145 /* EHenTaiViewer */ = {
 			isa = PBXGroup;
 			children = (
+				5AFDE4081FD7EBE3008733B7 /* NewBrower */,
 				5A6F94711F2EC6AE0085F0EE /* CoreData */,
 				5A6F946A1F2EBC350085F0EE /* Search */,
 				5A0A1F511EE03B28002C8AF8 /* Brower */,
@@ -1040,7 +946,8 @@
 		5A90DAEC1ECC4D9C00575145 /* 收藏 */ = {
 			isa = PBXGroup;
 			children = (
-				5A7D083C1F25C379001B81D7 /* View */,
+				5A4D64341FE392E600E5555B /* 搜索框 */,
+				5A48AF261FDFC3E400E9F35B /* 收藏夹 */,
 				5A90DAED1ECC4DC000575145 /* QJHotAndLikeViewController.h */,
 				5A90DAEE1ECC4DC000575145 /* QJHotAndLikeViewController.m */,
 			);
@@ -1058,56 +965,40 @@
 			name = "设置";
 			sourceTree = "<group>";
 		};
-		5AA0DDE71F2B19BE00ED3020 /* View */ = {
+		5A93CF7C1FE25F82009E9C5A /* 排名 */ = {
 			isa = PBXGroup;
 			children = (
-				5AA0DDE81F2B1A4B00ED3020 /* QJFavSelectedCell.h */,
-				5AA0DDE91F2B1A4B00ED3020 /* QJFavSelectedCell.m */,
-				5AA0DDEA1F2B1A4B00ED3020 /* QJFavSelectedCell.xib */,
+				5A4D643A1FE3AC4700E5555B /* Layout */,
+				5A93CF881FE293C5009E9C5A /* View */,
+				5A93CF831FE29026009E9C5A /* QJRankingViewController.h */,
+				5A93CF841FE29026009E9C5A /* QJRankingViewController.m */,
+				5A93CF851FE29026009E9C5A /* QJRankingViewController.xib */,
+			);
+			name = "排名";
+			sourceTree = "<group>";
+		};
+		5A93CF881FE293C5009E9C5A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A93CF891FE29426009E9C5A /* QJRankingInfoCell.h */,
+				5A93CF8A1FE29426009E9C5A /* QJRankingInfoCell.m */,
+				5A93CF8B1FE29426009E9C5A /* QJRankingInfoCell.xib */,
+				5A4D642F1FE3512F00E5555B /* QJRankingHeadInfoCell.h */,
+				5A4D64301FE3512F00E5555B /* QJRankingHeadInfoCell.m */,
+				5A4D64311FE3512F00E5555B /* QJRankingHeadInfoCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
 		};
-		5AAC5A401F319D320074DE9C /* 昨日流行画廊 */ = {
+		5A96E6CC1FD92F3C002D6B44 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5AAC5A361F3170760074DE9C /* QJSearchGalleryCell.h */,
-				5AAC5A371F3170760074DE9C /* QJSearchGalleryCell.m */,
-				5AAC5A381F3170760074DE9C /* QJSearchGalleryCell.xib */,
-				5AAC5A3B1F3171B30074DE9C /* QJSearchGalleryThumbCell.h */,
-				5AAC5A3C1F3171B30074DE9C /* QJSearchGalleryThumbCell.m */,
-				5AAC5A3D1F3171B30074DE9C /* QJSearchGalleryThumbCell.xib */,
+				5A96E6CD1FD9325A002D6B44 /* QJMangaBrowerManager.h */,
+				5A96E6CE1FD9325A002D6B44 /* QJMangaBrowerManager.m */,
+				5A96E6D01FD94227002D6B44 /* QJMangaURLSession.h */,
+				5A96E6D11FD94227002D6B44 /* QJMangaURLSession.m */,
 			);
-			name = "昨日流行画廊";
-			sourceTree = "<group>";
-		};
-		5AAC5A411F319D4A0074DE9C /* 相关标签 */ = {
-			isa = PBXGroup;
-			children = (
-				5A6F94851F2F02BD0085F0EE /* QJSearchTagCell.h */,
-				5A6F94861F2F02BD0085F0EE /* QJSearchTagCell.m */,
-				5A6F94871F2F02BD0085F0EE /* QJSearchTagCell.xib */,
-			);
-			name = "相关标签";
-			sourceTree = "<group>";
-		};
-		5AAC5A421F319F660074DE9C /* 活跃上传者 */ = {
-			isa = PBXGroup;
-			children = (
-				5AAC5A431F31A08A0074DE9C /* QJSearchUploaderCell.h */,
-				5AAC5A441F31A08A0074DE9C /* QJSearchUploaderCell.m */,
-				5AAC5A451F31A08A0074DE9C /* QJSearchUploaderCell.xib */,
-			);
-			name = "活跃上传者";
-			sourceTree = "<group>";
-		};
-		5AAC5A481F31A19D0074DE9C /* 标签排列 */ = {
-			isa = PBXGroup;
-			children = (
-				5AAC5A491F31A2250074DE9C /* QJLabelView.h */,
-				5AAC5A4A1F31A2250074DE9C /* QJLabelView.m */,
-			);
-			name = "标签排列";
+			name = Model;
 			sourceTree = "<group>";
 		};
 		5AB0863E1F58EC4900FF39DC /* 高级设置 */ = {
@@ -1148,13 +1039,6 @@
 			name = NJKWebViewProgress;
 			sourceTree = "<group>";
 		};
-		5AECCE951F6CCE6B008388B4 /* UserDefalut */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = UserDefalut;
-			sourceTree = "<group>";
-		};
 		5AEE63251F6A127B00A558FD /* Toast */ = {
 			isa = PBXGroup;
 			children = (
@@ -1173,6 +1057,17 @@
 				5AF72BC51F443ED100C226F1 /* QJSettingWatchSettingController.m */,
 			);
 			name = "浏览设置";
+			sourceTree = "<group>";
+		};
+		5AFDE4081FD7EBE3008733B7 /* NewBrower */ = {
+			isa = PBXGroup;
+			children = (
+				5A96E6CC1FD92F3C002D6B44 /* Model */,
+				5A96E6C71FD92EA9002D6B44 /* QJNewBrowerViewController.h */,
+				5A96E6C81FD92EA9002D6B44 /* QJNewBrowerViewController.m */,
+				5A96E6C91FD92EA9002D6B44 /* QJNewBrowerViewController.xib */,
+			);
+			name = NewBrower;
 			sourceTree = "<group>";
 		};
 		B443D317642A800697D35BDA /* Pods */ = {
@@ -1251,43 +1146,33 @@
 				5A6F94691F2EB8A50085F0EE /* EhTag_CN.json in Resources */,
 				5AFC6BBC1FC6E6BB003552E1 /* QJNewCommentCell.xib in Resources */,
 				5A89EAD71EDF1A1500DA434F /* QJCommentCell.xib in Resources */,
-				5A7D08411F25C4FD001B81D7 /* QJScrollHeadView.xib in Resources */,
-				5AAC5A3A1F3170760074DE9C /* QJSearchGalleryCell.xib in Resources */,
-				5AAC5A471F31A08B0074DE9C /* QJSearchUploaderCell.xib in Resources */,
+				5A93CF8D1FE29426009E9C5A /* QJRankingInfoCell.xib in Resources */,
 				5ABA40EE1ED4326B00B21707 /* QJWebViewController.xib in Resources */,
-				5AA0DDEC1F2B1A4B00ED3020 /* QJFavSelectedCell.xib in Resources */,
-				5A0A1F391EDFBFCC002C8AF8 /* QJInfoBaseCell.xib in Resources */,
-				5A6ECCA51EDE94EE00DBF9DA /* QJInfoTagCell.xib in Resources */,
-				5A6ECCAB1EDE975F00DBF9DA /* QJInfoOtherCell.xib in Resources */,
 				5A82B5E31F5403320005B6B8 /* QJSettingModel.plist in Resources */,
 				5A90DADF1ECC3D3F00575145 /* LaunchScreen.storyboard in Resources */,
+				5A4D64391FE3934600E5555B /* QJLikeSearchBar.xib in Resources */,
 				5A8D333F1ED28EBD009567C2 /* QJSettingLoginCell.xib in Resources */,
 				5A8D33441ED2928D009567C2 /* QJLoginViewController.xib in Resources */,
+				5A93CF871FE29026009E9C5A /* QJRankingViewController.xib in Resources */,
 				5A6ECC991EDE771C00DBF9DA /* QJImageCollectionViewCell.xib in Resources */,
-				5AA0DDF11F2B248600ED3020 /* QJFavSelectViewController.xib in Resources */,
 				5A34DBA61FC26011007B0A5F /* QJNewInfoViewController.xib in Resources */,
 				5A56B69D1F57B37800F30BD5 /* QJLanguageOutHeadView.xib in Resources */,
 				5A57E0461F4EC4310033663B /* QJSettingListCell.xib in Resources */,
 				5A2F79671ECD945100745DA0 /* QJSearchClassifyCell.xib in Resources */,
 				5A56B6981F57AEAC00F30BD5 /* QJLanguageOutCell.xib in Resources */,
-				5A0A1F491EE00C53002C8AF8 /* QJSecondCell.xib in Resources */,
 				5A2F795B1ECD8C7A00745DA0 /* QJSearchSoreCell.xib in Resources */,
-				5A6ECC8D1EDE505400DBF9DA /* QJInfoViewController.xib in Resources */,
-				5A39B7F01EEE705400FC8DC6 /* QJGoStarController.xib in Resources */,
+				5A4D64331FE3512F00E5555B /* QJRankingHeadInfoCell.xib in Resources */,
 				5A0A1F561EE03B5E002C8AF8 /* QJMangaViewController.xib in Resources */,
-				5A0A1F431EE009EB002C8AF8 /* QJStarViewCell.xib in Resources */,
 				5A6E60D31F5514230097C5B3 /* QJSettingInfo.xib in Resources */,
-				5A0845221F4283B400085578 /* QJSearchHeadView.xib in Resources */,
-				5A6F94891F2F02BD0085F0EE /* QJSearchTagCell.xib in Resources */,
-				5AAC5A3F1F3171B30074DE9C /* QJSearchGalleryThumbCell.xib in Resources */,
 				5A90DADC1ECC3D3F00575145 /* Assets.xcassets in Resources */,
 				5A0780BE1ECEE9C900EF00E6 /* QJListCell.xib in Resources */,
-				5A6ECC941EDE6CFE00DBF9DA /* QJInfoThumbCell.xib in Resources */,
 				5A8AEA351EF3BAED007E5EEE /* QJFavouriteViewController.xib in Resources */,
 				5A3FBC7E1EEA488200373F36 /* QJTorrentInfoCell.xib in Resources */,
 				5A1F18F91FAFF4F3009E7B89 /* QJSearchBar.xib in Resources */,
+				5A96E6CB1FD92EA9002D6B44 /* QJNewBrowerViewController.xib in Resources */,
 				5A90DADA1ECC3D3F00575145 /* Main.storyboard in Resources */,
 				5A958CB11EF11DC400AF3D68 /* QJGoCommentController.xib in Resources */,
+				5A48AF2F1FDFC60F00E9F35B /* QJFavoritesSelectCell.xib in Resources */,
 				5A1999D21ED6A78800DB6B9D /* QJTouchIDViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1353,86 +1238,79 @@
 				5A90DAEF1ECC4DC000575145 /* QJHotAndLikeViewController.m in Sources */,
 				5A1F18F71FAFF4E7009E7B89 /* QJSearchBar.m in Sources */,
 				5A8D333E1ED28EBD009567C2 /* QJSettingLoginCell.m in Sources */,
-				5AA0DDF01F2B248600ED3020 /* QJFavSelectViewController.m in Sources */,
 				5A1999D11ED6A78800DB6B9D /* QJTouchIDViewController.m in Sources */,
 				5A2F79471ECD787500745DA0 /* QJHomeViewController.m in Sources */,
+				5A93CF861FE29026009E9C5A /* QJRankingViewController.m in Sources */,
 				5A2F795A1ECD8C7A00745DA0 /* QJSearchSoreCell.m in Sources */,
 				5AAC5A351F315B560074DE9C /* QJToplistUploaderItem.m in Sources */,
+				5A93CF8C1FE29426009E9C5A /* QJRankingInfoCell.m in Sources */,
 				5A0A1F5D1EE03B6B002C8AF8 /* QJMangaItem.m in Sources */,
-				5AA0DDEB1F2B1A4B00ED3020 /* QJFavSelectedCell.m in Sources */,
 				5ABA40F51ED4388100B21707 /* NJKWebViewProgress.m in Sources */,
-				5A0A1F421EE009EB002C8AF8 /* QJStarViewCell.m in Sources */,
 				5A57E0451F4EC4310033663B /* QJSettingListCell.m in Sources */,
 				5A56B6681F57970D00F30BD5 /* QJLanguageOutViewController.m in Sources */,
 				5A1999C21ED6891100DB6B9D /* QJListTableView.m in Sources */,
 				5ACA2B671F2867BE003DF3D0 /* QJTableViewCell.m in Sources */,
 				5A3977421EF75B18009A2273 /* QJTabBarController.m in Sources */,
+				5A96E6CF1FD9325A002D6B44 /* QJMangaBrowerManager.m in Sources */,
 				5A6F946D1F2EBC4C0085F0EE /* QJSearchViewController.m in Sources */,
 				5A34889F1FD07CE000134B1D /* QJLikeButton.m in Sources */,
 				5ABA40ED1ED4326B00B21707 /* QJWebViewController.m in Sources */,
 				5A0780B81ECE8A5600EF00E6 /* QJListItem.m in Sources */,
 				5AA0DDE31F2AD0C600ED3020 /* QJScrollView.m in Sources */,
-				5A39B7EF1EEE705400FC8DC6 /* QJGoStarController.m in Sources */,
-				5A0845211F4283B400085578 /* QJSearchHeadView.m in Sources */,
-				5A6ECC931EDE6CFE00DBF9DA /* QJInfoThumbCell.m in Sources */,
 				5A3FBC781EEA47B800373F36 /* QJTorrentInfoController.m in Sources */,
 				5A90DAD41ECC3D3F00575145 /* AppDelegate.m in Sources */,
 				5A23B3671FCFE64C0053C003 /* QJTipViewController.m in Sources */,
+				5A48AF291FDFC42700E9F35B /* QJFavoritesSelectController.m in Sources */,
 				5AFC6BBB1FC6E6BB003552E1 /* QJNewCommentCell.m in Sources */,
-				5A6ECCAA1EDE975F00DBF9DA /* QJInfoOtherCell.m in Sources */,
 				5A0A1F371EDFB7C3002C8AF8 /* QJTagView.m in Sources */,
-				5A7D083F1F25C3B4001B81D7 /* QJScrollHeadView.m in Sources */,
-				5A0A1F481EE00C53002C8AF8 /* QJSecondCell.m in Sources */,
 				5A56B6971F57AEAC00F30BD5 /* QJLanguageOutCell.m in Sources */,
 				5A25A2371EE2F8EE00A62DCF /* QJBigImageItem.m in Sources */,
 				5A8A11DE1EE8DF81001D9444 /* QJMangaTorrentActivity.m in Sources */,
 				5A0780A51ECE822100EF00E6 /* XPathQuery.m in Sources */,
 				5A2F79661ECD945100745DA0 /* QJSearchClassifyCell.m in Sources */,
 				5A0780A41ECE822100EF00E6 /* TFHppleElement.m in Sources */,
-				5AAC5A461F31A08B0074DE9C /* QJSearchUploaderCell.m in Sources */,
-				5AAC5A4B1F31A2250074DE9C /* QJLabelView.m in Sources */,
 				5A86C3201ED1608B00A8CD80 /* XHStarRateView.m in Sources */,
 				5A8D333A1ED28B10009567C2 /* QJSettingViewController.m in Sources */,
+				5A4D643D1FE3ADB500E5555B /* QJCollectionViewFlowLayout.m in Sources */,
 				5A07809B1ECE804200EF00E6 /* QJHenTaiParser.m in Sources */,
 				5A6F94701F2EC6A90085F0EE /* EhCoreData.xcdatamodeld in Sources */,
 				5A2F792F1ECD2CB900745DA0 /* QJViewController.m in Sources */,
 				5A372D1E1FCAFD1B005CEBB8 /* UITextView+Addition.m in Sources */,
 				5A8AEA341EF3BAED007E5EEE /* QJFavouriteViewController.m in Sources */,
 				5A0A1F3D1EDFDE49002C8AF8 /* QJOtherListController.m in Sources */,
-				5A6ECC9E1EDE909200DBF9DA /* QJInfoBaseCell.m in Sources */,
 				5A6ECC981EDE771C00DBF9DA /* QJImageCollectionViewCell.m in Sources */,
 				5A0A1F5C1EE03B6B002C8AF8 /* QJMangaFlowLayout.m in Sources */,
 				5A6F94831F2ECA000085F0EE /* Tag+CoreDataProperties.m in Sources */,
 				5A0780BD1ECEE9C900EF00E6 /* QJListCell.m in Sources */,
 				5A0A1F4F1EE0146E002C8AF8 /* QJGoCommentController.m in Sources */,
+				5A96E6CA1FD92EA9002D6B44 /* QJNewBrowerViewController.m in Sources */,
 				5ABA40F21ED4386400B21707 /* NJKWebViewProgressView.m in Sources */,
 				5A1EE0D61FB3E0F000AA3DE4 /* QJButton.m in Sources */,
-				5A6ECCA41EDE94EE00DBF9DA /* QJInfoTagCell.m in Sources */,
 				5A0245041ED7C55C00C3FE26 /* NSString+StringHeight.m in Sources */,
+				5A4D64321FE3512F00E5555B /* QJRankingHeadInfoCell.m in Sources */,
 				5A842FDD1FC7AC260069AD4C /* QJAllCommentController.m in Sources */,
-				5A6ECC8C1EDE505400DBF9DA /* QJInfoViewController.m in Sources */,
 				5A90DAD11ECC3D3F00575145 /* main.m in Sources */,
 				5A41BFB01ED529690073659B /* Reachability.m in Sources */,
 				5A82B5E11F5403100005B6B8 /* QJSettingModel.m in Sources */,
 				5A0780A31ECE822100EF00E6 /* TFHpple.m in Sources */,
 				5A8EC0781F7263FB005C0DF5 /* QJNowViewController.m in Sources */,
-				5AAC5A391F3170760074DE9C /* QJSearchGalleryCell.m in Sources */,
 				5A8D33431ED2928D009567C2 /* QJLoginViewController.m in Sources */,
 				5A86C3241ED1A07300A8CD80 /* QJGlobalInfo.m in Sources */,
 				5AB595051EEE28CB005D7CF3 /* QJHeadFreshingView.m in Sources */,
 				5A6ECCAE1EDE9D8B00DBF9DA /* QJGalleryItem.m in Sources */,
 				5A89EAD61EDF1A1500DA434F /* QJCommentCell.m in Sources */,
+				5A48AF2E1FDFC60F00E9F35B /* QJFavoritesSelectCell.m in Sources */,
 				5A56B69C1F57B37800F30BD5 /* QJLanguageOutHeadView.m in Sources */,
 				5A3FBC811EEA6E3C00373F36 /* QJTorrentItem.m in Sources */,
-				5AAC5A3E1F3171B30074DE9C /* QJSearchGalleryThumbCell.m in Sources */,
 				5A34DBA51FC26011007B0A5F /* QJNewInfoViewController.m in Sources */,
-				5A6F94881F2F02BD0085F0EE /* QJSearchTagCell.m in Sources */,
 				5A3FBC7D1EEA488200373F36 /* QJTorrentInfoCell.m in Sources */,
+				5A96E6D21FD94227002D6B44 /* QJMangaURLSession.m in Sources */,
 				5AF72BC61F443ED100C226F1 /* QJSettingWatchSettingController.m in Sources */,
 				5A0A1F551EE03B5E002C8AF8 /* QJMangaViewController.m in Sources */,
 				5A6F94821F2ECA000085F0EE /* Tag+CoreDataClass.m in Sources */,
 				5A1999C61ED68C9800DB6B9D /* QJProtectTool.m in Sources */,
 				5AB086421F58EC9F00FF39DC /* QJSettingHightOtherController.m in Sources */,
+				5A4D64371FE3933500E5555B /* QJLikeSearchBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

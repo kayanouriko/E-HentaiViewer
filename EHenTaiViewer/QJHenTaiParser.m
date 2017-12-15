@@ -254,14 +254,6 @@
 }
 
 - (void)requestListInfo:(NSString *)url searchRule:(NSString *)searchRule complete:(ListHandler)completion {
-    /*
-    //对网络做处理
-    BOOL canWatch = [NSObjForKey(@"WatchMode") boolValue];
-    if (!canWatch && [[QJNetworkTool shareTool] isEnableMobleNetwork]) {
-        return;
-    }
-     */
-    //正常的处理流程
     NetworkShow();
     NSString *finalUrl = @"";
     if (url) {
@@ -300,6 +292,10 @@
             return;
         }
         TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
+        if ([finalUrl containsString:@"favorites"]) {
+            //这时候解析收藏夹
+            [self parserFavoritesInfoWithHpple:xpathParser];
+        }
         //NSLog(@"%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
         NSArray *photoURL = [xpathParser searchWithXPathQuery:searchRule];
         if (photoURL.count) {
@@ -361,6 +357,30 @@
     [task resume];
 }
 
+#pragma mark -收藏夹名字的爬取
+- (void)parserFavoritesInfoWithHpple:(TFHpple *)xpathParser {
+    NSMutableArray *favorites = [NSMutableArray new];
+    TFHppleElement *facatsElement = [xpathParser searchWithXPathQuery:@"//div[@class='nosel']"].firstObject;
+    NSArray *facats = facatsElement.children;
+    NSInteger total = 0;
+    for (TFHppleElement *facatElement in facats) {
+        NSArray<TFHppleElement *> *divs = [facatElement searchWithXPathQuery:@"//div"];
+        if (divs.count >= 3) {
+            //收藏夹名字,收藏数
+            NSMutableArray *subArr = [NSMutableArray new];
+            [subArr addObject:divs.lastObject.text];
+            NSString *count = divs[1].text;
+            [subArr addObject:count];
+            total += [count integerValue];
+            [favorites addObject:subArr];
+        }
+    }
+    //最后加入全部收藏夹的信息
+    [favorites addObject:@[@"All Favorites", [NSString stringWithFormat:@"%ld",(long)total]]];
+    NSObjSetForKey(@"favorites", favorites);
+    NSObjSynchronize();
+}
+
 #pragma mark -toplist爬取
 - (void)updateToplistInfoComplete:(ToplistHandler)completion {
     NetworkShow();
@@ -379,7 +399,7 @@
         TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
         //这里都是取昨天top,后面看如何设置比较好
         //遍历获取上传者
-        NSArray *uploaderURL = [xpathParser searchWithXPathQuery:@"//div[@class='ido']/div[2]//div[@class='tdo'][4]//table//a"];
+        NSArray *uploaderURL = [xpathParser searchWithXPathQuery:@"//div[@class='ido']/div[2]//div[@class='tdo']//table//a"];
         NSMutableArray *upladers = [NSMutableArray new];
         for (TFHppleElement *uploaderWithURL in uploaderURL) {
             QJToplistUploaderItem *item = [QJToplistUploaderItem new];
@@ -388,32 +408,56 @@
             [upladers addObject:item];
         }
         //遍历获取画廊
-        NSArray *photoURL = [xpathParser searchWithXPathQuery:@"//div[@class='dc']//div[@class='tdo'][4]//table//a"];
-        //NSLog(@"%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
+        NSArray *photoURL = [xpathParser searchWithXPathQuery:@"//div[@class='dc']//div[@class='tdo']//table//a"];
         if (photoURL.count) {
             NSMutableArray *urlStringArray = [NSMutableArray array];
-            for (TFHppleElement * eachTitleWithURL in photoURL) {
-                [urlStringArray addObject:[eachTitleWithURL attributes][@"href"]];
+            NSMutableArray *subUrlSringArray = [NSMutableArray new];
+            for (NSInteger i = 0; i < photoURL.count; i++) {
+                TFHppleElement * eachTitleWithURL = photoURL[i];
+                if (subUrlSringArray.count == 25) {
+                    [urlStringArray addObject:[subUrlSringArray mutableCopy]];
+                    [subUrlSringArray removeAllObjects];
+                }
+                [subUrlSringArray addObject:[eachTitleWithURL attributes][@"href"]];
+                if (i == photoURL.count - 1) {
+                    [urlStringArray addObject:[subUrlSringArray mutableCopy]];
+                }
             }
-            [self requestListInfoFromApi:urlStringArray complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
-                if (status == QJHenTaiParserStatusSuccess) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(status,listArray,upladers);
-                    });
-                }
-                else if (status == QJHenTaiParserStatusParseFail) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        Toast(@"解析错误,等待升级版本");
-                        completion(QJHenTaiParserStatusParseFail,nil,nil);
-                    });
-                }
-                else if (status == QJHenTaiParserStatusNetworkFail) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        Toast(@"网络错误");
-                        completion(QJHenTaiParserStatusNetworkFail,nil,nil);
-                    });
-                }
-            }];
+            //计数超过25会请求不到,要把接口拆分来获取参数
+            NSMutableArray *allList = [NSMutableArray new];
+            for (NSInteger i = 0; i < photoURL.count; i++) {
+                [allList addObject:@""];
+            }
+            NSInteger count = urlStringArray.count;
+            __block NSInteger weakCount = count;
+            for (NSInteger i = 0; i < urlStringArray.count; i++) {
+                NSArray *subArr = urlStringArray[i];
+                [self requestListInfoFromApi:subArr complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
+                    if (status == QJHenTaiParserStatusSuccess) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            for (NSInteger j = 25 * i; j < subArr.count + 25 * i; j++) {
+                                allList[j] = listArray[j - 25 * i];
+                            }
+                            weakCount--;
+                            if (weakCount == 0) {
+                                completion(QJHenTaiParserStatusSuccess,allList, upladers);
+                            }
+                        });
+                    }
+                    else if (status == QJHenTaiParserStatusParseFail) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            Toast(@"解析错误,等待升级版本");
+                            completion(QJHenTaiParserStatusParseFail,nil, nil);
+                        });
+                    }
+                    else if (status == QJHenTaiParserStatusNetworkFail) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            Toast(@"网络错误");
+                            completion(QJHenTaiParserStatusNetworkFail,nil, nil);
+                        });
+                    }
+                }];
+            }
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"解析错误,等待升级版本");

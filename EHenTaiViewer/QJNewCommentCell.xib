@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ds-KW-WeO">
-                        <rect key="frame" x="10" y="10" width="344" height="133"/>
+                        <rect key="frame" x="0.0" y="10" width="364" height="133"/>
                         <subviews>
                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRR-Aq-ah3">
                                 <rect key="frame" x="15" y="15" width="47" height="20"/>
@@ -33,20 +33,20 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vja-kS-cYR">
-                                <rect key="frame" x="296" y="17" width="33" height="16"/>
+                                <rect key="frame" x="316" y="17" width="33" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本我是测试文本" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="W9E-R3-QJX">
-                                <rect key="frame" x="10" y="35" width="324" height="68"/>
+                                <rect key="frame" x="10" y="35" width="344" height="68"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0s-d2-rLv">
-                                <rect key="frame" x="15" y="103" width="314" height="20"/>
+                                <rect key="frame" x="15" y="103" width="334" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="n2P-Jb-dZ8"/>
                                 </constraints>
@@ -55,7 +55,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yva-An-63M">
-                                <rect key="frame" x="287" y="76" width="42" height="18"/>
+                                <rect key="frame" x="307" y="76" width="42" height="18"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="H6b-03-3aZ"/>
@@ -89,10 +89,10 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="3ds-KW-WeO" secondAttribute="trailing" constant="10" id="TUa-aR-cpk"/>
+                <constraint firstAttribute="trailing" secondItem="3ds-KW-WeO" secondAttribute="trailing" id="TUa-aR-cpk"/>
                 <constraint firstAttribute="bottom" secondItem="3ds-KW-WeO" secondAttribute="bottom" constant="10" id="cuT-lj-fvo"/>
                 <constraint firstItem="3ds-KW-WeO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="fdf-eT-ba6"/>
-                <constraint firstItem="3ds-KW-WeO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="peq-M3-XhL"/>
+                <constraint firstItem="3ds-KW-WeO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="peq-M3-XhL"/>
             </constraints>
             <size key="customSize" width="364" height="153"/>
             <connections>

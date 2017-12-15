@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="QJRankingInfoCell">
+            <rect key="frame" x="0.0" y="0.0" width="329" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="329" height="90"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumb" translatesAutoresizingMaskIntoConstraints="NO" id="o3m-om-qyl">
+                        <rect key="frame" x="0.0" y="12.5" width="65" height="65"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="o3m-om-qyl" secondAttribute="height" multiplier="1:1" id="ce2-WA-uXi"/>
+                            <constraint firstAttribute="width" constant="65" id="iCM-oQ-F9f"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(C83) [Su-mi-tan (Satou Kibi)] Futari de Yukidaruma wo Tsukurou!! (Touhou Project) [Chinese] [诱骗者迪卡伊个人汉化]" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1c-hM-P3U">
+                        <rect key="frame" x="75" y="12.5" width="254" height="38.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" DOUJINSHI " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30P-X4-5c4">
+                        <rect key="frame" x="75" y="57.5" width="82.5" height="20"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="3ZZ-9v-ZaP">
+                                <variation key="widthClass=compact" constant="20"/>
+                            </constraint>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3ZZ-9v-ZaP"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="3ZZ-9v-ZaP"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMu-j1-Ewd">
+                        <rect key="frame" x="309.5" y="58.5" width="19.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNc-ll-IcX" userLabel="分割线">
+                        <rect key="frame" x="75" y="89.5" width="254" height="0.5"/>
+                        <color key="backgroundColor" white="0.75692708340000003" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="iV7-jw-veH"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="o3m-om-qyl" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="8Ri-0G-yOt"/>
+                <constraint firstAttribute="trailing" secondItem="mMu-j1-Ewd" secondAttribute="trailing" id="BLm-xy-dYi"/>
+                <constraint firstItem="K1c-hM-P3U" firstAttribute="top" secondItem="o3m-om-qyl" secondAttribute="top" id="aE2-Rh-7Bb"/>
+                <constraint firstAttribute="bottom" secondItem="KNc-ll-IcX" secondAttribute="bottom" id="bNk-uc-cso"/>
+                <constraint firstItem="mMu-j1-Ewd" firstAttribute="centerY" secondItem="30P-X4-5c4" secondAttribute="centerY" id="fDa-d0-Y2K"/>
+                <constraint firstAttribute="trailing" secondItem="KNc-ll-IcX" secondAttribute="trailing" id="kWJ-9G-i6i"/>
+                <constraint firstItem="30P-X4-5c4" firstAttribute="bottom" secondItem="o3m-om-qyl" secondAttribute="bottom" id="pDb-5A-QWP"/>
+                <constraint firstItem="30P-X4-5c4" firstAttribute="leading" secondItem="o3m-om-qyl" secondAttribute="trailing" constant="10" id="qc2-AH-x42"/>
+                <constraint firstAttribute="trailing" secondItem="K1c-hM-P3U" secondAttribute="trailing" id="rEX-p0-bLD"/>
+                <constraint firstItem="30P-X4-5c4" firstAttribute="leading" secondItem="KNc-ll-IcX" secondAttribute="leading" id="s7P-EL-dAo"/>
+                <constraint firstItem="mMu-j1-Ewd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="30P-X4-5c4" secondAttribute="trailing" constant="10" id="sLp-cC-aWR"/>
+                <constraint firstItem="o3m-om-qyl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vV3-jX-S3F"/>
+                <constraint firstItem="K1c-hM-P3U" firstAttribute="leading" secondItem="o3m-om-qyl" secondAttribute="trailing" constant="10" id="wdf-kU-gzZ"/>
+            </constraints>
+            <size key="customSize" width="329" height="90"/>
+            <connections>
+                <outlet property="catgoryLabel" destination="30P-X4-5c4" id="2UT-Km-DJ1"/>
+                <outlet property="langueLabel" destination="mMu-j1-Ewd" id="fTK-pJ-eyp"/>
+                <outlet property="leftImageView" destination="o3m-om-qyl" id="bB5-Pu-yRk"/>
+                <outlet property="titleNameLabel" destination="K1c-hM-P3U" id="Fy8-Ul-0RP"/>
+                <outlet property="underLine" destination="KNc-ll-IcX" id="LFL-Xq-pUb"/>
+            </connections>
+            <point key="canvasLocation" x="-127.5" y="-7"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="thumb" width="100" height="138"/>
+    </resources>
+</document>

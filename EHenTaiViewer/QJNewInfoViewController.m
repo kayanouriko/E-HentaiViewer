@@ -17,6 +17,7 @@
 #import "QJNetworkTool.h"
 #import "NSString+StringHeight.h"
 #import "QJLikeButton.h"
+#import "QJCollectionViewFlowLayout.h"
 
 #import "QJTorrentInfoController.h"
 #import "QJMangaViewController.h"
@@ -64,6 +65,7 @@
 
 //评论及评分
 @property (weak, nonatomic) IBOutlet XHStarRateView *commentStarView;
+@property (weak, nonatomic) IBOutlet UILabel *commentTipLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *commentCollectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentCollectionViewHeightLine;
 
@@ -174,10 +176,9 @@
     self.commentCollectionView.delegate = self;
     self.commentCollectionView.dataSource = self;
     
-    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;//设置水平滚动
-    layout.minimumLineSpacing = 0;
-    
+    QJCollectionViewFlowLayout *layout = [QJCollectionViewFlowLayout new];
+    self.commentCollectionView.contentInset = UIEdgeInsetsMake(0, 30, 0, 30);
+    self.commentCollectionView.decelerationRate = UIScrollViewDecelerationRateFast;
     self.commentCollectionView.collectionViewLayout = layout;
     self.commentCollectionView.backgroundColor = [UIColor clearColor];
     [self.commentCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QJNewCommentCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([QJNewCommentCell class])];
@@ -224,9 +225,11 @@
                 self.commentCollectionViewHeightLine.constant = 31.f;
                 self.commentCollectionView.hidden = YES;
             }
+            else {
+                self.commentTipLabel.hidden = YES;
+            }
             //信息部分
             [self reloadBaseInfoWithDict:item.baseInfoDic];
-            
             //改变收藏按钮
             [self changeFavoritesStatus];
             
@@ -391,7 +394,7 @@
         CGFloat width = UIScreenWidth() / 2.f > 240 ? 240 : UIScreenWidth() / 2.f;
         return CGSizeMake(width , width * 4 / 3);
     } else {
-        return CGSizeMake(UIScreenWidth() , collectionView.frame.size.height);
+        return CGSizeMake(UIScreenWidth() - 30 - 30 , collectionView.frame.size.height);
     }
 }
 
@@ -500,7 +503,7 @@
         //收藏,跳转收藏界面
         QJFavouriteViewController *vc = [QJFavouriteViewController new];
         vc.delegate = self;
-        [self presentViewController:vc animated:YES completion:nil];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

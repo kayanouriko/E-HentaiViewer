@@ -47,11 +47,13 @@
         [self.tipVC willMoveToParentViewController:nil];
         [self.tipVC.view removeFromSuperview];
         [self.tipVC removeFromParentViewController];
+        self.tipVC = nil;
     }];
 }
 
 - (void)showErrorViewWithTip:(NSString *)tip {
-    [self.tipVC stopAnimateWithTip:nil];
+    _isRefreshing = NO;
+    [self.tipVC stopAnimateWithTip:tip];
 }
 
 #pragma mark -getter

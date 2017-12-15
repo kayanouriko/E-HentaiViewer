@@ -33,27 +33,27 @@
     //解决iOS遗留bug,导航栏push或者pop存在黑块问题
     self.window.backgroundColor = [UIColor whiteColor];
     //判断全局的版块变量,确保初始化必须有值,默认表站
-    if (!NSObjForKey(@"ExHentaiStatus")) {
+    if (nil == NSObjForKey(@"ExHentaiStatus")) {
         NSObjSetForKey(@"ExHentaiStatus", @(NO));
         NSObjSynchronize();
     }
     //观看模块
-    if (!NSObjForKey(@"WatchMode")) {
+    if (nil == NSObjForKey(@"WatchMode")) {
         NSObjSetForKey(@"WatchMode", @(YES));
         NSObjSynchronize();
     }
     //保护模块,默认不开启
-    if (!NSObjForKey(@"ProtectMode")) {
+    if (nil == NSObjForKey(@"ProtectMode")) {
         NSObjSetForKey(@"ProtectMode", @(NO));
         NSObjSynchronize();
     }
     //中文化模块,默认不开启
-    if (!NSObjForKey(@"TagCnMode")) {
-        NSObjSetForKey(@"ProtectMode", @(NO));
+    if (nil == NSObjForKey(@"TagCnMode")) {
+        NSObjSetForKey(@"TagCnMode", @(NO));
         NSObjSynchronize();
     }
     //日语标题,默认英文标题
-    if (!NSObjForKey(@"TitleJnMode")) {
+    if (nil == NSObjForKey(@"TitleJnMode")) {
         NSObjSetForKey(@"TitleJnMode", @(NO));
         NSObjSynchronize();
     }
@@ -68,13 +68,11 @@
 
 - (void)setCoreData {
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Model.sqlite"];
-    /*
-    Tag *tag = (Tag *)[Tag MR_findFirst];
+    Tag *tag = [Tag MR_findFirst];
     if (nil == tag) {
         NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(saveAllTags) object:nil];
         [thread start];
     }
-     */
 }
 
 - (void)saveAllTags {
@@ -101,7 +99,7 @@
             }
         }
     }
-    [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
