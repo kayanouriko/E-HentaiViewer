@@ -9,7 +9,9 @@
 #import "QJNetworkTool.h"
 #import "Reachability.h"
 
-@interface QJNetworkTool ()
+@interface QJNetworkTool () {
+    long long _aboveBytes;
+}
 
 @property (nonatomic) Reachability *internetReachability;
 

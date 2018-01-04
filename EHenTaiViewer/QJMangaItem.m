@@ -14,9 +14,11 @@
 @interface QJMangaItem ()<UIScrollViewDelegate,WKNavigationDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIActivityIndicatorView *activity;
+@property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIProgressView *progress;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGes;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGes1;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longGes;
 @property (nonatomic, strong) QJBigImageItem *item;
 
@@ -43,11 +45,13 @@
 
 - (void)customInit {
     [self addSubview:self.webView];
+    [self addSubview:self.bgView];
     [self addSubview:self.progress];
     [self addSubview:self.activity];
 }
 
 - (void)refreshItem:(QJBigImageItem *)item {
+    self.bgView.alpha = 1;
     [self.activity startAnimating];
     self.item = item;
     [item getReallyImageUrl:^(NSString *url) {
@@ -111,11 +115,18 @@
 
 #pragma mark -WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
-    [self.activity stopAnimating];
+    [self hiddenSomething];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    [self hiddenSomething];
+}
+
+- (void)hiddenSomething {
     [self.activity stopAnimating];
+    [UIView animateWithDuration:0.5f animations:^{
+        self.bgView.alpha = 0;
+    }];
 }
 
 #pragma mark -懒加载
@@ -180,6 +191,14 @@
         _tapGes.delegate = self;
     }
     return _tapGes;
+}
+
+- (UITapGestureRecognizer *)tapGes1 {
+    if (!_tapGes1) {
+        _tapGes1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureAction:)];
+        _tapGes1.delegate = self;
+    }
+    return _tapGes1;
 }
 
 - (UILongPressGestureRecognizer *)longGes {
@@ -258,6 +277,16 @@
         _activity.hidesWhenStopped = YES;
     }
     return _activity;
+}
+
+- (UIView *)bgView {
+    if (nil == _bgView) {
+        _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), UIScreenHeight())];
+        _bgView.backgroundColor = [UIColor whiteColor];
+        _bgView.userInteractionEnabled = YES;
+        [_bgView addGestureRecognizer:self.tapGes1];
+    }
+    return _bgView;
 }
 
 - (void)dealloc {

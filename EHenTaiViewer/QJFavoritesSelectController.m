@@ -61,7 +61,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(didSelectFavFolderNameWithArr:index:)]) {
-        [self.delegate didSelectFavFolderNameWithArr:self.datas[indexPath.row] index:indexPath.row == self.datas.count - 1 ? -1 : indexPath.row];
+        [self.delegate didSelectFavFolderNameWithArr:self.datas[indexPath.row] index:self.isLikeVCJump && indexPath.row == self.datas.count - 1 ? -1 : indexPath.row];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

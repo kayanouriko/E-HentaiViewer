@@ -14,6 +14,9 @@
 #import "QJEnum.h"
 #import "QJLikeSearchBar.h"
 #import "NSString+StringHeight.h"
+//iconfont
+#import "TBCityIconFont.h"
+#import "UIImage+TBCityIconFont.h"
 
 #import "QJFavoritesSelectController.h"
 
@@ -22,6 +25,7 @@
 @property (nonatomic, strong) QJLikeSearchBar *searchBar;
 @property (nonatomic, strong) QJListTableView *likeTableview;
 @property (nonatomic, strong) NSMutableArray *likeDatas;
+@property (nonatomic, strong) NSMutableArray<QJListItem *> *selectDatas;
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, assign) QJFreshStatus status;
 @property (nonatomic, assign) BOOL canFreshMore;
@@ -32,6 +36,8 @@
 @property (nonatomic, strong) UIBarButtonItem *editItem;
 @property (nonatomic, strong) UIBarButtonItem *cancelItem;
 @property (nonatomic, strong) UIBarButtonItem *doneItem;
+
+@property (nonatomic, strong) NSString *ddact;//记录操作动作
 
 @end
 
@@ -118,6 +124,7 @@
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    self.status = QJFreshStatusFreshing;
     self.pageIndex = 0;
     [self updateLikeResource];
     return YES;
@@ -125,11 +132,18 @@
 
 #pragma mark -QJFavoritesSelectControllerDelegate
 - (void)didSelectFavFolderNameWithArr:(NSArray<NSString *> *)array index:(NSInteger)index {
-    self.favcat = index;
-    self.pageIndex = 0;
-    self.navigationItem.title = array.firstObject;
-    [self showFreshingViewWithTip:nil];
-    [self updateLikeResource];
+    if (self.ddact.length) {
+        //移到别处的操作
+        self.ddact = [NSString stringWithFormat:@"fav%ld", index];
+        [self didFavOrderAction];
+    } else {
+        //切换收藏夹
+        self.favcat = index;
+        self.pageIndex = 0;
+        self.navigationItem.title = array.firstObject;
+        [self showFreshingViewWithTip:nil];
+        [self updateLikeResource];
+    }
 }
 
 - (void)setContent {
@@ -138,6 +152,7 @@
     self.canFreshMore = YES;
     self.pageIndex = 0;
     self.navigationItem.title = @"All Favorites";
+    self.ddact = @"";
     
     [self.view addSubview:self.likeTableview];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_likeTableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_likeTableview)]];
@@ -156,21 +171,36 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    QJListItem *model = self.likeDatas[indexPath.row];
     if (tableView.editing) {
-        //如果是编辑状态
+        //如果是编辑状态,这里收集对应的model
+        if (![self.selectDatas containsObject:model]) {
+            [self.selectDatas addObject:model];
+        }
         return;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QJNewInfoViewController *vc = [QJNewInfoViewController new];
     vc.hidesBottomBarWhenPushed = YES;
-    vc.model = self.likeDatas[indexPath.row];
+    vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.editing) {
+        QJListItem *model = self.likeDatas[indexPath.row];
+        if ([self.selectDatas containsObject:model]) {
+            [self.selectDatas removeObject:model];
+        }
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
+/*
+ 废弃的功能
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [[QJHenTaiParser parser] updateFavoriteStatus:YES model:self.likeDatas[indexPath.row] index:0 content:@"" complete:^(QJHenTaiParserStatus status) {
         if (status == QJHenTaiParserStatusSuccess) {
@@ -184,7 +214,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"取消收藏";
 }
-
+*/
 //多选相关
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
@@ -202,7 +232,7 @@
         CGFloat totalItem = 25 * (self.pageIndex + 1);
         CGFloat newThreshold = needRead / totalItem;
         
-        if (self.status != QJFreshStatusFreshing && self.status != QJFreshStatusNotMore && self.likeDatas.count && ratio >= newThreshold) {
+        if (!self.likeTableview.isEditing && self.status != QJFreshStatusFreshing && self.status != QJFreshStatusNotMore && self.likeDatas.count && ratio >= newThreshold) {
             self.status = QJFreshStatusFreshing;
             self.pageIndex++;
             NSLog(@"Request page %ld from server.",self.pageIndex);
@@ -222,10 +252,33 @@
 
 #pragma mark -多功能操作
 - (void)selectPics {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请选择你需要的操作" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"移至别处" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.ddact = @"fav";
+        [self changeTableviewSelectMode];
+    }];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"取消收藏" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        self.ddact = @"delete";
+        [self changeTableviewSelectMode];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        self.ddact = @"";
+    }];
+    [alertController addAction:otherAction];
+    [alertController addAction:deleteAction];
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)changeTableviewSelectMode {
     if (!self.likeTableview.isEditing) {
         [self.likeTableview setEditing:YES animated:YES];
         self.navigationItem.leftBarButtonItem = self.cancelItem;
         self.navigationItem.rightBarButtonItem = self.doneItem;
+        self.searchBar.userInteractionEnabled = NO;
+        [self.selectDatas removeAllObjects];
     }
 }
 
@@ -234,27 +287,78 @@
         [self.likeTableview setEditing:NO animated:YES];
         self.navigationItem.leftBarButtonItem = self.editItem;
         self.navigationItem.rightBarButtonItem = self.bookmarksItem;
+        self.searchBar.userInteractionEnabled = YES;
+        self.ddact = @"";
     }
 }
 
 - (void)doneAction {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请选择你需要的操作" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    if ([self.ddact containsString:@"fav"]) {
+        //移到别处
+        [self moveBookToOther];
+    } else {
+        //取消收藏
+        [self deleteFromFav];
+    }
+}
+
+- (void)moveBookToOther {
+    QJFavoritesSelectController *vc = [QJFavoritesSelectController new];
+    vc.delegate = self;
+    vc.likeVCJump = NO;//作用是隐藏全部收藏的选项
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)deleteFromFav {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定从你的收藏夹中移除选中画廊?" preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"移至别处" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self didFavOrderAction];
     }];
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"取消收藏" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        NSLog(@"The \"Okay/Cancel\" alert action sheet's destructive action occured.");
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        NSLog(@"The \"Okay/Cancel\" alert action sheet's cancel action occured.");
-    }];
-    
-    [alertController addAction:otherAction];
-    [alertController addAction:deleteAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:okAction];
     [alertController addAction:cancelAction];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)didFavOrderAction {
+    //呈现刷新的提示
+    [self showFreshingViewWithTip:nil];
+    //执行操作
+    NSMutableString *url = [NSMutableString stringWithString:@"favorites.php"];
+    //添加收藏夹类型
+    if (self.favcat != -1) {
+        [url appendFormat:@"?favcat=%ld", self.favcat];
+    }
+    [[QJHenTaiParser parser] updateMutlitFavoriteWithUrl:url status:self.ddact modifygids:self.selectDatas complete:^(QJHenTaiParserStatus status) {
+        [self readyRefreshInfo];
+    }];
+    //无论成功失败都先退出多选模式
+    [self cancelAction];
+    
+    //延迟执行,因为退出多选模式也有一个动画
+    /*
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //无论怎么样,先删除对应的model
+        NSMutableArray *arrInsertRows = [NSMutableArray new];
+        //先统计要更新的row
+        for (QJListItem *model in self.selectDatas) {
+            if ([self.likeDatas containsObject:model]) {
+                NSInteger index = [self.likeDatas indexOfObject:model];
+                [arrInsertRows addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+            }
+        }
+        //后删除model
+        for (QJListItem *model in self.selectDatas) {
+            if ([self.likeDatas containsObject:model]) {
+                [self.likeDatas removeObject:model];
+            }
+        }
+        [self.likeTableview deleteRowsAtIndexPaths:arrInsertRows withRowAnimation:UITableViewRowAnimationAutomatic];
+    });
+    */
 }
 
 #pragma mark -getter
@@ -263,6 +367,12 @@
         _likeTableview = [QJListTableView new];
         _likeTableview.delegate = self;
         _likeTableview.dataSource = self;
+        if (@available(iOS 11.0, *)) {
+            
+        }
+        else {
+            _likeTableview.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        }
         [_likeTableview addSubview:self.refrshControl];
     }
     return _likeTableview;
@@ -306,30 +416,37 @@
 
 - (UIBarButtonItem *)bookmarksItem {
     if (nil == _bookmarksItem) {
-        _bookmarksItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(selectFavFolder)];
+        _bookmarksItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e660", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(selectFavFolder)];
     }
     return _bookmarksItem;
 }
 
 - (UIBarButtonItem *)editItem {
     if (nil == _editItem) {
-        _editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(selectPics)];
+        _editItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e764", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(selectPics)];
     }
     return _editItem;
 }
 
 - (UIBarButtonItem *)cancelItem {
     if (nil == _cancelItem) {
-        _cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction)];
+        _cancelItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e6b7", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
     }
     return _cancelItem;
 }
 
 - (UIBarButtonItem *)doneItem {
     if (nil == _doneItem) {
-        _doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction)];
+        _doneItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e69c", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(doneAction)];
     }
     return _doneItem;
+}
+
+- (NSMutableArray<QJListItem *> *)selectDatas {
+    if (nil == _selectDatas) {
+        _selectDatas = [NSMutableArray new];
+    }
+    return _selectDatas;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -59,6 +59,8 @@
         _tableView = [UITableView new];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.rowHeight = UITableViewAutomaticDimension;
+        _tableView.estimatedRowHeight = 60;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 15, 0);
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;

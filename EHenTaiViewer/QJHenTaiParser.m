@@ -41,7 +41,7 @@
 
 #pragma mark -登陆表单提交
 - (void)loginWithUserName:(NSString *)username password:(NSString *)password complete:(LoginHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     NSDictionary *jsonDictionary = @{
                                      @"UserName": username,
                                      @"PassWord": password,
@@ -53,7 +53,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [[self getFormStringWithDict:jsonDictionary] dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -140,7 +140,7 @@
 
 #pragma mark -收藏
 - (void)updateFavoriteStatus:(BOOL)isFavorite model:(QJListItem *)item index:(NSInteger)index content:(NSString *)content complete:(LoginHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     NSString *url = [NSString stringWithFormat:@"%@gallerypopups.php?gid=%@&t=%@&act=addfav",[NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL],item.gid ,item.token];
     NSDictionary *dict = [NSDictionary new];
     if (isFavorite) {
@@ -164,7 +164,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [[self getFormStringWithDict:dict] dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -187,11 +187,49 @@
     [task resume];
 }
 
+- (void)updateMutlitFavoriteWithUrl:(NSString *)url status:(NSString *)ddact modifygids:(NSArray *)modifygids complete:(LoginHandler)completion {
+    url = [NSString stringWithFormat:@"%@%@",[NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL], url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    request.HTTPMethod = @"POST";
+    
+    NSMutableArray *queries = [NSMutableArray array];
+    for (QJListItem *model in modifygids) {
+        [queries addObject:[NSString stringWithFormat:@"modifygids[]=%@", model.gid]];
+    }
+    NSString *body = [queries componentsJoinedByString:@"&"];
+    body = [NSString stringWithFormat:@"ddact=%@&apply=Apply&%@", ddact, body];
+    request.HTTPBody = [body dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //NetworkHidden();
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"网络错误");
+                completion(QJHenTaiParserStatusNetworkFail);
+            });
+            return;
+        }
+        NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse *)response;
+        if (urlResponse.statusCode == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"操作成功");
+                completion(QJHenTaiParserStatusSuccess);
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"操作或成功,但检测不到操作状态");
+                completion(QJHenTaiParserStatusSuccess);
+            });
+        }
+    }];
+    [task resume];
+}
+
 #pragma mark -评论
 //评论存在重定向,提交后直接拦截重定向
 //所以不能用全局的Session,用局部的新定义Session
 - (void)updateCommentWithContent:(NSString *)content url:(NSString *)url complete:(LoginHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     NSDictionary *dict = @{
                            @"commenttext":content,
                            @"postcomment":@"Post Comment"
@@ -204,7 +242,7 @@
     configuration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue currentQueue]];
     NSURLSessionDataTask *task = [urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -254,12 +292,13 @@
 }
 
 - (void)requestListInfo:(NSString *)url searchRule:(NSString *)searchRule complete:(ListHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     NSString *finalUrl = @"";
     if (url) {
         if ([url hasPrefix:@"http"]) {
             finalUrl = url;
         } else {
+            //首页列表
             NSMutableString *baseUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
             [baseUrl appendString:url];
             finalUrl = baseUrl;
@@ -268,13 +307,19 @@
         finalUrl = HENTAI_URL;
     }
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
                 completion(QJHenTaiParserStatusNetworkFail, nil);
             });
             return;
+        }
+        //这个解析是肯定有的
+        TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
+        if ([finalUrl containsString:@"favorites"]) {
+            //这时候解析收藏夹
+            [self parserFavoritesInfoWithHpple:xpathParser];
         }
         NSString *html = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
         if ([html containsString:@"IP address"]) {
@@ -290,11 +335,6 @@
                 completion(QJHenTaiParserStatusParseNoMore, nil);
             });
             return;
-        }
-        TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
-        if ([finalUrl containsString:@"favorites"]) {
-            //这时候解析收藏夹
-            [self parserFavoritesInfoWithHpple:xpathParser];
         }
         //NSLog(@"%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
         NSArray *photoURL = [xpathParser searchWithXPathQuery:searchRule];
@@ -383,11 +423,11 @@
 
 #pragma mark -toplist爬取
 - (void)updateToplistInfoComplete:(ToplistHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     //只有表站有top统计,里站并没有
     NSString *finalUrl = @"https://e-hentai.org/toplist.php";
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -397,7 +437,6 @@
         }
         //NSString *html = [[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
         TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
-        //这里都是取昨天top,后面看如何设置比较好
         //遍历获取上传者
         NSArray *uploaderURL = [xpathParser searchWithXPathQuery:@"//div[@class='ido']/div[2]//div[@class='tdo']//table//a"];
         NSMutableArray *upladers = [NSMutableArray new];
@@ -410,6 +449,7 @@
         //遍历获取画廊
         NSArray *photoURL = [xpathParser searchWithXPathQuery:@"//div[@class='dc']//div[@class='tdo']//table//a"];
         if (photoURL.count) {
+            //TODO:toplist用25限制请求有时候貌似会有一条画廊请求不到,这是为什么?
             NSMutableArray *urlStringArray = [NSMutableArray array];
             NSMutableArray *subUrlSringArray = [NSMutableArray new];
             for (NSInteger i = 0; i < photoURL.count; i++) {
@@ -468,22 +508,42 @@
     [task resume];
 }
 
+- (void)updateOneUrlInfoWithUrl:(NSString *)url complete:(ListHandler)completion {
+    [self requestListInfoFromApi:@[url] complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (status == QJHenTaiParserStatusSuccess) {
+                completion(QJHenTaiParserStatusSuccess,listArray);
+            }
+            else if (status == QJHenTaiParserStatusParseFail) {
+                completion(QJHenTaiParserStatusParseFail,nil);
+            }
+            else if (status == QJHenTaiParserStatusNetworkFail) {
+                completion(QJHenTaiParserStatusNetworkFail,nil);
+            }
+        });
+    }];
+}
+
 - (void)requestListInfoFromApi:(NSArray *)urlArr complete:(ListHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     NSMutableArray *idArray = [NSMutableArray array];
+    NSString *baseUrl = nil;
     for (NSString *eachURLString in urlArr) {
         NSArray *splitStrings = [eachURLString componentsSeparatedByString:@"/"];
         NSUInteger splitCount = [splitStrings count];
         [idArray addObject:@[splitStrings[splitCount - 3], splitStrings[splitCount - 2]]];
+        if (nil == baseUrl) {
+            baseUrl = eachURLString;
+        }
     }
     NSDictionary *jsonDictionary = @{ @"method": @"gdata", @"gidlist":idArray };
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *apiurl = [NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_APIURL : HENTAI_APIURL;
+    NSString *apiurl = [baseUrl containsString:@"exhentai"] ? EXHENTAI_APIURL : HENTAI_APIURL;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:apiurl]];
     request.HTTPMethod = @"POST";
     request.HTTPBody =jsonData;
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             completion(QJHenTaiParserStatusNetworkFail, nil);
             return;
@@ -530,7 +590,7 @@
     //hc=1#comments 显示全部评论
     //nw=always 删除画廊显示??待验证
     NSString *finalUrl = [NSString stringWithFormat:@"%@?hc=1&inline_set=ts_l&nw=always",url];
-    NetworkShow();
+    //NetworkShow();
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -557,7 +617,7 @@
         }
         
         [self getShowkeyWithUrl:item.testUrl complete:^(QJHenTaiParserStatus status, NSString *showkey) {
-            NetworkHidden();
+            //NetworkHidden();
             if (status == QJHenTaiParserStatusSuccess) {
                 item.showkey = showkey;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -581,7 +641,7 @@
 
 - (void)getShowkeyWithUrl:(NSString *)url complete:(ShowkeyHandler)completion {
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             completion(QJHenTaiParserStatusNetworkFail,nil);
             return;
@@ -624,7 +684,7 @@
     else {
         finalUrl = [NSString stringWithFormat:@"%@?inline_set=ts_m&p=%ld",url,(long)page];
     }
-    NetworkShow();
+    //NetworkShow();
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -666,7 +726,7 @@
 
 #pragma mark -大图爬取
 - (void)updateBigImageUrlWithShowKey:(NSString *)showkey gid:(NSString *)gid imgkey:(NSString *)imgkey page:(NSInteger)page complete:(BigImageHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     NSDictionary *jsonDictionary = @{
                                      @"method": @"showpage",
                                      @"gid": gid,
@@ -679,7 +739,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -709,7 +769,7 @@
 
 #pragma mark -评星
 - (void)updateStarWithGid:(NSString *)gid token:(NSString *)token apikey:(NSString *)apikey apiuid:(NSString *)apiuid rating:(NSInteger)rating complete:(LoginHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     NSDictionary *jsonDictionary = @{
                                      @"method": @"rategallery",
                                      @"gid": gid,
@@ -723,7 +783,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -744,12 +804,12 @@
 
 #pragma mark -种子爬取
 - (void)updateTorrentInfoWithGid:(NSString *)gid token:(NSString *)token complete:(TorrentListHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     NSString *url = [NSString stringWithFormat:@"gallerytorrents.php?gid=%@&t=%@",gid,token];
     NSMutableString *finalUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:url];
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -791,11 +851,11 @@
 #pragma mark -网站设置读取
 - (void)readSettingAllInfoCompletion:(SettingHandler)completion {
     //https://e-hentai.org/uconfig.php
-    NetworkShow();
+    //NetworkShow();
     NSMutableString *finalUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:@"uconfig.php"];
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(QJHenTaiParserStatusNetworkFail,nil);
@@ -821,7 +881,7 @@
 }
 
 - (void)postMySettingInfoWithParams:(NSDictionary *)params Completion:(LoginHandler)completion {
-    NetworkShow();
+    //NetworkShow();
     //这里的操作只要上传自己想要的就好了,只是排除语言需要每次都上传,不然会遗漏,其他采用默认的就好了
     NSMutableString *finalUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:@"uconfig.php"];
@@ -831,7 +891,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [[self getFormStringWithDict:dict] dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NetworkHidden();
+        //NetworkHidden();
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -859,7 +919,7 @@
 
 #pragma mark -懒加载
 - (NSURLSession *)session {
-    if (!_session) {
+    if (nil == _session) {
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         configuration.HTTPShouldSetCookies = YES;
         _session = [NSURLSession sessionWithConfiguration:configuration];
@@ -868,7 +928,7 @@
 }
 
 - (NSArray<NSString *> *)classifyArr {
-    if (!_classifyArr) {
+    if (nil == _classifyArr) {
         _classifyArr = @[@"DOUJINSHI",
                          @"MANGA",
                          @"ARTIST CG",

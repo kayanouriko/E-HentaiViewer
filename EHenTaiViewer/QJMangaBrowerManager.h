@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^missionComplete)(NSArray *datas);
+@class QJMangaModel;
+
+typedef void (^missionComplete)(NSArray<QJMangaModel *> *datas);
 
 @interface QJMangaBrowerManager : NSObject
 

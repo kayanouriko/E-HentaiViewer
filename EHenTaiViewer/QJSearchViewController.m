@@ -313,6 +313,12 @@
         _tableView = [QJListTableView new];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        if (@available(iOS 11.0, *)) {
+            
+        }
+        else {
+            _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        }
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _tableView;

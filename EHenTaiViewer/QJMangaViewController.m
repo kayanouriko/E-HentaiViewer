@@ -149,9 +149,13 @@
 }
 
 - (void)forwardPage {
-    NSIndexPath *indexNow=[self.collectionView indexPathForCell:[self.collectionView visibleCells][0]];
+    CGPoint currOffsize = self.collectionView.contentOffset;
+    NSInteger currCount = currOffsize.x / UIScreenWidth();
+    NSIndexPath *indexNow = [NSIndexPath indexPathForItem:currCount inSection:0];
     if (indexNow.item >= 1) {
-        NSIndexPath *indexPrev=[NSIndexPath indexPathForItem:indexNow.item-1 inSection:indexNow.section];
+        self.view.userInteractionEnabled = NO;
+        NSIndexPath *indexPrev = [NSIndexPath indexPathForItem:indexNow.item - 1 inSection:indexNow.section];
+        [self.collectionView reloadItemsAtIndexPaths:@[indexPrev]];
         [self.collectionView scrollToItemAtIndexPath:indexPrev atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     } else {
         [self show];
@@ -159,9 +163,13 @@
 }
 
 - (void)nextPage {
-    NSIndexPath *indexNow=[self.collectionView indexPathForCell:[self.collectionView visibleCells][0]];
-    if (indexNow.item <= self.items.count-2) {
-        NSIndexPath *indexNext=[NSIndexPath indexPathForItem:indexNow.item+1 inSection:indexNow.section];
+    CGPoint currOffsize = self.collectionView.contentOffset;
+    NSInteger currCount = currOffsize.x / UIScreenWidth();
+    NSIndexPath *indexNow = [NSIndexPath indexPathForItem:currCount inSection:0];
+    if (indexNow.item <= self.items.count - 2) {
+        self.view.userInteractionEnabled = NO;
+        NSIndexPath *indexNext = [NSIndexPath indexPathForItem:indexNow.item + 1 inSection:indexNow.section];
+        [self.collectionView reloadItemsAtIndexPaths:@[indexNext]];
         [self.collectionView scrollToItemAtIndexPath:indexNext atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     } else {
         [self show];

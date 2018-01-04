@@ -31,7 +31,7 @@
     [super viewDidLoad];
     self.navgationBar.delegate = self;
     self.navigationBarTopLine.constant = UIStatusBarHeight();
-    self.webViewBottomLine.constant = UITabBarSafeBottomMargin();
+    //self.webViewBottomLine.constant = UITabBarSafeBottomMargin();
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:FORUMS_URL]]];
     self.webView.delegate = self.progressProxy;
 }

@@ -12,6 +12,9 @@
 #import "QJHenTaiParser.h"
 #import "QJNewInfoViewController.h"
 #import "QJRankingViewController.h"
+//iconfont
+#import "TBCityIconFont.h"
+#import "UIImage+TBCityIconFont.h"
 
 @interface QJNowViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -45,7 +48,7 @@
 }
 
 - (void)setContent {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Toplist" style:UIBarButtonItemStylePlain target:self action:@selector(clickToplist)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e765", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(clickToplist)];
     self.navigationItem.rightBarButtonItem = item;
     
     [self.view addSubview:self.tableview];
@@ -84,6 +87,12 @@
         _tableview = [QJListTableView new];
         _tableview.delegate = self;
         _tableview.dataSource = self;
+        if (@available(iOS 11.0, *)) {
+            
+        }
+        else {
+            _tableview.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        }
         [_tableview addSubview:self.refrshControl];
     }
     return _tableview;

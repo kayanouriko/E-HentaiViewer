@@ -31,6 +31,7 @@
 //导航栏部分
 @property (nonatomic, strong) UIView *topBgView;
 @property (nonatomic, strong) UIBarButtonItem *readItem;
+@property (nonatomic, strong) UIBarButtonItem *actionItem;
 //srollView
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewBottomLine;
@@ -233,6 +234,8 @@
             //改变收藏按钮
             [self changeFavoritesStatus];
             
+            [self addActionItem];
+            
             if ([self isShowFreshingStatus]) {
                 [self hiddenFreshingView];
             }
@@ -243,6 +246,21 @@
             }
         }
     }];
+}
+
+- (void)addActionItem {
+    self.navigationItem.rightBarButtonItem = self.actionItem;
+}
+
+- (void)shareAction {
+    NSURL *url = [NSURL URLWithString:self.model.url];
+    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:@[url] applicationActivities:nil];
+    UIPopoverPresentationController *popover = vc.popoverPresentationController;
+    if (popover) {
+        popover.sourceView = self.view;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    }
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)changeFavoritesStatus {
@@ -383,7 +401,7 @@
         } else {
             //导航栏不显示
             self.navigationItem.titleView = nil;
-            self.navigationItem.rightBarButtonItem = nil;
+            self.navigationItem.rightBarButtonItem = self.actionItem;
         }
     }
 }
@@ -469,6 +487,13 @@
         _readItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     }
     return _readItem;
+}
+
+- (UIBarButtonItem *)actionItem {
+    if (nil == _actionItem) {
+        _actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
+    }
+    return _actionItem;
 }
 
 - (QJLikeButton *)likeBtn {

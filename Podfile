@@ -6,7 +6,6 @@ project 'EHenTaiViewer.xcodeproj'
 target 'EHenTaiViewer' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   use_frameworks!
-
   # Pods for EHenTaiViewer
   pod 'YYWebImage'
   pod 'MagicalRecord'

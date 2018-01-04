@@ -16,12 +16,7 @@
 //详情页
 #import "QJNewInfoViewController.h"
 
-@interface QJHomeViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
-//搜索相关
-@property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) NSMutableArray *otherStates;
-@property (nonatomic, strong) NSArray<NSString *> *classifyArr;
-@property (nonatomic, strong) NSDictionary *searchKeyDict;
+@interface QJHomeViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 //列表
 @property (nonatomic, strong) QJListTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *datas;
@@ -81,9 +76,12 @@
 
 //首页接收来自网页设置的影响,不再需要手动修改各个搜索选项
 - (NSString *)makeUrl {
-    NSString *url = @"";
+    NSMutableString *url = [NSMutableString stringWithString:@""];
+    if (nil != self.url && self.url.length > 0) {
+        [url appendString:self.url];
+    }
     if (self.pageIndex) {
-        url = [NSString stringWithFormat:@"?page=%ld", self.pageIndex];
+        [url appendFormat:@"?page=%ld", self.pageIndex];
     }
     return url;
 }
@@ -102,7 +100,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationItem.title = [NSObjForKey(@"ExHentaiStatus") boolValue] ? @"exhentai" : @"e-hentai";
+    if (nil != self.title && self.title.length > 0) {
+        self.navigationItem.title = self.title;
+    } else {
+        self.navigationItem.title = [NSObjForKey(@"ExHentaiStatus") boolValue] ? @"exhentai" : @"e-hentai";
+    }
 }
 
 #pragma mark -tableview
@@ -145,23 +147,17 @@
 }
 
 #pragma mark -getter
-- (UISearchBar *)searchBar {
-    if (!_searchBar) {
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), UISearchBarHeight())];
-        _searchBar.searchBarStyle = UISearchBarStyleMinimal;
-        _searchBar.showsSearchResultsButton = YES;
-        _searchBar.delegate = self;
-        _searchBar.placeholder = @"请输入搜索关键词";
-        _searchBar.enablesReturnKeyAutomatically = NO;
-    }
-    return _searchBar;
-}
-
 - (QJListTableView *)tableView {
     if (!_tableView) {
         _tableView = [QJListTableView new];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        if (@available(iOS 11.0, *)) {
+            
+        }
+        else {
+            _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        }
         //添加刷新模块
         [_tableView addSubview:self.refrshControl];
     }
@@ -175,52 +171,11 @@
     return _datas;
 }
 
-- (NSMutableArray *)otherStates {
-    if (!_otherStates) {
-        _otherStates = [NSMutableArray new];
-    }
-    return _otherStates;
-}
-
 - (NSInteger)pageIndex {
     if (!_pageIndex) {
         _pageIndex = 0;
     }
     return _pageIndex;
-}
-
-- (NSArray<NSString *> *)classifyArr {
-    if (!_classifyArr) {
-        _classifyArr = @[@"DOUJINSHI",
-                         @"MANGA",
-                         @"ARTIST CG",
-                         @"GAME CG",
-                         @"WESTERN",
-                         @"NON-H",
-                         @"IMAGE SET",
-                         @"COSPLAY",
-                         @"ASIAN PORN",
-                         @"MISC"];
-    }
-    return _classifyArr;
-}
-
-- (NSDictionary *)searchKeyDict {
-    if (nil == _searchKeyDict) {
-        _searchKeyDict = @{
-                           @"DOUJINSHI":@"&f_doujinshi=",
-                           @"MANGA":@"&f_manga=",
-                           @"ARTIST CG":@"&f_artistcg=",
-                           @"GAME CG":@"&f_gamecg=",
-                           @"WESTERN":@"&f_western=",
-                           @"NON-H":@"&f_non-h=",
-                           @"IMAGE SET":@"&f_imageset=",
-                           @"COSPLAY":@"&f_cosplay=",
-                           @"ASIAN PORN":@"&f_asianporn=",
-                           @"MISC":@"&f_misc="
-                           };
-    }
-    return _searchKeyDict;
 }
 
 - (UIRefreshControl *)refrshControl {

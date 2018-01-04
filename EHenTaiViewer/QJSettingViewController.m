@@ -150,6 +150,12 @@
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 5 * 42;
         _tableView.estimatedSectionHeaderHeight = 0;
+        if (@available(iOS 11.0, *)) {
+            
+        }
+        else {
+            _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
+        }
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSettingLoginCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSettingLoginCell class])];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
     }

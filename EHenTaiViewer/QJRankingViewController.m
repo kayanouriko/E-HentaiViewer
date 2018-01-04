@@ -5,18 +5,23 @@
 //  Created by QinJ on 2017/12/14.
 //  Copyright © 2017年 kayanouriko. All rights reserved.
 //
+//这个页面我写得怎么那么垃圾啊
 
 #import "QJRankingViewController.h"
 #import "QJRankingInfoCell.h"
 #import "QJHenTaiParser.h"
 #import "QJRankingHeadInfoCell.h"
+#import "QJRankingUploadCell.h"
 #import "QJNewInfoViewController.h"
 #import "QJCollectionViewFlowLayout.h"
+#import "QJButton.h"
+#import "QJHomeViewController.h"
 
 @interface QJRankingViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *yesterdayTopCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *yesterdayCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *yesterdayUploadCollectionView;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *monthTopCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *monthCollectionView;
@@ -28,6 +33,11 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *allTimeCollectionView;
 
 @property (nonatomic, strong) NSMutableArray<NSArray<QJListItem *> *> *datas;
+@property (nonatomic, strong) NSMutableArray<NSArray<QJToplistUploaderItem *> *> *uploads;
+@property (nonatomic, strong) NSArray<NSString *> *urls;//用于跳转列表的url
+
+- (IBAction)btnAction:(QJButton *)sender;
+
 
 @end
 
@@ -40,6 +50,15 @@
     
     [self showFreshingViewWithTip:nil];
     [self updateResource];
+}
+
+//跳转列表
+- (IBAction)btnAction:(QJButton *)sender {
+    NSInteger index = sender.tag - 200;
+    QJHomeViewController *vc = [QJHomeViewController new];
+    vc.title = sender.value;
+    vc.url = self.urls[index];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setContent {
@@ -61,6 +80,14 @@
     self.yesterdayCollectionView.contentInset = UIEdgeInsetsMake(0, 30, 0, 30);
     self.yesterdayCollectionView.collectionViewLayout = yesterdayLayout;
     [self.yesterdayCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QJRankingInfoCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([QJRankingInfoCell class])];
+    
+    QJCollectionViewFlowLayout *yesterdayUploadLayout = [QJCollectionViewFlowLayout new];
+    self.yesterdayUploadCollectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+    self.yesterdayUploadCollectionView.delegate = self;
+    self.yesterdayUploadCollectionView.dataSource = self;
+    self.yesterdayUploadCollectionView.contentInset = UIEdgeInsetsMake(0, 30, 0, 30);
+    self.yesterdayUploadCollectionView.collectionViewLayout = yesterdayUploadLayout;
+    [self.yesterdayUploadCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QJRankingUploadCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([QJRankingUploadCell class])];
     
     QJCollectionViewFlowLayout *monthTopLayout = [QJCollectionViewFlowLayout new];
     self.monthTopCollectionView.decelerationRate = UIScrollViewDecelerationRateFast;
@@ -122,6 +149,15 @@
                     [subDatas removeAllObjects];
                 }
             }
+            
+            [subDatas removeAllObjects];
+            for (QJToplistUploaderItem *item in uploaderArrary) {
+                [subDatas addObject:item];
+                if (subDatas.count == 10) {
+                    [self.uploads addObject:[subDatas mutableCopy]];
+                    [subDatas removeAllObjects];
+                }
+            }
             [self allCollectionViewReloadData];
             [self hiddenFreshingView];
         }
@@ -141,13 +177,19 @@
     [self.monthCollectionView reloadData];
     [self.yearCollectionView reloadData];
     [self.allTimeCollectionView reloadData];
+    
+    [self.yesterdayUploadCollectionView reloadData];
 }
 
 #pragma mark -collectionView
 - (CGSize)collectionView:(nonnull UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (collectionView == self.yesterdayCollectionView || collectionView == self.monthCollectionView || collectionView == self.yearCollectionView || collectionView == self.allTimeCollectionView) {
         return CGSizeMake(UIScreenWidth() - 30 - 30, 90);
-    } else {
+    }
+    else if (collectionView == self.yesterdayUploadCollectionView) {
+        return CGSizeMake(UIScreenWidth() - 30 - 30, 50);
+    }
+    else {
         return CGSizeMake(UIScreenWidth() - 30 - 30, 270);
     }
 }
@@ -155,7 +197,11 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (collectionView == self.yesterdayCollectionView || collectionView == self.monthCollectionView || collectionView == self.yearCollectionView || collectionView == self.allTimeCollectionView) {
         return self.datas.count ? 7 : 0;
-    } else {
+    }
+    else if (collectionView == self.yesterdayUploadCollectionView) {
+        return self.uploads.count ? 10 : 0;
+    }
+    else {
         return self.datas.count ? 3 : 0;
     }
 }
@@ -179,7 +225,17 @@
         cell.model = model;
         cell.underLine.hidden = !((indexPath.item + 1) % 2);
         return cell;
-    } else {
+    }
+    else if (collectionView == self.yesterdayUploadCollectionView) {
+        QJRankingUploadCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([QJRankingUploadCell class]) forIndexPath:indexPath];
+        QJToplistUploaderItem *model = nil;
+        if (collectionView == self.yesterdayUploadCollectionView) {
+            model = self.uploads[3][indexPath.item];
+        }
+        [cell refreshCellWithModel:model index:indexPath.row + 1 isHidden:!((indexPath.item + 1) % 2)];
+        return cell;
+    }
+    else {
         QJRankingHeadInfoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([QJRankingHeadInfoCell class]) forIndexPath:indexPath];
         QJListItem *model = nil;
         if (collectionView == self.yesterdayTopCollectionView) {
@@ -219,6 +275,23 @@
         _datas = [NSMutableArray new];
     }
     return _datas;
+}
+
+- (NSMutableArray<NSArray<QJToplistUploaderItem *> *> *)uploads {
+    if (nil == _uploads) {
+        _uploads = [NSMutableArray new];
+    }
+    return _uploads;
+}
+
+- (NSArray<NSString *> *)urls {
+    if (nil == _urls) {
+        _urls = @[@"https://e-hentai.org/toplist.php?tl=15",
+                  @"https://e-hentai.org/toplist.php?tl=13",
+                  @"https://e-hentai.org/toplist.php?tl=12",
+                  @"https://e-hentai.org/toplist.php?tl=11"];
+    }
+    return _urls;
 }
 
 @end

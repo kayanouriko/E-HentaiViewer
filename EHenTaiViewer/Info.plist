@@ -15,13 +15,17 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.1.1</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>29</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>此 App 需要您的同意才能读取媒体资料库</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>iconfont.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

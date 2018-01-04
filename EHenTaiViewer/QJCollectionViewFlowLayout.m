@@ -43,18 +43,17 @@
     CGFloat minDetal = 0;
     for (UICollectionViewLayoutAttributes *attrs in array) {
         if (centerX == attrs.center.x) {
-            //这种可能是起始位置本身就是中心,这时候不需要调整
+            //这种可能是最终位置本身就是中心,这时候不需要调整
             minDetal = 0;
             break;
         }
-        if (isUp && centerX < attrs.center.x) {
-            CGFloat temp = attrs.center.x - centerX;
+        CGFloat temp = attrs.center.x - centerX;
+        if (isUp && temp > 0) {
             if (minDetal == 0 || minDetal > temp) {
                 minDetal = temp;
             }
         }
-        else if (!isUp && centerX > attrs.center.x){
-            CGFloat temp = attrs.center.x - centerX;
+        else if (!isUp && temp < 0){
             if (minDetal == 0 || minDetal < temp) {
                 minDetal = temp;
             }

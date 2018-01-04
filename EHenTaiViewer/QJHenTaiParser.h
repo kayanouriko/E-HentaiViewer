@@ -49,6 +49,8 @@ typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSStrin
 - (void)updateHotListInfoComplete:(ListHandler)completion;
 - (void)updateLikeListInfoWithUrl:(NSString *)url complete:(ListHandler)completion;
 - (void)updateOtherListInfoWithUrl:(NSString *)url complete:(ListHandler)completion;
+//获取单个链接的画廊信息
+- (void)updateOneUrlInfoWithUrl:(NSString *)url complete:(ListHandler)completion;
 //详情
 - (void)updateGalleryInfoWithUrl:(NSString *)url complete:(GalleryHandler)completion;
 //大图
@@ -62,6 +64,7 @@ typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSStrin
 //操作相关
 //收藏
 - (void)updateFavoriteStatus:(BOOL)isFavorite model:(QJListItem *)item index:(NSInteger)index content:(NSString *)content complete:(LoginHandler)completion;
+- (void)updateMutlitFavoriteWithUrl:(NSString *)url status:(NSString *)ddact modifygids:(NSArray *)modifygids complete:(LoginHandler)completion;
 //评论
 - (void)updateCommentWithContent:(NSString *)content url:(NSString *)url complete:(LoginHandler)completion;
 //评星
