@@ -293,6 +293,15 @@
 
 - (void)requestListInfo:(NSString *)url searchRule:(NSString *)searchRule complete:(ListHandler)completion {
     //NetworkShow();
+    // 强制 list 结果
+    if ([url  isEqual: @""])
+    {
+        url = @"?";
+    } else {
+        url = [url stringByAppendingString:@"&"];
+    }
+    url = [url stringByAppendingString:@"inline_set=dm_l"];
+ 
     NSString *finalUrl = @"";
     if (url) {
         if ([url hasPrefix:@"http"]) {
