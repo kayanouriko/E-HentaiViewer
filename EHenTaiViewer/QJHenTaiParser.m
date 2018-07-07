@@ -293,7 +293,7 @@
 
 - (void)requestListInfo:(NSString *)url searchRule:(NSString *)searchRule complete:(ListHandler)completion {
     //NetworkShow();
-    // 强制 list 结果
+    // 强制 list 结果,现在官网配置改为存在云端了,有些账号习惯用瀑布流的方式浏览网页,所以这里这样强制成list形式防止解析出错
     if ([url  isEqual: @""])
     {
         url = @"?";
@@ -301,7 +301,6 @@
         url = [url stringByAppendingString:@"&"];
     }
     url = [url stringByAppendingString:@"inline_set=dm_l"];
-    
     NSString *finalUrl = @"";
     if (url) {
         if ([url hasPrefix:@"http"]) {
