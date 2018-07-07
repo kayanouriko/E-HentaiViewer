@@ -12,5 +12,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+// 一些参数设置
+@property (nonatomic, assign) UIInterfaceOrientationMask orientation; // 控制横竖屏
+
 @end
 

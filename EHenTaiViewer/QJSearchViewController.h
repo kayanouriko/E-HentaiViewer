@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) QJGalleryTagItem *model;
 
+- (void)scrollToTop;
+
 @end

@@ -10,4 +10,10 @@
 
 @interface QJNewBrowerViewController : QJViewController
 
+@property (nonatomic, strong) NSString *mangaName;
+@property (nonatomic, strong) NSString *showkey;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *gid;
+@property (nonatomic, assign) NSInteger count;
+
 @end

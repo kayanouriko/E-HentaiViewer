@@ -46,6 +46,13 @@
     [self updateResource];
 }
 
+#pragma mark -滚动到顶部
+- (void)scrollToTop {
+    if (self.datas.count) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
 #pragma mark -更新数据
 - (void)updateResource {
     NSString *url = [self makeUrl];
@@ -103,7 +110,7 @@
     if (nil != self.title && self.title.length > 0) {
         self.navigationItem.title = self.title;
     } else {
-        self.navigationItem.title = [NSObjForKey(@"ExHentaiStatus") boolValue] ? @"exhentai" : @"e-hentai";
+        self.navigationItem.title = [QJGlobalInfo isExHentaiStatus] ? @"exhentai" : @"e-hentai";
     }
 }
 
@@ -121,7 +128,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QJNewInfoViewController *vc = [QJNewInfoViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
+    // vc.hidesBottomBarWhenPushed = YES;
     vc.model = self.datas[indexPath.row];
     vc.preferredContentSize = CGSizeMake(150, 150);
     [self.navigationController pushViewController:vc animated:YES];

@@ -33,10 +33,9 @@
 //屏幕宽度和高度
 #define UIScreenWidth() [UIScreen mainScreen].bounds.size.width
 #define UIScreenHeight() [UIScreen mainScreen].bounds.size.height
-#define isIPhoneX (UIScreenWidth() == 375.f && UIScreenHeight() == 812.f ? YES : NO)
 //一些固定参数
-#define UIStatusBarHeight() (isIPhoneX ? 44.f : 20.f)
-#define UINavigationBarHeight() (isIPhoneX ? 88.f : 64.f)
+#define UIStatusBarHeight() (isAppOrientationPortrait ? (isIPhoneX ? 44.f : 20.f) : (isIPhoneX ? 0 : 20.f))
+#define UINavigationBarHeight() (UISearchBarHeight() + UIStatusBarHeight())
 #define UITabBarSafeBottomMargin() (isIPhoneX ? 34.f : 0.f)
 #define UITabBarHeight() (isIPhoneX ? (49.f + 34.f) : 49.f)
 #define UISearchBarHeight() 44
@@ -76,6 +75,11 @@
 #define Toast(tip) [QJToast showWithTip:tip]
 //是否为ipad
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define isIPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+// 软件是否为竖屏状态
+#define isAppOrientationPortrait [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait || [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown
+// 看图界面滚动方式是否为左右滚动
+#define isAppScrollDiretionHorizontal [QJGlobalInfo customScrollDiretion] == UICollectionViewScrollDirectionHorizontal
 //去null
 #define isnull(key,dict) dict[key] == nil || [dict[key] isKindOfClass:[NSNull class]]  || [dict[key] isEqual:[NSNull null]] ? @"" : [NSString stringWithFormat:@"%@",dict[key]]
 

@@ -56,7 +56,7 @@
 - (IBAction)btnAction:(QJButton *)sender {
     NSInteger index = sender.tag - 200;
     QJHomeViewController *vc = [QJHomeViewController new];
-    vc.title = sender.value;
+    vc.navTitle = sender.value;
     vc.url = self.urls[index];
     [self.navigationController pushViewController:vc animated:YES];
 }

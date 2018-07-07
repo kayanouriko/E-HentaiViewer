@@ -10,9 +10,9 @@
 #import "QJNetworkTool.h"
 #import "QJProtectTool.h"
 #import "QJTouchIDViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "Tag+CoreDataClass.h"
 #import "QJTouchIDViewController.h"
+#import "QJSecretBgTool.h"
 
 @interface AppDelegate ()
 
@@ -26,37 +26,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //TODO:检查更新,弹窗提醒
     
-    //TODO:检查相册权限,一次性检查
-    
     //设置数据库
     [self setCoreData];
     //解决iOS遗留bug,导航栏push或者pop存在黑块问题
     self.window.backgroundColor = [UIColor whiteColor];
-    //判断全局的版块变量,确保初始化必须有值,默认表站
-    if (nil == NSObjForKey(@"ExHentaiStatus")) {
-        NSObjSetForKey(@"ExHentaiStatus", @(NO));
-        NSObjSynchronize();
-    }
-    //观看模块
-    if (nil == NSObjForKey(@"WatchMode")) {
-        NSObjSetForKey(@"WatchMode", @(YES));
-        NSObjSynchronize();
-    }
-    //保护模块,默认不开启
-    if (nil == NSObjForKey(@"ProtectMode")) {
-        NSObjSetForKey(@"ProtectMode", @(NO));
-        NSObjSynchronize();
-    }
-    //中文化模块,默认不开启
-    if (nil == NSObjForKey(@"TagCnMode")) {
-        NSObjSetForKey(@"TagCnMode", @(NO));
-        NSObjSynchronize();
-    }
-    //日语标题,默认英文标题
-    if (nil == NSObjForKey(@"TitleJnMode")) {
-        NSObjSetForKey(@"TitleJnMode", @(NO));
-        NSObjSynchronize();
-    }
     //网络监测
     [[QJNetworkTool shareTool] starNotifier];
     //密码验证相关
@@ -102,9 +75,14 @@
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
+#pragma mark -横竖屏设置相关
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    return self.orientation;
+}
+
+// 前台即将进入后台执行的方法
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    [[QJSecretBgTool sharedInstance] showSecretBackground];
 }
 
 
@@ -112,13 +90,14 @@
     [[QJGlobalInfo sharedInstance] putAttribute:@"BackgroundTime" value:@([[NSProcessInfo processInfo] systemUptime])];
 }
 
-
+// 后台即将进入前台执行的方法
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [self checkTouchID];
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [[QJSecretBgTool sharedInstance] hiddenSecretBackground];
     if (self.isFristTime) {
         self.fristTime = NO;
         [self checkTouchID];
@@ -126,7 +105,7 @@
 }
 
 - (void)checkTouchID {
-    if (NSObjForKey(@"ProtectMode") && [NSObjForKey(@"ProtectMode") boolValue]) {
+    if ([QJGlobalInfo isExHentaiProtectMode]) {
         NSTimeInterval beginTime = [[[QJGlobalInfo sharedInstance] getAttribute:@"BackgroundTime"] integerValue];
         NSTimeInterval endTime = [[NSProcessInfo processInfo] systemUptime];
         if (endTime - beginTime > 60) {

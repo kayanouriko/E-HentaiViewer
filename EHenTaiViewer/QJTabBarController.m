@@ -8,7 +8,9 @@
 
 #import "QJTabBarController.h"
 
-@interface QJTabBarController ()
+@interface QJTabBarController ()<UITabBarControllerDelegate>
+
+
 
 @end
 
@@ -16,12 +18,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.delegate = self;
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = (UINavigationController *)viewController;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        if (nav.viewControllers.count == 1 && [nav.topViewController respondsToSelector:@selector(scrollToTop)]) {
+            [nav.topViewController performSelector:@selector(scrollToTop)];
+        }
+#pragma clang diagnostic pop
+    }
+    return YES;
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     /*
-    for (UITabBarItem *item in self.tabBar.items) {
-        item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-        item.titlePositionAdjustment  = UIOffsetMake(0,20);
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = (UINavigationController *)viewController;
+        
+        NSLog(@"%@", NSStringFromClass([nav.topViewController class]));
     }
     */
+    //[viewController.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

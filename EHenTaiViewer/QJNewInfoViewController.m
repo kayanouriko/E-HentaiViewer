@@ -20,11 +20,16 @@
 #import "QJCollectionViewFlowLayout.h"
 
 #import "QJTorrentInfoController.h"
-#import "QJMangaViewController.h"
 #import "QJAllCommentController.h"
 #import "QJSearchViewController.h"
 #import "QJGoCommentController.h"
 #import "QJFavouriteViewController.h"
+
+#import "QJNewBrowerViewController.h"
+
+//iconfont
+#import "TBCityIconFont.h"
+#import "UIImage+TBCityIconFont.h"
 
 @interface QJNewInfoViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, QJNewCommentCellDelegate, XHStarRateViewDelegate, QJFavouriteViewControllerDelagate>
 
@@ -274,7 +279,7 @@
 }
 
 - (void)reloadTagViewWithTagArr:(NSArray *)array {
-    BOOL isCN = [NSObjForKey(@"TagCnMode") boolValue];
+    BOOL isCN = [QJGlobalInfo isExHentaiTagCnMode];
     CGFloat tagViewHeight = 10;
     for (NSArray *subArray in array) {
         CGFloat viewHeight = isCN ? [subArray[3] floatValue] : [subArray[2] floatValue];
@@ -349,16 +354,18 @@
 }
 
 - (void)jumpToReadBrower {
-    if ([[QJNetworkTool shareTool] isEnableMobleNetwork] && ![NSObjForKey(@"WatchMode") boolValue]) {
+    if ([[QJNetworkTool shareTool] isEnableMobleNetwork] && ![QJGlobalInfo isExHentaiWatchMode]) {
         Toast(@"想要浏览大图画廊请到设置中打开相关选项");
         return;
     }
-    QJMangaViewController *vc = [QJMangaViewController new];
+    QJNewBrowerViewController *vc = [QJNewBrowerViewController new];
+    vc.mangaName = self.model.title;
     vc.url = self.model.url;
     vc.gid = self.model.gid;
     vc.count = self.model.filecount;
     vc.showkey = self.infoModel.showkey;
-    [self presentViewController:vc animated:YES completion:nil];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)similarAction:(UIButton *)sender {
@@ -462,7 +469,7 @@
     if (nil == _topBgView) {
         _topBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         _topBgView.backgroundColor = [UIColor clearColor];
-         UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         imageview.contentMode = UIViewContentModeScaleAspectFill;
         imageview.layer.cornerRadius = 5.f;
         imageview.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
@@ -491,7 +498,7 @@
 
 - (UIBarButtonItem *)actionItem {
     if (nil == _actionItem) {
-        _actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
+        _actionItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e610", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(shareAction)];;
     }
     return _actionItem;
 }
@@ -510,10 +517,10 @@
         Toast(@"请先前往设置页面进行登录");
         return;
     }
-     //正在操作状态
-     if (self.likeBtn.likeState == QJLikeButtonStateLoading) {
-         return;
-     }
+    //正在操作状态
+    if (self.likeBtn.likeState == QJLikeButtonStateLoading) {
+        return;
+    }
     //正式操作
     if (self.infoModel.isFavorite) {
         self.likeBtn.likeState = QJLikeButtonStateLoading;

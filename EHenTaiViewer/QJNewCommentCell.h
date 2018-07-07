@@ -20,6 +20,7 @@
 @interface QJNewCommentCell : UICollectionViewCell
 
 @property (weak, nonatomic) id<QJNewCommentCellDelegate>delegate;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 - (void)refreshUIWithDict:(NSDictionary *)dict;
 
 @end

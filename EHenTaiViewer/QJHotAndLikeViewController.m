@@ -51,6 +51,13 @@
     [self updateLikeResource];
 }
 
+#pragma mark -滚动到顶部
+- (void)scrollToTop {
+    if (self.likeDatas.count) {
+        [self.likeTableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //等布局调整完成后再放xib布局的搜索框
@@ -181,7 +188,7 @@
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QJNewInfoViewController *vc = [QJNewInfoViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
+    // vc.hidesBottomBarWhenPushed = YES;
     vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -201,20 +208,20 @@
 
 /*
  废弃的功能
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[QJHenTaiParser parser] updateFavoriteStatus:YES model:self.likeDatas[indexPath.row] index:0 content:@"" complete:^(QJHenTaiParserStatus status) {
-        if (status == QJHenTaiParserStatusSuccess) {
-            Toast(@"收藏已取消");
-            [self.likeDatas removeObject:self.likeDatas[indexPath.row]];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-    }];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"取消收藏";
-}
-*/
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ [[QJHenTaiParser parser] updateFavoriteStatus:YES model:self.likeDatas[indexPath.row] index:0 content:@"" complete:^(QJHenTaiParserStatus status) {
+ if (status == QJHenTaiParserStatusSuccess) {
+ Toast(@"收藏已取消");
+ [self.likeDatas removeObject:self.likeDatas[indexPath.row]];
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+ }
+ }];
+ }
+ 
+ - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+ return @"取消收藏";
+ }
+ */
 //多选相关
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
@@ -269,6 +276,11 @@
     [alertController addAction:deleteAction];
     [alertController addAction:cancelAction];
     
+    if (isPad) {
+        UIPopoverPresentationController *popVC = [alertController popoverPresentationController];
+        popVC.barButtonItem = self.doneItem;
+    }
+    
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -306,7 +318,7 @@
     QJFavoritesSelectController *vc = [QJFavoritesSelectController new];
     vc.delegate = self;
     vc.likeVCJump = NO;//作用是隐藏全部收藏的选项
-    vc.hidesBottomBarWhenPushed = YES;
+    // vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -340,25 +352,25 @@
     
     //延迟执行,因为退出多选模式也有一个动画
     /*
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //无论怎么样,先删除对应的model
-        NSMutableArray *arrInsertRows = [NSMutableArray new];
-        //先统计要更新的row
-        for (QJListItem *model in self.selectDatas) {
-            if ([self.likeDatas containsObject:model]) {
-                NSInteger index = [self.likeDatas indexOfObject:model];
-                [arrInsertRows addObject:[NSIndexPath indexPathForRow:index inSection:0]];
-            }
-        }
-        //后删除model
-        for (QJListItem *model in self.selectDatas) {
-            if ([self.likeDatas containsObject:model]) {
-                [self.likeDatas removeObject:model];
-            }
-        }
-        [self.likeTableview deleteRowsAtIndexPaths:arrInsertRows withRowAnimation:UITableViewRowAnimationAutomatic];
-    });
-    */
+     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+     //无论怎么样,先删除对应的model
+     NSMutableArray *arrInsertRows = [NSMutableArray new];
+     //先统计要更新的row
+     for (QJListItem *model in self.selectDatas) {
+     if ([self.likeDatas containsObject:model]) {
+     NSInteger index = [self.likeDatas indexOfObject:model];
+     [arrInsertRows addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+     }
+     }
+     //后删除model
+     for (QJListItem *model in self.selectDatas) {
+     if ([self.likeDatas containsObject:model]) {
+     [self.likeDatas removeObject:model];
+     }
+     }
+     [self.likeTableview deleteRowsAtIndexPaths:arrInsertRows withRowAnimation:UITableViewRowAnimationAutomatic];
+     });
+     */
 }
 
 #pragma mark -getter
@@ -416,28 +428,28 @@
 
 - (UIBarButtonItem *)bookmarksItem {
     if (nil == _bookmarksItem) {
-        _bookmarksItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e660", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(selectFavFolder)];
+        _bookmarksItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e619", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(selectFavFolder)];
     }
     return _bookmarksItem;
 }
 
 - (UIBarButtonItem *)editItem {
     if (nil == _editItem) {
-        _editItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e764", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(selectPics)];
+        _editItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e606", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(selectPics)];
     }
     return _editItem;
 }
 
 - (UIBarButtonItem *)cancelItem {
     if (nil == _cancelItem) {
-        _cancelItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e6b7", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
+        _cancelItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e607", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
     }
     return _cancelItem;
 }
 
 - (UIBarButtonItem *)doneItem {
     if (nil == _doneItem) {
-        _doneItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e69c", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(doneAction)];
+        _doneItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e62e", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(doneAction)];
     }
     return _doneItem;
 }

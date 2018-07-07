@@ -8,6 +8,14 @@
 
 #import "QJGlobalInfo.h"
 
+static NSString * const ExHentaiOrientation = @"ExHentaiOrientation";
+static NSString * const ExHentaiScrollDiretion = @"ExHentaiScrollDiretion";
+static NSString * const ExHentaiStatus = @"ExHentaiStatus";
+static NSString * const ExHentaiWatchMode = @"ExHentaiWatchMode";
+static NSString * const ExHentaiProtectMode = @"ExHentaiProtectMode";
+static NSString * const ExHentaiTagCnMode = @"ExHentaiTagCnMode";
+static NSString * const ExHentaiTitleJnMode = @"ExHentaiTitleJnMode";
+
 @interface QJGlobalInfo ()
 
 @property (nonatomic, strong) NSMutableDictionary *attrDict;
@@ -34,6 +42,94 @@
 
 - (id)getAttribute:(NSString*)key {
     return [self.attrDict valueForKey:key];
+}
+
+#pragma mark - 全局配置
++ (UIInterfaceOrientationMask)customOrientation {
+    // 默认跟随系统
+    if (nil == NSObjForKey(ExHentaiOrientation)) {
+        [self setCustomOrientation:UIInterfaceOrientationMaskAllButUpsideDown];
+    }
+    UIInterfaceOrientationMask customOrientation = [NSObjForKey(ExHentaiOrientation) integerValue];
+    return customOrientation;
+}
+
++ (void)setCustomOrientation:(UIInterfaceOrientationMask)customOrientation {
+    NSObjSetForKey(ExHentaiOrientation, @(customOrientation));
+    NSObjSynchronize();
+}
+
++ (UICollectionViewScrollDirection)customScrollDiretion {
+    if (nil == NSObjForKey(ExHentaiScrollDiretion)) {
+        [self setCustomScrollDiretion:UICollectionViewScrollDirectionHorizontal];
+    }
+    UICollectionViewScrollDirection customScrollDiretion = [NSObjForKey(ExHentaiScrollDiretion) integerValue];
+    return customScrollDiretion;
+}
+
++ (void)setCustomScrollDiretion:(UICollectionViewScrollDirection)customScrollDiretion {
+    NSObjSetForKey(ExHentaiScrollDiretion, @(customScrollDiretion));
+    NSObjSynchronize();
+}
+
++ (BOOL)isExHentaiStatus {
+    if (nil == NSObjForKey(ExHentaiStatus)) {
+        [self setExHentaiStatus:YES];
+    }
+    return [NSObjForKey(ExHentaiStatus) boolValue];
+}
+
++ (void)setExHentaiStatus:(BOOL)isExHentaiStatus {
+    NSObjSetForKey(ExHentaiStatus, @(isExHentaiStatus));
+    NSObjSynchronize();
+}
+
++ (BOOL)isExHentaiWatchMode {
+    if (nil == NSObjForKey(ExHentaiWatchMode)) {
+        [self setExHentaiWatchMode:YES];
+    }
+    return [NSObjForKey(ExHentaiWatchMode) boolValue];
+}
+
++ (void)setExHentaiWatchMode:(BOOL)isExHentaiWatchMode {
+    NSObjSetForKey(ExHentaiWatchMode, @(isExHentaiWatchMode));
+    NSObjSynchronize();
+}
+
++ (BOOL)isExHentaiProtectMode {
+    if (nil == NSObjForKey(ExHentaiProtectMode)) {
+        [self setExHentaiProtectMode:NO];
+    }
+    return [NSObjForKey(ExHentaiProtectMode) boolValue];
+}
+
++ (void)setExHentaiProtectMode:(BOOL)isExHentaiProtectMode {
+    NSObjSetForKey(ExHentaiProtectMode, @(isExHentaiProtectMode));
+    NSObjSynchronize();
+}
+
++ (BOOL)isExHentaiTagCnMode {
+    if (nil == NSObjForKey(ExHentaiTagCnMode)) {
+        [self setExHentaiTagCnMode:NO];
+    }
+    return [NSObjForKey(ExHentaiTagCnMode) boolValue];
+}
+
++ (void)setExHentaiTagCnMode:(BOOL)isExHentaiTagCnMode {
+    NSObjSetForKey(ExHentaiTagCnMode, @(isExHentaiTagCnMode));
+    NSObjSynchronize();
+}
+
++ (BOOL)isExHentaiTitleJnMode {
+    if (nil == NSObjForKey(ExHentaiTitleJnMode)) {
+        [self setExHentaiTitleJnMode:NO];
+    }
+    return [NSObjForKey(ExHentaiTitleJnMode) boolValue];
+}
+
++ (void)setExHentaiTitleJnMode:(BOOL)isExHentaiTitleJnMode {
+    NSObjSetForKey(ExHentaiTitleJnMode, @(isExHentaiTitleJnMode));
+    NSObjSynchronize();
 }
 
 #pragma mark -懒加载

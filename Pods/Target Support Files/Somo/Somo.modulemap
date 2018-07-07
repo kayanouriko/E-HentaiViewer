@@ -1,0 +1,6 @@
+framework module Somo {
+  umbrella header "Somo-umbrella.h"
+
+  export *
+  module * { export * }
+}

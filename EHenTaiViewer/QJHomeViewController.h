@@ -10,7 +10,9 @@
 
 @interface QJHomeViewController : QJViewController
 
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *navTitle;
 @property (nonatomic, strong) NSString *url;
+
+- (void)scrollToTop;
 
 @end

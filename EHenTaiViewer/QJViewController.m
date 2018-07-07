@@ -9,6 +9,8 @@
 #import "QJViewController.h"
 #import "QJTipViewController.h"
 
+static NSString *const kSomoDataSourceProvider = @"SomoDataSourceProvider";
+
 @interface QJViewController () {
     BOOL _isRefreshing;
 }

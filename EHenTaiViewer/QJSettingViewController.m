@@ -78,10 +78,10 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class])];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         /*
-        UIImage *image = [[UIImage imageNamed:self.datas[indexPath.row].lastObject] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        cell.imageView.tintColor = [UIColor colorWithRed:0.573 green:0.573 blue:0.573 alpha:1.00];
-        cell.imageView.image = image;
-        */
+         UIImage *image = [[UIImage imageNamed:self.datas[indexPath.row].lastObject] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+         cell.imageView.tintColor = [UIColor colorWithRed:0.573 green:0.573 blue:0.573 alpha:1.00];
+         cell.imageView.image = image;
+         */
         cell.textLabel.text = self.datas[indexPath.row].firstObject;
         //cell.textLabel.font = AppFontContentStyle();
         return cell;
@@ -101,6 +101,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section) {
         if (indexPath.row == 1) {
+            Toast(@"网站系统改版,暂不可用");
+            return;
             //检测是否登录
             if (![[QJHenTaiParser parser] checkCookie]) {
                 Toast(@"请先前进行登录");

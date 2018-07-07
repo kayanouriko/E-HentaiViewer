@@ -133,15 +133,15 @@
     }
     NSObjSetForKey(@"loginName", @"未登录");
     NSObjSetForKey(@"xl_0", @"");
-    NSObjSetForKey(@"ExHentaiStatus", @(NO));
     NSObjSynchronize();
+    [QJGlobalInfo setExHentaiStatus:NO];
     return YES;
 }
 
 #pragma mark -收藏
 - (void)updateFavoriteStatus:(BOOL)isFavorite model:(QJListItem *)item index:(NSInteger)index content:(NSString *)content complete:(LoginHandler)completion {
     //NetworkShow();
-    NSString *url = [NSString stringWithFormat:@"%@gallerypopups.php?gid=%@&t=%@&act=addfav",[NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL],item.gid ,item.token];
+    NSString *url = [NSString stringWithFormat:@"%@gallerypopups.php?gid=%@&t=%@&act=addfav",[NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL],item.gid ,item.token];
     NSDictionary *dict = [NSDictionary new];
     if (isFavorite) {
         //删除
@@ -188,7 +188,7 @@
 }
 
 - (void)updateMutlitFavoriteWithUrl:(NSString *)url status:(NSString *)ddact modifygids:(NSArray *)modifygids complete:(LoginHandler)completion {
-    url = [NSString stringWithFormat:@"%@%@",[NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL], url];
+    url = [NSString stringWithFormat:@"%@%@",[NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL], url];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"POST";
     
@@ -293,13 +293,22 @@
 
 - (void)requestListInfo:(NSString *)url searchRule:(NSString *)searchRule complete:(ListHandler)completion {
     //NetworkShow();
+    // 强制 list 结果
+    if ([url  isEqual: @""])
+    {
+        url = @"?";
+    } else {
+        url = [url stringByAppendingString:@"&"];
+    }
+    url = [url stringByAppendingString:@"inline_set=dm_l"];
+    
     NSString *finalUrl = @"";
     if (url) {
         if ([url hasPrefix:@"http"]) {
             finalUrl = url;
         } else {
             //首页列表
-            NSMutableString *baseUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
+            NSMutableString *baseUrl = [NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
             [baseUrl appendString:url];
             finalUrl = baseUrl;
         }
@@ -734,7 +743,7 @@
                                      @"imgkey": imgkey,
                                      @"showkey": showkey
                                      };
-    NSString *apiurl = [NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_APIURL : HENTAI_APIURL;
+    NSString *apiurl = [QJGlobalInfo isExHentaiStatus] ? EXHENTAI_APIURL : HENTAI_APIURL;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:apiurl]];
     request.HTTPMethod = @"POST";
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
@@ -778,7 +787,7 @@
                                      @"rating": @(rating),
                                      @"token": token
                                      };
-    NSString *apiurl = [NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_APIURL : HENTAI_APIURL;
+    NSString *apiurl = [QJGlobalInfo isExHentaiStatus] ? EXHENTAI_APIURL : HENTAI_APIURL;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:apiurl]];
     request.HTTPMethod = @"POST";
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
@@ -806,7 +815,7 @@
 - (void)updateTorrentInfoWithGid:(NSString *)gid token:(NSString *)token complete:(TorrentListHandler)completion {
     //NetworkShow();
     NSString *url = [NSString stringWithFormat:@"gallerytorrents.php?gid=%@&t=%@",gid,token];
-    NSMutableString *finalUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
+    NSMutableString *finalUrl = [NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:url];
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //NetworkHidden();
@@ -852,7 +861,7 @@
 - (void)readSettingAllInfoCompletion:(SettingHandler)completion {
     //https://e-hentai.org/uconfig.php
     //NetworkShow();
-    NSMutableString *finalUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
+    NSMutableString *finalUrl = [NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:@"uconfig.php"];
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //NetworkHidden();
@@ -883,7 +892,7 @@
 - (void)postMySettingInfoWithParams:(NSDictionary *)params Completion:(LoginHandler)completion {
     //NetworkShow();
     //这里的操作只要上传自己想要的就好了,只是排除语言需要每次都上传,不然会遗漏,其他采用默认的就好了
-    NSMutableString *finalUrl = [NSMutableString stringWithString:[NSObjForKey(@"ExHentaiStatus") boolValue] ? EXHENTAI_URL : HENTAI_URL];
+    NSMutableString *finalUrl = [NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:@"uconfig.php"];
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:params];
     [dict setValue:@"Apply" forKey:@"apply"];

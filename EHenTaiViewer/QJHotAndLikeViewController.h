@@ -10,4 +10,6 @@
 
 @interface QJHotAndLikeViewController : QJViewController
 
+- (void)scrollToTop;
+
 @end

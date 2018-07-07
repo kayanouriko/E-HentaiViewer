@@ -9,4 +9,5 @@ target 'EHenTaiViewer' do
   # Pods for EHenTaiViewer
   pod 'YYWebImage'
   pod 'MagicalRecord'
+  pod 'Somo'
 end

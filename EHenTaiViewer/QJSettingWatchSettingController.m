@@ -104,20 +104,20 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
     if ([model.title isEqualToString:@"画廊站点"]) {
         if (![[QJHenTaiParser parser] checkCookie]) {
             Toast(@"请先前往设置页面进行登录");
-            NSObjSetForKey(@"ExHentaiStatus", @(0));
+            [QJGlobalInfo setExHentaiStatus:NO];
         }
         else {
-            NSObjSetForKey(@"ExHentaiStatus", @(switchBtn.on));
+            [QJGlobalInfo setExHentaiStatus:@(switchBtn.on)];
         }
     }
     else if ([model.title isEqualToString:@"移动网络浏览"]) {
-        NSObjSetForKey(@"WatchMode", @(switchBtn.on));
+        [QJGlobalInfo setExHentaiWatchMode:@(switchBtn.on)];
     }
     else if ([model.title isEqualToString:@"显示中文Tag"]) {
-        NSObjSetForKey(@"TagCnMode", @(switchBtn.on));
+        [QJGlobalInfo setExHentaiTagCnMode:@(switchBtn.on)];
     }
     else if ([model.title isEqualToString:@"显示日文标题"]) {
-        NSObjSetForKey(@"TitleJnMode", @(switchBtn.on));
+        [QJGlobalInfo setExHentaiTitleJnMode:@(switchBtn.on)];
     }
     else if ([model.title isEqualToString:@"启动保护"]) {
         if (switchBtn.on) {
@@ -126,8 +126,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
                     if (status == QJProtectToolStatusCannel) {
                         [switchBtn setOn:NO animated:YES];
                         model.value = [NSString stringWithFormat:@"%@",@(switchBtn.on)];
-                        NSObjSetForKey(@"ProtectMode", @(switchBtn.on));
-                        NSObjSynchronize();
+                        [QJGlobalInfo setExHentaiProtectMode:@(switchBtn.on)];
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [self.tableView reloadData];
                         });
@@ -138,9 +137,8 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
                 [switchBtn setOn:NO animated:YES];
             }
         }
-        NSObjSetForKey(@"ProtectMode", @(switchBtn.on));
+        [QJGlobalInfo setExHentaiProtectMode:@(switchBtn.on)];
     }
-    NSObjSynchronize();
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -165,7 +163,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
     QJSettingModel *model = self.datas[indexPath.row];
     if (self.type == QJSettingWatchSettingControllerTypeEH) {
         if ([model.type isEqualToString:@"操作"]) {
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定清除缓存?" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定清除缓存?其中包括已经缓存的画廊大图,建议清除前先iTunes导出全部画廊大图缓存进行备份" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             [alertVC addAction:cancelBtn];
             UIAlertAction *okBtn = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -210,7 +208,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (self.type == QJSettingWatchSettingControllerTypeAboutReference || self.type == QJSettingWatchSettingControllerTypeAboutFrame) {
-        if ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0) {
+        if (@available(iOS 9.0, *)) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:model.value]];
             [self presentViewController:safariVC animated:YES completion:nil];
         }
@@ -223,7 +221,8 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
 #pragma mark -获取缓存
 - (float)filePath {
     NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory , NSUserDomainMask , YES) firstObject];
-    return [ self folderSizeAtPath :cachPath];
+    NSString *documentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    return [self folderSizeAtPath:cachPath] + [self folderSizeAtPath:documentsPath];
 }
 
 - (long long)fileSizeAtPath:(NSString *)filePath {
@@ -258,6 +257,12 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
             [[ NSFileManager defaultManager ] removeItemAtPath :path error :&error];
         }
     }
+    // 清除已缓存的画廊
+    NSString *imageDir = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:imageDir error:nil];
+    
+    
     [self performSelectorOnMainThread:@selector(clearCachSuccess) withObject:nil waitUntilDone:YES];
 }
 
@@ -319,19 +324,19 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
             if ([key isEqualToString:@"eh"]) {
                 //这个类型要做特殊处理
                 if ([model.title isEqualToString:@"画廊站点"]) {
-                    model.value = NSObjForKey(@"ExHentaiStatus");
+                    model.value = [NSString stringWithFormat:@"%d", [QJGlobalInfo isExHentaiStatus]];
                 }
                 else if ([model.title isEqualToString:@"移动网络浏览"]) {
-                    model.value = NSObjForKey(@"WactchMode");
+                    model.value = [NSString stringWithFormat:@"%d", [QJGlobalInfo isExHentaiWatchMode]];
                 }
                 else if ([model.title isEqualToString:@"显示中文Tag"]) {
-                    model.value = NSObjForKey(@"TagCnMode");
+                    model.value = [NSString stringWithFormat:@"%d", [QJGlobalInfo isExHentaiTagCnMode]];
                 }
                 else if ([model.title isEqualToString:@"显示日文标题"]) {
-                    model.value = NSObjForKey(@"TitleJnMode");
+                    model.value = [NSString stringWithFormat:@"%d", [QJGlobalInfo isExHentaiTitleJnMode]];
                 }
                 else if ([model.title isEqualToString:@"启动保护"]) {
-                    model.value = NSObjForKey(@"ProtectMode");
+                    model.value = [NSString stringWithFormat:@"%d", [QJGlobalInfo isExHentaiProtectMode]];
                 }
                 else if ([model.title isEqualToString:@"清除缓存"]) {
                     model.subTitle = [NSString stringWithFormat:@"%.2f MB",[self filePath]];

@@ -16,7 +16,7 @@
     CGFloat width = [tip StringWidthWithFontSize:font];
     CGFloat height = [tip StringHeightWithFontSize:font maxWidth:width] + 20;
     width += 30;
-    QJToast *toast = [[QJToast alloc] initWithFrame:CGRectMake((UIScreenWidth() - width) / 2, UIScreenHeight() - 55 - height, width, height)];
+    QJToast *toast = [[QJToast alloc] initWithFrame:CGRectMake((UIScreenWidth() - width) / 2, UIScreenHeight() - 55 - height -UITabBarSafeBottomMargin(), width, height)];
     toast.font = font;
     toast.text = tip;
     [toast show];

@@ -50,6 +50,13 @@
     }
 }
 
+#pragma mark -滚动到顶部
+- (void)scrollToTop {
+    if (self.datas.count) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //等布局调整完成后再放xib布局的搜索框
@@ -260,7 +267,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QJNewInfoViewController *vc = [QJNewInfoViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
+    //vc.hidesBottomBarWhenPushed = YES;
     vc.model = self.datas[indexPath.row];
     vc.preferredContentSize = CGSizeMake(150, 150);
     [self.navigationController pushViewController:vc animated:YES];
@@ -313,7 +320,7 @@
         _tableView = [QJListTableView new];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        if (@available(iOS 11.0, *)) {
+        if (@available(iOS 10.0, *)) {
             
         }
         else {

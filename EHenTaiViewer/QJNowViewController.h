@@ -10,4 +10,6 @@
 
 @interface QJNowViewController : QJViewController
 
+- (void)scrollToTop;
+
 @end

@@ -34,6 +34,13 @@
     [self updateHotResource];
 }
 
+#pragma mark -滚动到顶部
+- (void)scrollToTop {
+    if (self.datas.count) {
+        [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
 - (void)updateHotResource {
     [[QJHenTaiParser parser] updateHotListInfoComplete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
         if (status == QJHenTaiParserStatusSuccess) {
@@ -48,7 +55,7 @@
 }
 
 - (void)setContent {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e765", 30, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(clickToplist)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e61f", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(clickToplist)];
     self.navigationItem.rightBarButtonItem = item;
     
     [self.view addSubview:self.tableview];
@@ -76,7 +83,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QJNewInfoViewController *vc = [QJNewInfoViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
+    // vc.hidesBottomBarWhenPushed = YES;
     vc.model = self.datas[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
