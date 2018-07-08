@@ -107,37 +107,39 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
             [QJGlobalInfo setExHentaiStatus:NO];
         }
         else {
-            [QJGlobalInfo setExHentaiStatus:@(switchBtn.on)];
+            [QJGlobalInfo setExHentaiStatus:switchBtn.on];
         }
     }
     else if ([model.title isEqualToString:@"移动网络浏览"]) {
-        [QJGlobalInfo setExHentaiWatchMode:@(switchBtn.on)];
+        [QJGlobalInfo setExHentaiWatchMode:switchBtn.on];
     }
     else if ([model.title isEqualToString:@"显示中文Tag"]) {
-        [QJGlobalInfo setExHentaiTagCnMode:@(switchBtn.on)];
+        [QJGlobalInfo setExHentaiTagCnMode:switchBtn.on];
     }
     else if ([model.title isEqualToString:@"显示日文标题"]) {
-        [QJGlobalInfo setExHentaiTitleJnMode:@(switchBtn.on)];
+        [QJGlobalInfo setExHentaiTitleJnMode:switchBtn.on];
     }
     else if ([model.title isEqualToString:@"启动保护"]) {
         if (switchBtn.on) {
             if ([[QJProtectTool shareTool] isEnableTouchID]) {
                 [[QJProtectTool shareTool] showTouchID:^(QJProtectToolStatus status) {
-                    if (status == QJProtectToolStatusCannel) {
-                        [switchBtn setOn:NO animated:YES];
-                        model.value = [NSString stringWithFormat:@"%@",@(switchBtn.on)];
-                        [QJGlobalInfo setExHentaiProtectMode:@(switchBtn.on)];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self.tableView reloadData];
-                        });
-                    }
+                    BOOL switchStatus = status != QJProtectToolStatusCannel;
+                    [switchBtn setOn:switchStatus animated:YES];
+                    model.value = [NSString stringWithFormat:@"%@",@(switchStatus)];
+                    [QJGlobalInfo setExHentaiProtectMode:switchStatus];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self.tableView reloadData];
+                    });
                 }];
             }
             else {
                 [switchBtn setOn:NO animated:YES];
+                [QJGlobalInfo setExHentaiProtectMode:NO];
             }
+        } else {
+            [QJGlobalInfo setExHentaiProtectMode:NO];
         }
-        [QJGlobalInfo setExHentaiProtectMode:@(switchBtn.on)];
+        
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView reloadData];

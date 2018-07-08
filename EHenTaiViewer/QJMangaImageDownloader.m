@@ -117,8 +117,13 @@
             NSString *html = json[@"i3"];
             
             NSString *regexStr = @"(?<=src=\")http.*?(?=\")";
-            NSString *url = [[self matchString:html toRegexString:regexStr].firstObject copy];
-            if (url.length) {
+            // 增加一层正则表达式的判断
+            // TODO: 正则部分后面单独抽出来,目前请求块还是太混乱了
+            NSString *url = nil;
+            if ([self matchString:html toRegexString:regexStr] && [self matchString:html toRegexString:regexStr].count) {
+                url = [[self matchString:html toRegexString:regexStr].firstObject copy];
+            }
+            if (url && url.length) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.model.imageUrl = url;
                     [self downloadBigImageUrl];
