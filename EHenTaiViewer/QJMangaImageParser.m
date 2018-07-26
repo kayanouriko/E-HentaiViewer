@@ -39,10 +39,10 @@
         // 开始
         NSString *finalUrl = @"";
         if (self.count == 0) {
-            finalUrl = [NSString stringWithFormat:@"%@?inline_set=ts_m",self.url];
+            finalUrl = [NSString stringWithFormat:@"%@?inline_set=ts_l",self.url];
         }
         else {
-            finalUrl = [NSString stringWithFormat:@"%@?inline_set=ts_m&p=%ld",self.url,(long)self.count];
+            finalUrl = [NSString stringWithFormat:@"%@?inline_set=ts_l&p=%ld",self.url,(long)self.count];
         }
         
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -53,29 +53,37 @@
         NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             [weakSession invalidateAndCancel];
             NSMutableArray *urls = [NSMutableArray new];
+            NSMutableArray *smallUrls = [NSMutableArray new];
             if (error) {
                 // 报错的时候填充空字符串
-                for (NSInteger i = 0; i < 40; i++) {
+                for (NSInteger i = 0; i < 20; i++) {
                     [urls addObject:@""];
+                    [smallUrls addObject:@""];
                 }
             }
             else {
                 TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
                 // 这里有点疑问，需要斟酌，没有账号的时候gdtm，有账号的时候可以gdtl
-                NSArray *pageURL  = [xpathParser searchWithXPathQuery:@"//div[@class='gdtm']//a"];
+                NSArray *pageURL  = [xpathParser searchWithXPathQuery:@"//div[@id='gdt']//a"];
                 
                 for (NSInteger i = 0; i < pageURL.count; i++) {
                     TFHppleElement *e = pageURL[i];
-                    NSString *url = e.attributes[@"href"] == nil ? @"" : e.attributes[@"href"];
+                    NSString *url = [e objectForKey:@"href"] == nil ? @"" : [e objectForKey:@"href"];
                     [urls addObject:url];
                     //https://e-hentai.org/s/4d74e00bc9/1070576-42
+                }
+                
+                NSArray *smallElementArr = [xpathParser searchWithXPathQuery:@"//div[@id='gdt']//a//img"];
+                for (TFHppleElement *subElement in smallElementArr) {
+                    [smallUrls addObject:[subElement objectForKey:@"src"]];
+                    [[YYWebImageManager sharedManager] requestImageWithURL:[NSURL URLWithString:[subElement objectForKey:@"src"]] options:YYWebImageOptionProgressiveBlur | YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionHandleCookies progress:nil transform:nil completion:nil];
                 }
             }
             // 这里任务结束,回调出去
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"图片链接解析完成");
-                if (self.delegate && [self.delegate respondsToSelector:@selector(imageUrlDidParserWithArray:page:parser:)]) {
-                    [self.delegate imageUrlDidParserWithArray:urls page:self.count parser:self];
+                if (self.delegate && [self.delegate respondsToSelector:@selector(imageUrlDidParserWithArray:smallUrls:page:parser:)]) {
+                    [self.delegate imageUrlDidParserWithArray:urls smallUrls:smallUrls page:self.count parser:self];
                 }
                 dispatch_semaphore_signal(semaphore);
             });

@@ -65,7 +65,7 @@
 
 - (void)clickToplist {
     QJRankingViewController *vc = [QJRankingViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
+    // vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

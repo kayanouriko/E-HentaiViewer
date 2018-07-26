@@ -31,7 +31,7 @@
 
 - (void)refreshUI:(QJListItem *)item {
     self.item = item;
-    self.titleLabel.text = item.title;
+    self.titleLabel.text = ([QJGlobalInfo isExHentaiTitleJnMode] && item.title_jpn.length) ? item.title_jpn : item.title;
     self.uploaderLabel.text = item.uploader;
     self.starView.currentScore = item.rating;
     self.catgeoryLabel.text = [NSString stringWithFormat:@"  %@  ",item.category];

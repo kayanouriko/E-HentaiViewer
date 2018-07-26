@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QJBrowserBookMarkPopView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cUs-K0-6iU">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QcO-q3-nOw">
+                            <rect key="frame" x="151" y="28" width="73" height="29"/>
+                            <segments>
+                                <segment title="" image="bookmark_all"/>
+                                <segment title="" image="bookmark_collect"/>
+                            </segments>
+                        </segmentedControl>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zw2-4f-EFR">
+                            <rect key="frame" x="324" y="25.5" width="35" height="33"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <state key="normal" title="续读"/>
+                            <connections>
+                                <action selector="cannelAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="KLn-Ky-lWu"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="QcO-q3-nOw" firstAttribute="centerX" secondItem="cUs-K0-6iU" secondAttribute="centerX" id="8ic-do-5pp"/>
+                        <constraint firstItem="zw2-4f-EFR" firstAttribute="centerY" secondItem="cUs-K0-6iU" secondAttribute="centerY" constant="10" id="BTo-Ps-nvG"/>
+                        <constraint firstAttribute="trailing" secondItem="zw2-4f-EFR" secondAttribute="trailing" constant="16" id="MOf-uz-XS0"/>
+                        <constraint firstItem="QcO-q3-nOw" firstAttribute="centerY" secondItem="cUs-K0-6iU" secondAttribute="centerY" constant="10" id="Yyp-P6-VF2"/>
+                        <constraint firstAttribute="height" constant="64" id="ybi-Sb-Zqb"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bE8-SK-ADU">
+                    <rect key="frame" x="0.0" y="65" width="375" height="602"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="15" id="mtg-Zr-5q3">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZO-3u-JDl">
+                    <rect key="frame" x="0.0" y="64" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="6Dy-sf-EyN"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="cUs-K0-6iU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6TK-VA-KrK"/>
+                <constraint firstItem="NZO-3u-JDl" firstAttribute="top" secondItem="cUs-K0-6iU" secondAttribute="bottom" id="EI4-HA-V0p"/>
+                <constraint firstAttribute="bottom" secondItem="bE8-SK-ADU" secondAttribute="bottom" id="NRL-yt-Dcg"/>
+                <constraint firstAttribute="trailing" secondItem="cUs-K0-6iU" secondAttribute="trailing" id="Nwu-s2-4nU"/>
+                <constraint firstItem="NZO-3u-JDl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="P8W-EZ-Jg1"/>
+                <constraint firstAttribute="trailing" secondItem="NZO-3u-JDl" secondAttribute="trailing" id="XjR-2V-RBq"/>
+                <constraint firstAttribute="trailing" secondItem="bE8-SK-ADU" secondAttribute="trailing" id="b2Z-H4-Acj"/>
+                <constraint firstItem="bE8-SK-ADU" firstAttribute="top" secondItem="NZO-3u-JDl" secondAttribute="bottom" id="bZQ-d8-fgY"/>
+                <constraint firstItem="bE8-SK-ADU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dMz-VF-sJL"/>
+                <constraint firstItem="cUs-K0-6iU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="teo-ZK-YtQ"/>
+            </constraints>
+            <connections>
+                <outlet property="buttonCenterLine" destination="BTo-Ps-nvG" id="HdN-ER-XKZ"/>
+                <outlet property="collectionView" destination="bE8-SK-ADU" id="axZ-KN-Bnv"/>
+                <outlet property="navigationBarHeightLine" destination="ybi-Sb-Zqb" id="SAa-AY-3GQ"/>
+                <outlet property="segCenterLine" destination="Yyp-P6-VF2" id="1X9-0F-jX8"/>
+            </connections>
+            <point key="canvasLocation" x="-93.5" y="54.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bookmark_all" width="22" height="22"/>
+        <image name="bookmark_collect" width="22" height="22"/>
+    </resources>
+</document>

@@ -43,7 +43,6 @@
     if (@available(iOS 9.0, *)) {
         policy = LAPolicyDeviceOwnerAuthentication;
     }
-    
     [context evaluatePolicy:policy localizedReason:des reply:^(BOOL success, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success) {

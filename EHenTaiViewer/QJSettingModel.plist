@@ -56,6 +56,16 @@
 		</dict>
 		<dict>
 			<key>title</key>
+			<string>自定义底部栏</string>
+			<key>subTitle</key>
+			<string>设置后重启应用生效</string>
+			<key>subTitleSelected</key>
+			<string></string>
+			<key>type</key>
+			<string>操作</string>
+		</dict>
+		<dict>
+			<key>title</key>
 			<string>清除缓存</string>
 			<key>subTitle</key>
 			<string></string>

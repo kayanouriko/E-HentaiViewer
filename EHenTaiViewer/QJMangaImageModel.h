@@ -10,6 +10,8 @@
 
 @class QJMangaImageModel;
 
+typedef void(^smallImageUrlBlock)();
+
 @protocol QJMangaImageModelDelegate <NSObject>
 
 @optional
@@ -22,12 +24,12 @@
 @interface QJMangaImageModel : NSObject
 
 @property (nonatomic, weak) id<QJMangaImageModelDelegate> delegate;
-// 画廊名称
-@property (nonatomic, strong) NSString *mangaName;
 // 页码
 @property (nonatomic, assign) NSInteger page;
 // 大图url
 @property (nonatomic, strong) NSString *imageUrl;
+// 小图url
+@property (nonatomic, strong) NSString *smallImageUrl;
 // url
 @property (nonatomic, strong) NSString *url;
 // 已经下载的data，用于恢复下载用
@@ -44,6 +46,8 @@
 @property (nonatomic, assign, getter=isParser) BOOL parser;
 // 是否失败
 @property (nonatomic, assign, getter=isFailed) BOOL failed;
+// 获取smallurl
+- (void)getSmallUrlWithBlock:(smallImageUrlBlock)block;
 
 
 @end

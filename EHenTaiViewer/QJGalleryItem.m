@@ -241,9 +241,14 @@
     }
     self.smallImages = images;
     
+    NSMutableArray *imageUrls = [NSMutableArray new];
+    NSArray *smallUrlsElementArr = [xpathParser searchWithXPathQuery:@"//div[@id='gdt']//a"];
+    for (TFHppleElement *imageUrlElement in smallUrlsElementArr) {
+        [imageUrls addObject:[imageUrlElement objectForKey:@"href"]];
+    }
+    self.imageUrls = imageUrls;
     
-    TFHppleElement *testImageElement = [xpathParser searchWithXPathQuery:@"//div[@id='gdt']//a"].firstObject;
-    self.testUrl = [testImageElement objectForKey:@"href"];
+    self.testUrl = imageUrls.firstObject;
 }
 
 #pragma mark -懒加载

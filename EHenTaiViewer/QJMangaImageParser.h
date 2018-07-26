@@ -18,7 +18,7 @@
  urls:链接数组
  beginIndex:图片起始下标
  */
-- (void)imageUrlDidParserWithArray:(NSArray<NSString *> *)urls page:(NSInteger)page parser:(QJMangaImageParser *)parser;
+- (void)imageUrlDidParserWithArray:(NSArray<NSString *> *)urls smallUrls:(NSArray<NSString *> *)smallUrls page:(NSInteger)page parser:(QJMangaImageParser *)parser;
 
 @end
 

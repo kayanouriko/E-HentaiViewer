@@ -21,6 +21,9 @@
 - (id)getAttribute:(NSString*)key;
 
 // 一些配置文件的存储和读取
++ (NSArray<NSString *> *)customTabbarItems;
++ (void)setCustomTabbarItems:(NSArray<NSString *> *)customTabbarItems;
+
 /** 设置全局的旋转方向 */
 + (UIInterfaceOrientationMask)customOrientation;
 + (void)setCustomOrientation:(UIInterfaceOrientationMask)customOrientation;

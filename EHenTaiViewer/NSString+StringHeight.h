@@ -20,5 +20,7 @@
 - (NSString *)handleString;
 //去除html标签
 - (NSString *)removeHtmlString;
+// 文本md5
+-(NSString *)MD5;
 
 @end

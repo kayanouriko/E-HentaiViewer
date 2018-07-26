@@ -239,7 +239,6 @@
     request.HTTPBody = [[self getFormStringWithDict:dict] dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPShouldSetCookies = YES;
-    configuration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue currentQueue]];
     NSURLSessionDataTask *task = [urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         //NetworkHidden();

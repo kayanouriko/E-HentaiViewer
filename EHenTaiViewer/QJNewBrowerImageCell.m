@@ -12,7 +12,7 @@
 @interface QJNewBrowerImageCell ()<UIScrollViewDelegate, QJMangaImageModelDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UIImageView *mangaImageView;
+@property (nonatomic, strong) YYAnimatedImageView *mangaImageView;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
@@ -82,7 +82,7 @@
     _model.delegate = self;
     if ([_model hasImage]) {
         [self hiddenTip];
-        self.mangaImageView.image = [UIImage imageWithContentsOfFile:_model.imagePath];
+        self.mangaImageView.image = [YYImage imageWithContentsOfFile:_model.imagePath]; //[UIImage imageWithContentsOfFile:_model.imagePath];
     } else if (_model.rate > 0) {
         [self showTip];
         self.tipLabel.text = [NSString stringWithFormat:@"%2.0f%%", model.rate];
@@ -173,9 +173,9 @@
     return _scrollView;
 }
 
-- (UIImageView *)mangaImageView {
+- (YYAnimatedImageView *)mangaImageView {
     if (nil == _mangaImageView) {
-        _mangaImageView = [UIImageView new];
+        _mangaImageView = [YYAnimatedImageView new];
         //_mangaImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _mangaImageView;

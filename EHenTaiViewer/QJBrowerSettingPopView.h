@@ -26,7 +26,6 @@
 - (CGFloat)currentBrightness;
 
 @optional
-
 /** 旋转方式响应事件
  @param selectedIndex 选中的Seg下标
  */

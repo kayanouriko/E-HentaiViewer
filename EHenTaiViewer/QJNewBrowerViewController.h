@@ -15,5 +15,7 @@
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *gid;
 @property (nonatomic, assign) NSInteger count;
+@property (nonatomic, strong) NSArray *imageUrls;
+@property (nonatomic, strong) NSArray *smallImageUrls;
 
 @end

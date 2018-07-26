@@ -20,7 +20,7 @@
 @implementation QJMangaManager
 
 // 初始化
-- (instancetype)initWithShowKey:(NSString *)showkey gid:(NSString *)gid url:(NSString *)url count:(NSInteger)count mangaName:(NSString *)mangaName {
+- (instancetype)initWithShowKey:(NSString *)showkey gid:(NSString *)gid url:(NSString *)url count:(NSInteger)count imageUrls:(NSArray *)imageUrls smallImageUrls:(NSArray *)smallImageUrls {
     self = [super init];
     if (self) {
         self.url = url;
@@ -29,8 +29,11 @@
         NSMutableArray *array = [NSMutableArray new];
         for (NSInteger i = 1; i <= count; i++) {
             @autoreleasepool {
+                NSString *url = i < imageUrls.count + 1 && imageUrls[i - 1] ? imageUrls[i - 1] : @"";
+                NSString *smallUrl = i < smallImageUrls.count + 1 && smallImageUrls[i - 1] ? smallImageUrls[i - 1] : @"";
                 QJMangaImageModel *model = [QJMangaImageModel new];
-                model.mangaName = mangaName;
+                model.url = url;
+                model.smallImageUrl = smallUrl;
                 model.page = i;
                 [array addObject:model];
             }
@@ -38,7 +41,6 @@
         self.photos = array;
         self.showkey = showkey;
         self.gid = gid;
-        self.mangaName = mangaName;
         self.cancel = NO;
     }
     return self;
@@ -50,7 +52,7 @@
 - (void)startOperationForModel:(QJMangaImageModel *)model atIndexPath:(NSIndexPath *)indexPath {
     if (!model.isParser) {
         // 没有析出大图url
-        [self startImageParserForModel:model atIndexPath:indexPath];
+        [self startImageParserForModel:model];
     }
     // 同时加入下载大图的队列
     if (!model.hasImage) {
@@ -65,7 +67,7 @@
 }
 
 // 解析大图url
-- (void)startImageParserForModel:(QJMangaImageModel *)model atIndexPath:(NSIndexPath *)indexPath {
+- (void)startImageParserForModel:(QJMangaImageModel *)model {
     // 获取需要解析的页码
     NSInteger pageCount = [self getCurrentPageWithImagePage:model.page];
     if (![self.parsers.allKeys containsObject:@(pageCount)]) {
@@ -96,14 +98,16 @@
 
 #pragma mark - QJMangaImageParserDelegate
 // 解析出图片的url，准备下载
-- (void)imageUrlDidParserWithArray:(NSArray<NSString *> *)urls page:(NSInteger)page parser:(QJMangaImageParser *)parser {
+- (void)imageUrlDidParserWithArray:(NSArray<NSString *> *)urls smallUrls:(NSArray<NSString *> *)smallUrls page:(NSInteger)page parser:(QJMangaImageParser *)parser {
     for (NSInteger i = 0; i < urls.count; i++) {
         NSString *url = urls[i];
-        NSInteger index = page * 40 + i;
+        NSString *smallUrl = smallUrls[i];
+        NSInteger index = page * 20 + i;
         if (index < self.photos.count) {
             @autoreleasepool {
                 QJMangaImageModel *model = self.photos[index];
                 model.url = url;
+                model.smallImageUrl = smallUrl;
                 // 如果解析不到数据，则将模型的状态设置为失败
                 if (url.length == 0) {
                     model.failed = YES;
@@ -139,7 +143,7 @@
 }
 
 - (NSInteger)getCurrentPageWithImagePage:(NSInteger)imagePage {
-    return imagePage % 40 == 0 ? imagePage / 40 - 1 : imagePage / 40;
+    return imagePage % 20 == 0 ? imagePage / 20 - 1 : imagePage / 20;
 }
 
 #pragma mark - queue manager

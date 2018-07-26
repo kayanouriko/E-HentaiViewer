@@ -8,6 +8,7 @@
 
 #import "QJMangaImageDownloader.h"
 #import "QJMangaImageModel.h"
+#import "NSString+StringHeight.h"
 
 @interface QJMangaImageDownloader()<NSURLSessionDownloadDelegate>
 
@@ -47,7 +48,15 @@
             self.isCancel = NO;
         }
         
-        if (self.model.imageUrl != nil && self.model.imageUrl.length) {
+        if ([self.model hasImage]) {
+            // 如果本地有缓存
+            if (self.delegate && [self.delegate respondsToSelector:@selector(imageDownloadFinishWithLoader:)]) {
+                [self.delegate imageDownloadFinishWithLoader:self];
+            }
+            if (self.semaphore) {
+                dispatch_semaphore_signal(self.semaphore);
+            }
+        } else if (self.model.imageUrl != nil && self.model.imageUrl.length) {
             // 大图图片链接已经获取到
             [self downloadBigImageUrl];
         } else {
@@ -227,15 +236,13 @@
     // 图片存储起来
     // 下载完成时调用
     // 保存到本地
-    // 拼接路径, /cache/画廊名称/页码.文件后缀
-    NSString *fileFolderPath = [NSString stringWithFormat:@"%@/%@", [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"], [self.model.mangaName stringByReplacingOccurrencesOfString:@" " withString:@"_"]];
-    [self creatFolderWithPath:fileFolderPath];
-    NSString *filePath = [NSString stringWithFormat:@"%@/%ld.%@", fileFolderPath, self.model.page, [self.model.imageUrl pathExtension]];
+    NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
+    NSString *imagePath = [cachePath stringByAppendingPathComponent:[_model.url MD5]];
     
-    [[NSFileManager defaultManager] moveItemAtURL:location toURL:[NSURL fileURLWithPath:filePath] error:nil];
+    [[NSFileManager defaultManager] moveItemAtURL:location toURL:[NSURL fileURLWithPath:imagePath] error:nil];
     // 更新本地地址
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.model.imagePath = filePath;
+        self.model.imagePath = imagePath;
     });
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(imageDownloadFinishWithLoader:)]) {

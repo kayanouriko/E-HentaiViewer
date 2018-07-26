@@ -26,10 +26,6 @@
     _model = model;
     self.titleNameLabel.text = model.title;
     if ([model.type isEqualToString:@"开关"]) {
-        if ([model.title isEqualToString:@"显示日文标题"]) {
-            //该功能暂时不支持调节
-            self.switchBtn.enabled = NO;
-        }
         if ([model.title isEqualToString:@"启动保护"]) {
             if (![[QJProtectTool shareTool] isEnableTouchID]) {
                 self.switchBtn.enabled = NO;

@@ -31,6 +31,7 @@
 
 @property (nonatomic, strong) NSDictionary *baseInfoDic;//基础信息
 @property (nonatomic, strong) NSArray *smallImages;//缩略图合集
+@property (nonatomic, strong) NSArray *imageUrls;//图片的url
 @property (nonatomic, strong) NSArray *comments;//评论
 @property (nonatomic, strong) NSArray *tagArr;//tag
 @property (nonatomic, assign) BOOL isFavorite;//是否收藏

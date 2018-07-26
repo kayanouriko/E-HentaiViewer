@@ -15,12 +15,13 @@
 #import "QJOrientationManager.h"
 #import "QJBrowerSettingPopView.h"
 #import "QJLabel.h"
+#import "QJBrowserBookMarkPopView.h"
 
 //iconfont
 #import "TBCityIconFont.h"
 #import "UIImage+TBCityIconFont.h"
 
-@interface QJNewBrowerViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, QJBrowerSettingPopViewDelegate, UIGestureRecognizerDelegate, QJNewBrowerImageCellDelegate>
+@interface QJNewBrowerViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, QJBrowerSettingPopViewDelegate, UIGestureRecognizerDelegate, QJNewBrowerImageCellDelegate, QJBrowserBookMarkPopViewDelegate>
 
 // 导航栏部分
 @property (nonatomic, strong) UIBarButtonItem *funcItem;
@@ -33,6 +34,7 @@
 
 //弹出框
 @property (nonatomic, strong) QJBrowerSettingPopView *popView;
+@property (nonatomic, strong) QJBrowserBookMarkPopView *bookmarkPopView;
 
 // 图片部分
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -118,7 +120,7 @@
     self.currentPage = 0;
     self.fristRefresh = YES;
     // 创建管理器,并刷新数据
-    self.manager = [[QJMangaManager alloc] initWithShowKey:self.showkey gid:self.gid url:self.url count:self.count mangaName:self.mangaName];
+    self.manager = [[QJMangaManager alloc] initWithShowKey:self.showkey gid:self.gid url:self.url count:self.count imageUrls:self.imageUrls smallImageUrls:self.smallImageUrls];
     self.datas = self.manager.photos;
     [self.collectionView reloadData];
 }
@@ -173,9 +175,12 @@
     [self.collectionView setContentOffset:contentOffset];
     self.orientation = orientation;
     // 刷新布局
-    self.mangaNameLabelTopLine.constant = UINavigationBarHeight() + 20;
+    self.mangaNameLabelTopLine.constant = (isAppOrientationPortrait ? UINavigationBarHeight() : UISearchBarHeight()) + 20;
     if (self.popView.isShowed) {
         [self.popView changeFrameIfNeed];
+    }
+    if (self.bookmarkPopView.isShowed) {
+        [self.bookmarkPopView changeFrameIfNeed];
     }
 }
 
@@ -327,7 +332,7 @@
 }
 
 - (void)selectFavorteAction {
-    
+    [self.bookmarkPopView show];
 }
 
 - (void)addFavorteAction {
@@ -351,6 +356,10 @@
 // 进度修改的时候执行的方法
 - (IBAction)progressSliderValueChange:(UISlider *)sender {
     self.currentPage = sender.value - 1;
+    [self changeBrowserInfo];
+}
+
+- (void)changeBrowserInfo {
     self.pageCountBigLabel.text = [NSString stringWithFormat:@"%ld", self.currentPage + 1];
     self.pageCountLabel.text = [NSString stringWithFormat:@"%ld / %ld", self.currentPage + 1, self.count];
 }
@@ -364,6 +373,10 @@
 
 - (IBAction)sliderUpInside:(UISlider *)sender {
     self.pageCountBgView.hidden = YES;
+    [self changePage];
+}
+
+- (void)changePage {
     // 跳转对应的页码
     CGFloat height = 0;
     if (!(isAppScrollDiretionHorizontal)) {
@@ -428,6 +441,16 @@
 
 - (void)brightnessSliderDidChangeValue:(CGFloat)value {
     [UIScreen mainScreen].brightness = value;
+}
+
+#pragma mark - QJBrowserBookMarkPopView Delegate
+- (void)didSelectImageWithIndex:(NSInteger)index {
+    if (!self.navigationController.navigationBarHidden) {
+        [self clickView:nil];
+    }
+    self.currentPage = index;
+    [self changeBrowserInfo];
+    [self changePage];
 }
 
 #pragma mark - Other
@@ -510,6 +533,13 @@
         _popView = [QJBrowerSettingPopView initWithDelegate:self];
     }
     return _popView;
+}
+
+- (QJBrowserBookMarkPopView *)bookmarkPopView {
+    if (!_bookmarkPopView) {
+        _bookmarkPopView = [QJBrowserBookMarkPopView creatPopViewWithDelegate:self manager:self.manager];
+    }
+    return _bookmarkPopView;
 }
 
 @end

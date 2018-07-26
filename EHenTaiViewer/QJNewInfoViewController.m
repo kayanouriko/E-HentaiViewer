@@ -139,7 +139,7 @@
     self.thumbImageView.layer.cornerRadius = 3.f;
     self.thumbImageView.clipsToBounds = YES;
     //标题
-    self.titleLabel.text = self.model.title;
+    self.titleLabel.text = ([QJGlobalInfo isExHentaiTitleJnMode] && self.model.title_jpn.length) ? self.model.title_jpn : self.model.title;
     //上传者
     self.authorLabel.text = self.model.uploader;
     //分类
@@ -360,6 +360,8 @@
     }
     QJNewBrowerViewController *vc = [QJNewBrowerViewController new];
     vc.mangaName = self.model.title;
+    vc.imageUrls = self.infoModel.imageUrls;
+    vc.smallImageUrls = self.infoModel.smallImages;
     vc.url = self.model.url;
     vc.gid = self.model.gid;
     vc.count = self.model.filecount;

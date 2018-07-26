@@ -55,12 +55,17 @@
 /**
  初始化
  */
-- (instancetype)initWithShowKey:(NSString *)showkey gid:(NSString *)gid url:(NSString *)url count:(NSInteger)count mangaName:(NSString *)mangaName;
+- (instancetype)initWithShowKey:(NSString *)showkey gid:(NSString *)gid url:(NSString *)url count:(NSInteger)count imageUrls:(NSArray *)imageUrls smallImageUrls:(NSArray *)smallImageUrls;
 
 /**
  开始一个图片下载任务
  */
 - (void)startOperationForModel:(QJMangaImageModel *)model atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ 开始解析缩略图链接
+ */
+- (void)startImageParserForModel:(QJMangaImageModel *)model;
 
 /**
  暂停全部任务

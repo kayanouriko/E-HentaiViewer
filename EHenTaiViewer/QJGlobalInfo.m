@@ -15,6 +15,7 @@ static NSString * const ExHentaiWatchMode = @"ExHentaiWatchMode";
 static NSString * const ExHentaiProtectMode = @"ExHentaiProtectMode";
 static NSString * const ExHentaiTagCnMode = @"ExHentaiTagCnMode";
 static NSString * const ExHentaiTitleJnMode = @"ExHentaiTitleJnMode";
+static NSString * const ExHentaiTabbarItems = @"ExHentaiTabbarItems";
 
 @interface QJGlobalInfo ()
 
@@ -45,6 +46,19 @@ static NSString * const ExHentaiTitleJnMode = @"ExHentaiTitleJnMode";
 }
 
 #pragma mark - 全局配置
++ (NSArray<NSString *> *)customTabbarItems {
+    if (nil == NSObjForKey(ExHentaiTabbarItems)) {
+        [self setCustomTabbarItems:@[@"当前热门", @"画廊", @"收藏", @"设置", @"搜索"]];
+    }
+    NSArray<NSString *> *customTabbarItems = NSObjForKey(ExHentaiTabbarItems);
+    return customTabbarItems;
+}
+
++ (void)setCustomTabbarItems:(NSArray<NSString *> *)customTabbarItems {
+    NSObjSetForKey(ExHentaiTabbarItems, customTabbarItems);
+    NSObjSynchronize();
+}
+
 + (UIInterfaceOrientationMask)customOrientation {
     // 默认跟随系统
     if (nil == NSObjForKey(ExHentaiOrientation)) {

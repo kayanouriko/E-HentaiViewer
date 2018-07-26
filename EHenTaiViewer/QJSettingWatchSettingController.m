@@ -15,6 +15,7 @@
 #import "QJProtectTool.h"
 #import "QJLanguageOutViewController.h"
 #import "QJSettingHightOtherController.h"
+#import "QJCustomTabbarSettingController.h"
 
 static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
 
@@ -164,8 +165,12 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QJSettingModel *model = self.datas[indexPath.row];
     if (self.type == QJSettingWatchSettingControllerTypeEH) {
-        if ([model.type isEqualToString:@"操作"]) {
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定清除缓存?其中包括已经缓存的画廊大图,建议清除前先iTunes导出全部画廊大图缓存进行备份" preferredStyle:UIAlertControllerStyleAlert];
+        if ([model.type isEqualToString:@"操作"] && [model.title isEqualToString:@"自定义底部栏"]) {
+            QJCustomTabbarSettingController *vc = [QJCustomTabbarSettingController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else {
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定清除缓存?其中包括已经缓存的画廊大图" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             [alertVC addAction:cancelBtn];
             UIAlertAction *okBtn = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -223,8 +228,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
 #pragma mark -获取缓存
 - (float)filePath {
     NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory , NSUserDomainMask , YES) firstObject];
-    NSString *documentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-    return [self folderSizeAtPath:cachPath] + [self folderSizeAtPath:documentsPath];
+    return [self folderSizeAtPath:cachPath];
 }
 
 - (long long)fileSizeAtPath:(NSString *)filePath {

@@ -7,14 +7,10 @@
 //
 
 /**
- 该类主要控制屏幕的转向
- 1. 竖屏 2. 横屏 3. 跟随系统
- 
- 滚动方向
- 1. 水平滚动 2. 上下滚动
+ 该类主要控制一些杂项设置
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface QJOrientationManager : NSObject
 
@@ -46,7 +42,6 @@
 
 /** 保存目标图片到系统相册
  @param imagePath 沙盒图片路径
- @param viewController 图片所在的控制器
  */
 + (void)saveImageToSystemThumbWithImagePath:(NSString *)imagePath;
 

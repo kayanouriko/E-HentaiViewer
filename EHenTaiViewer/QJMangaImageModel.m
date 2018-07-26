@@ -7,6 +7,13 @@
 //
 
 #import "QJMangaImageModel.h"
+#import "NSString+StringHeight.h"
+
+@interface QJMangaImageModel()
+
+@property (nonatomic, strong) smallImageUrlBlock block;
+
+@end
 
 @implementation QJMangaImageModel
 
@@ -51,34 +58,48 @@
 
 - (void)setPage:(NSInteger)page {
     _page = page;
-    if (self.mangaName && self.imagePath.length == 0) {
+}
+
+- (void)setUrl:(NSString *)url {
+    _url = url;
+    if (_url.length) {
+        self.parser = YES;
+    }
+    if (self.imagePath.length == 0) {
         self.imagePath = [self checkLocalImagePath];
     }
 }
 
 // 查找本地是否存在缓存,存在则直接取出来
 - (NSString *)checkLocalImagePath {
-    NSString *fileFolderPath = [NSString stringWithFormat:@"%@/%@", [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"], [self.mangaName stringByReplacingOccurrencesOfString:@" " withString:@"_"]];
+    // 缓存文件夹
+    NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
+    NSString *imagePath = [cachePath stringByAppendingPathComponent:[_url MD5]];
     // 先判断文件夹是否存在
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDir = NO;
-    BOOL existed = [fileManager fileExistsAtPath:fileFolderPath isDirectory:&isDir];
+    BOOL existed = [fileManager fileExistsAtPath:imagePath isDirectory:&isDir];
     // 文件夹不存在的时候返回空字符串
     if (!existed) {
         return @"";
     }
-    // 遍历文件夹内容
-    // 如果存在
-    NSArray *files = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:fileFolderPath error:nil];
-    if (files && files.count) {
-        for (NSString *fileName in files) {
-            NSString *page = [fileName stringByDeletingPathExtension];
-            if ([page isEqualToString:[NSString stringWithFormat:@"%ld", self.page]]) {
-                return [NSString stringWithFormat:@"%@/%@", fileFolderPath, fileName];
-            }
-        }
+    return imagePath;
+}
+
+- (void)setSmallImageUrl:(NSString *)smallImageUrl {
+    _smallImageUrl = smallImageUrl;
+    if (self.block) {
+        self.block();
     }
-    return @"";
+}
+
+#pragma mark - Model Action
+- (void)getSmallUrlWithBlock:(smallImageUrlBlock)block {
+    if (self.smallImageUrl && self.smallImageUrl.length) {
+        block();
+    } else {
+        self.block = block;
+    }
 }
 
 #pragma mark - Getter
@@ -87,9 +108,21 @@
         UIImage *image = [UIImage imageWithContentsOfFile:_imagePath];
         CGSize imageSize = image.size;
         CGRect imageFrame = CGRectMake(0, 0, imageSize.width, imageSize.height);
-        CGFloat ratio = UIScreenWidth() / imageFrame.size.width;
-        imageFrame.size.height = imageFrame.size.height * ratio;
-        imageFrame.size.width = UIScreenWidth();
+        
+        CGFloat screenRatio = UIScreenWidth() / UIScreenHeight();
+        CGFloat imageRatio = imageFrame.size.width / imageFrame.size.height;
+        // TODO:这里有待整理,暂时用0.3的变量吧
+        if (screenRatio - imageRatio <= 0.3 && screenRatio - imageRatio > 0) {
+            CGFloat ratio = UIScreenHeight() / imageFrame.size.height;
+            imageFrame.size.width = imageFrame.size.width * ratio;
+            imageFrame.size.height = UIScreenHeight();
+        } else {
+            CGFloat ratio = UIScreenWidth() / imageFrame.size.width;
+            imageFrame.size.height = imageFrame.size.height * ratio;
+            imageFrame.size.width = UIScreenWidth();
+        }
+        
+        
         return imageFrame.size;
     }
     else {

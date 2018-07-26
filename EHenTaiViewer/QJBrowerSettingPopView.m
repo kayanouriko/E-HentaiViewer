@@ -67,7 +67,7 @@
     CGFloat margin = (isIPhoneX && !(isAppOrientationPortrait)) ? 10 + UISearchBarHeight() : 10;
     [window addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=margin)-[self(360@500)]-margin-|" options:0 metrics:@{@"margin": @(margin)} views:NSDictionaryOfVariableBindings(self)]];
     CGFloat y = UINavigationBarHeight() + 10;
-    [window addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-y-[self(195.5@500)]-(>=marginButtom)-|" options:0 metrics:@{@"y": @(y), @"marginButtom": @(UITabBarSafeBottomMargin() + 10)} views:NSDictionaryOfVariableBindings(self)]];
+    [window addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-y-[self(240.5@500)]-(>=marginButtom)-|" options:0 metrics:@{@"y": @(y), @"marginButtom": @(UITabBarSafeBottomMargin() + 10)} views:NSDictionaryOfVariableBindings(self)]];
     
     [window addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_bgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_bgView)]];
     [window addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_bgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_bgView)]];
@@ -104,18 +104,21 @@
 }
 
 #pragma mark - Control Action
+// 旋转方向
 - (IBAction)orientationSegValueChange:(UISegmentedControl *)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(orientationSegDidClickBtnWithSelectedIndex:)]) {
         [self.delegate orientationSegDidClickBtnWithSelectedIndex:sender.selectedSegmentIndex];
     }
 }
 
+// 滚动方向
 - (IBAction)directionSegValueChange:(UISegmentedControl *)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(directionSegDidClickBtnWithSelectedIndex:)]) {
         [self.delegate directionSegDidClickBtnWithSelectedIndex:sender.selectedSegmentIndex];
     }
 }
 
+// 亮度
 - (IBAction)brightnessSliderValueChange:(UISlider *)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(brightnessSliderDidChangeValue:)]) {
         [self.delegate brightnessSliderDidChangeValue:sender.value];

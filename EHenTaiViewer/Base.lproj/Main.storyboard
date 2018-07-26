@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rsu-H3-Gff">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rsu-H3-Gff">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -932,15 +932,6 @@
         <scene sceneID="zjp-EW-MJZ">
             <objects>
                 <viewController id="65J-IQ-JfO" customClass="QJNowViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6YX-P9-VRQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="S9M-ED-Am9"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="A2A-t5-p27">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
                     <navigationItem key="navigationItem" id="KVY-Pn-UBD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLT-LD-Ejg" userLabel="First Responder" sceneMemberID="firstResponder"/>
