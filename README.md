@@ -1,5 +1,5 @@
 ### EHenTaiViewer
-![platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v1.1.1-brightgreen.svg)](https://github.com/kayanouriko/E-HentaiViewer/releases)  ![support](https://img.shields.io/badge/support-8.0-blue.svg)
+![platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v1.2.0-brightgreen.svg)](https://github.com/kayanouriko/E-HentaiViewer/releases)  ![support](https://img.shields.io/badge/support-8.0-blue.svg)
 
 一个EHentai的iOS端阅读器 / a client for e-hentai/exhentai
 
@@ -9,6 +9,7 @@
 所以app上的高级设置暂时全部失效了
 
 请前往网站配置页配置你的图片分辨率相关，客户端的看图用的是你账号的看图额度【虽然一般用不完
+
 同理，请暂时在网站配置设置你的语言排除，后期计划客户端仅在搜索添加语言搜索排除
 
 #### 非越狱手机安装方法
@@ -28,7 +29,8 @@
 ### 更新内容
 2018.08.14 1.2.0
 
-赶在c94期间更新了一各大版本，实在不好意思再拖延下去了，祝大家c94观本愉快~注意身体哦~
+赶在c94期间更新了一各大版本，实在不好意思再拖延下去了，祝大家c94观本愉快!~【注意身体哦】~
+
 下个版本重点优化的是搜索功能和画廊操作功能，还有Action扩展，支持应用外识别画廊链接直接跳转应用打开~
 
 * 基础设置中新增功能和开放之前禁止的功能项
