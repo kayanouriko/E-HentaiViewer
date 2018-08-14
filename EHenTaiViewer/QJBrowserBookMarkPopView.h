@@ -22,9 +22,9 @@
 @property (nonatomic, weak) id<QJBrowserBookMarkPopViewDelegate> delegate;
 @property (nonatomic, assign, getter=isShowed) BOOL showed;
 
-+ (QJBrowserBookMarkPopView *)creatPopViewWithDelegate:(id<QJBrowserBookMarkPopViewDelegate>)theDelagate manager:(QJMangaManager *)manager;
++ (QJBrowserBookMarkPopView *)creatPopViewWithDelegate:(id<QJBrowserBookMarkPopViewDelegate>)theDelagate manager:(QJMangaManager *)manager gid:(NSString *)gid;
 
-- (void)show;
-- (void)changeFrameIfNeed;
+- (void)showWithIndexPath:(NSIndexPath *)indexPath;
+- (void)changeFrameIfNeedWithIndexPath:(NSIndexPath *)indexPath;
 
 @end

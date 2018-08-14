@@ -27,12 +27,10 @@
 @property (nonatomic, assign) BOOL expunged;//是否被删除????
 @property (nonatomic, assign) NSInteger torrentcount;//种子数
 @property (nonatomic, strong) NSArray *tags;//tag数组
+@property (nonatomic, assign) NSInteger page;//所在的页码
 //下面两个为接口请求所需的参数
 @property (nonatomic, strong) NSString *gid;
 @property (nonatomic, strong) NSString *token;
-
-//点击事件相关
-@property (nonatomic, assign) BOOL isShowTag;//展示tag
 
 - (instancetype)initWithDict:(NSDictionary *)dict classifyArr:(NSArray<NSString *> *)classifyArr colorArr:(NSArray<UIColor *> *)colorArr;
 

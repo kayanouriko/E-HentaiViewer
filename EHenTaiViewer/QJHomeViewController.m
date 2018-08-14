@@ -13,19 +13,23 @@
 #import "QJListTableView.h"
 #import "QJTouchIDViewController.h"
 #import "NSString+StringHeight.h"
+#import "QJListItem.h"
 //详情页
 #import "QJNewInfoViewController.h"
 
-@interface QJHomeViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+@interface QJHomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
+
+@property (nonatomic, strong) UIButton *pageButton;
+@property (nonatomic, strong) UIAlertAction *action1;
 //列表
 @property (nonatomic, strong) QJListTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *datas;
 @property (nonatomic, assign) float oldOffsetY;
 @property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, assign) NSInteger totalPage;
 @property (nonatomic, assign) QJFreshStatus status;
 //刷新提示文字
 @property (nonatomic, strong) UIRefreshControl *refrshControl;
-@property (nonatomic, assign) BOOL isShowThumbImage;//是否呈现启动动画
 
 @end
 
@@ -33,7 +37,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initInfo];
     [self setContent];
     //第一次加载
     [self showFreshingViewWithTip:nil];
@@ -44,6 +47,50 @@
     self.status = QJFreshStatusRefresh;
     self.pageIndex = 0;
     [self updateResource];
+}
+
+#pragma mark -View Control
+- (void)jumpPageAction {
+    if (self.totalPage) {
+        // 构建弹出框
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"页码跳转" message:[NSString stringWithFormat:@"请输入一个 0 ~ %ld 之间的页码数字", self.totalPage] preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            [textField addTarget:self action:@selector(textFieldTextChange:) forControlEvents:UIControlEventEditingChanged];
+            textField.textAlignment = NSTextAlignmentCenter;
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+            textField.placeholder = @"请输入";
+        }];
+        self.action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self showFreshingViewWithTip:nil];
+            self.status = QJFreshStatusRefresh;
+            self.pageIndex = [alert.textFields.firstObject.text integerValue] - 1;
+            NSLog(@"Request page %ld from server.",self.pageIndex);
+            [self updateResource];
+            
+            [self changeRightButtonInfoWithIndex:self.pageIndex + 1];
+        }];
+        self.action1.enabled = NO;
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alert addAction:self.action1];
+        [alert addAction:action2];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+
+    }
+    else {
+        Toast(@"跳页功能暂时无法使用");
+    }
+}
+
+- (void)textFieldTextChange:(UITextField *)textField {
+    NSInteger page = [textField.text integerValue];
+    self.action1.enabled = page && page > 0 && page <= self.totalPage;
+}
+
+- (void)changeRightButtonInfoWithIndex:(NSInteger)index {
+    self.pageButton.titleLabel.text = [NSString stringWithFormat:@"%ld", index];
+    [self.pageButton setTitle:[NSString stringWithFormat:@"%ld", index] forState:UIControlStateNormal];
 }
 
 #pragma mark -滚动到顶部
@@ -78,6 +125,8 @@
         if ([self isShowFreshingStatus]) {
             [self hiddenFreshingView];
         }
+    } total:^(NSInteger total) {
+        self.totalPage = total <= 0 ? 0 : total;
     }];
 }
 
@@ -93,13 +142,13 @@
     return url;
 }
 
-#pragma mark -初始化
-- (void)initInfo {
-    self.isShowThumbImage = YES;
-}
-
 #pragma mark -设置内容
 - (void)setContent {
+    self.totalPage = 0;
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.pageButton];
+    self.navigationItem.rightBarButtonItem = item;
+    
     [self.view addSubview:self.tableView];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
@@ -135,13 +184,13 @@
 }
 
 #pragma mark -UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //预加载
     CGFloat current = scrollView.contentOffset.y + scrollView.frame.size.height;
     CGFloat total = scrollView.contentSize.height;
     CGFloat ratio = current / total;
     
-    CGFloat needRead = 25 * 0.7 + self.pageIndex * 25;
+    CGFloat needRead = 25 * 0.5 + self.pageIndex * 25;
     CGFloat totalItem = 25 * (self.pageIndex + 1);
     CGFloat newThreshold = needRead / totalItem;
     
@@ -151,9 +200,31 @@
         NSLog(@"Request page %ld from server.",self.pageIndex);
         [self updateResource];
     }
+    
+    // 改变右上角显示
+    QJListCell *cell = [self.tableView visibleCells].firstObject;
+    if (cell) {
+        QJListItem *item = self.datas[[self.tableView indexPathForCell:cell].row];
+        NSInteger currentPage = item.page;
+        [self changeRightButtonInfoWithIndex:currentPage];
+    }
 }
 
 #pragma mark -getter
+- (UIButton *)pageButton {
+    if (!_pageButton) {
+        _pageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _pageButton.frame = CGRectMake(0, 0, 45, 15);
+        _pageButton.layer.cornerRadius = 5.f;
+        _pageButton.backgroundColor = DEFAULT_COLOR;
+        [_pageButton setTitle:[NSString stringWithFormat:@"%ld", self.pageIndex + 1] forState:UIControlStateNormal];
+        _pageButton.titleLabel.text = [NSString stringWithFormat:@"%ld", self.pageIndex + 1];
+        _pageButton.titleLabel.font = [UIFont systemFontOfSize:12.f];
+        [_pageButton addTarget:self action:@selector(jumpPageAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _pageButton;
+}
+
 - (QJListTableView *)tableView {
     if (!_tableView) {
         _tableView = [QJListTableView new];

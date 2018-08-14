@@ -274,7 +274,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
 
 - (void)clearCachSuccess {
     for (QJSettingModel *model in self.datas) {
-        if ([model.type isEqualToString:@"操作"]) {
+        if ([model.title isEqualToString:@"清除缓存"]) {
             model.subTitle = [NSString stringWithFormat:@"%.2f MB",[self filePath]];
             break;
         }

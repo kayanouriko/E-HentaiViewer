@@ -21,11 +21,15 @@
 #import "TBCityIconFont.h"
 #import "UIImage+TBCityIconFont.h"
 
+// coredata
+#import "QJBrowerCollectManager.h"
+
 @interface QJNewBrowerViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, QJBrowerSettingPopViewDelegate, UIGestureRecognizerDelegate, QJNewBrowerImageCellDelegate, QJBrowserBookMarkPopViewDelegate>
 
 // 导航栏部分
 @property (nonatomic, strong) UIBarButtonItem *funcItem;
 @property (nonatomic, strong) UIBarButtonItem *addFavorteItem;
+@property (nonatomic, strong) UIBarButtonItem *removeFavorteItem;
 @property (nonatomic, strong) UIBarButtonItem *favoriteItem;
 @property (nonatomic, strong) UIBarButtonItem *cancelItem;
 @property (nonatomic, strong) UIBarButtonItem *saveItem;
@@ -73,6 +77,9 @@
 }
 
 - (void)initUI {
+    // 数据初始化
+    self.currentPage = 0;
+    self.fristRefresh = YES;
     // 当状态栏变动的时候不调整collectionView的frame
     if (@available(iOS 11.0, *)) {
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -84,7 +91,7 @@
     self.navigationController.navigationBarHidden = YES;
     // 添加item
     self.navigationItem.leftBarButtonItems = @[self.cancelItem, self.favoriteItem];
-    self.navigationItem.rightBarButtonItems = @[self.funcItem, self.addFavorteItem, self.saveItem];
+    [self changeNavgationBarRightItems];
     // 设置画廊名字和当前页码
     self.mangaNameLabel.text = self.mangaName;
     self.mangaNameLabelTopLine.constant = UINavigationBarHeight() + 20;
@@ -116,9 +123,6 @@
 }
 
 - (void)initData {
-    // 数据初始化
-    self.currentPage = 0;
-    self.fristRefresh = YES;
     // 创建管理器,并刷新数据
     self.manager = [[QJMangaManager alloc] initWithShowKey:self.showkey gid:self.gid url:self.url count:self.count imageUrls:self.imageUrls smallImageUrls:self.smallImageUrls];
     self.datas = self.manager.photos;
@@ -180,7 +184,7 @@
         [self.popView changeFrameIfNeed];
     }
     if (self.bookmarkPopView.isShowed) {
-        [self.bookmarkPopView changeFrameIfNeed];
+        [self.bookmarkPopView changeFrameIfNeedWithIndexPath:[NSIndexPath indexPathForItem:self.currentPage inSection:0]];
     }
 }
 
@@ -197,6 +201,8 @@
         [self loadImageForOnscreenCellsWithIndexPath:nil];
         [self.manager resumeAllOperations];
         [self changeControllerInfo];
+        // 更换导航栏按钮
+        [self changeNavgationBarRightItems];
     }
 }
 
@@ -204,6 +210,8 @@
     [self loadImageForOnscreenCellsWithIndexPath:nil];
     [self.manager resumeAllOperations];
     [self changeControllerInfo];
+    // 更换导航栏按钮
+    [self changeNavgationBarRightItems];
 }
 
 #pragma mark - Cancelling Suspending Resuming Queues/Operations
@@ -332,11 +340,36 @@
 }
 
 - (void)selectFavorteAction {
-    [self.bookmarkPopView show];
+    [self.bookmarkPopView showWithIndexPath:[NSIndexPath indexPathForItem:self.currentPage inSection:0]];
 }
 
 - (void)addFavorteAction {
-    
+    // 添加收藏
+    if (self.datas[self.currentPage].smallImageUrl.length) {
+        [QJBrowerCollectManager saveOnePageWithGid:self.gid pageIndex:self.currentPage smallImageUrl:self.datas[self.currentPage].smallImageUrl];
+        [self changeNavgationBarRightItems];
+    }
+    else {
+        Toast(@"该页图片开始下载之后才能添加书签");
+    }
+}
+
+- (void)removeFavorteAction {
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定取消该页的书签?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:cancelBtn];
+    UIAlertAction *okBtn = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [QJBrowerCollectManager deleteOnePageWithGid:self.gid pageIndex:self.currentPage smallImageUrl:self.datas[self.currentPage].smallImageUrl];
+        [self changeNavgationBarRightItems];
+    }];
+    [alertVC addAction:okBtn];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+- (void)changeNavgationBarRightItems {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"page == %ld",self.currentPage];
+    BOOL isColected = [[QJBrowerCollectManager getAllCollectPagesWithGid:self.gid] filteredArrayUsingPredicate:predicate].count;
+    self.navigationItem.rightBarButtonItems = @[self.funcItem, isColected ? self.removeFavorteItem : self.addFavorteItem, self.saveItem];
 }
 
 // 右上角更多功能item
@@ -449,8 +482,10 @@
         [self clickView:nil];
     }
     self.currentPage = index;
+    self.progressSlider.value = self.currentPage + 1;
     [self changeBrowserInfo];
     [self changePage];
+    [self changeNavgationBarRightItems];
 }
 
 #pragma mark - Other
@@ -472,7 +507,7 @@
         self.currentPage = page;
     }
     self.progressSlider.value = self.currentPage + 1;
-    self.pageCountLabel.text = [NSString stringWithFormat:@"%ld / %ld", self.currentPage + 1, self.count];
+    self.pageCountLabel.text = [NSString stringWithFormat:@"%ld / %ld", self.currentPage + 1, (long)self.count];
 }
 
 #pragma mark -getter
@@ -502,6 +537,13 @@
         _addFavorteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e619", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(addFavorteAction)];
     }
     return _addFavorteItem;
+}
+
+- (UIBarButtonItem *)removeFavorteItem {
+    if (nil == _removeFavorteItem) {
+        _removeFavorteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e60e", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(removeFavorteAction)];
+    }
+    return _removeFavorteItem;
 }
 
 - (UIBarButtonItem *)saveItem {
@@ -537,7 +579,7 @@
 
 - (QJBrowserBookMarkPopView *)bookmarkPopView {
     if (!_bookmarkPopView) {
-        _bookmarkPopView = [QJBrowserBookMarkPopView creatPopViewWithDelegate:self manager:self.manager];
+        _bookmarkPopView = [QJBrowserBookMarkPopView creatPopViewWithDelegate:self manager:self.manager gid:self.gid];
     }
     return _bookmarkPopView;
 }

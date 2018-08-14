@@ -16,6 +16,11 @@
 		5A0780B81ECE8A5600EF00E6 /* QJListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0780B71ECE8A5600EF00E6 /* QJListItem.m */; };
 		5A0780BD1ECEE9C900EF00E6 /* QJListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0780BB1ECEE9C900EF00E6 /* QJListCell.m */; };
 		5A0780BE1ECEE9C900EF00E6 /* QJListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0780BC1ECEE9C900EF00E6 /* QJListCell.xib */; };
+		5A089FD42121B9B900EA692D /* Gallery+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FCE2121B9B900EA692D /* Gallery+CoreDataClass.m */; };
+		5A089FD52121B9B900EA692D /* Gallery+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FCF2121B9B900EA692D /* Gallery+CoreDataProperties.m */; };
+		5A089FD62121B9B900EA692D /* GalleryPage+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FD22121B9B900EA692D /* GalleryPage+CoreDataClass.m */; };
+		5A089FD72121B9B900EA692D /* GalleryPage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FD32121B9B900EA692D /* GalleryPage+CoreDataProperties.m */; };
+		5A089FDD2121BA1D00EA692D /* QJBrowerCollectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FDC2121BA1D00EA692D /* QJBrowerCollectManager.m */; };
 		5A0A1F371EDFB7C3002C8AF8 /* QJTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F361EDFB7C3002C8AF8 /* QJTagView.m */; };
 		5A0A1F4F1EE0146E002C8AF8 /* QJGoCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F4D1EE0146E002C8AF8 /* QJGoCommentController.m */; };
 		5A1999C21ED6891100DB6B9D /* QJListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1999C11ED6891100DB6B9D /* QJListTableView.m */; };
@@ -188,6 +193,16 @@
 		5A0780BA1ECEE9C900EF00E6 /* QJListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJListCell.h; sourceTree = "<group>"; };
 		5A0780BB1ECEE9C900EF00E6 /* QJListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJListCell.m; sourceTree = "<group>"; };
 		5A0780BC1ECEE9C900EF00E6 /* QJListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJListCell.xib; sourceTree = "<group>"; };
+		5A089FCC2121B9B900EA692D /* Gallery+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gallery+CoreDataProperties.h"; sourceTree = "<group>"; };
+		5A089FCD2121B9B900EA692D /* Gallery+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gallery+CoreDataClass.h"; sourceTree = "<group>"; };
+		5A089FCE2121B9B900EA692D /* Gallery+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Gallery+CoreDataClass.m"; sourceTree = "<group>"; };
+		5A089FCF2121B9B900EA692D /* Gallery+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Gallery+CoreDataProperties.m"; sourceTree = "<group>"; };
+		5A089FD02121B9B900EA692D /* GalleryPage+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GalleryPage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		5A089FD12121B9B900EA692D /* GalleryPage+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GalleryPage+CoreDataClass.h"; sourceTree = "<group>"; };
+		5A089FD22121B9B900EA692D /* GalleryPage+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GalleryPage+CoreDataClass.m"; sourceTree = "<group>"; };
+		5A089FD32121B9B900EA692D /* GalleryPage+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GalleryPage+CoreDataProperties.m"; sourceTree = "<group>"; };
+		5A089FDB2121BA1D00EA692D /* QJBrowerCollectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJBrowerCollectManager.h; sourceTree = "<group>"; };
+		5A089FDC2121BA1D00EA692D /* QJBrowerCollectManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJBrowerCollectManager.m; sourceTree = "<group>"; };
 		5A0A1F351EDFB7C3002C8AF8 /* QJTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJTagView.h; sourceTree = "<group>"; };
 		5A0A1F361EDFB7C3002C8AF8 /* QJTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTagView.m; sourceTree = "<group>"; };
 		5A0A1F4C1EE0146E002C8AF8 /* QJGoCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJGoCommentController.h; sourceTree = "<group>"; };
@@ -512,7 +527,7 @@
 			name = "列表Cell";
 			sourceTree = "<group>";
 		};
-		5A0A1F4A1EE01441002C8AF8 /* 主页面 */ = {
+		5A0A1F4A1EE01441002C8AF8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				5A6ECC8F1EDE6CBA00DBF9DA /* View */,
@@ -520,10 +535,10 @@
 				5A34DBA31FC26011007B0A5F /* QJNewInfoViewController.m */,
 				5A34DBA41FC26011007B0A5F /* QJNewInfoViewController.xib */,
 			);
-			name = "主页面";
+			name = Main;
 			sourceTree = "<group>";
 		};
-		5A0A1F4B1EE0144C002C8AF8 /* 评论 */ = {
+		5A0A1F4B1EE0144C002C8AF8 /* Comment */ = {
 			isa = PBXGroup;
 			children = (
 				5A842FDF1FC7B5470069AD4C /* View */,
@@ -533,7 +548,7 @@
 				5A842FDB1FC7AC260069AD4C /* QJAllCommentController.h */,
 				5A842FDC1FC7AC260069AD4C /* QJAllCommentController.m */,
 			);
-			name = "评论";
+			name = Comment;
 			sourceTree = "<group>";
 		};
 		5A1999C31ED68C7700DB6B9D /* ProtectTool */ = {
@@ -574,12 +589,12 @@
 				5A86C31D1ED1608B00A8CD80 /* XHStarRateView */,
 				5A07809C1ECE81E600EF00E6 /* TFHpple */,
 				5A0780951ECE7F2200EF00E6 /* Parser */,
-				5A2F792C1ECD2C7C00745DA0 /* 自定义子类 */,
+				5A2F792C1ECD2C7C00745DA0 /* CustomClass */,
 			);
 			name = Common;
 			sourceTree = "<group>";
 		};
-		5A2F792C1ECD2C7C00745DA0 /* 自定义子类 */ = {
+		5A2F792C1ECD2C7C00745DA0 /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
 				5A2F792D1ECD2CB900745DA0 /* QJViewController.h */,
@@ -597,7 +612,7 @@
 				5AD8559420F10AF100A21F9A /* QJLabel.h */,
 				5AD8559520F10AF100A21F9A /* QJLabel.m */,
 			);
-			name = "自定义子类";
+			name = CustomClass;
 			sourceTree = "<group>";
 		};
 		5A2F79391ECD3AAE00745DA0 /* View */ = {
@@ -648,14 +663,14 @@
 			name = LikeButton;
 			sourceTree = "<group>";
 		};
-		5A3FBC751EEA477D00373F36 /* 种子 */ = {
+		5A3FBC751EEA477D00373F36 /* Magnet */ = {
 			isa = PBXGroup;
 			children = (
 				5A3FBC791EEA486300373F36 /* View */,
 				5A3FBC761EEA47B800373F36 /* QJTorrentInfoController.h */,
 				5A3FBC771EEA47B800373F36 /* QJTorrentInfoController.m */,
 			);
-			name = "种子";
+			name = Magnet;
 			sourceTree = "<group>";
 		};
 		5A3FBC791EEA486300373F36 /* View */ = {
@@ -679,14 +694,14 @@
 			name = Reachability;
 			sourceTree = "<group>";
 		};
-		5A48AF261FDFC3E400E9F35B /* 收藏夹 */ = {
+		5A48AF261FDFC3E400E9F35B /* CollectList */ = {
 			isa = PBXGroup;
 			children = (
 				5A48AF2A1FDFC5F100E9F35B /* View */,
 				5A48AF271FDFC42700E9F35B /* QJFavoritesSelectController.h */,
 				5A48AF281FDFC42700E9F35B /* QJFavoritesSelectController.m */,
 			);
-			name = "收藏夹";
+			name = CollectList;
 			sourceTree = "<group>";
 		};
 		5A48AF2A1FDFC5F100E9F35B /* View */ = {
@@ -699,14 +714,14 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		5A4D64341FE392E600E5555B /* 搜索框 */ = {
+		5A4D64341FE392E600E5555B /* SearchBar */ = {
 			isa = PBXGroup;
 			children = (
 				5A4D64351FE3933500E5555B /* QJLikeSearchBar.h */,
 				5A4D64361FE3933500E5555B /* QJLikeSearchBar.m */,
 				5A4D64381FE3934600E5555B /* QJLikeSearchBar.xib */,
 			);
-			name = "搜索框";
+			name = SearchBar;
 			sourceTree = "<group>";
 		};
 		5A4D643A1FE3AC4700E5555B /* Layout */ = {
@@ -751,15 +766,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		5A6ECC851EDE4FAF00DBF9DA /* 详情 */ = {
+		5A6ECC851EDE4FAF00DBF9DA /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				5A8AEA301EF3BAAF007E5EEE /* 收藏 */,
-				5A3FBC751EEA477D00373F36 /* 种子 */,
-				5A0A1F4B1EE0144C002C8AF8 /* 评论 */,
-				5A0A1F4A1EE01441002C8AF8 /* 主页面 */,
+				5A8AEA301EF3BAAF007E5EEE /* Collect */,
+				5A3FBC751EEA477D00373F36 /* Magnet */,
+				5A0A1F4B1EE0144C002C8AF8 /* Comment */,
+				5A0A1F4A1EE01441002C8AF8 /* Main */,
 			);
-			name = "详情";
+			name = Info;
 			sourceTree = "<group>";
 		};
 		5A6ECC8E1EDE6CAF00DBF9DA /* 预览 */ = {
@@ -805,6 +820,14 @@
 		5A6F94711F2EC6AE0085F0EE /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				5A089FCC2121B9B900EA692D /* Gallery+CoreDataProperties.h */,
+				5A089FCD2121B9B900EA692D /* Gallery+CoreDataClass.h */,
+				5A089FCE2121B9B900EA692D /* Gallery+CoreDataClass.m */,
+				5A089FCF2121B9B900EA692D /* Gallery+CoreDataProperties.m */,
+				5A089FD02121B9B900EA692D /* GalleryPage+CoreDataProperties.h */,
+				5A089FD12121B9B900EA692D /* GalleryPage+CoreDataClass.h */,
+				5A089FD22121B9B900EA692D /* GalleryPage+CoreDataClass.m */,
+				5A089FD32121B9B900EA692D /* GalleryPage+CoreDataProperties.m */,
 				5A6F947E1F2ECA000085F0EE /* Tag+CoreDataClass.h */,
 				5A6F947F1F2ECA000085F0EE /* Tag+CoreDataClass.m */,
 				5A6F94801F2ECA000085F0EE /* Tag+CoreDataProperties.h */,
@@ -892,14 +915,14 @@
 			name = "自定义分享按钮";
 			sourceTree = "<group>";
 		};
-		5A8AEA301EF3BAAF007E5EEE /* 收藏 */ = {
+		5A8AEA301EF3BAAF007E5EEE /* Collect */ = {
 			isa = PBXGroup;
 			children = (
 				5A8AEA311EF3BAED007E5EEE /* QJFavouriteViewController.h */,
 				5A8AEA321EF3BAED007E5EEE /* QJFavouriteViewController.m */,
 				5A8AEA331EF3BAED007E5EEE /* QJFavouriteViewController.xib */,
 			);
-			name = "收藏";
+			name = Collect;
 			sourceTree = "<group>";
 		};
 		5A8D332B1ED27E84009567C2 /* Enum */ = {
@@ -944,14 +967,14 @@
 			name = Main;
 			sourceTree = "<group>";
 		};
-		5A8EC0751F725F3B005C0DF5 /* 当前热门 */ = {
+		5A8EC0751F725F3B005C0DF5 /* HotList */ = {
 			isa = PBXGroup;
 			children = (
-				5A93CF7C1FE25F82009E9C5A /* 排名 */,
+				5A93CF7C1FE25F82009E9C5A /* Ranking */,
 				5A8EC0761F7263FB005C0DF5 /* QJNowViewController.h */,
 				5A8EC0771F7263FB005C0DF5 /* QJNowViewController.m */,
 			);
-			name = "当前热门";
+			name = HotList;
 			sourceTree = "<group>";
 		};
 		5A90DAC31ECC3D3F00575145 = {
@@ -980,11 +1003,11 @@
 				5A6F94711F2EC6AE0085F0EE /* CoreData */,
 				5A6F946A1F2EBC350085F0EE /* Search */,
 				5A2F792B1ECD2C6100745DA0 /* Common */,
-				5A90DAF41ECC4DFC00575145 /* 设置 */,
-				5A6ECC851EDE4FAF00DBF9DA /* 详情 */,
-				5A90DAEC1ECC4D9C00575145 /* 收藏 */,
-				5A90DAE61ECC3D5900575145 /* 列表 */,
-				5A8EC0751F725F3B005C0DF5 /* 当前热门 */,
+				5A90DAF41ECC4DFC00575145 /* Setting */,
+				5A6ECC851EDE4FAF00DBF9DA /* Info */,
+				5A90DAEC1ECC4D9C00575145 /* Collect */,
+				5A90DAE61ECC3D5900575145 /* List */,
+				5A8EC0751F725F3B005C0DF5 /* HotList */,
 				5A39773F1EF75AEE009A2273 /* TabBar */,
 				5A90DAD21ECC3D3F00575145 /* AppDelegate.h */,
 				5A90DAD31ECC3D3F00575145 /* AppDelegate.m */,
@@ -1010,28 +1033,28 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5A90DAE61ECC3D5900575145 /* 列表 */ = {
+		5A90DAE61ECC3D5900575145 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				5A2F79391ECD3AAE00745DA0 /* View */,
 				5A2F79451ECD787500745DA0 /* QJHomeViewController.h */,
 				5A2F79461ECD787500745DA0 /* QJHomeViewController.m */,
 			);
-			name = "列表";
+			name = List;
 			sourceTree = "<group>";
 		};
-		5A90DAEC1ECC4D9C00575145 /* 收藏 */ = {
+		5A90DAEC1ECC4D9C00575145 /* Collect */ = {
 			isa = PBXGroup;
 			children = (
-				5A4D64341FE392E600E5555B /* 搜索框 */,
-				5A48AF261FDFC3E400E9F35B /* 收藏夹 */,
+				5A4D64341FE392E600E5555B /* SearchBar */,
+				5A48AF261FDFC3E400E9F35B /* CollectList */,
 				5A90DAED1ECC4DC000575145 /* QJHotAndLikeViewController.h */,
 				5A90DAEE1ECC4DC000575145 /* QJHotAndLikeViewController.m */,
 			);
-			name = "收藏";
+			name = Collect;
 			sourceTree = "<group>";
 		};
-		5A90DAF41ECC4DFC00575145 /* 设置 */ = {
+		5A90DAF41ECC4DFC00575145 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
 				5ACFFC332106289200F64B57 /* CustomTabbarSetting */,
@@ -1040,10 +1063,10 @@
 				5A8D33461ED292A0009567C2 /* Main */,
 				5A8D33451ED29292009567C2 /* Login */,
 			);
-			name = "设置";
+			name = Setting;
 			sourceTree = "<group>";
 		};
-		5A93CF7C1FE25F82009E9C5A /* 排名 */ = {
+		5A93CF7C1FE25F82009E9C5A /* Ranking */ = {
 			isa = PBXGroup;
 			children = (
 				5A4D643A1FE3AC4700E5555B /* Layout */,
@@ -1052,7 +1075,7 @@
 				5A93CF841FE29026009E9C5A /* QJRankingViewController.m */,
 				5A93CF851FE29026009E9C5A /* QJRankingViewController.xib */,
 			);
-			name = "排名";
+			name = Ranking;
 			sourceTree = "<group>";
 		};
 		5A93CF881FE293C5009E9C5A /* View */ = {
@@ -1140,6 +1163,8 @@
 		5AD8557B20F1097300A21F9A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5A089FDB2121BA1D00EA692D /* QJBrowerCollectManager.h */,
+				5A089FDC2121BA1D00EA692D /* QJBrowerCollectManager.m */,
 				5AD8558A20F1099900A21F9A /* QJOrientationManager.h */,
 				5AD8558920F1099900A21F9A /* QJOrientationManager.m */,
 				5AD8557C20F1097D00A21F9A /* Download */,
@@ -1219,7 +1244,6 @@
 				5A90DAC91ECC3D3F00575145 /* Frameworks */,
 				5A90DACA1ECC3D3F00575145 /* Resources */,
 				1EA8FDDFB81CD646DC34FB50 /* [CP] Embed Pods Frameworks */,
-				CF6AD6AB7E55501097EAA838 /* [CP] Copy Pods Resources */,
 				5A32309C1FF62BC50070DD41 /* Embed App Extensions */,
 				5A3230B31FF62F310070DD41 /* Embed Frameworks */,
 			);
@@ -1328,7 +1352,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EHenTaiViewer/Pods-EHenTaiViewer-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
-				"${BUILT_PRODUCTS_DIR}/Somo/Somo.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
@@ -1336,7 +1359,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Somo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
@@ -1344,21 +1366,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EHenTaiViewer/Pods-EHenTaiViewer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CF6AD6AB7E55501097EAA838 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EHenTaiViewer/Pods-EHenTaiViewer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E1E6197EF1CEB03303A2EDBF /* [CP] Check Pods Manifest.lock */ = {
@@ -1388,11 +1395,13 @@
 			files = (
 				5A41BFAD1ED525C00073659B /* QJNetworkTool.m in Sources */,
 				5A57E0381F4EA0240033663B /* QJSettingItem.m in Sources */,
+				5A089FD52121B9B900EA692D /* Gallery+CoreDataProperties.m in Sources */,
 				5AD8559320F109E800A21F9A /* UIDevice+QJDevice.m in Sources */,
 				5AD8558520F1098D00A21F9A /* QJMangaImageDownloader.m in Sources */,
 				5AEE63281F6A12A400A558FD /* QJToast.m in Sources */,
 				5A90DAEF1ECC4DC000575145 /* QJHotAndLikeViewController.m in Sources */,
 				5A1F18F71FAFF4E7009E7B89 /* QJSearchBar.m in Sources */,
+				5A089FD72121B9B900EA692D /* GalleryPage+CoreDataProperties.m in Sources */,
 				5A8D333E1ED28EBD009567C2 /* QJSettingLoginCell.m in Sources */,
 				5A1999D11ED6A78800DB6B9D /* QJTouchIDViewController.m in Sources */,
 				5A2F79471ECD787500745DA0 /* QJHomeViewController.m in Sources */,
@@ -1407,6 +1416,7 @@
 				5A57E0451F4EC4310033663B /* QJSettingListCell.m in Sources */,
 				5A56B6681F57970D00F30BD5 /* QJLanguageOutViewController.m in Sources */,
 				5A1999C21ED6891100DB6B9D /* QJListTableView.m in Sources */,
+				5A089FDD2121BA1D00EA692D /* QJBrowerCollectManager.m in Sources */,
 				5ACA2B671F2867BE003DF3D0 /* QJTableViewCell.m in Sources */,
 				5A3977421EF75B18009A2273 /* QJTabBarController.m in Sources */,
 				5A6F946D1F2EBC4C0085F0EE /* QJSearchViewController.m in Sources */,
@@ -1428,6 +1438,7 @@
 				5A25A2371EE2F8EE00A62DCF /* QJBigImageItem.m in Sources */,
 				5AD8675121076B050040ED5E /* QJBrowserBookMarkPopView.m in Sources */,
 				5A8A11DE1EE8DF81001D9444 /* QJMangaTorrentActivity.m in Sources */,
+				5A089FD42121B9B900EA692D /* Gallery+CoreDataClass.m in Sources */,
 				5A0780A51ECE822100EF00E6 /* XPathQuery.m in Sources */,
 				5A2F79661ECD945100745DA0 /* QJSearchClassifyCell.m in Sources */,
 				5AD8558720F1098D00A21F9A /* QJMangaManager.m in Sources */,
@@ -1457,6 +1468,7 @@
 				5A41BFB01ED529690073659B /* Reachability.m in Sources */,
 				5A82B5E11F5403100005B6B8 /* QJSettingModel.m in Sources */,
 				5A0780A31ECE822100EF00E6 /* TFHpple.m in Sources */,
+				5A089FD62121B9B900EA692D /* GalleryPage+CoreDataClass.m in Sources */,
 				5A8EC0781F7263FB005C0DF5 /* QJNowViewController.m in Sources */,
 				5A8D33431ED2928D009567C2 /* QJLoginViewController.m in Sources */,
 				5AD8558B20F1099900A21F9A /* QJOrientationManager.m in Sources */,

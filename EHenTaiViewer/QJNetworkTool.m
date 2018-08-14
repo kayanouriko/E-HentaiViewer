@@ -11,6 +11,7 @@
 
 @interface QJNetworkTool () {
     long long _aboveBytes;
+    NSInteger _count;
 }
 
 @property (nonatomic) Reachability *internetReachability;
@@ -33,6 +34,7 @@
     self = [super init];
     if (self) {
         self.internetReachability = [Reachability reachabilityForInternetConnection];
+        _count = 0;
     }
     return self;
 }
@@ -67,6 +69,22 @@
             
             break;
         }
+    }
+}
+
+#pragma mark - 菊花部分
+- (void)showNetworkActivity {
+    if (_count == 0) {
+        NetworkShow();
+    }
+    _count++;
+}
+
+- (void)hiddenNetworkActivity {
+    _count--;
+    if (_count <= 0) {
+        _count = 0;
+        NetworkHidden();
     }
 }
 

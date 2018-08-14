@@ -45,7 +45,7 @@
 
 - (void)setModel:(QJListItem *)model {
     _model = model;
-    self.titleLabel.text = _model.title;
+    self.titleLabel.text = ([QJGlobalInfo isExHentaiTitleJnMode] && _model.title_jpn.length) ? _model.title_jpn : _model.title;
     self.uploaderLabel.text = _model.uploader;
     self.starView.currentScore = _model.rating;
     self.catgeoryLabel.text = [NSString stringWithFormat:@"  %@  ",_model.category];

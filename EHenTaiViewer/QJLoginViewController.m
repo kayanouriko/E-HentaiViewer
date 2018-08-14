@@ -109,6 +109,14 @@
             [self presentViewController:vc animated:YES completion:nil];
         }
             break;
+        case 3:
+        {
+            // 删除cookie
+            if ([[QJHenTaiParser parser] deleteCokie]) {
+                Toast(@"删除cookie成功");
+            }
+        }
+            break;
         default:
             break;
     }

@@ -30,7 +30,7 @@
         self.language = [self getLanguageWithTitle:self.title];
         self.gid = isnull(@"gid", dict);
         self.token = isnull(@"token", dict);
-        self.isShowTag = NO;
+        self.page = 0;
     }
     return self;
 }

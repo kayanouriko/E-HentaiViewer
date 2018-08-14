@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, QJHenTaiParserStatus) {
 };
 
 typedef void (^LoginHandler)(QJHenTaiParserStatus status);
+typedef void (^TotalHandler)(NSInteger total);
 typedef void (^ListHandler)(QJHenTaiParserStatus status ,NSArray<QJListItem *> *listArray);
 typedef void (^GalleryHandler)(QJHenTaiParserStatus status,QJGalleryItem *item);
 typedef void (^ShowkeyHandler)(QJHenTaiParserStatus status,NSString *showkey);
@@ -45,7 +46,7 @@ typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSStrin
 - (void)postMySettingInfoWithParams:(NSDictionary *)params Completion:(LoginHandler)completion;
 //解析相关
 //列表
-- (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion;
+- (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion total:(TotalHandler)total;
 - (void)updateHotListInfoComplete:(ListHandler)completion;
 - (void)updateLikeListInfoWithUrl:(NSString *)url complete:(ListHandler)completion;
 - (void)updateOtherListInfoWithUrl:(NSString *)url complete:(ListHandler)completion;

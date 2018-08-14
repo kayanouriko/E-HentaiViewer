@@ -32,7 +32,7 @@
 - (void)setModel:(QJListItem *)model {
     _model = model;
     
-    self.titleNameLabel.text = _model.title;
+    self.titleNameLabel.text = ([QJGlobalInfo isExHentaiTitleJnMode] && _model.title_jpn.length) ? _model.title_jpn : _model.title;
     self.catgoryLabel.text = [NSString stringWithFormat:@"  %@  ",_model.category];
     self.catgoryLabel.backgroundColor = _model.categoryColor;
     self.langueLabel.text = _model.language;

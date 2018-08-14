@@ -20,6 +20,7 @@
 
 @interface QJSearchViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, QJSearchBarDelagate, UITextFieldDelegate>
 
+@property (nonatomic, strong) UIActivityIndicatorView *actity;
 @property (nonatomic, assign) QJFreshStatus status;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *starSegControl;
 @property (nonatomic, strong) QJListTableView *tableView;//列表搜索
@@ -43,7 +44,6 @@
     [self setContent];
     
     if (self.model) {
-        [self showFreshingViewWithTip:nil];
         self.searchBar.searchTextF.text = self.model.searchKey;
         self.url = self.model.url;
         [self updateResource];
@@ -67,6 +67,9 @@
 
 - (void)setContent {
     self.status = QJFreshStatusNone;
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.actity];
+    self.navigationItem.rightBarButtonItem = item;
     
     self.title = @"搜索";
     [self.view addSubview:self.tableView];
@@ -191,6 +194,7 @@
 
 #pragma mark -请求数据
 - (void)updateResource {
+    [self.actity startAnimating];
     //这里做页码的处理
     NSString *url = self.url;
     if (self.pageIndex > 0) {
@@ -214,7 +218,8 @@
             }
         }
         self.status = listArray.count ? QJFreshStatusNone : QJFreshStatusNotMore;
-    }];
+        [self.actity stopAnimating];
+    } total:nil];
 }
 
 #pragma mark -UITextFieldDelegate
@@ -308,6 +313,14 @@
 }
 
 #pragma mark -getter
+- (UIActivityIndicatorView *)actity {
+    if (!_actity) {
+        _actity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _actity.hidesWhenStopped = YES;
+    }
+    return _actity;
+}
+
 - (NSMutableArray *)datas {
     if (nil == _datas) {
         _datas = [NSMutableArray new];

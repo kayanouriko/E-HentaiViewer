@@ -41,7 +41,7 @@
 
 #pragma mark -登陆表单提交
 - (void)loginWithUserName:(NSString *)username password:(NSString *)password complete:(LoginHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSDictionary *jsonDictionary = @{
                                      @"UserName": username,
                                      @"PassWord": password,
@@ -53,7 +53,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [[self getFormStringWithDict:jsonDictionary] dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -140,7 +140,7 @@
 
 #pragma mark -收藏
 - (void)updateFavoriteStatus:(BOOL)isFavorite model:(QJListItem *)item index:(NSInteger)index content:(NSString *)content complete:(LoginHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSString *url = [NSString stringWithFormat:@"%@gallerypopups.php?gid=%@&t=%@&act=addfav",[NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL],item.gid ,item.token];
     NSDictionary *dict = [NSDictionary new];
     if (isFavorite) {
@@ -164,7 +164,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [[self getFormStringWithDict:dict] dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -200,7 +200,7 @@
     body = [NSString stringWithFormat:@"ddact=%@&apply=Apply&%@", ddact, body];
     request.HTTPBody = [body dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -229,7 +229,7 @@
 //评论存在重定向,提交后直接拦截重定向
 //所以不能用全局的Session,用局部的新定义Session
 - (void)updateCommentWithContent:(NSString *)content url:(NSString *)url complete:(LoginHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSDictionary *dict = @{
                            @"commenttext":content,
                            @"postcomment":@"Post Comment"
@@ -241,7 +241,7 @@
     configuration.HTTPShouldSetCookies = YES;
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue currentQueue]];
     NSURLSessionDataTask *task = [urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -271,35 +271,38 @@
 }
 
 #pragma mark -列表爬取
-- (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion {
-    [self requestListInfo:url searchRule:@"//div [@class='it5']//a" complete:completion];
+- (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion total:(TotalHandler)total {
+    [self requestListInfo:url searchRule:@"//div [@class='it5']//a" complete:completion total:total];
 }
 
 #pragma mark -热门爬取
 - (void)updateHotListInfoComplete:(ListHandler)completion {
-    [self requestListInfo:nil searchRule:@"//div [@class='id3']//a" complete:completion];
+    [self requestListInfo:nil searchRule:@"//div [@class='id3']//a" complete:completion total:nil];
 }
 
 #pragma mark -收藏爬取
 - (void)updateLikeListInfoWithUrl:(NSString *)url complete:(ListHandler)completion {
-    [self updateListInfoWithUrl:url complete:completion];
+    [self updateListInfoWithUrl:url complete:completion total:nil];
 }
 
 #pragma mark -上传人和tag爬取
 - (void)updateOtherListInfoWithUrl:(NSString *)url complete:(ListHandler)completion {
-    [self updateListInfoWithUrl:url complete:completion];
+    [self updateListInfoWithUrl:url complete:completion total:nil];
 }
 
-- (void)requestListInfo:(NSString *)url searchRule:(NSString *)searchRule complete:(ListHandler)completion {
-    //NetworkShow();
-    // 强制 list 结果,现在官网配置改为存在云端了,有些账号习惯用瀑布流的方式浏览网页,所以这里这样强制成list形式防止解析出错
+- (void)requestListInfo:(NSString *)url searchRule:(NSString *)searchRule complete:(ListHandler)completion total:(TotalHandler)total {
+    [[QJNetworkTool shareTool] showNetworkActivity];
     if ([url  isEqual: @""])
     {
         url = @"?";
     } else {
         url = [url stringByAppendingString:@"&"];
     }
-    url = [url stringByAppendingString:@"inline_set=dm_l"];
+    if (!([url containsString:@"favorites.php"] && ([url containsString:@"page"] || [url containsString:@"f_search"]))) {
+        // 强制 list 结果,现在官网配置改为存在云端了,有些账号习惯用瀑布流的方式浏览网页,所以这里这样强制成list形式防止解析出错
+        // 收藏界面除外,这个界面无需强制
+        url = [url stringByAppendingString:@"inline_set=dm_l"];
+    }
     NSString *finalUrl = @"";
     if (url) {
         if ([url hasPrefix:@"http"]) {
@@ -314,7 +317,7 @@
         finalUrl = HENTAI_URL;
     }
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -343,6 +346,13 @@
             });
             return;
         }
+        if (total) {
+            TFHppleElement *totalElement = [xpathParser searchWithXPathQuery:@"//table[@class='ptt']//td[last()-1]//a"].firstObject;
+            total(totalElement.text && totalElement.text.length ? [totalElement.text integerValue] : 0);
+        }
+        // 获取当前页码
+        TFHppleElement *currentElement = [xpathParser searchWithXPathQuery:@"//table[@class='ptt']//td[@class='ptds']//a"].firstObject;
+        NSInteger currentPage = currentElement.text && currentElement.text.length ? [currentElement.text integerValue] : 0;
         //NSLog(@"%@",[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding]);
         NSArray *photoURL = [xpathParser searchWithXPathQuery:searchRule];
         if (photoURL.count) {
@@ -372,7 +382,9 @@
                     if (status == QJHenTaiParserStatusSuccess) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             for (NSInteger j = 25 * i; j < subArr.count + 25 * i; j++) {
-                                allList[j] = listArray[j - 25 * i];
+                                QJListItem *item = listArray[j - 25 * i];
+                                item.page = currentPage;
+                                allList[j] = item;
                             }
                             weakCount--;
                             if (weakCount == 0) {
@@ -430,11 +442,11 @@
 
 #pragma mark -toplist爬取
 - (void)updateToplistInfoComplete:(ToplistHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     //只有表站有top统计,里站并没有
     NSString *finalUrl = @"https://e-hentai.org/toplist.php";
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -532,7 +544,7 @@
 }
 
 - (void)requestListInfoFromApi:(NSArray *)urlArr complete:(ListHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSMutableArray *idArray = [NSMutableArray array];
     NSString *baseUrl = nil;
     for (NSString *eachURLString in urlArr) {
@@ -550,7 +562,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody =jsonData;
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             completion(QJHenTaiParserStatusNetworkFail, nil);
             return;
@@ -597,7 +609,7 @@
     //hc=1#comments 显示全部评论
     //nw=always 删除画廊显示??待验证
     NSString *finalUrl = [NSString stringWithFormat:@"%@?hc=1&inline_set=ts_l&nw=always",url];
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -624,7 +636,7 @@
         }
         
         [self getShowkeyWithUrl:item.testUrl complete:^(QJHenTaiParserStatus status, NSString *showkey) {
-            //NetworkHidden();
+            [[QJNetworkTool shareTool] hiddenNetworkActivity];
             if (status == QJHenTaiParserStatusSuccess) {
                 item.showkey = showkey;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -648,7 +660,7 @@
 
 - (void)getShowkeyWithUrl:(NSString *)url complete:(ShowkeyHandler)completion {
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             completion(QJHenTaiParserStatusNetworkFail,nil);
             return;
@@ -691,7 +703,7 @@
     else {
         finalUrl = [NSString stringWithFormat:@"%@?inline_set=ts_m&p=%ld",url,(long)page];
     }
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -733,7 +745,7 @@
 
 #pragma mark -大图爬取
 - (void)updateBigImageUrlWithShowKey:(NSString *)showkey gid:(NSString *)gid imgkey:(NSString *)imgkey page:(NSInteger)page complete:(BigImageHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSDictionary *jsonDictionary = @{
                                      @"method": @"showpage",
                                      @"gid": gid,
@@ -746,7 +758,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -776,7 +788,7 @@
 
 #pragma mark -评星
 - (void)updateStarWithGid:(NSString *)gid token:(NSString *)token apikey:(NSString *)apikey apiuid:(NSString *)apiuid rating:(NSInteger)rating complete:(LoginHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSDictionary *jsonDictionary = @{
                                      @"method": @"rategallery",
                                      @"gid": gid,
@@ -790,7 +802,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -811,12 +823,12 @@
 
 #pragma mark -种子爬取
 - (void)updateTorrentInfoWithGid:(NSString *)gid token:(NSString *)token complete:(TorrentListHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSString *url = [NSString stringWithFormat:@"gallerytorrents.php?gid=%@&t=%@",gid,token];
     NSMutableString *finalUrl = [NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:url];
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");
@@ -858,11 +870,11 @@
 #pragma mark -网站设置读取
 - (void)readSettingAllInfoCompletion:(SettingHandler)completion {
     //https://e-hentai.org/uconfig.php
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     NSMutableString *finalUrl = [NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:@"uconfig.php"];
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(QJHenTaiParserStatusNetworkFail,nil);
@@ -888,7 +900,7 @@
 }
 
 - (void)postMySettingInfoWithParams:(NSDictionary *)params Completion:(LoginHandler)completion {
-    //NetworkShow();
+    [[QJNetworkTool shareTool] showNetworkActivity];
     //这里的操作只要上传自己想要的就好了,只是排除语言需要每次都上传,不然会遗漏,其他采用默认的就好了
     NSMutableString *finalUrl = [NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
     [finalUrl appendString:@"uconfig.php"];
@@ -898,7 +910,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = [[self getFormStringWithDict:dict] dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NetworkHidden();
+        [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"网络错误");

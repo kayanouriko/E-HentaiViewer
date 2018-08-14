@@ -24,6 +24,9 @@
                                 <segment title="" image="bookmark_all"/>
                                 <segment title="" image="bookmark_collect"/>
                             </segments>
+                            <connections>
+                                <action selector="segValueChangeAction:" destination="iN0-l3-epB" eventType="valueChanged" id="h69-mm-NcA"/>
+                            </connections>
                         </segmentedControl>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zw2-4f-EFR">
                             <rect key="frame" x="324" y="25.5" width="35" height="33"/>
@@ -82,8 +85,9 @@
                 <outlet property="collectionView" destination="bE8-SK-ADU" id="axZ-KN-Bnv"/>
                 <outlet property="navigationBarHeightLine" destination="ybi-Sb-Zqb" id="SAa-AY-3GQ"/>
                 <outlet property="segCenterLine" destination="Yyp-P6-VF2" id="1X9-0F-jX8"/>
+                <outlet property="segControl" destination="QcO-q3-nOw" id="KjF-Ag-QdV"/>
             </connections>
-            <point key="canvasLocation" x="-93.5" y="54.5"/>
+            <point key="canvasLocation" x="-728" y="84"/>
         </view>
     </objects>
     <resources>

@@ -8,6 +8,7 @@
 
 #import "QJBrowserBookMarkPopViewCell.h"
 #import "QJMangaImageModel.h"
+#import "GalleryPage+CoreDataClass.h"
 
 @interface QJBrowserBookMarkPopViewCell()
 
@@ -34,6 +35,12 @@
     [model getSmallUrlWithBlock:^{
         [self.thumbImageView yy_setImageWithURL:[NSURL URLWithString:model.smallImageUrl] options:YYWebImageOptionProgressiveBlur | YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionHandleCookies];
     }];
+}
+
+- (void)setGalleryPage:(GalleryPage *)galleryPage {
+    _galleryPage = galleryPage;
+    self.pageLabel.text = [NSString stringWithFormat:@"%ld", (long)galleryPage.page + 1];
+    [self.thumbImageView yy_setImageWithURL:[NSURL URLWithString:galleryPage.smallImageUrl] options:YYWebImageOptionProgressiveBlur | YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionHandleCookies];
 }
 
 @end
