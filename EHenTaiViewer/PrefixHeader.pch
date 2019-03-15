@@ -83,4 +83,6 @@
 //去null
 #define isnull(key,dict) dict[key] == nil || [dict[key] isKindOfClass:[NSNull class]]  || [dict[key] isEqual:[NSNull null]] ? @"" : [NSString stringWithFormat:@"%@",dict[key]]
 
+#define NSLog(...) {}
+
 #endif
