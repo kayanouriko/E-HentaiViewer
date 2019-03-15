@@ -162,7 +162,7 @@
 //根据正则表达式筛选
 - (NSArray *)matchString:(NSString *)string toRegexString:(NSString *)regexStr {
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray * matches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
+    NSArray * matches = [regex matchesInString:string ? string : @"" options:0 range:NSMakeRange(0, [string length])];
     //match: 所有匹配到的字符,根据() 包含级
     NSMutableArray *array = [NSMutableArray array];
     for (NSTextCheckingResult *match in matches) {
