@@ -83,4 +83,11 @@
 //去null
 #define isnull(key,dict) dict[key] == nil || [dict[key] isKindOfClass:[NSNull class]]  || [dict[key] isEqual:[NSNull null]] ? @"" : [NSString stringWithFormat:@"%@",dict[key]]
 
+
+#ifndef __OPTIMIZE__
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...) {}
+#endif
+
 #endif

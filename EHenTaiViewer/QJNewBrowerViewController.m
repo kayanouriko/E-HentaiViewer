@@ -152,7 +152,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     // 把转屏重新修正为竖屏
-    [QJOrientationManager recoverPortraitOrienttation];
+//    [QJOrientationManager recoverPortraitOrienttation];
     // 删除转屏监听
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     // 重新启动侧滑手势方法

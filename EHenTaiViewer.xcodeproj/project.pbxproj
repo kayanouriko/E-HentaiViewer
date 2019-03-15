@@ -7,6 +7,145 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		495043A3223BDFFB0034F125 /* QJNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A41BFAC1ED525C00073659B /* QJNetworkTool.m */; };
+		495043A4223BDFFB0034F125 /* QJSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A57E0371F4EA0240033663B /* QJSettingItem.m */; };
+		495043A5223BDFFB0034F125 /* Gallery+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FCF2121B9B900EA692D /* Gallery+CoreDataProperties.m */; };
+		495043A6223BDFFB0034F125 /* UIDevice+QJDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8559220F109E800A21F9A /* UIDevice+QJDevice.m */; };
+		495043A7223BDFFB0034F125 /* QJMangaImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8557E20F1098C00A21F9A /* QJMangaImageDownloader.m */; };
+		495043A8223BDFFB0034F125 /* QJToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEE63271F6A12A400A558FD /* QJToast.m */; };
+		495043A9223BDFFB0034F125 /* QJHotAndLikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A90DAEE1ECC4DC000575145 /* QJHotAndLikeViewController.m */; };
+		495043AA223BDFFB0034F125 /* QJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F18F61FAFF4E7009E7B89 /* QJSearchBar.m */; };
+		495043AB223BDFFB0034F125 /* GalleryPage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FD32121B9B900EA692D /* GalleryPage+CoreDataProperties.m */; };
+		495043AC223BDFFB0034F125 /* QJSettingLoginCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8D333C1ED28EBD009567C2 /* QJSettingLoginCell.m */; };
+		495043AD223BDFFB0034F125 /* QJTouchIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1999CF1ED6A78800DB6B9D /* QJTouchIDViewController.m */; };
+		495043AE223BDFFB0034F125 /* QJHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F79461ECD787500745DA0 /* QJHomeViewController.m */; };
+		495043AF223BDFFB0034F125 /* QJRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93CF841FE29026009E9C5A /* QJRankingViewController.m */; };
+		495043B0223BDFFB0034F125 /* QJSearchSoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F79581ECD8C7A00745DA0 /* QJSearchSoreCell.m */; };
+		495043B1223BDFFB0034F125 /* QJNewBrowerImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8557220F1093A00A21F9A /* QJNewBrowerImageCell.m */; };
+		495043B2223BDFFB0034F125 /* QJRankingUploadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABF182D1FE7612400B28660 /* QJRankingUploadCell.m */; };
+		495043B3223BDFFB0034F125 /* QJBrowserBookMarkPopViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8674D21076B040040ED5E /* QJBrowserBookMarkPopViewCell.m */; };
+		495043B4223BDFFB0034F125 /* QJToplistUploaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC5A341F315B560074DE9C /* QJToplistUploaderItem.m */; };
+		495043B5223BDFFB0034F125 /* QJRankingInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A93CF8A1FE29426009E9C5A /* QJRankingInfoCell.m */; };
+		495043B6223BDFFB0034F125 /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA40F41ED4388100B21707 /* NJKWebViewProgress.m */; };
+		495043B7223BDFFB0034F125 /* QJSettingListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A57E0431F4EC4310033663B /* QJSettingListCell.m */; };
+		495043B8223BDFFB0034F125 /* QJLanguageOutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56B6671F57970D00F30BD5 /* QJLanguageOutViewController.m */; };
+		495043B9223BDFFB0034F125 /* QJListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1999C11ED6891100DB6B9D /* QJListTableView.m */; };
+		495043BA223BDFFB0034F125 /* QJBrowerCollectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FDC2121BA1D00EA692D /* QJBrowerCollectManager.m */; };
+		495043BB223BDFFB0034F125 /* QJTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA2B661F2867BE003DF3D0 /* QJTableViewCell.m */; };
+		495043BC223BDFFB0034F125 /* QJTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3977411EF75B18009A2273 /* QJTabBarController.m */; };
+		495043BD223BDFFB0034F125 /* QJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F946C1F2EBC4C0085F0EE /* QJSearchViewController.m */; };
+		495043BE223BDFFB0034F125 /* QJLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A34889E1FD07CE000134B1D /* QJLikeButton.m */; };
+		495043BF223BDFFB0034F125 /* QJWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA40EB1ED4326B00B21707 /* QJWebViewController.m */; };
+		495043C0223BDFFB0034F125 /* QJListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0780B71ECE8A5600EF00E6 /* QJListItem.m */; };
+		495043C1223BDFFB0034F125 /* QJMangaImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8557F20F1098C00A21F9A /* QJMangaImageModel.m */; };
+		495043C2223BDFFB0034F125 /* QJScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA0DDE21F2AD0C600ED3020 /* QJScrollView.m */; };
+		495043C3223BDFFB0034F125 /* QJTorrentInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FBC771EEA47B800373F36 /* QJTorrentInfoController.m */; };
+		495043C4223BDFFB0034F125 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A90DAD31ECC3D3F00575145 /* AppDelegate.m */; };
+		495043C5223BDFFB0034F125 /* QJTipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A23B3661FCFE64C0053C003 /* QJTipViewController.m */; };
+		495043C6223BDFFB0034F125 /* UIImage+TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7481E01FFDBB90000ADA0B /* UIImage+TBCityIconFont.m */; };
+		495043C7223BDFFB0034F125 /* QJFavoritesSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A48AF281FDFC42700E9F35B /* QJFavoritesSelectController.m */; };
+		495043C8223BDFFB0034F125 /* QJNewCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFC6BB91FC6E6BB003552E1 /* QJNewCommentCell.m */; };
+		495043C9223BDFFB0034F125 /* QJSecretBgTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8559820F10C3300A21F9A /* QJSecretBgTool.m */; };
+		495043CA223BDFFB0034F125 /* QJTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F361EDFB7C3002C8AF8 /* QJTagView.m */; };
+		495043CB223BDFFB0034F125 /* TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7481DE1FFDBB8F000ADA0B /* TBCityIconFont.m */; };
+		495043CC223BDFFB0034F125 /* QJLanguageOutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56B6951F57AEAC00F30BD5 /* QJLanguageOutCell.m */; };
+		495043CD223BDFFB0034F125 /* QJBigImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25A2361EE2F8EE00A62DCF /* QJBigImageItem.m */; };
+		495043CE223BDFFB0034F125 /* QJBrowserBookMarkPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8674B21076B040040ED5E /* QJBrowserBookMarkPopView.m */; };
+		495043CF223BDFFB0034F125 /* QJMangaTorrentActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A11DD1EE8DF81001D9444 /* QJMangaTorrentActivity.m */; };
+		495043D0223BDFFB0034F125 /* Gallery+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FCE2121B9B900EA692D /* Gallery+CoreDataClass.m */; };
+		495043D1223BDFFB0034F125 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0780A21ECE822100EF00E6 /* XPathQuery.m */; };
+		495043D2223BDFFB0034F125 /* QJSearchClassifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F79641ECD945100745DA0 /* QJSearchClassifyCell.m */; };
+		495043D3223BDFFB0034F125 /* QJMangaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8558020F1098C00A21F9A /* QJMangaManager.m */; };
+		495043D4223BDFFB0034F125 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0780A01ECE822100EF00E6 /* TFHppleElement.m */; };
+		495043D5223BDFFB0034F125 /* XHStarRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A86C31F1ED1608B00A8CD80 /* XHStarRateView.m */; };
+		495043D6223BDFFB0034F125 /* QJSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8D33391ED28B10009567C2 /* QJSettingViewController.m */; };
+		495043D7223BDFFB0034F125 /* QJCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4D643C1FE3ADB500E5555B /* QJCollectionViewFlowLayout.m */; };
+		495043D8223BDFFB0034F125 /* QJHenTaiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A07809A1ECE804200EF00E6 /* QJHenTaiParser.m */; };
+		495043D9223BDFFB0034F125 /* EhCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F946E1F2EC6A90085F0EE /* EhCoreData.xcdatamodeld */; };
+		495043DA223BDFFB0034F125 /* QJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F792E1ECD2CB900745DA0 /* QJViewController.m */; };
+		495043DB223BDFFB0034F125 /* UITextView+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A372D1D1FCAFD1B005CEBB8 /* UITextView+Addition.m */; };
+		495043DC223BDFFB0034F125 /* QJFavouriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8AEA321EF3BAED007E5EEE /* QJFavouriteViewController.m */; };
+		495043DD223BDFFB0034F125 /* QJImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECC961EDE771C00DBF9DA /* QJImageCollectionViewCell.m */; };
+		495043DE223BDFFB0034F125 /* TBCityIconInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7481DD1FFDBB8F000ADA0B /* TBCityIconInfo.m */; };
+		495043DF223BDFFB0034F125 /* QJBrowerSettingPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8557820F1096700A21F9A /* QJBrowerSettingPopView.m */; };
+		495043E0223BDFFB0034F125 /* Tag+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F94811F2ECA000085F0EE /* Tag+CoreDataProperties.m */; };
+		495043E1223BDFFB0034F125 /* QJLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8559520F10AF100A21F9A /* QJLabel.m */; };
+		495043E2223BDFFB0034F125 /* QJListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0780BB1ECEE9C900EF00E6 /* QJListCell.m */; };
+		495043E3223BDFFB0034F125 /* QJGoCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F4D1EE0146E002C8AF8 /* QJGoCommentController.m */; };
+		495043E4223BDFFB0034F125 /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA40F11ED4386400B21707 /* NJKWebViewProgressView.m */; };
+		495043E5223BDFFB0034F125 /* QJButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1EE0D51FB3E0F000AA3DE4 /* QJButton.m */; };
+		495043E6223BDFFB0034F125 /* NSString+StringHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0245031ED7C55C00C3FE26 /* NSString+StringHeight.m */; };
+		495043E7223BDFFB0034F125 /* QJRankingHeadInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4D64301FE3512F00E5555B /* QJRankingHeadInfoCell.m */; };
+		495043E8223BDFFB0034F125 /* QJAllCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A842FDC1FC7AC260069AD4C /* QJAllCommentController.m */; };
+		495043E9223BDFFB0034F125 /* QJNewBrowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8558D20F109A700A21F9A /* QJNewBrowerViewController.m */; };
+		495043EA223BDFFB0034F125 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A90DAD01ECC3D3F00575145 /* main.m */; };
+		495043EB223BDFFB0034F125 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A41BFAF1ED529690073659B /* Reachability.m */; };
+		495043EC223BDFFB0034F125 /* QJSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82B5E01F5403100005B6B8 /* QJSettingModel.m */; };
+		495043ED223BDFFB0034F125 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A07809E1ECE822100EF00E6 /* TFHpple.m */; };
+		495043EE223BDFFB0034F125 /* GalleryPage+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A089FD22121B9B900EA692D /* GalleryPage+CoreDataClass.m */; };
+		495043EF223BDFFB0034F125 /* QJNowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EC0771F7263FB005C0DF5 /* QJNowViewController.m */; };
+		495043F0223BDFFB0034F125 /* QJLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8D33411ED2928D009567C2 /* QJLoginViewController.m */; };
+		495043F1223BDFFB0034F125 /* QJOrientationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8558920F1099900A21F9A /* QJOrientationManager.m */; };
+		495043F2223BDFFB0034F125 /* QJGlobalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A86C3231ED1A07300A8CD80 /* QJGlobalInfo.m */; };
+		495043F3223BDFFB0034F125 /* QJMangaImageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8558420F1098D00A21F9A /* QJMangaImageParser.m */; };
+		495043F4223BDFFB0034F125 /* QJHeadFreshingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB595041EEE28CB005D7CF3 /* QJHeadFreshingView.m */; };
+		495043F5223BDFFB0034F125 /* QJGalleryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECCAD1EDE9D8B00DBF9DA /* QJGalleryItem.m */; };
+		495043F6223BDFFB0034F125 /* QJCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A89EAD41EDF1A1500DA434F /* QJCommentCell.m */; };
+		495043F7223BDFFB0034F125 /* QJNewInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A34DBA31FC26011007B0A5F /* QJNewInfoViewController.m */; };
+		495043F8223BDFFB0034F125 /* QJFavoritesSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A48AF2C1FDFC60F00E9F35B /* QJFavoritesSelectCell.m */; };
+		495043F9223BDFFB0034F125 /* QJLanguageOutHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56B69A1F57B37800F30BD5 /* QJLanguageOutHeadView.m */; };
+		495043FA223BDFFB0034F125 /* QJCustomTabbarSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACFFC352106290B00F64B57 /* QJCustomTabbarSettingController.m */; };
+		495043FB223BDFFB0034F125 /* QJTorrentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FBC801EEA6E3C00373F36 /* QJTorrentItem.m */; };
+		495043FC223BDFFB0034F125 /* QJTorrentInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FBC7B1EEA488200373F36 /* QJTorrentInfoCell.m */; };
+		495043FD223BDFFB0034F125 /* QJSettingWatchSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF72BC51F443ED100C226F1 /* QJSettingWatchSettingController.m */; };
+		495043FE223BDFFB0034F125 /* Tag+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F947F1F2ECA000085F0EE /* Tag+CoreDataClass.m */; };
+		495043FF223BDFFB0034F125 /* QJProtectTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1999C51ED68C9800DB6B9D /* QJProtectTool.m */; };
+		49504400223BDFFB0034F125 /* QJSettingHightOtherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB086411F58EC9F00FF39DC /* QJSettingHightOtherController.m */; };
+		49504401223BDFFB0034F125 /* QJLikeSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4D64361FE3933500E5555B /* QJLikeSearchBar.m */; };
+		49504403223BDFFB0034F125 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE265921F691636009F958D /* AudioToolbox.framework */; };
+		49504404223BDFFB0034F125 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A1999C71ED6A49300DB6B9D /* LocalAuthentication.framework */; };
+		49504405223BDFFB0034F125 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A41BFA91ED524850073659B /* SystemConfiguration.framework */; };
+		49504406223BDFFB0034F125 /* YYCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF51B041ED0AF940034F26A /* YYCache.framework */; };
+		49504407223BDFFB0034F125 /* YYImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF51B051ED0AF940034F26A /* YYImage.framework */; };
+		49504408223BDFFB0034F125 /* YYWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF51B061ED0AF940034F26A /* YYWebImage.framework */; };
+		49504409223BDFFB0034F125 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0780A71ECE824000EF00E6 /* libxml2.2.tbd */; };
+		4950440A223BDFFB0034F125 /* Pods_EHenTaiViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA34AFD427CE341A4FFF3115 /* Pods_EHenTaiViewer.framework */; };
+		4950440C223BDFFB0034F125 /* QJBrowserBookMarkPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8674C21076B040040ED5E /* QJBrowserBookMarkPopView.xib */; };
+		4950440D223BDFFB0034F125 /* EhTag_CN.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A6F94681F2EB8A50085F0EE /* EhTag_CN.json */; };
+		4950440E223BDFFB0034F125 /* QJNewCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AFC6BBA1FC6E6BB003552E1 /* QJNewCommentCell.xib */; };
+		4950440F223BDFFB0034F125 /* QJNewBrowerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8558C20F109A600A21F9A /* QJNewBrowerViewController.xib */; };
+		49504410223BDFFB0034F125 /* QJNewBrowerImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8557020F1093A00A21F9A /* QJNewBrowerImageCell.xib */; };
+		49504411223BDFFB0034F125 /* QJCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A89EAD51EDF1A1500DA434F /* QJCommentCell.xib */; };
+		49504412223BDFFB0034F125 /* QJRankingInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A93CF8B1FE29426009E9C5A /* QJRankingInfoCell.xib */; };
+		49504413223BDFFB0034F125 /* QJWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA40EC1ED4326B00B21707 /* QJWebViewController.xib */; };
+		49504414223BDFFB0034F125 /* QJBrowserBookMarkPopViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8675021076B040040ED5E /* QJBrowserBookMarkPopViewCell.xib */; };
+		49504415223BDFFB0034F125 /* QJSettingModel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A82B5E21F5403320005B6B8 /* QJSettingModel.plist */; };
+		49504416223BDFFB0034F125 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A90DADD1ECC3D3F00575145 /* LaunchScreen.storyboard */; };
+		49504417223BDFFB0034F125 /* QJLikeSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4D64381FE3934600E5555B /* QJLikeSearchBar.xib */; };
+		49504418223BDFFB0034F125 /* QJSettingLoginCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8D333D1ED28EBD009567C2 /* QJSettingLoginCell.xib */; };
+		49504419223BDFFB0034F125 /* QJLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8D33421ED2928D009567C2 /* QJLoginViewController.xib */; };
+		4950441A223BDFFB0034F125 /* QJRankingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A93CF851FE29026009E9C5A /* QJRankingViewController.xib */; };
+		4950441B223BDFFB0034F125 /* QJImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECC971EDE771C00DBF9DA /* QJImageCollectionViewCell.xib */; };
+		4950441C223BDFFB0034F125 /* QJNewInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A34DBA41FC26011007B0A5F /* QJNewInfoViewController.xib */; };
+		4950441D223BDFFB0034F125 /* QJLanguageOutHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56B69B1F57B37800F30BD5 /* QJLanguageOutHeadView.xib */; };
+		4950441E223BDFFB0034F125 /* QJSettingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A57E0441F4EC4310033663B /* QJSettingListCell.xib */; };
+		4950441F223BDFFB0034F125 /* QJSearchClassifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A2F79651ECD945100745DA0 /* QJSearchClassifyCell.xib */; };
+		49504420223BDFFB0034F125 /* QJBrowerSettingPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8557720F1096700A21F9A /* QJBrowerSettingPopView.xib */; };
+		49504421223BDFFB0034F125 /* QJLanguageOutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A56B6961F57AEAC00F30BD5 /* QJLanguageOutCell.xib */; };
+		49504422223BDFFB0034F125 /* QJSearchSoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A2F79591ECD8C7A00745DA0 /* QJSearchSoreCell.xib */; };
+		49504423223BDFFB0034F125 /* QJRankingUploadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ABF182E1FE7612400B28660 /* QJRankingUploadCell.xib */; };
+		49504424223BDFFB0034F125 /* QJRankingHeadInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A4D64311FE3512F00E5555B /* QJRankingHeadInfoCell.xib */; };
+		49504425223BDFFB0034F125 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8559A20F10C7A00A21F9A /* iconfont.ttf */; };
+		49504426223BDFFB0034F125 /* QJSettingInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6E60D21F5514230097C5B3 /* QJSettingInfo.xib */; };
+		49504427223BDFFB0034F125 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A90DADB1ECC3D3F00575145 /* Assets.xcassets */; };
+		49504428223BDFFB0034F125 /* QJListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0780BC1ECEE9C900EF00E6 /* QJListCell.xib */; };
+		49504429223BDFFB0034F125 /* QJFavouriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8AEA331EF3BAED007E5EEE /* QJFavouriteViewController.xib */; };
+		4950442A223BDFFB0034F125 /* QJTorrentInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FBC7C1EEA488200373F36 /* QJTorrentInfoCell.xib */; };
+		4950442B223BDFFB0034F125 /* QJSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1F18F81FAFF4F3009E7B89 /* QJSearchBar.xib */; };
+		4950442C223BDFFB0034F125 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A90DAD81ECC3D3F00575145 /* Main.storyboard */; };
+		4950442D223BDFFB0034F125 /* QJGoCommentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A958CB01EF11DC400AF3D68 /* QJGoCommentController.xib */; };
+		4950442E223BDFFB0034F125 /* QJFavoritesSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A48AF2D1FDFC60F00E9F35B /* QJFavoritesSelectCell.xib */; };
+		4950442F223BDFFB0034F125 /* QJTouchIDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1999D01ED6A78800DB6B9D /* QJTouchIDViewController.xib */; };
 		5A0245041ED7C55C00C3FE26 /* NSString+StringHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0245031ED7C55C00C3FE26 /* NSString+StringHeight.m */; };
 		5A07809B1ECE804200EF00E6 /* QJHenTaiParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A07809A1ECE804200EF00E6 /* QJHenTaiParser.m */; };
 		5A0780A31ECE822100EF00E6 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A07809E1ECE822100EF00E6 /* TFHpple.m */; };
@@ -149,6 +288,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		49504431223BDFFB0034F125 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49504432223BDFFB0034F125 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A32309C1FF62BC50070DD41 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,6 +334,8 @@
 		02FA7997A5702F45B00195B5 /* Pods-EHenTaiViewerKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EHenTaiViewerKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-EHenTaiViewerKit/Pods-EHenTaiViewerKit.release.xcconfig"; sourceTree = "<group>"; };
 		3596E342770A0341DE8E0491 /* Pods-EHenTaiViewerActionEx.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EHenTaiViewerActionEx.release.xcconfig"; path = "Pods/Target Support Files/Pods-EHenTaiViewerActionEx/Pods-EHenTaiViewerActionEx.release.xcconfig"; sourceTree = "<group>"; };
 		39AB85A01DE9780906E9DC6A /* Pods-EHenTaiViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EHenTaiViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EHenTaiViewer/Pods-EHenTaiViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		49504436223BDFFB0034F125 /* EHenTaiViewe-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EHenTaiViewe-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		49504437223BDFFB0034F125 /* EHenTaiViewer copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EHenTaiViewer copy-Info.plist"; path = "/Users/simashui/Desktop/E-HentaiViewer/EHenTaiViewer copy-Info.plist"; sourceTree = "<absolute>"; };
 		49888E08328A14D52696427C /* Pods-EHenTaiViewerKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EHenTaiViewerKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EHenTaiViewerKit/Pods-EHenTaiViewerKit.debug.xcconfig"; sourceTree = "<group>"; };
 		4FCC94F75A0EC8908DE2D0D3 /* Pods_EHenTaiViewerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EHenTaiViewerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A0245021ED7C55C00C3FE26 /* NSString+StringHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringHeight.h"; sourceTree = "<group>"; };
@@ -427,6 +588,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		49504402223BDFFB0034F125 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49504403223BDFFB0034F125 /* AudioToolbox.framework in Frameworks */,
+				49504404223BDFFB0034F125 /* LocalAuthentication.framework in Frameworks */,
+				49504405223BDFFB0034F125 /* SystemConfiguration.framework in Frameworks */,
+				49504406223BDFFB0034F125 /* YYCache.framework in Frameworks */,
+				49504407223BDFFB0034F125 /* YYImage.framework in Frameworks */,
+				49504408223BDFFB0034F125 /* YYWebImage.framework in Frameworks */,
+				49504409223BDFFB0034F125 /* libxml2.2.tbd in Frameworks */,
+				4950440A223BDFFB0034F125 /* Pods_EHenTaiViewer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A90DAC91ECC3D3F00575145 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -984,6 +1160,7 @@
 				5A90DACD1ECC3D3F00575145 /* Products */,
 				5A0780A61ECE823F00EF00E6 /* Frameworks */,
 				B443D317642A800697D35BDA /* Pods */,
+				49504437223BDFFB0034F125 /* EHenTaiViewer copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -992,6 +1169,7 @@
 			isa = PBXGroup;
 			children = (
 				5A90DACC1ECC3D3F00575145 /* EHenTaiViewer.app */,
+				49504436223BDFFB0034F125 /* EHenTaiViewe-iPad.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1235,6 +1413,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		495043A0223BDFFB0034F125 /* EHenTaiViewe-iPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49504433223BDFFB0034F125 /* Build configuration list for PBXNativeTarget "EHenTaiViewe-iPad" */;
+			buildPhases = (
+				495043A1223BDFFB0034F125 /* [CP] Check Pods Manifest.lock */,
+				495043A2223BDFFB0034F125 /* Sources */,
+				49504402223BDFFB0034F125 /* Frameworks */,
+				4950440B223BDFFB0034F125 /* Resources */,
+				49504430223BDFFB0034F125 /* [CP] Embed Pods Frameworks */,
+				49504431223BDFFB0034F125 /* Embed App Extensions */,
+				49504432223BDFFB0034F125 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EHenTaiViewe-iPad";
+			productName = EHenTaiViewer;
+			productReference = 49504436223BDFFB0034F125 /* EHenTaiViewe-iPad.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5A90DACB1ECC3D3F00575145 /* EHenTaiViewer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A90DAE31ECC3D3F00575145 /* Build configuration list for PBXNativeTarget "EHenTaiViewer" */;
@@ -1266,9 +1465,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = kayanouriko;
 				TargetAttributes = {
+					495043A0223BDFFB0034F125 = {
+						DevelopmentTeam = 2LFK727S52;
+						ProvisioningStyle = Automatic;
+					};
 					5A90DACB1ECC3D3F00575145 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = T383NXR73L;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1293,11 +1495,55 @@
 			projectRoot = "";
 			targets = (
 				5A90DACB1ECC3D3F00575145 /* EHenTaiViewer */,
+				495043A0223BDFFB0034F125 /* EHenTaiViewe-iPad */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4950440B223BDFFB0034F125 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4950440C223BDFFB0034F125 /* QJBrowserBookMarkPopView.xib in Resources */,
+				4950440D223BDFFB0034F125 /* EhTag_CN.json in Resources */,
+				4950440E223BDFFB0034F125 /* QJNewCommentCell.xib in Resources */,
+				4950440F223BDFFB0034F125 /* QJNewBrowerViewController.xib in Resources */,
+				49504410223BDFFB0034F125 /* QJNewBrowerImageCell.xib in Resources */,
+				49504411223BDFFB0034F125 /* QJCommentCell.xib in Resources */,
+				49504412223BDFFB0034F125 /* QJRankingInfoCell.xib in Resources */,
+				49504413223BDFFB0034F125 /* QJWebViewController.xib in Resources */,
+				49504414223BDFFB0034F125 /* QJBrowserBookMarkPopViewCell.xib in Resources */,
+				49504415223BDFFB0034F125 /* QJSettingModel.plist in Resources */,
+				49504416223BDFFB0034F125 /* LaunchScreen.storyboard in Resources */,
+				49504417223BDFFB0034F125 /* QJLikeSearchBar.xib in Resources */,
+				49504418223BDFFB0034F125 /* QJSettingLoginCell.xib in Resources */,
+				49504419223BDFFB0034F125 /* QJLoginViewController.xib in Resources */,
+				4950441A223BDFFB0034F125 /* QJRankingViewController.xib in Resources */,
+				4950441B223BDFFB0034F125 /* QJImageCollectionViewCell.xib in Resources */,
+				4950441C223BDFFB0034F125 /* QJNewInfoViewController.xib in Resources */,
+				4950441D223BDFFB0034F125 /* QJLanguageOutHeadView.xib in Resources */,
+				4950441E223BDFFB0034F125 /* QJSettingListCell.xib in Resources */,
+				4950441F223BDFFB0034F125 /* QJSearchClassifyCell.xib in Resources */,
+				49504420223BDFFB0034F125 /* QJBrowerSettingPopView.xib in Resources */,
+				49504421223BDFFB0034F125 /* QJLanguageOutCell.xib in Resources */,
+				49504422223BDFFB0034F125 /* QJSearchSoreCell.xib in Resources */,
+				49504423223BDFFB0034F125 /* QJRankingUploadCell.xib in Resources */,
+				49504424223BDFFB0034F125 /* QJRankingHeadInfoCell.xib in Resources */,
+				49504425223BDFFB0034F125 /* iconfont.ttf in Resources */,
+				49504426223BDFFB0034F125 /* QJSettingInfo.xib in Resources */,
+				49504427223BDFFB0034F125 /* Assets.xcassets in Resources */,
+				49504428223BDFFB0034F125 /* QJListCell.xib in Resources */,
+				49504429223BDFFB0034F125 /* QJFavouriteViewController.xib in Resources */,
+				4950442A223BDFFB0034F125 /* QJTorrentInfoCell.xib in Resources */,
+				4950442B223BDFFB0034F125 /* QJSearchBar.xib in Resources */,
+				4950442C223BDFFB0034F125 /* Main.storyboard in Resources */,
+				4950442D223BDFFB0034F125 /* QJGoCommentController.xib in Resources */,
+				4950442E223BDFFB0034F125 /* QJFavoritesSelectCell.xib in Resources */,
+				4950442F223BDFFB0034F125 /* QJTouchIDViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A90DACA1ECC3D3F00575145 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1368,6 +1614,48 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EHenTaiViewer/Pods-EHenTaiViewer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		495043A1223BDFFB0034F125 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EHenTaiViewer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49504430223BDFFB0034F125 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EHenTaiViewer/Pods-EHenTaiViewer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EHenTaiViewer/Pods-EHenTaiViewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E1E6197EF1CEB03303A2EDBF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1389,6 +1677,108 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		495043A2223BDFFB0034F125 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				495043A3223BDFFB0034F125 /* QJNetworkTool.m in Sources */,
+				495043A4223BDFFB0034F125 /* QJSettingItem.m in Sources */,
+				495043A5223BDFFB0034F125 /* Gallery+CoreDataProperties.m in Sources */,
+				495043A6223BDFFB0034F125 /* UIDevice+QJDevice.m in Sources */,
+				495043A7223BDFFB0034F125 /* QJMangaImageDownloader.m in Sources */,
+				495043A8223BDFFB0034F125 /* QJToast.m in Sources */,
+				495043A9223BDFFB0034F125 /* QJHotAndLikeViewController.m in Sources */,
+				495043AA223BDFFB0034F125 /* QJSearchBar.m in Sources */,
+				495043AB223BDFFB0034F125 /* GalleryPage+CoreDataProperties.m in Sources */,
+				495043AC223BDFFB0034F125 /* QJSettingLoginCell.m in Sources */,
+				495043AD223BDFFB0034F125 /* QJTouchIDViewController.m in Sources */,
+				495043AE223BDFFB0034F125 /* QJHomeViewController.m in Sources */,
+				495043AF223BDFFB0034F125 /* QJRankingViewController.m in Sources */,
+				495043B0223BDFFB0034F125 /* QJSearchSoreCell.m in Sources */,
+				495043B1223BDFFB0034F125 /* QJNewBrowerImageCell.m in Sources */,
+				495043B2223BDFFB0034F125 /* QJRankingUploadCell.m in Sources */,
+				495043B3223BDFFB0034F125 /* QJBrowserBookMarkPopViewCell.m in Sources */,
+				495043B4223BDFFB0034F125 /* QJToplistUploaderItem.m in Sources */,
+				495043B5223BDFFB0034F125 /* QJRankingInfoCell.m in Sources */,
+				495043B6223BDFFB0034F125 /* NJKWebViewProgress.m in Sources */,
+				495043B7223BDFFB0034F125 /* QJSettingListCell.m in Sources */,
+				495043B8223BDFFB0034F125 /* QJLanguageOutViewController.m in Sources */,
+				495043B9223BDFFB0034F125 /* QJListTableView.m in Sources */,
+				495043BA223BDFFB0034F125 /* QJBrowerCollectManager.m in Sources */,
+				495043BB223BDFFB0034F125 /* QJTableViewCell.m in Sources */,
+				495043BC223BDFFB0034F125 /* QJTabBarController.m in Sources */,
+				495043BD223BDFFB0034F125 /* QJSearchViewController.m in Sources */,
+				495043BE223BDFFB0034F125 /* QJLikeButton.m in Sources */,
+				495043BF223BDFFB0034F125 /* QJWebViewController.m in Sources */,
+				495043C0223BDFFB0034F125 /* QJListItem.m in Sources */,
+				495043C1223BDFFB0034F125 /* QJMangaImageModel.m in Sources */,
+				495043C2223BDFFB0034F125 /* QJScrollView.m in Sources */,
+				495043C3223BDFFB0034F125 /* QJTorrentInfoController.m in Sources */,
+				495043C4223BDFFB0034F125 /* AppDelegate.m in Sources */,
+				495043C5223BDFFB0034F125 /* QJTipViewController.m in Sources */,
+				495043C6223BDFFB0034F125 /* UIImage+TBCityIconFont.m in Sources */,
+				495043C7223BDFFB0034F125 /* QJFavoritesSelectController.m in Sources */,
+				495043C8223BDFFB0034F125 /* QJNewCommentCell.m in Sources */,
+				495043C9223BDFFB0034F125 /* QJSecretBgTool.m in Sources */,
+				495043CA223BDFFB0034F125 /* QJTagView.m in Sources */,
+				495043CB223BDFFB0034F125 /* TBCityIconFont.m in Sources */,
+				495043CC223BDFFB0034F125 /* QJLanguageOutCell.m in Sources */,
+				495043CD223BDFFB0034F125 /* QJBigImageItem.m in Sources */,
+				495043CE223BDFFB0034F125 /* QJBrowserBookMarkPopView.m in Sources */,
+				495043CF223BDFFB0034F125 /* QJMangaTorrentActivity.m in Sources */,
+				495043D0223BDFFB0034F125 /* Gallery+CoreDataClass.m in Sources */,
+				495043D1223BDFFB0034F125 /* XPathQuery.m in Sources */,
+				495043D2223BDFFB0034F125 /* QJSearchClassifyCell.m in Sources */,
+				495043D3223BDFFB0034F125 /* QJMangaManager.m in Sources */,
+				495043D4223BDFFB0034F125 /* TFHppleElement.m in Sources */,
+				495043D5223BDFFB0034F125 /* XHStarRateView.m in Sources */,
+				495043D6223BDFFB0034F125 /* QJSettingViewController.m in Sources */,
+				495043D7223BDFFB0034F125 /* QJCollectionViewFlowLayout.m in Sources */,
+				495043D8223BDFFB0034F125 /* QJHenTaiParser.m in Sources */,
+				495043D9223BDFFB0034F125 /* EhCoreData.xcdatamodeld in Sources */,
+				495043DA223BDFFB0034F125 /* QJViewController.m in Sources */,
+				495043DB223BDFFB0034F125 /* UITextView+Addition.m in Sources */,
+				495043DC223BDFFB0034F125 /* QJFavouriteViewController.m in Sources */,
+				495043DD223BDFFB0034F125 /* QJImageCollectionViewCell.m in Sources */,
+				495043DE223BDFFB0034F125 /* TBCityIconInfo.m in Sources */,
+				495043DF223BDFFB0034F125 /* QJBrowerSettingPopView.m in Sources */,
+				495043E0223BDFFB0034F125 /* Tag+CoreDataProperties.m in Sources */,
+				495043E1223BDFFB0034F125 /* QJLabel.m in Sources */,
+				495043E2223BDFFB0034F125 /* QJListCell.m in Sources */,
+				495043E3223BDFFB0034F125 /* QJGoCommentController.m in Sources */,
+				495043E4223BDFFB0034F125 /* NJKWebViewProgressView.m in Sources */,
+				495043E5223BDFFB0034F125 /* QJButton.m in Sources */,
+				495043E6223BDFFB0034F125 /* NSString+StringHeight.m in Sources */,
+				495043E7223BDFFB0034F125 /* QJRankingHeadInfoCell.m in Sources */,
+				495043E8223BDFFB0034F125 /* QJAllCommentController.m in Sources */,
+				495043E9223BDFFB0034F125 /* QJNewBrowerViewController.m in Sources */,
+				495043EA223BDFFB0034F125 /* main.m in Sources */,
+				495043EB223BDFFB0034F125 /* Reachability.m in Sources */,
+				495043EC223BDFFB0034F125 /* QJSettingModel.m in Sources */,
+				495043ED223BDFFB0034F125 /* TFHpple.m in Sources */,
+				495043EE223BDFFB0034F125 /* GalleryPage+CoreDataClass.m in Sources */,
+				495043EF223BDFFB0034F125 /* QJNowViewController.m in Sources */,
+				495043F0223BDFFB0034F125 /* QJLoginViewController.m in Sources */,
+				495043F1223BDFFB0034F125 /* QJOrientationManager.m in Sources */,
+				495043F2223BDFFB0034F125 /* QJGlobalInfo.m in Sources */,
+				495043F3223BDFFB0034F125 /* QJMangaImageParser.m in Sources */,
+				495043F4223BDFFB0034F125 /* QJHeadFreshingView.m in Sources */,
+				495043F5223BDFFB0034F125 /* QJGalleryItem.m in Sources */,
+				495043F6223BDFFB0034F125 /* QJCommentCell.m in Sources */,
+				495043F7223BDFFB0034F125 /* QJNewInfoViewController.m in Sources */,
+				495043F8223BDFFB0034F125 /* QJFavoritesSelectCell.m in Sources */,
+				495043F9223BDFFB0034F125 /* QJLanguageOutHeadView.m in Sources */,
+				495043FA223BDFFB0034F125 /* QJCustomTabbarSettingController.m in Sources */,
+				495043FB223BDFFB0034F125 /* QJTorrentItem.m in Sources */,
+				495043FC223BDFFB0034F125 /* QJTorrentInfoCell.m in Sources */,
+				495043FD223BDFFB0034F125 /* QJSettingWatchSettingController.m in Sources */,
+				495043FE223BDFFB0034F125 /* Tag+CoreDataClass.m in Sources */,
+				495043FF223BDFFB0034F125 /* QJProtectTool.m in Sources */,
+				49504400223BDFFB0034F125 /* QJSettingHightOtherController.m in Sources */,
+				49504401223BDFFB0034F125 /* QJLikeSearchBar.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A90DAC81ECC3D3F00575145 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1513,6 +1903,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		49504434223BDFFB0034F125 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39AB85A01DE9780906E9DC6A /* Pods-EHenTaiViewer.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2LFK727S52;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/EHentaiViewer/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
+				INFOPLIST_FILE = "EHenTaiViewer copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_BUNDLE_IDENTIFIER = cc.kayanouriko.EHenTaiViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		49504435223BDFFB0034F125 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A16CFA2C31A05E4E842B53A7 /* Pods-EHenTaiViewer.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2LFK727S52;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/EHentaiViewer/PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
+				INFOPLIST_FILE = "EHenTaiViewer copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_BUNDLE_IDENTIFIER = cc.kayanouriko.EHenTaiViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
 		5A90DAE11ECC3D3F00575145 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 39AB85A01DE9780906E9DC6A /* Pods-EHenTaiViewer.debug.xcconfig */;
@@ -1617,7 +2063,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T383NXR73L;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/EHentaiViewer/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
@@ -1644,7 +2090,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T383NXR73L;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/EHentaiViewer/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
@@ -1666,6 +2112,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		49504433223BDFFB0034F125 /* Build configuration list for PBXNativeTarget "EHenTaiViewe-iPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49504434223BDFFB0034F125 /* Debug */,
+				49504435223BDFFB0034F125 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5A90DAC71ECC3D3F00575145 /* Build configuration list for PBXProject "EHenTaiViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -32,7 +32,7 @@
     // 解决iOS遗留bug,导航栏push或者pop存在黑块问题
     self.window.backgroundColor = [UIColor whiteColor];
     // 把转屏重新修正为竖屏
-    [QJOrientationManager recoverPortraitOrienttation];
+//    [QJOrientationManager recoverPortraitOrienttation];
     // 网络监测
     [[QJNetworkTool shareTool] starNotifier];
     // 密码验证相关
