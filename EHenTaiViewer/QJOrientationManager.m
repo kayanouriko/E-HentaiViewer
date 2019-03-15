@@ -48,9 +48,12 @@
 }
 
 + (void)recoverPortraitOrienttation {
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    appDelegate.orientation = UIInterfaceOrientationMaskPortrait;
-    [UIDevice switchNewOrientation:UIInterfaceOrientationPortrait];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        appDelegate.orientation = UIInterfaceOrientationMaskPortrait;
+        [UIDevice switchNewOrientation:UIInterfaceOrientationPortrait];
+    }
+    
 }
 
 + (void)setOrientationWithSelected:(NSInteger)selectedIndex {
