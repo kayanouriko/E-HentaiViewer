@@ -78,6 +78,8 @@
 #define isIPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 // 软件是否为竖屏状态
 #define isAppOrientationPortrait [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait || [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown
+//判断横屏
+#define isAppOrientationHorizontal [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft || [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight
 // 看图界面滚动方式是否为左右滚动
 #define isAppScrollDiretionHorizontal [QJGlobalInfo customScrollDiretion] == UICollectionViewScrollDirectionHorizontal
 //去null

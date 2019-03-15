@@ -109,18 +109,28 @@
         CGSize imageSize = image.size;
         CGRect imageFrame = CGRectMake(0, 0, imageSize.width, imageSize.height);
         
-        CGFloat screenRatio = UIScreenWidth() / UIScreenHeight();
-        CGFloat imageRatio = imageFrame.size.width / imageFrame.size.height;
-        // TODO:这里有待整理,暂时用0.3的变量吧
-        if (screenRatio - imageRatio <= 0.3 && screenRatio - imageRatio > 0) {
+        //判断是否是手机
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            CGFloat screenRatio = UIScreenWidth() / UIScreenHeight();
+            CGFloat imageRatio = imageFrame.size.width / imageFrame.size.height;
+//        TODO:这里有待整理,暂时用0.3的变量吧
+            if (screenRatio - imageRatio <= 0.3 && screenRatio - imageRatio > 0) {
+                CGFloat ratio = UIScreenHeight() / imageFrame.size.height;
+                imageFrame.size.width = imageFrame.size.width * ratio;
+                imageFrame.size.height = UIScreenHeight();
+            } else {
+                CGFloat ratio = UIScreenWidth() / imageFrame.size.width;
+                imageFrame.size.height = imageFrame.size.height * ratio;
+                imageFrame.size.width = UIScreenWidth();
+            }
+
+        }else {
+            //iPad 适配(For iPad)
             CGFloat ratio = UIScreenHeight() / imageFrame.size.height;
             imageFrame.size.width = imageFrame.size.width * ratio;
             imageFrame.size.height = UIScreenHeight();
-        } else {
-            CGFloat ratio = UIScreenWidth() / imageFrame.size.width;
-            imageFrame.size.height = imageFrame.size.height * ratio;
-            imageFrame.size.width = UIScreenWidth();
         }
+        
         
         
         return imageFrame.size;

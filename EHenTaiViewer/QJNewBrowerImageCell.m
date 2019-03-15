@@ -32,6 +32,7 @@
     // 设置 scrollView的 原始缩放大小
     _scrollView.zoomScale = 1.0f;
     if(_mangaImageView.image){
+        
         // 设置 imageView 的 frame
         [_mangaImageView setFrame:(CGRect){CGPointZero,_model.size}];
         
@@ -55,6 +56,7 @@
         _scrollView.minimumZoomScale = 1.f;
         _scrollView.maximumZoomScale = maxScale;
         
+    
     }else{
         frame.origin = CGPointZero;
         _mangaImageView.frame = frame;
