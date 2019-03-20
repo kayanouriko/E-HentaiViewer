@@ -272,7 +272,7 @@
 
 #pragma mark -列表爬取
 - (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion total:(TotalHandler)total {
-    [self requestListInfo:url searchRule:@"//div [@class='it5']//a" complete:completion total:total];
+    [self requestListInfo:url searchRule:@"//td [@class='gl3c glname']//a" complete:completion total:total];
 }
 
 #pragma mark -热门爬取
@@ -316,6 +316,7 @@
     } else {
         finalUrl = HENTAI_URL;
     }
+    NSLog(@"finalUrl----%@", finalUrl);
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         [[QJNetworkTool shareTool] hiddenNetworkActivity];
         if (error) {

@@ -1471,7 +1471,7 @@
 					};
 					5A90DACB1ECC3D3F00575145 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = T383NXR73L;
+						DevelopmentTeam = 2LFK727S52;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1927,6 +1927,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cc.kayanouriko.EHenTaiViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -1954,6 +1955,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cc.kayanouriko.EHenTaiViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
@@ -2062,7 +2064,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T383NXR73L;
+				DEVELOPMENT_TEAM = 2LFK727S52;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/EHentaiViewer/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
@@ -2089,7 +2091,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T383NXR73L;
+				DEVELOPMENT_TEAM = 2LFK727S52;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/EHentaiViewer/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
