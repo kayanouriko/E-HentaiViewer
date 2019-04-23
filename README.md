@@ -1,5 +1,5 @@
 ### EHenTaiViewer
-![platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v1.2.0-brightgreen.svg)](https://github.com/kayanouriko/E-HentaiViewer/releases)  ![support](https://img.shields.io/badge/support-8.0-blue.svg)
+![platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v1.3.1-brightgreen.svg)](https://github.com/kayanouriko/E-HentaiViewer/releases)  ![support](https://img.shields.io/badge/support-11.0-blue.svg)
 
 一个EHentai的iOS端阅读器 / a client for e-hentai/exhentai
 
@@ -9,8 +9,9 @@
 所以app上的高级设置暂时全部失效了
 
 请前往网站配置页配置你的图片分辨率相关，客户端的看图用的是你账号的看图额度【虽然一般用不完
+同理，请暂时在网站配置设置你的语言排除
 
-同理，请暂时在网站配置设置你的语言排除，后期计划客户端仅在搜索添加语言搜索排除
+个人能力问题，配置除去上面说到的可以自定义以外，其他的请暂时使用默认配置，避免造成解析错误，特别是列表显示样式
 
 #### 非越狱手机安装方法
 * Xcode编译
@@ -22,23 +23,26 @@
 #### 说明
 主要是自用应用,而且还是新手,更新周期可能会比较长,有刚性需求的同学可以用DaidoujiChen的成熟应用
 
-测试: Xcode9.4.1 / iPhone 7 plus / iOS 12
+测试: Xcode10.2.1 / iPhone Xs Max / iOS 12.3 Beta
 
-要求: 推荐 iPhone 5s 或更新机型使用 / 需要 iOS 8.0 或更高版本
+要求: 推荐 iPhone 7 或更新机型使用 / 需要 iOS 11.0 或更高版本
 
 ### 更新内容
-2018.08.14 1.2.0
+20190423 v1.3.1
+* 应用最低版本提升至iOS11.0
+* 列表样式调整
+* 全新的搜索功能，添加高级筛选
+* 跟进网站改进做出的解析调整
+* 修正BUG：[Issue #51](https://github.com/kayanouriko/E-HentaiViewer/issues/51) ，[Issue #50](https://github.com/kayanouriko/E-HentaiViewer/issues/50)
+* 改进优化：[Issue #37](https://github.com/kayanouriko/E-HentaiViewer/issues/37#issuecomment-436643594)
 
-赶在c94期间更新了一各大版本，实在不好意思再拖延下去了，祝大家c94观本愉快!~【注意身体哦】~
-
-下个版本重点优化的是搜索功能和画廊操作功能，还有Action扩展，支持应用外识别画廊链接直接跳转应用打开~
-
-* 基础设置中新增功能和开放之前禁止的功能项
-* toplist开放使用，列表支持跳页功能
-* 首屏tabbar新特性，单击按钮支持返回首页，首页单击返回顶部
-* 全新的阅读浏览器，包括更好的加载逻辑，更全面的加载机制，全新的看图姿势，完善的缩略图和书签功能
-* 其他BUG Fix
-* 未登录状态缩略图无法获取依旧没有修复
+已知问题：
+- 项目的代码已经是一坨shit了，各种耦合
+- 未登录状态画廊缩略图解析不成功
+- 列表可能存在卡顿现象
+- 搜索标签库没做分组，数据不全
+- 改动较大，可能存在其他未知bug
+- 部分网站操作功能暂时失效
 
 ### Screenshot
 8M流量
@@ -72,14 +76,13 @@
 - [x] 里站切换
 - [x] 搜索/高级搜索
 - [x] 支持账号登录
+- [x] 搜索功能智能标签提示
 
 ### TODO
 1. 界面
 - [ ] 高级设置适配网站新版server设置页
 
 2. 功能
-- [ ] 搜索功能智能标签提示
-- [ ] 标签快速搜索
 - [ ] 应用数据缓存支持
 - [ ] 跳转画廊逻辑优化
 - [ ] 评论功能强化,同步网站功能
