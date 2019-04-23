@@ -9,6 +9,8 @@
 #import "QJSettingViewController.h"
 //cell
 #import "QJSettingLoginCell.h"
+#import "QJMainSettingListCell.h"
+#import "UITableViewCell+QJAddition.h"
 //控制器
 #import "QJLoginViewController.h"
 #import "QJSettingWatchSettingController.h"
@@ -32,16 +34,34 @@
     [self setContent];
 }
 
-- (void)setContent {
-    self.title = @"设置";
-    [self.view addSubview:self.tableView];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSuccessLogin) name:LOGIN_NOTI object:nil];
+    // 如果是登陆状态,且没有获取头像和描述信息,则请求网络
+    if ([[QJHenTaiParser parser] checkCookie] && ![[QJGlobalInfo getExHentaiUserImageUrl] containsString:@"http"]) {
+        [[QJHenTaiParser parser] readUserInfoCompletion:^(QJHenTaiParserStatus status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+}
+
+- (void)setContent {
+    // 开启大标题功能
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    
+    self.title = @"设置";
+    [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -73,26 +93,38 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.5f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headView = [UIView new];
+    headView.backgroundColor = [UIColor clearColor];
+    return headView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 10.f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *footView = [UIView new];
+    footView.backgroundColor = [UIColor clearColor];
+    return footView;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [cell addSectionCornerRadiusWithIndexPath:indexPath tableView:tableView];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class])];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        /*
-         UIImage *image = [[UIImage imageNamed:self.datas[indexPath.row].lastObject] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-         cell.imageView.tintColor = [UIColor colorWithRed:0.573 green:0.573 blue:0.573 alpha:1.00];
-         cell.imageView.image = image;
-         */
-        cell.textLabel.text = self.datas[indexPath.row].firstObject;
-        //cell.textLabel.font = AppFontContentStyle();
+        QJMainSettingListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJMainSettingListCell class])];
+        cell.funcNameLabel.text = self.datas[indexPath.row].firstObject;
         return cell;
     } else {
         QJSettingLoginCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJSettingLoginCell class])];
-        if (NSObjForKey(@"loginName")) {
-            cell.loginNameLabel.text = NSObjForKey(@"loginName");
-        } else {
-            NSObjSetForKey(@"loginName", @"未登录");
-            NSObjSynchronize();
-        }
+        [cell updateUserInfo];
         return cell;
     }
 }
@@ -127,7 +159,9 @@
                 }
             }];
             [alertVC addAction:okBtn];
-            [self presentViewController:alertVC animated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alertVC animated:YES completion:nil];
+            });
         } else {
             QJLoginViewController *vc = [QJLoginViewController new];
             [self presentViewController:vc animated:YES completion:nil];
@@ -144,22 +178,14 @@
 #pragma mark -懒加载
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [UITableView new];
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.rowHeight = UITableViewAutomaticDimension;
-        _tableView.estimatedRowHeight = 5 * 42;
         _tableView.estimatedSectionHeaderHeight = 0;
-        if (@available(iOS 11.0, *)) {
-            
-        }
-        else {
-            _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
-        }
+        _tableView.estimatedSectionFooterHeight = 0;
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJSettingLoginCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJSettingLoginCell class])];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([QJMainSettingListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([QJMainSettingListCell class])];
     }
     return _tableView;
 }

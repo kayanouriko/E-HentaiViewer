@@ -9,8 +9,6 @@
 #import "QJViewController.h"
 #import "QJTipViewController.h"
 
-static NSString *const kSomoDataSourceProvider = @"SomoDataSourceProvider";
-
 @interface QJViewController () {
     BOOL _isRefreshing;
 }
@@ -23,8 +21,10 @@ static NSString *const kSomoDataSourceProvider = @"SomoDataSourceProvider";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    // 刷新相关参数
     _isRefreshing = NO;
+    
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (BOOL)isShowFreshingStatus {

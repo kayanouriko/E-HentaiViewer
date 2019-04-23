@@ -8,7 +8,6 @@
 
 #import "QJRankingUploadCell.h"
 #import "QJToplistUploaderItem.h"
-#import "NSString+StringHeight.h"
 #import "QJGalleryItem.h"
 #import "QJSearchViewController.h"
 

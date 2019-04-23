@@ -9,7 +9,6 @@
 #import "QJCommentCell.h"
 #import "QJSearchViewController.h"
 #import "QJGalleryItem.h"
-#import "NSString+StringHeight.h"
 #import <SafariServices/SafariServices.h>
 
 @interface QJCommentCell ()<UITextViewDelegate>

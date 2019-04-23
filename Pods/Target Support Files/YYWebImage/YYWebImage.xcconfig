@@ -1,7 +1,7 @@
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/YYWebImage
 FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/YYCache" "${PODS_CONFIGURATION_BUILD_DIR}/YYImage"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-OTHER_LDFLAGS = -framework "Accelerate" -framework "AssetsLibrary" -framework "CoreFoundation" -framework "ImageIO" -framework "MobileCoreServices" -framework "QuartzCore" -framework "UIKit"
+OTHER_LDFLAGS = $(inherited) -framework "Accelerate" -framework "AssetsLibrary" -framework "CoreFoundation" -framework "ImageIO" -framework "MobileCoreServices" -framework "QuartzCore" -framework "UIKit"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}

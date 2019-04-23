@@ -13,14 +13,17 @@
 #import "QJNewInfoViewController.h"
 #import "QJEnum.h"
 #import "QJLikeSearchBar.h"
-#import "NSString+StringHeight.h"
 //iconfont
 #import "TBCityIconFont.h"
 #import "UIImage+TBCityIconFont.h"
 
 #import "QJFavoritesSelectController.h"
 
-@interface QJHotAndLikeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, QJFavoritesSelectControllerDelegate, UITextFieldDelegate>
+//详情页
+#import "QJSearchController.h"
+#import "QJNewSearchViewController.h"
+
+@interface QJHotAndLikeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, QJFavoritesSelectControllerDelegate, UITextFieldDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate>
 
 @property (nonatomic, strong) QJLikeSearchBar *searchBar;
 @property (nonatomic, strong) QJListTableView *likeTableview;
@@ -39,6 +42,9 @@
 
 @property (nonatomic, strong) NSString *ddact;//记录操作动作
 
+// 搜索框相关
+@property (strong, nonatomic) QJNewSearchViewController *searchVC;
+
 @end
 
 @implementation QJHotAndLikeViewController
@@ -51,18 +57,20 @@
     [self updateLikeResource];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+}
+
 #pragma mark -滚动到顶部
 - (void)scrollToTop {
     if (self.likeDatas.count) {
         [self.likeTableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    //等布局调整完成后再放xib布局的搜索框
-    if (nil == self.likeTableview.tableHeaderView) {
-        self.likeTableview.tableHeaderView = self.searchBar;
     }
 }
 
@@ -117,9 +125,10 @@
         favcatValue = [NSString stringWithFormat:@"%ld", self.favcat];
     }
     [url appendFormat:@"?favcat=%@", favcatValue];
-    //添加搜索项
+    // 添加搜索项
+    // 默认做全局搜索
     if (self.searchBar.searchTextF.text.length) {
-        [url appendFormat:@"&f_search=%@&f_apply=Search+Favorites", [self.searchBar.searchTextF.text urlEncode]];
+        [url appendFormat:@"&f_search=%@&sn=on&st=on&sf=on", [self.searchBar.searchTextF.text urlEncode]];
     }
     //添加页码
     if (self.pageIndex > 0) {
@@ -154,6 +163,9 @@
 }
 
 - (void)setContent {
+    // 开启大标题功能
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    
     self.status = QJFreshStatusNone;
     self.favcat = -1;
     self.canFreshMore = YES;
@@ -162,9 +174,40 @@
     self.ddact = @"";
     
     [self.view addSubview:self.likeTableview];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_likeTableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_likeTableview)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_likeTableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_likeTableview)]];
+    [self.likeTableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
+    
+    // 配置搜索控制器
+    QJSearchController *searchVC = [[QJSearchController alloc] initWithSearchResultsController:self.searchVC];
+    searchVC.delegate = self;
+    searchVC.searchResultsUpdater = self;
+    searchVC.searchBar.delegate = self;
+    searchVC.searchBar.enablesReturnKeyAutomatically = YES;
+    self.navigationItem.searchController = searchVC;
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    self.definesPresentationContext = YES;
 }
+
+#pragma mark - UISearchBarDelegate
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchVC viewsShouldSearchBarSearchButtonClicked:searchBar];
+}
+
+// 点击筛选按钮的时候
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
+    [self.searchVC viewsShouldSearchBarBookmarkButtonClicked:searchBar];
+}
+
+#pragma mark - 搜索代理
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    searchController.searchResultsController.view.hidden = NO;
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    searchController.searchResultsController.view.hidden = NO;
+}
+
 
 #pragma mark -tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -206,25 +249,9 @@
     return YES;
 }
 
-/*
- 废弃的功能
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- [[QJHenTaiParser parser] updateFavoriteStatus:YES model:self.likeDatas[indexPath.row] index:0 content:@"" complete:^(QJHenTaiParserStatus status) {
- if (status == QJHenTaiParserStatusSuccess) {
- Toast(@"收藏已取消");
- [self.likeDatas removeObject:self.likeDatas[indexPath.row]];
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
- }
- }];
- }
- 
- - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
- return @"取消收藏";
- }
- */
 //多选相关
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
 
 #pragma mark -UIScrollViewDelegate
@@ -276,9 +303,10 @@
     [alertController addAction:deleteAction];
     [alertController addAction:cancelAction];
     
-    if (isPad) {
-        UIPopoverPresentationController *popVC = [alertController popoverPresentationController];
-        popVC.barButtonItem = self.doneItem;
+    UIPopoverPresentationController *popover = alertController.popoverPresentationController;
+    if (popover) {
+        popover.barButtonItem = self.editItem;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
     }
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -317,8 +345,7 @@
 - (void)moveBookToOther {
     QJFavoritesSelectController *vc = [QJFavoritesSelectController new];
     vc.delegate = self;
-    vc.likeVCJump = NO;//作用是隐藏全部收藏的选项
-    // vc.hidesBottomBarWhenPushed = YES;
+    vc.likeVCJump = NO; // 作用是隐藏全部收藏的选项
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -348,29 +375,13 @@
         [self readyRefreshInfo];
     }];
     //无论成功失败都先退出多选模式
-    [self cancelAction];
-    
-    //延迟执行,因为退出多选模式也有一个动画
-    /*
-     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.26f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-     //无论怎么样,先删除对应的model
-     NSMutableArray *arrInsertRows = [NSMutableArray new];
-     //先统计要更新的row
-     for (QJListItem *model in self.selectDatas) {
-     if ([self.likeDatas containsObject:model]) {
-     NSInteger index = [self.likeDatas indexOfObject:model];
-     [arrInsertRows addObject:[NSIndexPath indexPathForRow:index inSection:0]];
-     }
-     }
-     //后删除model
-     for (QJListItem *model in self.selectDatas) {
-     if ([self.likeDatas containsObject:model]) {
-     [self.likeDatas removeObject:model];
-     }
-     }
-     [self.likeTableview deleteRowsAtIndexPaths:arrInsertRows withRowAnimation:UITableViewRowAnimationAutomatic];
-     });
-     */
+    if (self.likeTableview.isEditing) {
+        [self.likeTableview setEditing:NO animated:NO];
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = nil;
+        self.searchBar.userInteractionEnabled = YES;
+        self.ddact = @"";
+    }
 }
 
 #pragma mark -getter
@@ -379,13 +390,7 @@
         _likeTableview = [QJListTableView new];
         _likeTableview.delegate = self;
         _likeTableview.dataSource = self;
-        if (@available(iOS 11.0, *)) {
-            
-        }
-        else {
-            _likeTableview.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
-        }
-        [_likeTableview addSubview:self.refrshControl];
+        _likeTableview.refreshControl = self.refrshControl;
     }
     return _likeTableview;
 }
@@ -459,6 +464,15 @@
         _selectDatas = [NSMutableArray new];
     }
     return _selectDatas;
+}
+
+- (QJNewSearchViewController *)searchVC {
+    if (nil == _searchVC) {
+        _searchVC = [QJNewSearchViewController new];
+        _searchVC.nav = self.navigationController;
+        _searchVC.type = QJNewSearchViewControllerTypeFavorites;
+    }
+    return _searchVC;
 }
 
 - (void)didReceiveMemoryWarning {

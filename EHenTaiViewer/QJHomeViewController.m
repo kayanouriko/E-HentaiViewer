@@ -12,12 +12,13 @@
 #import "QJEnum.h"
 #import "QJListTableView.h"
 #import "QJTouchIDViewController.h"
-#import "NSString+StringHeight.h"
 #import "QJListItem.h"
 //详情页
+#import "QJSearchController.h"
 #import "QJNewInfoViewController.h"
+#import "QJNewSearchViewController.h"
 
-@interface QJHomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
+@interface QJHomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate>
 
 @property (nonatomic, strong) UIButton *pageButton;
 @property (nonatomic, strong) UIAlertAction *action1;
@@ -30,6 +31,9 @@
 @property (nonatomic, assign) QJFreshStatus status;
 //刷新提示文字
 @property (nonatomic, strong) UIRefreshControl *refrshControl;
+
+// 搜索框相关
+@property (strong, nonatomic) QJNewSearchViewController *searchVC;
 
 @end
 
@@ -49,11 +53,26 @@
     [self updateResource];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (nil != self.title && self.title.length > 0) {
+        self.navigationItem.title = self.title;
+    } else {
+        self.navigationItem.title = [QJGlobalInfo isExHentaiStatus] ? @"ExHentai" : @"E-Hentai";
+    }
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+}
+
 #pragma mark -View Control
 - (void)jumpPageAction {
     if (self.totalPage) {
         // 构建弹出框
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"页码跳转" message:[NSString stringWithFormat:@"请输入一个 0 ~ %ld 之间的页码数字", self.totalPage] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"页码跳转" message:[NSString stringWithFormat:@"请输入一个 1 ~ %ld 之间的页码数字", self.totalPage] preferredStyle:UIAlertControllerStyleAlert];
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             [textField addTarget:self action:@selector(textFieldTextChange:) forControlEvents:UIControlEventEditingChanged];
             textField.textAlignment = NSTextAlignmentCenter;
@@ -144,23 +163,62 @@
 
 #pragma mark -设置内容
 - (void)setContent {
+    // 开启大标题功能
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    
     self.totalPage = 0;
+    
+    UIView *logoView = [UIView new];
+    logoView.frame = CGRectMake(0, 0, 97.5f, 30.f);
+    UIImageView *imageView = [UIImageView new];
+    imageView.image = [UIImage imageNamed:@"home_logo"];
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    imageView.frame = logoView.frame;
+    [logoView addSubview:imageView];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.pageButton];
     self.navigationItem.rightBarButtonItem = item;
     
     [self.view addSubview:self.tableView];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
+    // 配置搜索控制器
+    QJSearchController *searchVC = [[QJSearchController alloc] initWithSearchResultsController:self.searchVC];
+    searchVC.delegate = self;
+    searchVC.searchResultsUpdater = self;
+    searchVC.searchBar.delegate = self;
+    self.navigationItem.searchController = searchVC;
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    self.definesPresentationContext = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (nil != self.title && self.title.length > 0) {
-        self.navigationItem.title = self.title;
-    } else {
-        self.navigationItem.title = [QJGlobalInfo isExHentaiStatus] ? @"exhentai" : @"e-hentai";
-    }
+#pragma mark - UISearchBarDelegate
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchVC viewsShouldSearchBarSearchButtonClicked:searchBar];
+}
+
+// 点击筛选按钮的时候
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
+    [self.searchVC viewsShouldSearchBarBookmarkButtonClicked:searchBar];
+}
+
+#pragma mark - 搜索代理
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    searchController.searchBar.showsBookmarkButton = YES;
+}
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    searchController.searchResultsController.view.hidden = NO;
+}
+
+- (void)willDismissSearchController:(UISearchController *)searchController {
+    searchController.searchBar.showsBookmarkButton = NO;
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    searchController.searchResultsController.view.hidden = NO;
 }
 
 #pragma mark -tableview
@@ -177,9 +235,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     QJNewInfoViewController *vc = [QJNewInfoViewController new];
-    // vc.hidesBottomBarWhenPushed = YES;
     vc.model = self.datas[indexPath.row];
-    vc.preferredContentSize = CGSizeMake(150, 150);
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -230,14 +286,8 @@
         _tableView = [QJListTableView new];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        if (@available(iOS 11.0, *)) {
-            
-        }
-        else {
-            _tableView.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
-        }
         //添加刷新模块
-        [_tableView addSubview:self.refrshControl];
+        _tableView.refreshControl = self.refrshControl;
     }
     return _tableView;
 }
@@ -262,6 +312,15 @@
         [_refrshControl addTarget:self action:@selector(readyUpdateResource) forControlEvents:UIControlEventValueChanged];
     }
     return _refrshControl;
+}
+
+- (QJNewSearchViewController *)searchVC {
+    if (nil == _searchVC) {
+        _searchVC = [QJNewSearchViewController new];
+        _searchVC.nav = self.navigationController;
+        _searchVC.type = QJNewSearchViewControllerTypeSearch;
+    }
+    return _searchVC;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class QJTagView, QJGalleryTagItem;
+
+@protocol QJTagViewDelegate <NSObject>
+
+@optional
+- (void)tagView:(QJTagView *)tagView didClickTagWithModel:(QJGalleryTagItem *)model;
+
+@end
+
 @interface QJTagView : UIView
 
+@property (weak, nonatomic) id<QJTagViewDelegate>delegate;
 /* array构成
  数组分两个元素,第一个为分类名 第二个为tag模型,类名为QJCategoryButtonInfo
  */

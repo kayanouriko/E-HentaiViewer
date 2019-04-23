@@ -10,7 +10,6 @@
 #import "Tag+CoreDataClass.h"
 #import "QJHenTaiParser.h"
 #import "QJNewInfoViewController.h"
-#import "NSString+StringHeight.h"
 #import "QJSearchBar.h"
 #import "QJButton.h"
 #import "QJListTableView.h"
@@ -112,7 +111,7 @@
 }
 
 - (void)initBtnStatus {
-    //该循环基本只有第一次运行会用到,故不写在懒加载中,影响性能
+    //该循环基本只有第一次运行会用到
     NSMutableArray *arr = [NSMutableArray new];
     for (NSInteger i = 0; i <= 18; i++) {
         if (i < 12) {
@@ -274,7 +273,6 @@
     QJNewInfoViewController *vc = [QJNewInfoViewController new];
     //vc.hidesBottomBarWhenPushed = YES;
     vc.model = self.datas[indexPath.row];
-    vc.preferredContentSize = CGSizeMake(150, 150);
     [self.navigationController pushViewController:vc animated:YES];
 }
 

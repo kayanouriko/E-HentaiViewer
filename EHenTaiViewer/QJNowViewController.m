@@ -32,6 +32,21 @@
     [self setContent];
     [self showFreshingViewWithTip:nil];
     [self updateHotResource];
+    /*
+    [[QJHenTaiParser parser] readUserInfoCompletion:^(QJHenTaiParserStatus status) {
+        
+    }];
+     */
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 #pragma mark -滚动到顶部
@@ -55,12 +70,16 @@
 }
 
 - (void)setContent {
+    // 开启大标题功能
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    /* toplist解析有问题,没找到问题,暂时隐藏
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e61f", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(clickToplist)];
     self.navigationItem.rightBarButtonItem = item;
-    
+    */
     [self.view addSubview:self.tableview];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableview]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableview)]];
+    [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
 - (void)clickToplist {
@@ -94,13 +113,7 @@
         _tableview = [QJListTableView new];
         _tableview.delegate = self;
         _tableview.dataSource = self;
-        if (@available(iOS 11.0, *)) {
-            
-        }
-        else {
-            _tableview.contentInset = UIEdgeInsetsMake(UINavigationBarHeight(), 0, UITabBarHeight(), 0);
-        }
-        [_tableview addSubview:self.refrshControl];
+        _tableview.refreshControl = self.refrshControl;
     }
     return _tableview;
 }

@@ -8,7 +8,6 @@
 
 #import "QJSettingItem.h"
 #import "TFHpple.h"
-#import "NSString+StringHeight.h"
 
 @implementation QJSettingLanguageCheckBoxItem
 

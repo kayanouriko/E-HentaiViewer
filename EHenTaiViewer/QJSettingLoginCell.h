@@ -10,6 +10,6 @@
 
 @interface QJSettingLoginCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *loginNameLabel;
+- (void)updateUserInfo;
 
 @end

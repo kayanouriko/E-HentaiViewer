@@ -21,6 +21,7 @@
 - (id)getAttribute:(NSString*)key;
 
 // 一些配置文件的存储和读取
+/** 自定义tabbar选项排序 */
 + (NSArray<NSString *> *)customTabbarItems;
 + (void)setCustomTabbarItems:(NSArray<NSString *> *)customTabbarItems;
 
@@ -51,5 +52,24 @@
 /** 设置日文标题 */
 + (BOOL)isExHentaiTitleJnMode;
 + (void)setExHentaiTitleJnMode:(BOOL)isExHentaiTitleJnMode;
+
+/** 设置搜索的条件 */
+// 存储搜索的设置信息
++ (NSArray *)getExHentaiSearchSettingArr;
++ (void)setExHentaiSearchSettingArr:(NSArray *)searchSettingArr;
+
+// 存储评分的index
++ (NSInteger)getExHentaiSmallStar;
++ (void)setExHentaiSmallStar:(NSInteger)smallStar;
+
+/** 用户信息 */
++ (NSString *)getExHentaiUserName;
++ (void)setExHentaiUserName:(NSString *)userName;
+
++ (NSString *)getExHentaiUserDes;
++ (void)setExHentaiUserDes:(NSString *)userDes;
+
++ (NSString *)getExHentaiUserImageUrl;
++ (void)setExHentaiUserImageUrl:(NSString *)userImageUrl;
 
 @end

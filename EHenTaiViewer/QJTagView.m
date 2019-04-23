@@ -7,7 +7,6 @@
 //
 
 #import "QJTagView.h"
-#import "NSString+StringHeight.h"
 #import "QJHenTaiParser.h"
 #import "QJGalleryItem.h"
 #import "QJSearchViewController.h"
@@ -51,10 +50,13 @@
 }
 
 - (void)click:(UIButton *)button {
-    QJSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([QJSearchViewController class])];
-    QJGalleryTagItem *model = _rightArr[button.tag - 1000];
-    vc.model = model;
-    [[self viewController].navigationController pushViewController:vc animated:YES];
+//    QJSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([QJSearchViewController class])];
+//    QJGalleryTagItem *model = _rightArr[button.tag - 1000];
+//    vc.model = model;
+//    [[self viewController].navigationController pushViewController:vc animated:YES];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tagView:didClickTagWithModel:)]) {
+        [self.delegate tagView:self didClickTagWithModel:_rightArr[button.tag - 1000]];
+    }
 }
 
 - (UIViewController*)viewController {

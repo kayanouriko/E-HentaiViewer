@@ -44,6 +44,10 @@
     return self.datas.count;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"长按右侧滑块移动来调整首页底部栏显示顺序";
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class])];
     if (nil == cell) {
@@ -75,13 +79,16 @@
 #pragma mark - Getter
 - (UITableView *)tableView {
     if (nil == _tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.editing = YES;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = 60;
+        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth(), 0.5f)];
+        headView.backgroundColor = [UIColor clearColor];
+        _tableView.tableHeaderView = headView;
         _tableView.tableFooterView = [UIView new];
     }
     return _tableView;
@@ -101,7 +108,6 @@
                         @"画廊": @"games",
                         @"收藏": @"updates",
                         @"设置": @"apps",
-                        @"搜索": @"search",
                         };
     }
     return _imageDatas;

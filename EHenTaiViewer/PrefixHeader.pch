@@ -20,6 +20,12 @@
 #import "QJToast.h"
 //coredata操作
 #import "MagicalRecord.h"
+// 布局框架
+#import "Masonry.h"
+// 工具类
+#import "QJTool.h"
+// 字符串类别
+#import "NSString+StringHeight.h"
 
 /*
  *  宏定义
@@ -43,6 +49,7 @@
 //统一字体大小
 #define AppFontStyle() [UIFont systemFontOfSize:16]
 #define AppFontContentStyle() [UIFont systemFontOfSize:14]
+
 //分类颜色
 #define DOUJINSHI_COLOR [UIColor colorWithRed:0.957 green:0.263 blue:0.212 alpha:1.00]
 #define MANGA_COLOR [UIColor colorWithRed:1.000 green:0.596 blue:0.000 alpha:1.00]
@@ -56,6 +63,7 @@
 #define MISC_COLOR [UIColor colorWithRed:0.941 green:0.384 blue:0.573 alpha:1.00]
 #define APP_COLOR [UIColor colorWithRed:0.098 green:0.584 blue:0.533 alpha:1.00]
 #define DEFAULT_COLOR [UIColor colorWithRed:0.082 green:0.494 blue:0.984 alpha:1.00]
+#define UIColor(r, g, b, a) [UIColor colorWithRed:r / 255.f green:g / 255.f blue:b / 255.f alpha:a]
 //打印运行的方法
 #define NSLogFunc() NSLog(@"%s",__func__)
 //配置存储
@@ -75,12 +83,12 @@
 #define Toast(tip) [QJToast showWithTip:tip]
 //是否为ipad
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-#define isIPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define isIPhoneX [QJTool isiPhoneXAfter]
 // 软件是否为竖屏状态
 #define isAppOrientationPortrait [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait || [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown
 // 看图界面滚动方式是否为左右滚动
 #define isAppScrollDiretionHorizontal [QJGlobalInfo customScrollDiretion] == UICollectionViewScrollDirectionHorizontal
 //去null
-#define isnull(key,dict) dict[key] == nil || [dict[key] isKindOfClass:[NSNull class]]  || [dict[key] isEqual:[NSNull null]] ? @"" : [NSString stringWithFormat:@"%@",dict[key]]
+#define isnull(key,dict) dict[key] == nil || [dict[key] isKindOfClass:[NSNull class]]  || [dict[key] isEqual:[NSNull null]] ? @"" : [[NSString stringWithFormat:@"%@",dict[key]] digitalHTMLToUnicode]
 
 #endif

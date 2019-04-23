@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rsu-H3-Gff">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rsu-H3-Gff">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -132,16 +130,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dzx-hJ-LhJ">
-                                <rect key="frame" x="0.0" y="130" width="414" height="557"/>
+                                <rect key="frame" x="0.0" y="130" width="414" height="606"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFO-Za-Wgu">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="557"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="606"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RkU-hJ-362">
-                                                <rect key="frame" x="25" y="0.0" width="364" height="199"/>
+                                                <rect key="frame" x="26" y="0.0" width="362" height="199"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arh-ux-geB" customClass="QJButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="35"/>
+                                                    <button opaque="NO" tag="1000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arh-ux-geB" customClass="QJButton">
+                                                        <rect key="frame" x="1" y="0.0" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="oib-ph-MQA"/>
                                                         </constraints>
@@ -151,7 +149,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4VD-cl-byf" customClass="QJButton">
-                                                        <rect key="frame" x="187" y="0.0" width="177" height="35"/>
+                                                        <rect key="frame" x="186" y="0.0" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="Znn-FZ-0tX"/>
                                                         </constraints>
@@ -161,7 +159,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HKQ-el-9jZ" customClass="QJButton">
-                                                        <rect key="frame" x="0.0" y="41" width="177" height="35"/>
+                                                        <rect key="frame" x="0.0" y="41" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="SdO-IT-5Pk"/>
                                                         </constraints>
@@ -171,7 +169,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edu-Cm-Exr" customClass="QJButton">
-                                                        <rect key="frame" x="187" y="41" width="177" height="35"/>
+                                                        <rect key="frame" x="186" y="41" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="Ap4-AF-AO6"/>
                                                         </constraints>
@@ -181,7 +179,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFi-Tt-lda" customClass="QJButton">
-                                                        <rect key="frame" x="0.0" y="82" width="177" height="35"/>
+                                                        <rect key="frame" x="0.0" y="82" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="WSG-Rr-s0q"/>
                                                         </constraints>
@@ -191,7 +189,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1005" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BoQ-st-Rxk" customClass="QJButton">
-                                                        <rect key="frame" x="187" y="82" width="177" height="35"/>
+                                                        <rect key="frame" x="186" y="82" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="XV2-8m-jPE"/>
                                                         </constraints>
@@ -201,7 +199,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1006" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FS2-T8-AsE" customClass="QJButton">
-                                                        <rect key="frame" x="0.0" y="123" width="177" height="35"/>
+                                                        <rect key="frame" x="0.0" y="123" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="g8g-Nf-jgn"/>
                                                         </constraints>
@@ -211,7 +209,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1007" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKd-cm-72H" customClass="QJButton">
-                                                        <rect key="frame" x="187" y="123" width="177" height="35"/>
+                                                        <rect key="frame" x="186" y="123" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="rYp-M0-VRP"/>
                                                         </constraints>
@@ -221,7 +219,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1008" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LM-gQ-3GO" customClass="QJButton">
-                                                        <rect key="frame" x="0.0" y="164" width="177" height="35"/>
+                                                        <rect key="frame" x="0.0" y="164" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="DNE-We-Hyy"/>
                                                         </constraints>
@@ -231,7 +229,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <button opaque="NO" tag="1009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBh-S6-PoF" customClass="QJButton">
-                                                        <rect key="frame" x="187" y="164" width="177" height="35"/>
+                                                        <rect key="frame" x="186" y="164" width="176" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="rcY-5W-G9I"/>
                                                         </constraints>
@@ -287,27 +285,27 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nJv-WG-HG7">
-                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="20.666666666666668" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJ9-cP-lSN">
-                                                                <rect key="frame" x="20" y="0.0" width="177" height="30"/>
+                                                                <rect key="frame" x="20.666666666666671" y="0.0" width="176" height="30"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="SEa-v2-gk9">
-                                                                        <rect key="frame" x="0.0" y="7.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="7" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="SEa-v2-gk9" secondAttribute="height" multiplier="1:1" id="I1L-15-D8C"/>
                                                                             <constraint firstAttribute="width" constant="16" id="I81-ma-r1p"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜索画廊名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEo-iw-RDS">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="30"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1010" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9C-aC-Zgd" customClass="QJButton">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="30"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_sname"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -328,30 +326,30 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gL-6D-dES">
-                                                                <rect key="frame" x="197" y="0.0" width="20" height="30"/>
+                                                                <rect key="frame" x="196.66666666666666" y="0.0" width="20.666666666666657" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="7XG-CW-E6y"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkF-xb-ebh">
-                                                                <rect key="frame" x="217" y="0.0" width="177" height="30"/>
+                                                                <rect key="frame" x="217.33333333333337" y="0.0" width="176" height="30"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2001" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="nFs-if-rcX">
-                                                                        <rect key="frame" x="0.0" y="7.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="7" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="16" id="BUH-7o-VMU"/>
                                                                             <constraint firstAttribute="width" secondItem="nFs-if-rcX" secondAttribute="height" multiplier="1:1" id="NRe-Iw-GaJ"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜索画廊标签" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlP-cO-O1K">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="30"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1011" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACN-yN-q3S" customClass="QJButton">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="30"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_stags"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -372,7 +370,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5P1-CG-kYN">
-                                                                <rect key="frame" x="394" y="0.0" width="20" height="30"/>
+                                                                <rect key="frame" x="393.33333333333331" y="0.0" width="20.666666666666686" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                         </subviews>
@@ -405,27 +403,27 @@
                                                         <rect key="frame" x="0.0" y="35" width="414" height="30"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0vA-Yt-RYf">
-                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="20.666666666666668" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGr-7t-wGf">
-                                                                <rect key="frame" x="20" y="0.0" width="177" height="30"/>
+                                                                <rect key="frame" x="20.666666666666671" y="0.0" width="176" height="30"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="BBc-B9-oMN">
-                                                                        <rect key="frame" x="0.0" y="7.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="7" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="BBc-B9-oMN" secondAttribute="height" multiplier="1:1" id="6sQ-RV-foR"/>
                                                                             <constraint firstAttribute="width" constant="16" id="Ewt-03-1Me"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜索画廊描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X86-cx-UeA">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="30"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1012" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vL-DU-hX6" customClass="QJButton">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="30"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_sdesc"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -446,30 +444,30 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4yf-7P-pd9">
-                                                                <rect key="frame" x="197" y="0.0" width="20" height="30"/>
+                                                                <rect key="frame" x="196.66666666666666" y="0.0" width="20.666666666666657" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="1lN-n3-amK"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSX-UU-JvC">
-                                                                <rect key="frame" x="217" y="0.0" width="177" height="30"/>
+                                                                <rect key="frame" x="217.33333333333337" y="0.0" width="176" height="30"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2003" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="DWa-Nb-ATu">
-                                                                        <rect key="frame" x="0.0" y="7.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="7" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="DWa-Nb-ATu" secondAttribute="height" multiplier="1:1" id="2jL-0R-2cp"/>
                                                                             <constraint firstAttribute="width" constant="16" id="zjw-22-j3o"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜索种子名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klH-J2-Iye">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="30"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1013" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oR-Zc-P5p" customClass="QJButton">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="30"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_storr"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -490,7 +488,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lwM-Ca-p1r">
-                                                                <rect key="frame" x="394" y="0.0" width="20" height="30"/>
+                                                                <rect key="frame" x="393.33333333333331" y="0.0" width="20.666666666666686" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                         </subviews>
@@ -522,27 +520,27 @@
                                                         <rect key="frame" x="0.0" y="70" width="414" height="34"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBL-tN-hPb">
-                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="34"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="20.666666666666668" height="34"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7P-cI-rdQ">
-                                                                <rect key="frame" x="20" y="0.0" width="177" height="34"/>
+                                                                <rect key="frame" x="20.666666666666671" y="0.0" width="176" height="34"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="wYt-lz-oMf">
-                                                                        <rect key="frame" x="0.0" y="9.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="9" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="wYt-lz-oMf" secondAttribute="height" multiplier="1:1" id="0AB-ic-Sqg"/>
                                                                             <constraint firstAttribute="width" constant="16" id="1mt-fX-kt2"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="仅显示含种子的画廊" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4LP-bY-IEO">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="34"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="34"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1014" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2qn-SF-Bxn" customClass="QJButton">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="34"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="34"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_sto"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -563,7 +561,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5g-L1-NWV">
-                                                                <rect key="frame" x="197" y="0.0" width="20.666666666666657" height="34"/>
+                                                                <rect key="frame" x="196.66666666666666" y="0.0" width="20.666666666666657" height="34"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="43i-Gp-YAH"/>
@@ -571,23 +569,23 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibr-OU-wHe">
-                                                                <rect key="frame" x="217.66666666666663" y="0.0" width="177" height="34"/>
+                                                                <rect key="frame" x="217.33333333333337" y="0.0" width="176" height="34"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2005" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="knm-cT-l6G">
-                                                                        <rect key="frame" x="0.0" y="9.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="9" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="16" id="NA9-X7-gzi"/>
                                                                             <constraint firstAttribute="width" secondItem="knm-cT-l6G" secondAttribute="height" multiplier="1:1" id="g1E-6Y-zP4"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜索低愿力标签" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOA-96-Phe">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="34"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="34"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1015" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgz-Xd-JsY" customClass="QJButton">
-                                                                        <rect key="frame" x="-0.66666666666665719" y="0.0" width="177" height="34"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="34"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_sdt1"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -608,7 +606,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzT-mx-YKG">
-                                                                <rect key="frame" x="394.66666666666669" y="0.0" width="19.333333333333314" height="34"/>
+                                                                <rect key="frame" x="393.33333333333331" y="0.0" width="20.666666666666686" height="34"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                         </subviews>
@@ -640,27 +638,27 @@
                                                         <rect key="frame" x="0.0" y="109" width="414" height="30"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pxc-Bm-tJU">
-                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="20.666666666666668" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1tI-zc-5lV">
-                                                                <rect key="frame" x="20" y="0.0" width="177" height="30"/>
+                                                                <rect key="frame" x="20.666666666666671" y="0.0" width="176" height="30"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2006" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="GdP-JE-dEg">
-                                                                        <rect key="frame" x="0.0" y="7.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="7" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="16" id="XmD-S5-rp7"/>
                                                                             <constraint firstAttribute="width" secondItem="GdP-JE-dEg" secondAttribute="height" multiplier="1:1" id="amK-z9-sRY"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="搜索差评标签" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Txs-G2-nXt">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="30"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1016" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf1-Sr-e2V" customClass="QJButton">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="30"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_sdt2"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -681,30 +679,30 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kFA-Nq-FrI">
-                                                                <rect key="frame" x="197" y="0.0" width="20.666666666666657" height="30"/>
+                                                                <rect key="frame" x="196.66666666666666" y="0.0" width="20.666666666666657" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="FtA-7R-tzv"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qeQ-Xr-31z">
-                                                                <rect key="frame" x="217.66666666666663" y="0.0" width="177" height="30"/>
+                                                                <rect key="frame" x="217.33333333333337" y="0.0" width="176" height="30"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2007" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="CsO-43-aOJ">
-                                                                        <rect key="frame" x="0.0" y="7.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="7" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="16" id="IeV-uf-ZlM"/>
                                                                             <constraint firstAttribute="width" secondItem="CsO-43-aOJ" secondAttribute="height" multiplier="1:1" id="vKB-kF-BcT"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="显示被删除画廊" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXi-gg-wya">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="30"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1017" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOY-7b-4rf" customClass="QJButton">
-                                                                        <rect key="frame" x="-0.66666666666665719" y="0.0" width="177" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="30"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_sh"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -725,7 +723,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGd-Aa-p78">
-                                                                <rect key="frame" x="394.66666666666669" y="0.0" width="19.333333333333314" height="30"/>
+                                                                <rect key="frame" x="393.33333333333331" y="0.0" width="20.666666666666686" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                         </subviews>
@@ -757,27 +755,27 @@
                                                         <rect key="frame" x="0.0" y="144" width="414" height="30"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUf-Jr-MWw">
-                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="20.666666666666668" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pBe-hk-2qx">
-                                                                <rect key="frame" x="20" y="0.0" width="177" height="30"/>
+                                                                <rect key="frame" x="20.666666666666671" y="0.0" width="176" height="30"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" tag="2008" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="meh-Bp-pIO">
-                                                                        <rect key="frame" x="0.0" y="7.3333333333333144" width="16" height="16"/>
+                                                                        <rect key="frame" x="0.0" y="7" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="meh-Bp-pIO" secondAttribute="height" multiplier="1:1" id="Kef-Yj-nyI"/>
                                                                             <constraint firstAttribute="width" constant="16" id="bIq-1I-9J4"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设置最低评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g51-6Y-eqw">
-                                                                        <rect key="frame" x="21" y="0.0" width="156" height="30"/>
+                                                                        <rect key="frame" x="21" y="0.0" width="155" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" tag="1018" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vg-t6-ePR" customClass="QJButton">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="30"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="176" height="30"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="f_sr"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -798,18 +796,18 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOE-Td-Prg">
-                                                                <rect key="frame" x="197" y="0.0" width="20.666666666666657" height="30"/>
+                                                                <rect key="frame" x="196.66666666666666" y="0.0" width="20.666666666666657" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="tLz-Q2-TTL"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="soe-Gr-qqv">
-                                                                <rect key="frame" x="217.66666666666663" y="0.0" width="177" height="30"/>
+                                                                <rect key="frame" x="217.33333333333337" y="0.0" width="176" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lVG-A9-YrF">
-                                                                <rect key="frame" x="394.66666666666669" y="0.0" width="19.333333333333314" height="30"/>
+                                                                <rect key="frame" x="393.33333333333331" y="0.0" width="20.666666666666686" height="30"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                         </subviews>
@@ -838,7 +836,7 @@
                                                         </constraints>
                                                     </view>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jwC-g9-4HY">
-                                                        <rect key="frame" x="30.666666666666657" y="184" width="354" height="29"/>
+                                                        <rect key="frame" x="31" y="184" width="352" height="29"/>
                                                         <segments>
                                                             <segment title="2 Star"/>
                                                             <segment title="3 Star"/>
@@ -970,7 +968,6 @@
                         <segue destination="Q0c-Xb-sp9" kind="relationship" relationship="viewControllers" id="zDg-GK-RLt"/>
                         <segue destination="FWJ-rF-fhK" kind="relationship" relationship="viewControllers" id="13c-rQ-m20"/>
                         <segue destination="ssI-2k-Wsd" kind="relationship" relationship="viewControllers" id="tMq-95-a1X"/>
-                        <segue destination="tS9-fv-yQs" kind="relationship" relationship="viewControllers" id="B90-HQ-NhO"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5P0-ou-v85" userLabel="First Responder" sceneMemberID="firstResponder"/>

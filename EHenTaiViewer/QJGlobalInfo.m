@@ -16,6 +16,13 @@ static NSString * const ExHentaiProtectMode = @"ExHentaiProtectMode";
 static NSString * const ExHentaiTagCnMode = @"ExHentaiTagCnMode";
 static NSString * const ExHentaiTitleJnMode = @"ExHentaiTitleJnMode";
 static NSString * const ExHentaiTabbarItems = @"ExHentaiTabbarItems";
+static NSString * const ExHentaiSearchSettingArr = @"ExHentaiSearchSettingArr";
+static NSString * const ExHentaiSmallStar = @"ExHentaiSmallStar";
+
+static NSString * const ExHentaiUserName = @"loginName";
+static NSString * const ExHentaiUserDes = @"ExHentaiUserDes";
+static NSString * const ExHentaiUserImageUrl = @"ExHentaiUserImageUrl";
+
 
 @interface QJGlobalInfo ()
 
@@ -47,8 +54,9 @@ static NSString * const ExHentaiTabbarItems = @"ExHentaiTabbarItems";
 
 #pragma mark - 全局配置
 + (NSArray<NSString *> *)customTabbarItems {
-    if (nil == NSObjForKey(ExHentaiTabbarItems)) {
-        [self setCustomTabbarItems:@[@"当前热门", @"画廊", @"收藏", @"设置", @"搜索"]];
+    NSArray *array = NSObjForKey(ExHentaiTabbarItems);
+    if (nil == array || array.count != 4) {
+        [self setCustomTabbarItems:@[@"当前热门", @"画廊", @"收藏", @"设置"]];
     }
     NSArray<NSString *> *customTabbarItems = NSObjForKey(ExHentaiTabbarItems);
     return customTabbarItems;
@@ -88,7 +96,7 @@ static NSString * const ExHentaiTabbarItems = @"ExHentaiTabbarItems";
 
 + (BOOL)isExHentaiStatus {
     if (nil == NSObjForKey(ExHentaiStatus)) {
-        [self setExHentaiStatus:YES];
+        [self setExHentaiStatus:NO];
     }
     return [NSObjForKey(ExHentaiStatus) boolValue];
 }
@@ -143,6 +151,85 @@ static NSString * const ExHentaiTabbarItems = @"ExHentaiTabbarItems";
 
 + (void)setExHentaiTitleJnMode:(BOOL)isExHentaiTitleJnMode {
     NSObjSetForKey(ExHentaiTitleJnMode, @(isExHentaiTitleJnMode));
+    NSObjSynchronize();
+}
+
++ (NSArray *)getExHentaiSearchSettingArr {
+    if (nil == NSObjForKey(ExHentaiSearchSettingArr)) {
+        // 初始化
+        [self setExHentaiSearchSettingArr:[self p_getFristSettingArr]];
+    }
+    NSArray *array = NSObjForKey(ExHentaiSearchSettingArr);
+    if (array.count != 19) {
+        // 初始化
+        [self setExHentaiSearchSettingArr:[self p_getFristSettingArr]];
+    }
+    return NSObjForKey(ExHentaiSearchSettingArr);
+}
+
++ (NSArray *)p_getFristSettingArr {
+    NSMutableArray *arr = [NSMutableArray new];
+    for (NSInteger i = 0; i <= 18; i++) {
+        if (i < 12) {
+            [arr addObject:@(1)];
+        }
+        else {
+            [arr addObject:@(0)];
+        }
+    }
+    return arr.copy;
+}
+
++ (void)setExHentaiSearchSettingArr:(NSArray *)searchSettingArr {
+    NSObjSetForKey(ExHentaiSearchSettingArr, searchSettingArr);
+    NSObjSynchronize();
+}
+
++ (NSInteger)getExHentaiSmallStar {
+    if (nil == NSObjForKey(ExHentaiSmallStar)) {
+        [self setExHentaiSmallStar:2];
+    }
+    return [NSObjForKey(ExHentaiSmallStar) integerValue];
+}
+
++ (void)setExHentaiSmallStar:(NSInteger)smallStar {
+    NSObjSetForKey(ExHentaiSmallStar, @(smallStar));
+    NSObjSynchronize();
+}
+
++ (NSString *)getExHentaiUserName {
+    if (nil == NSObjForKey(ExHentaiUserName)) {
+        [self setExHentaiUserName:@"未登录"];
+    }
+    return NSObjForKey(ExHentaiUserName);
+}
+
++ (void)setExHentaiUserName:(NSString *)userName {
+    NSObjSetForKey(ExHentaiUserName, userName);
+    NSObjSynchronize();
+}
+
++ (NSString *)getExHentaiUserDes {
+    if (nil == NSObjForKey(ExHentaiUserDes)) {
+        [self setExHentaiUserDes:@"No Information"];
+    }
+    return NSObjForKey(ExHentaiUserDes);
+}
+
++ (void)setExHentaiUserDes:(NSString *)userDes {
+    NSObjSetForKey(ExHentaiUserDes, userDes);
+    NSObjSynchronize();
+}
+
++ (NSString *)getExHentaiUserImageUrl {
+    if (nil == NSObjForKey(ExHentaiUserImageUrl)) {
+        [self setExHentaiUserImageUrl:@"LOGO"];
+    }
+    return NSObjForKey(ExHentaiUserImageUrl);
+}
+
++ (void)setExHentaiUserImageUrl:(NSString *)userImageUrl {
+    NSObjSetForKey(ExHentaiUserImageUrl, userImageUrl);
     NSObjSynchronize();
 }
 

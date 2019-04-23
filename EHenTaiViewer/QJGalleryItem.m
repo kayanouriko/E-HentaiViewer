@@ -7,7 +7,6 @@
 //
 
 #import "QJGalleryItem.h"
-#import "NSString+StringHeight.h"
 #import "Tag+CoreDataClass.h"
 #import "TFHpple.h"
 

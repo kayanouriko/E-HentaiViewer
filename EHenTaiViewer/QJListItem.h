@@ -27,6 +27,9 @@
 @property (nonatomic, assign) BOOL expunged;//是否被删除????
 @property (nonatomic, assign) NSInteger torrentcount;//种子数
 @property (nonatomic, strong) NSArray *tags;//tag数组
+@property (strong, nonatomic) NSArray *chTags; // 中文数组
+@property (strong, nonatomic) NSArray *listTags; // 列表中显示的tag
+@property (strong, nonatomic) NSArray *listChTags;
 @property (nonatomic, assign) NSInteger page;//所在的页码
 //下面两个为接口请求所需的参数
 @property (nonatomic, strong) NSString *gid;

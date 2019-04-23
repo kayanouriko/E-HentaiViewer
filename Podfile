@@ -1,3 +1,4 @@
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 project 'EHenTaiViewer.xcodeproj'
 
 # Uncomment the next line to define a global platform for your project
@@ -9,4 +10,6 @@ target 'EHenTaiViewer' do
   # Pods for EHenTaiViewer
   pod 'YYWebImage'
   pod 'MagicalRecord'
+  # 自动布局
+  pod 'Masonry'
 end

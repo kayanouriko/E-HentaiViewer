@@ -7,7 +7,6 @@
 //
 
 #import "QJMangaImageModel.h"
-#import "NSString+StringHeight.h"
 
 @interface QJMangaImageModel()
 

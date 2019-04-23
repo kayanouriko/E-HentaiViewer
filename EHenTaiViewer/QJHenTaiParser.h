@@ -42,6 +42,7 @@ typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSStrin
 - (BOOL)checkCookie;
 - (BOOL)deleteCokie;
 //读取设置
+- (void)readUserInfoCompletion:(LoginHandler)completion;
 - (void)readSettingAllInfoCompletion:(SettingHandler)completion;
 - (void)postMySettingInfoWithParams:(NSDictionary *)params Completion:(LoginHandler)completion;
 //解析相关

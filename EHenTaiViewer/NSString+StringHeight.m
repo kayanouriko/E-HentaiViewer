@@ -74,4 +74,90 @@
             ];
 }
 
++ (NSAttributedString *)convertStringsWithArray:(NSArray<NSString *> *)array {
+    NSMutableAttributedString *string = [NSMutableAttributedString new];
+    
+    for (NSString *tag in array) {
+        UILabel *tagLabel = [UILabel new];
+        CGFloat aaW = [tag StringWidthWithFontSize:[UIFont systemFontOfSize:10.f]] + 6;
+        tagLabel.frame = CGRectMake(0, 0, aaW * 3, 16 * 3);
+        tagLabel.text = tag;
+        tagLabel.font = [UIFont boldSystemFontOfSize:10.f * 3];
+        tagLabel.textColor = UIColor(85.f, 85.f, 85.f, 1.f);
+        tagLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        tagLabel.clipsToBounds = YES;
+        tagLabel.layer.cornerRadius = 3 * 3;
+        tagLabel.textAlignment = NSTextAlignmentCenter;
+        //调用方法，转化成Image
+        UIImage *image = [self p_imageWithUIView:tagLabel];
+        //创建Image的富文本格式
+        NSTextAttachment *attach = [[NSTextAttachment alloc] init];
+        attach.bounds = CGRectMake(0, -2.5, aaW, 16); //这个-2.5是为了调整下标签跟文字的位置
+        attach.image = image;
+        //添加到富文本对象里
+        NSAttributedString *imageStr = [NSAttributedString attributedStringWithAttachment:attach];
+        [string appendAttributedString:imageStr];
+        [string appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+    }
+    
+    // 设置行间距
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineSpacing = 4;
+    [string addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, string.length)];
+    
+    return string;
+}
+
++ (UIImage *)p_imageWithUIView:(UIView *)view {
+    UIGraphicsBeginImageContext(view.bounds.size);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:ctx];
+    UIImage* tImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return tImage;
+}
+
+- (NSString *)digitalHTMLToUnicode {
+    NSString *text = self;
+    //匹配HTML格式转义字符正则
+    NSString *prefix = @"[^&#]*\\;";
+    NSRegularExpression *regular = [NSRegularExpression regularExpressionWithPattern:prefix options:NSRegularExpressionCaseInsensitive error:nil];
+    // 对text字符串进行匹配
+    NSArray *matches = [regular matchesInString:text options:0 range:NSMakeRange(0, text.length)];
+    // 遍历匹配后的每一条记录
+    NSString *result = text;
+    for (NSTextCheckingResult *match in matches) {
+        NSRange range = [match range];
+        NSString *target = [text substringWithRange:range];
+        //把HTML格式的表情转换为Unicode格式的
+        NSString *emojiS = [target p_emojiHTMLToUnicode];
+        //iOS 端直接支持unicode字符 (有一些高级表情会失败，返回nil)
+        NSString *convertUnicode = [emojiS p_convertSimpleUnicodeStr];
+        if (convertUnicode.length ==0) {
+            convertUnicode = @" ";
+        }
+        //把表情替换回原来的位置，然后就能直接用UILabel显示表情了
+        result = [result stringByReplacingOccurrencesOfString:[@"&#" stringByAppendingString:target] withString:convertUnicode];
+    }
+    return result;
+}
+
+- (NSString *)p_emojiHTMLToUnicode {
+    NSString *result = [self stringByReplacingOccurrencesOfString:@"&#" withString:@""];
+    result = [result stringByReplacingOccurrencesOfString:@";" withString:@""];
+    NSString *hexString = [NSString stringWithFormat:@"U+%@",[[NSString alloc] initWithFormat:@"%1X",[result intValue]]];
+    return hexString;
+}
+
+- (NSString *)p_convertSimpleUnicodeStr {
+    NSString *strUrl = [self stringByReplacingOccurrencesOfString:@"U+" withString:@""];
+    unsigned long  unicodeIntValue= strtoul([strUrl UTF8String],0,16);
+    //   UTF32Char inputChar = unicodeIntValue ;// 变成utf32
+    unsigned long inputChar = unicodeIntValue ;// 变成utf32
+    //    inputChar = NSSwapHostIntToLittle(inputChar); // 转换成Little 如果需要
+    inputChar = NSSwapHostLongToLittle(inputChar); // 转换成Little 如果需要
+    NSString *sendStr = [[NSString alloc] initWithBytes:&inputChar length:4 encoding:NSUTF32LittleEndianStringEncoding];
+    return sendStr;
+}
+
 @end

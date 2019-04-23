@@ -88,6 +88,39 @@
     [task resume];
 }
 
+#pragma mark - 获取用户信息
+- (void)readUserInfoCompletion:(LoginHandler)completion {
+    NSString *meberId = @"";
+    NSURL *hentaiURL = [NSURL URLWithString:@"http://g.e-hentai.org"];
+    for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:hentaiURL]) {
+        if ([cookie.name isEqualToString:@"ipb_member_id"]) {
+            meberId = cookie.value;
+            break;
+        }
+    }
+    NSString *url = [NSString stringWithFormat:@"https://forums.e-hentai.org/index.php?showuser=%@", meberId];
+    NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
+        TFHppleElement *userElement = [xpathParser searchWithXPathQuery:@"//table[@class='ipbtable']"].firstObject;
+        TFHppleElement *imageElement = [userElement searchWithXPathQuery:@"//img"].firstObject;
+        NSString *thumbUrl = [imageElement objectForKey:@"src"];
+        TFHppleElement *desElement = [userElement searchWithXPathQuery:@"//div//i"].firstObject;
+        NSString *des = desElement.text;
+        if (thumbUrl.length && des.length) {
+            [QJGlobalInfo setExHentaiUserDes:des];
+            [QJGlobalInfo setExHentaiUserImageUrl:thumbUrl];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(QJHenTaiParserStatusSuccess);
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(QJHenTaiParserStatusParseFail);
+            });
+        }
+    }];
+    [task resume];
+}
+
 #pragma mark -获取用户名
 - (BOOL)saveUserNameWithString:(NSString *)html {
     NSString *regexStr = @"(?<=:\\h).*?(?=\\<)";
@@ -272,12 +305,12 @@
 
 #pragma mark -列表爬取
 - (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion total:(TotalHandler)total {
-    [self requestListInfo:url searchRule:@"//div [@class='it5']//a" complete:completion total:total];
+    [self requestListInfo:url searchRule:@"//td[@class='gl3c glname']" complete:completion total:total];
 }
 
 #pragma mark -热门爬取
 - (void)updateHotListInfoComplete:(ListHandler)completion {
-    [self requestListInfo:nil searchRule:@"//div [@class='id3']//a" complete:completion total:nil];
+    [self requestListInfo:@"popular" searchRule:@"//td[@class='gl3c glname']" complete:completion total:nil];
 }
 
 #pragma mark -收藏爬取
@@ -291,18 +324,20 @@
 }
 
 - (void)requestListInfo:(NSString *)url searchRule:(NSString *)searchRule complete:(ListHandler)completion total:(TotalHandler)total {
+    // 狗屎一样的判断流程,有时间需要重构,将model和请求分开
     [[QJNetworkTool shareTool] showNetworkActivity];
-    if ([url  isEqual: @""])
-    {
+    if ([url isEqual:@""]) {
         url = @"?";
-    } else {
+    }
+    else {
         url = [url stringByAppendingString:@"&"];
     }
-    if (!([url containsString:@"favorites.php"] && ([url containsString:@"page"] || [url containsString:@"f_search"]))) {
+    if (!([url containsString:@"favorites"] || [url containsString:@"f_search"] || [url containsString:@"popular"])) {
         // 强制 list 结果,现在官网配置改为存在云端了,有些账号习惯用瀑布流的方式浏览网页,所以这里这样强制成list形式防止解析出错
-        // 收藏界面除外,这个界面无需强制
+        // 搜索功能和当前热门除外
         url = [url stringByAppendingString:@"inline_set=dm_l"];
     }
+    
     NSString *finalUrl = @"";
     if (url) {
         if ([url hasPrefix:@"http"]) {
@@ -315,6 +350,10 @@
         }
     } else {
         finalUrl = HENTAI_URL;
+    }
+    // 最后在判断一下
+    if ([finalUrl hasSuffix:@"?"] || [finalUrl hasSuffix:@"&"]) {
+        finalUrl = [finalUrl substringToIndex:finalUrl.length - 1];
     }
     NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         [[QJNetworkTool shareTool] hiddenNetworkActivity];
@@ -339,7 +378,7 @@
             });
             return;
         }
-        if ([html containsString:@"No hits found"]) {
+        if ([html containsString:@"No hits found"] || [html containsString:@"No unfiltered results"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"没有更多数据");
                 completion(QJHenTaiParserStatusParseNoMore, nil);
@@ -359,12 +398,24 @@
             NSMutableArray *urlStringArray = [NSMutableArray array];
             NSMutableArray *subUrlSringArray = [NSMutableArray new];
             for (NSInteger i = 0; i < photoURL.count; i++) {
-                TFHppleElement * eachTitleWithURL = photoURL[i];
+                // 先检测,如果到了25,则更新数组
                 if (subUrlSringArray.count == 25) {
                     [urlStringArray addObject:[subUrlSringArray mutableCopy]];
                     [subUrlSringArray removeAllObjects];
                 }
-                [subUrlSringArray addObject:[eachTitleWithURL attributes][@"href"]];
+                // 开始解析获取数据
+                TFHppleElement *eachTitleWithURL = photoURL[i];
+                // 获取画廊链接
+                TFHppleElement *eachUrlEle = [eachTitleWithURL searchWithXPathQuery:@"//a"].firstObject;
+                NSString *url = [eachUrlEle attributes][@"href"];
+                // 获取列表tag
+                NSMutableArray *listTags = [NSMutableArray new];
+                for (TFHppleElement *listTagsElement in [eachTitleWithURL searchWithXPathQuery:@"//div[@class='gt']"]) {
+                    [listTags addObject:listTagsElement.text];
+                }
+                
+                [subUrlSringArray addObject:@[url, listTags.copy]];
+                // 最后一个的时候,添加到数组
                 if (i == photoURL.count - 1) {
                     [urlStringArray addObject:[subUrlSringArray mutableCopy]];
                 }
@@ -419,8 +470,7 @@
 #pragma mark -收藏夹名字的爬取
 - (void)parserFavoritesInfoWithHpple:(TFHpple *)xpathParser {
     NSMutableArray *favorites = [NSMutableArray new];
-    TFHppleElement *facatsElement = [xpathParser searchWithXPathQuery:@"//div[@class='nosel']"].firstObject;
-    NSArray *facats = facatsElement.children;
+    NSArray *facats = [xpathParser searchWithXPathQuery:@"//div[@class='ido']//div[@class='nosel']//div[@class='fp']"];
     NSInteger total = 0;
     for (TFHppleElement *facatElement in facats) {
         NSArray<TFHppleElement *> *divs = [facatElement searchWithXPathQuery:@"//div"];
@@ -547,7 +597,8 @@
     [[QJNetworkTool shareTool] showNetworkActivity];
     NSMutableArray *idArray = [NSMutableArray array];
     NSString *baseUrl = nil;
-    for (NSString *eachURLString in urlArr) {
+    for (NSArray *eachURLArr in urlArr) {
+        NSString *eachURLString = eachURLArr.firstObject;
         NSArray *splitStrings = [eachURLString componentsSeparatedByString:@"/"];
         NSUInteger splitCount = [splitStrings count];
         [idArray addObject:@[splitStrings[splitCount - 3], splitStrings[splitCount - 2]]];
@@ -574,7 +625,8 @@
             for (NSInteger i = 0; i < listArr.count; i++) {
                 NSDictionary *dict = listArr[i];
                 QJListItem *item = [[QJListItem alloc] initWithDict:dict classifyArr:self.classifyArr colorArr:self.colorArr];
-                item.url = urlArr[i];
+                item.url = urlArr[i][0];
+                item.listTags = urlArr[i][1];
                 [newArr addObject:item];
             }
             completion(QJHenTaiParserStatusSuccess, newArr);

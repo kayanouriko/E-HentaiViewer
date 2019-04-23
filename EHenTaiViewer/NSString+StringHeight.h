@@ -21,6 +21,10 @@
 //去除html标签
 - (NSString *)removeHtmlString;
 // 文本md5
--(NSString *)MD5;
+- (NSString *)MD5;
+// 根据字符串数组获取一个标签的富文本
++ (NSAttributedString *)convertStringsWithArray:(NSArray<NSString *> *)array;
+// 将html转义字符转为iOS可显示
+- (NSString *)digitalHTMLToUnicode;
 
 @end

@@ -8,7 +8,6 @@
 
 #import "QJMangaImageDownloader.h"
 #import "QJMangaImageModel.h"
-#import "NSString+StringHeight.h"
 
 @interface QJMangaImageDownloader()<NSURLSessionDownloadDelegate>
 

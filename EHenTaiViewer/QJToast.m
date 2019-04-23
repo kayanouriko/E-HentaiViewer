@@ -7,7 +7,6 @@
 //
 
 #import "QJToast.h"
-#import "NSString+StringHeight.h"
 
 @implementation QJToast
 

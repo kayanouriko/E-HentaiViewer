@@ -7,7 +7,6 @@
 //
 
 #import "UITextView+Addition.h"
-#import "NSString+StringHeight.h"
 
 @implementation UITextView (Addition)
 

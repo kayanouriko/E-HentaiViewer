@@ -15,7 +15,6 @@
 #import "QJTagView.h"
 #import "QJNewCommentCell.h"
 #import "QJNetworkTool.h"
-#import "NSString+StringHeight.h"
 #import "QJLikeButton.h"
 #import "QJCollectionViewFlowLayout.h"
 
@@ -26,12 +25,13 @@
 #import "QJFavouriteViewController.h"
 
 #import "QJNewBrowerViewController.h"
+#import "QJNewSearchViewController.h"
 
 //iconfont
 #import "TBCityIconFont.h"
 #import "UIImage+TBCityIconFont.h"
 
-@interface QJNewInfoViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, QJNewCommentCellDelegate, XHStarRateViewDelegate, QJFavouriteViewControllerDelagate>
+@interface QJNewInfoViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, QJNewCommentCellDelegate, XHStarRateViewDelegate, QJFavouriteViewControllerDelagate, QJTagViewDelegate>
 
 //导航栏部分
 @property (nonatomic, strong) UIView *topBgView;
@@ -82,10 +82,10 @@
 - (IBAction)discussAction:(UIButton *)sender;
 
 //信息
-@property (weak, nonatomic) IBOutlet UILabel *btLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ryLabel;
+@property (weak, nonatomic) IBOutlet UITextView *btLabel;
+@property (weak, nonatomic) IBOutlet UITextView *ryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *flLabel;
-@property (weak, nonatomic) IBOutlet UILabel *sczLabel;
+@property (weak, nonatomic) IBOutlet UITextView *sczLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scsjLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fhlLabel;
 @property (weak, nonatomic) IBOutlet UILabel *kjxLabel;
@@ -118,12 +118,23 @@
     self.view.userInteractionEnabled = NO;
     self.scrollView.delegate = self;
     self.scrollViewBottomLine.constant = UITabBarSafeBottomMargin();
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    // 消除边距
+    [self removePaddingWithTextView:self.btLabel];
+    [self removePaddingWithTextView:self.ryLabel];
+    [self removePaddingWithTextView:self.sczLabel];
     
     [self headPartUI];
     
     [self previewUI];
     
     [self baseInfoUI];
+}
+
+- (void)removePaddingWithTextView:(UITextView *)textView {
+    textView.textContainer.lineFragmentPadding = 0;
+    textView.textContainerInset = UIEdgeInsetsZero;
 }
 
 - (void)headPartUI {
@@ -150,7 +161,7 @@
     //评分
     self.starView.backgroundColor = [UIColor clearColor];
     self.starView.currentScore = self.model.rating;
-    self.soreLabel.text = [NSString stringWithFormat:@"%.02f", self.model.rating];
+    self.soreLabel.text = [NSString stringWithFormat:@"%.02f", self.model.rating * 2];
     //提示
     self.torrentBtn.hidden = !self.model.torrentcount;
 }
@@ -204,6 +215,15 @@
     }];
     [alertVC addAction:okBtn];
     [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+#pragma mark - QJTagViewDelegate
+- (void)tagView:(QJTagView *)tagView didClickTagWithModel:(QJGalleryTagItem *)model {
+    NSString *title = model.searchKey;
+    NSString *cat = [model.searchKey componentsSeparatedByString:@":"].firstObject;
+    model.searchKey = @"";
+    model.url = [NSString stringWithFormat:@"%@-%@", cat, model.name];
+    [self pushSearchVCWithModel:model title:title];
 }
 
 #pragma mark -请求数据
@@ -284,6 +304,7 @@
     for (NSArray *subArray in array) {
         CGFloat viewHeight = isCN ? [subArray[3] floatValue] : [subArray[2] floatValue];
         QJTagView *tagView = [[QJTagView alloc] initWithFrame:CGRectMake(0, tagViewHeight, UIScreenWidth(), viewHeight)];
+        tagView.delegate = self;
         [self.tagView addSubview:tagView];
         [tagView refreshUI:subArray isCN:isCN];
         tagViewHeight += viewHeight;
@@ -333,6 +354,9 @@
 }
 
 - (IBAction)discussAction:(UIButton *)sender {
+    Toast(@"暂不支持撰写评论");
+    return;
+    
     if (![[QJHenTaiParser parser] checkCookie]) {
         Toast(@"请先前往设置页面进行登录");
         return;
@@ -372,33 +396,48 @@
 
 - (IBAction)similarAction:(UIButton *)sender {
     NSString *searchKey = [self.model.title handleString];
-    NSString *url = [NSString stringWithFormat:@"?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=%@&f_apply=Apply+Filter",[searchKey urlEncode]];
+    // NSString *url = [NSString stringWithFormat:@"?f_doujinshi=1&f_manga=1&f_artistcg=1&f_gamecg=1&f_western=1&f_non-h=1&f_imageset=1&f_cosplay=1&f_asianporn=1&f_misc=1&f_search=%@&f_apply=Apply+Filter",[searchKey urlEncode]];
+    
     if (searchKey.length == 0) {
         Toast(@"暂无类似画廊");
         return;
     }
     QJGalleryTagItem *model = [QJGalleryTagItem new];
     model.searchKey = searchKey;
-    model.url = url;
-    [self pushSearchVCWithModel:model];
+    model.url = @"";
+    [self pushSearchVCWithModel:model title:@"类似画廊"];
 }
 
 - (IBAction)otherAction:(UIButton *)sender {
-    NSString *searchKey = [NSString stringWithFormat:@"uploader:%@", self.model.uploader];
-    NSString *url = [NSString stringWithFormat:@"uploader/%@/", [self.model.uploader urlEncode]];
+    NSString *searchKey = @"";
+    NSString *url = [NSString stringWithFormat:@"uploader-%@", self.model.uploader];
     QJGalleryTagItem *model = [QJGalleryTagItem new];
     model.searchKey = searchKey;
     model.url = url;
-    [self pushSearchVCWithModel:model];
+    [self pushSearchVCWithModel:model title:@"上传者其他画廊"];
 }
 
-- (void)pushSearchVCWithModel:(QJGalleryTagItem *)model {
+- (void)pushSearchVCWithModel:(QJGalleryTagItem *)model title:(NSString *)title {
+    /*
     QJSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([QJSearchViewController class])];
     vc.model = model;
+    [self.navigationController pushViewController:vc animated:YES];
+     */
+    QJNewSearchViewController *vc = [QJNewSearchViewController new];
+    vc.title = title;
+    vc.type = QJNewSearchViewControllerTypeTag;
+    vc.searchKey = model.searchKey;
+    if (model.url.length) {
+        [vc.settings addObject:model.url];
+    }
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == self.scrollView) {
         CGFloat offsetY = scrollView.contentOffset.y;
