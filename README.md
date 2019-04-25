@@ -1,5 +1,5 @@
 ### EHenTaiViewer
-![platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v1.3.1-brightgreen.svg)](https://github.com/kayanouriko/E-HentaiViewer/releases)  ![support](https://img.shields.io/badge/support-11.0-blue.svg)
+![platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v1.3.2-brightgreen.svg)](https://github.com/kayanouriko/E-HentaiViewer/releases)  ![support](https://img.shields.io/badge/support-11.0-blue.svg)
 
 一个EHentai的iOS端阅读器 / a client for e-hentai/exhentai
 
@@ -28,6 +28,9 @@
 要求: 推荐 iPhone 7 或更新机型使用 / 需要 iOS 11.0 或更高版本
 
 ### 更新内容
+20190425 v1.3.2
+* 修复导致闪退的搜索逻辑，列表模糊图片替换
+
 20190423 v1.3.1
 * 应用最低版本提升至iOS11.0
 * 列表样式调整
