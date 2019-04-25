@@ -411,7 +411,17 @@
                 // 获取列表tag
                 NSMutableArray *listTags = [NSMutableArray new];
                 for (TFHppleElement *listTagsElement in [eachTitleWithURL searchWithXPathQuery:@"//div[@class='gt']"]) {
-                    [listTags addObject:listTagsElement.text];
+                    NSString *titleColor = @"#575757";
+                    NSString *backgroundColor = @"#f0eff4";
+                    NSString *style = [listTagsElement objectForKey:@"style"];
+                    if (style) {
+                        NSString *regexTitle = @"(?<=(color:)).*?(?=;)";
+                        titleColor = [[self matchString:style toRegexString:regexTitle].firstObject copy];
+                        NSString *regexBg = @"(?<=(gradient\\()).*?(?=\\))";
+                        backgroundColor = [[[self matchString:style toRegexString:regexBg].firstObject componentsSeparatedByString:@","].lastObject copy];
+                        
+                    }
+                    [listTags addObject:@[listTagsElement.text, titleColor, backgroundColor]];
                 }
                 
                 [subUrlSringArray addObject:@[url, listTags.copy]];

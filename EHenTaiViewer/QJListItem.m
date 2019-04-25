@@ -181,33 +181,47 @@
 - (NSArray *)getChTagWithArr:(NSArray *)tagArr {
     NSMutableArray *array = [NSMutableArray new];
     for (NSString *tag in tagArr) {
-        //如果标签有多个含义,则第一个为最原始的含义
-        NSString *chTag = tag;
-        if ([chTag containsString:@"|"]) {
-            chTag = [chTag componentsSeparatedByString:@" | "].firstObject;
-        }
-        NSString *exStr = @"";
-        if ([chTag containsString:@":"]) {
-            NSArray *array = [chTag componentsSeparatedByString:@":"];
-            exStr = array.firstObject;
-            chTag = array.lastObject;
-        }
-        Tag *tagObj = [Tag MR_findFirstByAttribute:@"name" withValue:chTag];
-        if (tagObj) {
-            chTag = [tagObj.cname removeHtmlString];
-        }
-        if (exStr.length) {
-            chTag = [NSString stringWithFormat:@"%@:%@", exStr, chTag];
-        }
-        [array addObject:chTag];
+        [array addObject:[self p_getCHTagNameWithString:tag]];
     }
     return array.copy;
+}
+
+- (NSArray *)getListChTagWithArr:(NSArray *)tagArr {
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSArray *subArr in tagArr) {
+        NSMutableArray *newArr = [NSMutableArray arrayWithArray:subArr];
+        newArr[0] = [self p_getCHTagNameWithString:newArr[0]];
+        [array addObject:newArr.copy];
+    }
+    return array.copy;
+}
+
+- (NSString *)p_getCHTagNameWithString:(NSString *)string {
+    NSString *chTag = string;
+    //如果标签有多个含义,则第一个为最原始的含义
+    if ([chTag containsString:@"|"]) {
+        chTag = [chTag componentsSeparatedByString:@" | "].firstObject;
+    }
+    NSString *exStr = @"";
+    if ([chTag containsString:@":"]) {
+        NSArray *array = [chTag componentsSeparatedByString:@":"];
+        exStr = array.firstObject;
+        chTag = array.lastObject;
+    }
+    Tag *tagObj = [Tag MR_findFirstByAttribute:@"name" withValue:chTag];
+    if (tagObj) {
+        chTag = [tagObj.cname removeHtmlString];
+    }
+    if (exStr.length) {
+        chTag = [NSString stringWithFormat:@"%@:%@", exStr, chTag];
+    }
+    return chTag;
 }
 
 #pragma mark - Setter
 - (void)setListTags:(NSArray *)listTags {
     _listTags = listTags;
-    self.listChTags = [self getChTagWithArr:listTags];
+    self.listChTags = [self getListChTagWithArr:listTags];
 }
 
 @end

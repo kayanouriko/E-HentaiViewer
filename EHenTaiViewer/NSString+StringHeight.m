@@ -77,14 +77,17 @@
 + (NSAttributedString *)convertStringsWithArray:(NSArray<NSString *> *)array {
     NSMutableAttributedString *string = [NSMutableAttributedString new];
     
-    for (NSString *tag in array) {
+    for (NSArray *subArr in array) {
+        NSString *tag = subArr[0];
+        NSString *titleColor = subArr[1];
+        NSString *bgColor = subArr[2];
         UILabel *tagLabel = [UILabel new];
         CGFloat aaW = [tag StringWidthWithFontSize:[UIFont systemFontOfSize:10.f]] + 6;
         tagLabel.frame = CGRectMake(0, 0, aaW * 3, 16 * 3);
         tagLabel.text = tag;
         tagLabel.font = [UIFont boldSystemFontOfSize:10.f * 3];
-        tagLabel.textColor = UIColor(85.f, 85.f, 85.f, 1.f);
-        tagLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        tagLabel.textColor = UIColorHex(titleColor);
+        tagLabel.backgroundColor = UIColorHex(bgColor);
         tagLabel.clipsToBounds = YES;
         tagLabel.layer.cornerRadius = 3 * 3;
         tagLabel.textAlignment = NSTextAlignmentCenter;

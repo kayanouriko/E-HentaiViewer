@@ -14,7 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QJTool : NSObject
 
+// 是否为异形屏
 + (BOOL)isiPhoneXAfter;
+
+// 颜色获取
++ (UIColor *)colorWithHexString:(NSString *)color;
 
 @end
 

@@ -64,6 +64,7 @@
 #define APP_COLOR [UIColor colorWithRed:0.098 green:0.584 blue:0.533 alpha:1.00]
 #define DEFAULT_COLOR [UIColor colorWithRed:0.082 green:0.494 blue:0.984 alpha:1.00]
 #define UIColor(r, g, b, a) [UIColor colorWithRed:r / 255.f green:g / 255.f blue:b / 255.f alpha:a]
+#define UIColorHex(hex) [QJTool colorWithHexString:hex]
 //打印运行的方法
 #define NSLogFunc() NSLog(@"%s",__func__)
 //配置存储
