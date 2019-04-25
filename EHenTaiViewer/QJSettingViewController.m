@@ -36,7 +36,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSuccessLogin) name:LOGIN_NOTI object:nil];
     // 如果是登陆状态,且没有获取头像和描述信息,则请求网络
     if ([[QJHenTaiParser parser] checkCookie] && ![[QJGlobalInfo getExHentaiUserImageUrl] containsString:@"http"]) {
@@ -48,14 +47,10 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-}
-
 - (void)setContent {
     // 开启大标题功能
     self.navigationController.navigationBar.prefersLargeTitles = YES;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
     
     self.title = @"设置";
     [self.view addSubview:self.tableView];

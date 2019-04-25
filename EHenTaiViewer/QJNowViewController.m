@@ -32,21 +32,6 @@
     [self setContent];
     [self showFreshingViewWithTip:nil];
     [self updateHotResource];
-    /*
-    [[QJHenTaiParser parser] readUserInfoCompletion:^(QJHenTaiParserStatus status) {
-        
-    }];
-     */
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 #pragma mark -滚动到顶部
@@ -72,6 +57,7 @@
 - (void)setContent {
     // 开启大标题功能
     self.navigationController.navigationBar.prefersLargeTitles = YES;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
     /* toplist解析有问题,没找到问题,暂时隐藏
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e61f", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(clickToplist)];
     self.navigationItem.rightBarButtonItem = item;

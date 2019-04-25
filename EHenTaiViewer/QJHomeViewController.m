@@ -60,12 +60,6 @@
     } else {
         self.navigationItem.title = [QJGlobalInfo isExHentaiStatus] ? @"ExHentai" : @"E-Hentai";
     }
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 #pragma mark -View Control
@@ -165,6 +159,7 @@
 - (void)setContent {
     // 开启大标题功能
     self.navigationController.navigationBar.prefersLargeTitles = YES;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
     
     self.totalPage = 0;
     

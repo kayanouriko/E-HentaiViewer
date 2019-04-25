@@ -64,6 +64,7 @@
 
 #pragma mark - Init UI
 - (void)setupUI {
+    self.searchKey = @"";
     self.status = QJFreshStatusNone;
     self.isFrist = YES;
     
@@ -92,7 +93,6 @@
 // 下拉刷新,重新请求的时候调用
 - (void)refreshDatas {
     self.pageIndex = 0;
-    [self.datas removeAllObjects];
     [self updateSearchDatas];
 }
 
@@ -108,6 +108,9 @@
 // 收藏搜索
 - (void)updateFavoritesSearchDatas {
     [[QJHenTaiParser parser] updateLikeListInfoWithUrl:[self getLikeUrl] complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
+        if ([self.refrshControl isRefreshing]) {
+            [self.datas removeAllObjects];
+        }
         if (status == QJHenTaiParserStatusSuccess) {
             [self.datas addObjectsFromArray:listArray];
             [self.tableView reloadData];
@@ -135,6 +138,9 @@
     NSLog(@"%@", url);
     // 开始请求数据
     [[QJHenTaiParser parser] updateListInfoWithUrl:url complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
+        if ([self.refrshControl isRefreshing]) {
+            [self.datas removeAllObjects];
+        }
         if (status == QJHenTaiParserStatusSuccess) {
             [self.datas addObjectsFromArray:listArray];
             [self.tableView reloadData];
@@ -202,7 +208,7 @@
 
 #pragma mark - View Method
 - (void)viewsShouldSearchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    if (self.type == QJNewSearchViewControllerTypeSearch || self.type == QJNewSearchViewControllerTypeTag) {
+    if (self.type == QJNewSearchViewControllerTypeTag) {
         if (searchBar.text.length == 0 && self.settings.count == 0) {
             Toast(@"搜索关键词和高级筛选不能全为空");
             return;

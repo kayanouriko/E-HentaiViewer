@@ -25,6 +25,8 @@
     _isRefreshing = NO;
     
     self.view.backgroundColor = [UIColor whiteColor];
+    // 子类默认不用大图标
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 - (BOOL)isShowFreshingStatus {

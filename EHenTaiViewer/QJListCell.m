@@ -9,6 +9,9 @@
 #import "QJListCell.h"
 #import "QJListItem.h"
 #import "XHStarRateView.h"
+//iconfont
+#import "TBCityIconFont.h"
+#import "UIImage+TBCityIconFont.h"
 
 @interface QJListCell ()
 
@@ -60,7 +63,8 @@
     self.thumbImageView.layer.borderWidth = 0.5f;
     
     self.pageImageView.image = [self.pageImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    self.downloadImageView.image = [self.downloadImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.downloadImageView.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e62f", 25, UIColor(85.f, 85.f, 85.f, 1.f))];
+    self.pageImageView.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e620", 25, UIColor(85.f, 85.f, 85.f, 1.f))];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

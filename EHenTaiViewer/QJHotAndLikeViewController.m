@@ -57,16 +57,6 @@
     [self updateLikeResource];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-}
-
 #pragma mark -滚动到顶部
 - (void)scrollToTop {
     if (self.likeDatas.count) {
@@ -165,6 +155,7 @@
 - (void)setContent {
     // 开启大标题功能
     self.navigationController.navigationBar.prefersLargeTitles = YES;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
     
     self.status = QJFreshStatusNone;
     self.favcat = -1;
