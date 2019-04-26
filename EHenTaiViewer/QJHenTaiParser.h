@@ -72,4 +72,7 @@ typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSStrin
 //评星
 - (void)updateStarWithGid:(NSString *)gid token:(NSString *)token apikey:(NSString *)apikey apiuid:(NSString *)apiuid rating:(NSInteger)rating complete:(LoginHandler)completion;
 
+/* 标签相关 **/
+
+
 @end

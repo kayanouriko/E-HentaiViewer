@@ -59,4 +59,34 @@
     return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:1.0f];
 }
 
+#pragma mark - 获取当前页面的Nav
+// 感谢终极方法:https://www.jianshu.com/p/901a8fb1760f
++ (UIWindow *)mainWindow {
+    return [UIApplication sharedApplication].delegate.window;
+}
+
++ (UIViewController *)visibleViewController {
+    UIViewController *rootViewController = [self.mainWindow rootViewController];
+    return [self getVisibleViewControllerFrom:rootViewController];
+}
+
++ (UIViewController *) getVisibleViewControllerFrom:(UIViewController *) vc {
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [self getVisibleViewControllerFrom:[((UINavigationController *) vc) visibleViewController]];
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [self getVisibleViewControllerFrom:[((UITabBarController *) vc) selectedViewController]];
+    } else {
+        if (vc.presentedViewController) {
+            return [self getVisibleViewControllerFrom:vc.presentedViewController];
+        } else {
+            return vc;
+        }
+    }
+    
+}
+
++ (UINavigationController *)visibleNavigationController {
+    return [[self visibleViewController] navigationController];
+}
+
 @end

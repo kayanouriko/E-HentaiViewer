@@ -588,7 +588,7 @@
 }
 
 - (void)updateOneUrlInfoWithUrl:(NSString *)url complete:(ListHandler)completion {
-    [self requestListInfoFromApi:@[url] complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
+    [self requestListInfoFromApi:@[@[url, @[]]] complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (status == QJHenTaiParserStatusSuccess) {
                 completion(QJHenTaiParserStatusSuccess,listArray);

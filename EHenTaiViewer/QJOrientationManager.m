@@ -9,6 +9,7 @@
 #import "QJOrientationManager.h"
 #import "AppDelegate.h"
 #import "UIDevice+QJDevice.h"
+#import "QJTool.h"
 
 @implementation QJOrientationManager
 
@@ -110,7 +111,7 @@
     // 获取到的alert宽度为270,这个貌似是固定值,待确定,160是根据\n的数量进行调整的
     [alert.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[imageView(270)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(imageView)]];
     [alert.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageView(160)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(imageView)]];
-    [[self visibleViewController] presentViewController:alert animated:YES completion:nil];
+    [[QJTool visibleViewController] presentViewController:alert animated:YES completion:nil];
 }
 
 + (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
@@ -128,54 +129,17 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"保存失败" message:@"保存图片相关权限未打开,跳转设置权限后应用会自动重启" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"前往设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            if (@available(iOS 10.0, *)) {
-                NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-                }
-            } else {
-                NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                    [[UIApplication sharedApplication] openURL:url];
-                }
+            NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
             }
         }];
         [alert addAction:cancelAction];
         [alert addAction:defaultAction];
-        [[self visibleViewController] presentViewController:alert animated:YES completion:nil];
+        [[QJTool visibleViewController] presentViewController:alert animated:YES completion:nil];
     } else {
         Toast(@"遭遇不可抗拒原因保存图片失败");
     }
-}
-
-#pragma mark - 获取当前页面的Nav
-// 感谢终极方法:https://www.jianshu.com/p/901a8fb1760f
-+ (UIWindow *)mainWindow {
-    return [UIApplication sharedApplication].delegate.window;
-}
-
-+ (UIViewController *)visibleViewController {
-    UIViewController *rootViewController = [self.mainWindow rootViewController];
-    return [self getVisibleViewControllerFrom:rootViewController];
-}
-
-+ (UIViewController *) getVisibleViewControllerFrom:(UIViewController *) vc {
-    if ([vc isKindOfClass:[UINavigationController class]]) {
-        return [self getVisibleViewControllerFrom:[((UINavigationController *) vc) visibleViewController]];
-    } else if ([vc isKindOfClass:[UITabBarController class]]) {
-        return [self getVisibleViewControllerFrom:[((UITabBarController *) vc) selectedViewController]];
-    } else {
-        if (vc.presentedViewController) {
-            return [self getVisibleViewControllerFrom:vc.presentedViewController];
-        } else {
-            return vc;
-        }
-    }
-    
-}
-
-+ (UINavigationController *)visibleNavigationController {
-    return [[self visibleViewController] navigationController];
 }
 
 @end

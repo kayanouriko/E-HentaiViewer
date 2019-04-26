@@ -72,6 +72,7 @@
 		5A57E0451F4EC4310033663B /* QJSettingListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A57E0431F4EC4310033663B /* QJSettingListCell.m */; };
 		5A57E0461F4EC4310033663B /* QJSettingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A57E0441F4EC4310033663B /* QJSettingListCell.xib */; };
 		5A5F0F49214D5BA800DE17E2 /* QJEhTagWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5F0F48214D5BA800DE17E2 /* QJEhTagWikiViewController.m */; };
+		5A6AF8A22271B4D000F828A0 /* QJPasteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6AF8A12271B4D000F828A0 /* QJPasteManager.m */; };
 		5A6E60D31F5514230097C5B3 /* QJSettingInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6E60D21F5514230097C5B3 /* QJSettingInfo.xib */; };
 		5A6ECC981EDE771C00DBF9DA /* QJImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6ECC961EDE771C00DBF9DA /* QJImageCollectionViewCell.m */; };
 		5A6ECC991EDE771C00DBF9DA /* QJImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6ECC971EDE771C00DBF9DA /* QJImageCollectionViewCell.xib */; };
@@ -312,6 +313,8 @@
 		5A57E0441F4EC4310033663B /* QJSettingListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSettingListCell.xib; sourceTree = "<group>"; };
 		5A5F0F47214D5BA800DE17E2 /* QJEhTagWikiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJEhTagWikiViewController.h; sourceTree = "<group>"; };
 		5A5F0F48214D5BA800DE17E2 /* QJEhTagWikiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJEhTagWikiViewController.m; sourceTree = "<group>"; };
+		5A6AF8A02271B4D000F828A0 /* QJPasteManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJPasteManager.h; sourceTree = "<group>"; };
+		5A6AF8A12271B4D000F828A0 /* QJPasteManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJPasteManager.m; sourceTree = "<group>"; };
 		5A6E60D21F5514230097C5B3 /* QJSettingInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJSettingInfo.xib; sourceTree = "<group>"; };
 		5A6ECC951EDE771C00DBF9DA /* QJImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJImageCollectionViewCell.h; sourceTree = "<group>"; };
 		5A6ECC961EDE771C00DBF9DA /* QJImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJImageCollectionViewCell.m; sourceTree = "<group>"; };
@@ -614,6 +617,7 @@
 		5A2F792B1ECD2C6100745DA0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5A6AF89F2271B49300F828A0 /* PasteManager */,
 				5A0A25632266CD1800A54EFB /* Tool */,
 				5A7481DB1FFDBB54000ADA0B /* IconFont */,
 				5AEE63251F6A127B00A558FD /* Toast */,
@@ -839,6 +843,15 @@
 				5A717ECA2251F464000F9B55 /* QJSearchSettingTagSearchViewController.m */,
 			);
 			name = Setting;
+			sourceTree = "<group>";
+		};
+		5A6AF89F2271B49300F828A0 /* PasteManager */ = {
+			isa = PBXGroup;
+			children = (
+				5A6AF8A02271B4D000F828A0 /* QJPasteManager.h */,
+				5A6AF8A12271B4D000F828A0 /* QJPasteManager.m */,
+			);
+			name = PasteManager;
 			sourceTree = "<group>";
 		};
 		5A6ECC851EDE4FAF00DBF9DA /* Info */ = {
@@ -1435,6 +1448,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EHenTaiViewer/Pods-EHenTaiViewer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Color-Picker-for-iOS/Color_Picker_for_iOS.framework",
 				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
@@ -1443,6 +1457,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Color_Picker_for_iOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
@@ -1504,6 +1519,7 @@
 				5A56B6681F57970D00F30BD5 /* QJLanguageOutViewController.m in Sources */,
 				5A1999C21ED6891100DB6B9D /* QJListTableView.m in Sources */,
 				5A089FDD2121BA1D00EA692D /* QJBrowerCollectManager.m in Sources */,
+				5A6AF8A22271B4D000F828A0 /* QJPasteManager.m in Sources */,
 				5ACA2B671F2867BE003DF3D0 /* QJTableViewCell.m in Sources */,
 				5A33E35622657CE200BFB716 /* QJSearchController.m in Sources */,
 				5A3977421EF75B18009A2273 /* QJTabBarController.m in Sources */,

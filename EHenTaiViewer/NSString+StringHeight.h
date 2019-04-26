@@ -26,5 +26,7 @@
 + (NSAttributedString *)convertStringsWithArray:(NSArray<NSString *> *)array;
 // 将html转义字符转为iOS可显示
 - (NSString *)digitalHTMLToUnicode;
+// 根据正则表示式传回适配的字符串
+- (NSArray *)matchWithRegex:(NSString *)regex;
 
 @end

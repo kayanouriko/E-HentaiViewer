@@ -1,0 +1,6 @@
+framework module Color_Picker_for_iOS {
+  umbrella header "Color-Picker-for-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

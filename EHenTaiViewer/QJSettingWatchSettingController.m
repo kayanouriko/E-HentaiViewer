@@ -196,16 +196,11 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
     }
     else if (self.type == QJSettingWatchSettingControllerTypeSuggest) {
         if ([model.type isEqualToString:@"邮件"]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:model.value]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:model.value] options:@{UIApplicationOpenURLOptionsSourceApplicationKey : @YES} completionHandler:nil];
         }
         else if ([model.type isEqualToString:@"网址"]) {
-            if ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0) {
-                SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:model.value]];
-                [self presentViewController:safariVC animated:YES completion:nil];
-            }
-            else {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:model.value]];
-            }
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:model.value]];
+            [self presentViewController:safariVC animated:YES completion:nil];
         }
     }
     else if (self.type == QJSettingWatchSettingControllerTypeAbout) {
@@ -215,13 +210,8 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (self.type == QJSettingWatchSettingControllerTypeAboutReference || self.type == QJSettingWatchSettingControllerTypeAboutFrame) {
-        if (@available(iOS 9.0, *)) {
-            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:model.value]];
-            [self presentViewController:safariVC animated:YES completion:nil];
-        }
-        else {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:model.value]];
-        }
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:model.value]];
+        [self presentViewController:safariVC animated:YES completion:nil];
     }
 }
 

@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 颜色获取
 + (UIColor *)colorWithHexString:(NSString *)color;
 
+// 获取当前控制器
++ (UIViewController *)visibleViewController;
++ (UINavigationController *)visibleNavigationController;
+
 @end
 
 NS_ASSUME_NONNULL_END

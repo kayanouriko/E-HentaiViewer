@@ -76,19 +76,19 @@
     [self initData];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return self.navigationController.navigationBarHidden;
+}
+
 - (void)initUI {
     // 数据初始化
     self.currentPage = 0;
     self.fristRefresh = YES;
     // 当状态栏变动的时候不调整collectionView的frame
-    if (@available(iOS 11.0, *)) {
-        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
+    self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     // 状态栏,导航栏初始化
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.navigationController.navigationBarHidden = YES;
+    [self prefersStatusBarHidden];
     // 添加item
     self.navigationItem.leftBarButtonItems = @[self.cancelItem, self.favoriteItem];
     [self changeNavgationBarRightItems];
@@ -329,7 +329,7 @@
 // 全屏单击手势
 - (void)clickView:(UITapGestureRecognizer *)tap {
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden];
-    [[UIApplication sharedApplication] setStatusBarHidden:self.navigationController.navigationBarHidden];
+    [self prefersStatusBarHidden];
     self.toolBar.hidden = self.navigationController.navigationBarHidden;
     self.pageCountLabel.hidden = self.navigationController.navigationBarHidden;
     self.mangaNameLabel.hidden = self.navigationController.navigationBarHidden;

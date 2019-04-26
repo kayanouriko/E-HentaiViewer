@@ -29,7 +29,11 @@
 - (void)unlockWithTouchID {
     [[QJProtectTool shareTool] showTouchID:^(QJProtectToolStatus status) {
         if (status == QJProtectToolStatusSuccess) {
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (self.block) {
+                    self.block(YES);
+                }
+            }];
         }
     }];
 }

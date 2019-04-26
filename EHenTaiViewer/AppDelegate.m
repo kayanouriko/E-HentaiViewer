@@ -14,6 +14,7 @@
 #import "QJTouchIDViewController.h"
 #import "QJSecretBgTool.h"
 #import "QJOrientationManager.h"
+#import "QJPasteManager.h"
 
 @interface AppDelegate ()
 
@@ -108,20 +109,32 @@
 }
 
 - (void)checkTouchID {
-    if ([QJGlobalInfo isExHentaiProtectMode]) {
-        NSTimeInterval beginTime = [[[QJGlobalInfo sharedInstance] getAttribute:@"BackgroundTime"] integerValue];
-        NSTimeInterval endTime = [[NSProcessInfo processInfo] systemUptime];
-        if (endTime - beginTime > 60) {
-            if ([[QJProtectTool shareTool] isEnableTouchID]) {
-                //TouchID
-                UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
-                if (![vc isKindOfClass:[QJTouchIDViewController class]]) {
-                    QJTouchIDViewController *subVC = [QJTouchIDViewController new];
-                    [vc presentViewController:subVC animated:nil completion:nil];
-                }
-            }
-        }
+    NSTimeInterval beginTime = [[[QJGlobalInfo sharedInstance] getAttribute:@"BackgroundTime"] integerValue];
+    NSTimeInterval endTime = [[NSProcessInfo processInfo] systemUptime];
+    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    if ([QJGlobalInfo isExHentaiProtectMode]
+        && [[QJProtectTool shareTool] isEnableTouchID]
+        && endTime - beginTime > 60
+        && ![vc isKindOfClass:[QJTouchIDViewController class]]) {
+        
+        // 开启faceid
+        QJTouchIDViewController *subVC = [QJTouchIDViewController new];
+        subVC.block = ^(BOOL isSuccess) {
+            [self checkPasteBoard];
+        };
+        [vc presentViewController:subVC animated:nil completion:nil];
+        
     }
+    else {
+        // 无须faceid的时候
+        [self checkPasteBoard];
+    }
+}
+
+// 检测粘贴板
+- (void)checkPasteBoard {
+    [[QJPasteManager sharedInstance] checkInfoFromPasteBoard];
 }
 
 
