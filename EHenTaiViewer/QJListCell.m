@@ -29,11 +29,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel; // 分类
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel; // 时间
 
+@property (strong, nonatomic) QJListItem *item;
+
 @end
 
 @implementation QJListCell
 
 - (void)refreshUI:(QJListItem *)item {
+    self.item = item;
     
     self.titleLabel.text = ([QJGlobalInfo isExHentaiTitleJnMode] && item.title_jpn.length) ? item.title_jpn : item.title;
     self.uploaderLabel.text = item.uploader;
@@ -65,10 +68,16 @@
     self.pageImageView.image = [self.pageImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.downloadImageView.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e62f", 25, UIColor(85.f, 85.f, 85.f, 1.f))];
     self.pageImageView.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e620", 25, UIColor(85.f, 85.f, 85.f, 1.f))];
+    
+    // 修改选中时候的颜色,去除
+    self.multipleSelectionBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
+    self.multipleSelectionBackgroundView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    // 选中的时候label的背景颜色不改变
+    self.categoryLabel.backgroundColor = self.item.categoryColor;
 }
 
 @end

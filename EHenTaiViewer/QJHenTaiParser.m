@@ -16,6 +16,7 @@
 #import "QJTorrentItem.h"
 #import "QJToplistUploaderItem.h"
 #import "QJSettingItem.h"
+#import "NSString+StringHeight.h"
 
 #define kConfigurationIdentifier @"EHenTaiViewer"
 
@@ -992,6 +993,247 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 Toast(@"设置或成功,未解析到操作状态");
                 if (completion) completion(QJHenTaiParserStatusParseFail);
+            });
+        }
+    }];
+    [task resume];
+}
+
+#pragma mark - MyTags
+- (void)getMyTagsListInfoComplete:(MyTagsHandler)completion {
+    NSMutableString *finalUrl = [NSMutableString stringWithString:[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
+    [finalUrl appendString:@"mytags"];
+    NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:finalUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(QJHenTaiParserStatusNetworkFail,@{});
+                return;
+            });
+        }
+        // 先解析一些api请求必备的参数
+        NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSArray *apiuidArr = [html matchWithRegex:@"(?<=apiuid\\s=\\s).*?(?=;)"];
+        NSString *apiuid = apiuidArr.count ? apiuidArr.firstObject : @"";
+        NSArray *apikeyArr = [html matchWithRegex:@"(?<=apikey\\s=\\s\").*?(?=\")"];
+        NSString *apikey = apikeyArr.count ? apikeyArr.firstObject : @"";
+        NSArray *tagsetnameArr = [html matchWithRegex:@"(?<=tagset_name\\s=\\s\").*?(?=\")"];
+        NSString *tagset_name = tagsetnameArr.count ? tagsetnameArr.firstObject : @"";
+        
+        TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:data];
+        NSArray *usertagsArr = [xpathParser searchWithXPathQuery:@"//div[@id='usertags_outer']/div"];
+        NSMutableArray *usertags = [NSMutableArray new];
+        if (usertagsArr.count > 1) {
+            // 第一项是添加tag,所以排除
+            for (NSInteger i = 1; i < usertagsArr.count; i++) {
+                TFHppleElement *tagElement = usertagsArr[i];
+                // 开始遍历tag获取相关信息
+                // tagid
+                NSString *usertag = [[tagElement objectForKey:@"id"] componentsSeparatedByString:@"_"].lastObject;
+                // tag文本颜色和背景颜色, 这里他做了扩散颜色处理,客户端不做那么复杂,直接取color和border-color作为文本颜色和背景颜色
+                TFHppleElement *tagStyleElement = [tagElement searchWithXPathQuery:@"//div[@class='gt']"].firstObject;
+                NSString *style = [tagStyleElement objectForKey:@"style"];
+                NSString *regexTitle = @"(?<=(color:)).*?(?=;)";
+                NSString *color = [style matchFristObjWithRegex:regexTitle];
+                NSString *regexBg = @"(?<=(gradient\\()).*?(?=\\))";
+                NSString *backgroundColor = [[style matchFristObjWithRegex:regexBg] componentsSeparatedByString:@","].lastObject;
+                // 名字和分组
+                NSString *namegroup = [tagStyleElement objectForKey:@"title"];
+                NSString *name = [namegroup componentsSeparatedByString:@":"].lastObject;
+                NSString *group = [namegroup componentsSeparatedByString:@":"].firstObject;
+                // 获取watched hidden状态
+                NSArray<TFHppleElement *> *tagStatusArr = [tagElement searchWithXPathQuery:@"//label[@class='lc']/input[@type='checkbox']"];
+                
+                NSString *watched = [tagStatusArr[0].attributes.allKeys containsObject:@"checked"] ? @"1" : @"0";
+                NSString *hidden = [tagStatusArr[1].attributes.allKeys containsObject:@"checked"] ? @"1" : @"0";
+                NSString *none = ([watched isEqualToString:@"0"] && [hidden isEqualToString:@"0"]) ? @"1" : @"0";
+                // 权重比获取
+                TFHppleElement *weightElement = [tagElement searchWithXPathQuery:@"//input[@type='text']"].lastObject;
+                NSString *weight = [weightElement objectForKey:@"value"];
+                
+                [usertags addObject:@{
+                                      @"usertag": usertag,
+                                      @"name": name,
+                                      @"group": group,
+                                      @"color": color,
+                                      @"backgroundColor": backgroundColor,
+                                      @"watched": watched,
+                                      @"hidden": hidden,
+                                      @"none": none,
+                                      @"weight": weight,
+                                      }];
+            }
+        }
+        
+        NSDictionary *json = @{
+                               @"apiuid": apiuid,
+                               @"apikey": apikey,
+                               @"tagset_name": tagset_name,
+                               @"usertags": usertags,
+                               };
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(QJHenTaiParserStatusSuccess, json);
+            return;
+        });
+    }];
+    [task resume];
+}
+
+- (void)getResultFromSearchKey:(NSString *)searchKey complete:(MyTagsHandler)completion {
+    NSDictionary *params = @{
+                             @"method": @"tagsuggest",
+                             @"text": searchKey
+                             };
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *apiurl = [QJGlobalInfo isExHentaiStatus] ? EXHENTAI_APIURL : HENTAI_APIURL;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:apiurl]];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody =jsonData;
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"网络错误");
+                completion(QJHenTaiParserStatusNetworkFail, @{});
+            });
+            return;
+        }
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if (json.allKeys.count) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(QJHenTaiParserStatusSuccess, json);
+            });
+        }
+    }];
+    [task resume];
+}
+
+- (void)setUserTagWithKey:(NSString *)apikey uid:(NSString *)apiuid color:(NSString *)tagColor taghide:(BOOL)taghide tagid:(NSString *)tagid tagwatch:(BOOL)tagwatch tagweight:(NSString *)tagweight completion:(LoginHandler)completion {
+    NSDictionary *params = @{
+                             @"apikey": apikey,
+                             @"apiuid": apiuid,
+                             @"method": @"setusertag",
+                             @"tagcolor": tagColor,
+                             @"taghide": @(taghide),
+                             @"tagid": tagid,
+                             @"tagwatch": @(tagwatch),
+                             @"tagweight": tagweight,
+                             };
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *apiurl = [QJGlobalInfo isExHentaiStatus] ? EXHENTAI_APIURL : HENTAI_APIURL;
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:apiurl]];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody =jsonData;
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"网络错误");
+                completion(QJHenTaiParserStatusNetworkFail);
+            });
+            return;
+        }
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if (json.allKeys.count) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"修改成功");
+                completion(QJHenTaiParserStatusSuccess);
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"api调用失败");
+                completion(QJHenTaiParserStatusNetworkFail);
+            });
+        }
+    }];
+    [task resume];
+}
+
+/**
+ usertag_action: add
+ tagname_new: female:big nipples
+ tagwatch_new: on
+ tagcolor_new: #FF0000
+ tagweight_new: 10
+ usertag_target: 0
+ */
+- (void)addNewUserTagWithTagName:(NSString *)tagname taghide:(BOOL)taghide tagwatch:(BOOL)tagwatch tagcolor:(NSString *)tagcolor tagweight:(NSString *)tagweight completion:(LoginHandler)completion {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                @"usertag_action": @"add",
+                                                                                @"usertag_target": @"0",
+                                                                                @"tagcolor_new": tagcolor,
+                                                                                @"tagweight_new": tagweight,
+                                                                                @"tagname_new": tagname
+                                                                                }];
+    if (tagwatch) {
+        [dict setValue:@"on" forKey:@"tagwatch_new"];
+    }
+    if (taghide) {
+        [dict setValue:@"on" forKey:@"taghide_new"];
+    }
+    NSString *url = [NSString stringWithFormat:@"%@mytags",[QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = [[self getFormStringWithDict:dict] dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPShouldSetCookies = YES;
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue currentQueue]];
+    NSURLSessionDataTask *task = [urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"网络错误");
+                completion(QJHenTaiParserStatusNetworkFail);
+            });
+            return;
+        }
+        NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse *)response;
+        if (urlResponse.statusCode == 301 || urlResponse.statusCode == 302) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"操作成功");
+                completion(QJHenTaiParserStatusSuccess);
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"操作或成功,但检测不到操作状态");
+                completion(QJHenTaiParserStatusSuccess);
+            });
+        }
+    }];
+    [task resume];
+}
+
+- (void)deleteMutlitTagWithModifyusertags:(NSArray *)modifyusertags complete:(LoginHandler)completion {
+    NSString *url = [NSString stringWithFormat:@"%@mytags", [QJGlobalInfo isExHentaiStatus] ? EXHENTAI_URL : HENTAI_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    request.HTTPMethod = @"POST";
+    
+    NSMutableArray *queries = [NSMutableArray array];
+    for (NSString *usertag in modifyusertags) {
+        [queries addObject:[NSString stringWithFormat:@"modify_usertags[]=%@", usertag]];
+    }
+    NSString *body = [queries componentsJoinedByString:@"&"];
+    body = [NSString stringWithFormat:@"usertag_action=mass&%@", body];
+    request.HTTPBody = [body dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"网络错误");
+                completion(QJHenTaiParserStatusNetworkFail);
+            });
+            return;
+        }
+        NSHTTPURLResponse *urlResponse = (NSHTTPURLResponse *)response;
+        if (urlResponse.statusCode == 200 || urlResponse.statusCode == 301 || urlResponse.statusCode == 302) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"操作成功");
+                completion(QJHenTaiParserStatusSuccess);
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Toast(@"操作或成功,但检测不到操作状态");
+                completion(QJHenTaiParserStatusSuccess);
             });
         }
     }];

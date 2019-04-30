@@ -15,7 +15,6 @@
 #import "QJListTableView.h"
 #import "QJListCell.h"
 #import "QJGalleryItem.h"
-#import "QJEnum.h"
 
 @interface QJSearchViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, QJSearchBarDelagate, UITextFieldDelegate>
 

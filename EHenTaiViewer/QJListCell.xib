@@ -143,7 +143,6 @@
                     <constraint firstItem="0SE-6u-hC3" firstAttribute="leading" secondItem="aPK-lN-2eT" secondAttribute="leading" id="z74-k7-d8P"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="categoryLabel" destination="jAX-bV-D1O" id="i9X-Hq-sGW"/>
                 <outlet property="downloadImageView" destination="2sT-am-2qR" id="3ie-5c-yP4"/>

@@ -27,6 +27,7 @@ typedef void (^BigImageListHandler)(NSArray<QJBigImageItem *> *bigImages);
 typedef void (^TorrentListHandler)(QJHenTaiParserStatus status ,NSArray<QJTorrentItem *> *torrents);
 typedef void (^ToplistHandler)(QJHenTaiParserStatus status ,NSArray<QJListItem *> *listArray, NSArray<QJToplistUploaderItem *> *uploaderArrary);
 typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSString *,QJSettingItem *> *settingDict);
+typedef void (^MyTagsHandler)(QJHenTaiParserStatus status ,NSDictionary *json);
 
 @interface QJHenTaiParser : NSObject
 
@@ -73,6 +74,15 @@ typedef void (^SettingHandler)(QJHenTaiParserStatus status ,NSDictionary<NSStrin
 - (void)updateStarWithGid:(NSString *)gid token:(NSString *)token apikey:(NSString *)apikey apiuid:(NSString *)apiuid rating:(NSInteger)rating complete:(LoginHandler)completion;
 
 /* 标签相关 **/
-
+// 获取Mytags列表信息
+- (void)getMyTagsListInfoComplete:(MyTagsHandler)completion;
+// 根据搜索关键字获取一定数量的tag
+- (void)getResultFromSearchKey:(NSString *)searchKey complete:(MyTagsHandler)completion;
+// 标签修改
+- (void)setUserTagWithKey:(NSString *)apikey uid:(NSString *)apiuid color:(NSString *)tagColor taghide:(BOOL)taghide tagid:(NSString *)tagid tagwatch:(BOOL)tagwatch tagweight:(NSString *)tagweight completion:(LoginHandler)completion;
+// 添加新标签
+- (void)addNewUserTagWithTagName:(NSString *)tagname taghide:(BOOL)taghide tagwatch:(BOOL)tagwatch tagcolor:(NSString *)tagcolor tagweight:(NSString *)tagweight completion:(LoginHandler)completion;
+// 批量删除标签
+- (void)deleteMutlitTagWithModifyusertags:(NSArray *)modifyusertags complete:(LoginHandler)completion;
 
 @end

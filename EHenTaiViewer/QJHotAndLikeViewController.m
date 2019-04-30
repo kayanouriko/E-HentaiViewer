@@ -11,7 +11,6 @@
 #import "QJHenTaiParser.h"
 #import "QJListTableView.h"
 #import "QJNewInfoViewController.h"
-#import "QJEnum.h"
 #import "QJLikeSearchBar.h"
 //iconfont
 #import "TBCityIconFont.h"
@@ -324,6 +323,10 @@
 }
 
 - (void)doneAction {
+    if (self.selectDatas.count == 0) {
+        Toast(@"至少先选中一项才能进行操作");
+        return;
+    }
     if ([self.ddact containsString:@"fav"]) {
         //移到别处
         [self moveBookToOther];

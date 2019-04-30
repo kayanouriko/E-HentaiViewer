@@ -1,5 +1,4 @@
 PODS:
-  - Color-Picker-for-iOS (2.0.2)
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
@@ -13,14 +12,12 @@ PODS:
     - YYImage
 
 DEPENDENCIES:
-  - Color-Picker-for-iOS
   - MagicalRecord
   - Masonry
   - YYWebImage
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
-    - Color-Picker-for-iOS
     - MagicalRecord
     - Masonry
     - YYCache
@@ -28,13 +25,12 @@ SPEC REPOS:
     - YYWebImage
 
 SPEC CHECKSUMS:
-  Color-Picker-for-iOS: 4980589b3e3cfe7198f227dd50be9adb02d8bc0b
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 3b0938ac0b0ecc1d38fa619adef1d8b04d584728
+PODFILE CHECKSUM: bda02e66b2dd6f925682f6738ab778c8b849a5b2
 
 COCOAPODS: 1.6.1

@@ -14,6 +14,7 @@
 //控制器
 #import "QJLoginViewController.h"
 #import "QJSettingWatchSettingController.h"
+#import "QJSettingMyTagsController.h"
 
 #import "QJHenTaiParser.h"
 #import <SafariServices/SafariServices.h>
@@ -128,6 +129,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section) {
         if (indexPath.row == 1) {
+            if (![[QJHenTaiParser parser] checkCookie]) {
+                Toast(@"请先前进行登录");
+                return;
+            }
+            // 我的标签
+            QJSettingMyTagsController *vc = [QJSettingMyTagsController new];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            return;
+        }
+        else if (indexPath.row == 2) {
             Toast(@"网站系统改版,暂不可用");
             return;
             //检测是否登录
@@ -189,6 +201,7 @@
     if (nil == _datas) {
         _datas = @[
                    @[@"EH",@"panda"],
+                   @[@"我的标签", @""],
                    @[@"高级设置",@"hight"],
                    @[@"反馈/意见",@"book"],
                    @[@"关于",@"about"]

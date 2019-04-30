@@ -13,5 +13,4 @@ target 'EHenTaiViewer' do
   pod 'MagicalRecord'
   # 自动布局
   pod 'Masonry'
-  pod 'Color-Picker-for-iOS'
 end

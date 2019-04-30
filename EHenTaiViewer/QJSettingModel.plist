@@ -141,11 +141,11 @@
 			<key>title</key>
 			<string>参考项目</string>
 			<key>subTitle</key>
-			<string></string>
+			<string>感谢前辈们的开拓道路</string>
 			<key>subTitleSelected</key>
 			<string></string>
 			<key>value</key>
-			<string>4</string>
+			<string>5</string>
 			<key>type</key>
 			<string>跳转</string>
 		</dict>
@@ -153,11 +153,11 @@
 			<key>title</key>
 			<string>开源框架</string>
 			<key>subTitle</key>
-			<string></string>
+			<string>感恩开源 拥抱未来</string>
 			<key>subTitleSelected</key>
 			<string></string>
 			<key>value</key>
-			<string>5</string>
+			<string>6</string>
 			<key>type</key>
 			<string>跳转</string>
 		</dict>

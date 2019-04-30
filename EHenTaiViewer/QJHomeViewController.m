@@ -9,7 +9,6 @@
 #import "QJHomeViewController.h"
 #import "QJHenTaiParser.h"
 #import "QJListCell.h"
-#import "QJEnum.h"
 #import "QJListTableView.h"
 #import "QJTouchIDViewController.h"
 #import "QJListItem.h"

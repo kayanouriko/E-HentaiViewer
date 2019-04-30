@@ -39,13 +39,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "iPhone App-60@2x.png",
+      "filename" : "CarPlay-60@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "iPhone App-60@3x.png",
+      "filename" : "CarPlay-60@3x.png",
       "scale" : "3x"
     },
     {

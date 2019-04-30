@@ -27,6 +27,9 @@
 // 将html转义字符转为iOS可显示
 - (NSString *)digitalHTMLToUnicode;
 // 根据正则表示式传回适配的字符串
+- (NSString *)matchFristObjWithRegex:(NSString *)regex;
 - (NSArray *)matchWithRegex:(NSString *)regex;
+// 获取中文标签,如果有的话
+- (NSString *)getCHTagName;
 
 @end

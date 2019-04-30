@@ -43,16 +43,18 @@
 }
 
 - (void)hiddenFreshingView {
-    [UIView animateWithDuration:0.25f animations:^{
-        self.tipVC.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        _isRefreshing = NO;
-        [self.tipVC stopAnimateWithTip:nil];
-        [self.tipVC willMoveToParentViewController:nil];
-        [self.tipVC.view removeFromSuperview];
-        [self.tipVC removeFromParentViewController];
-        self.tipVC = nil;
-    }];
+    if (_isRefreshing) {
+        [UIView animateWithDuration:0.25f animations:^{
+            self.tipVC.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            _isRefreshing = NO;
+            [self.tipVC stopAnimateWithTip:nil];
+            [self.tipVC willMoveToParentViewController:nil];
+            [self.tipVC.view removeFromSuperview];
+            [self.tipVC removeFromParentViewController];
+            self.tipVC = nil;
+        }];
+    }
 }
 
 - (void)showErrorViewWithTip:(NSString *)tip {

@@ -8,6 +8,7 @@
 
 #import "NSString+StringHeight.h"
 #import <CommonCrypto/CommonCrypto.h>
+#import "Tag+CoreDataClass.h"
 
 @implementation NSString (StringHeight)
 
@@ -161,6 +162,11 @@
     return sendStr;
 }
 
+- (NSString *)matchFristObjWithRegex:(NSString *)regex {
+    NSArray *array = [self matchWithRegex:regex];
+    return array.count ? [array.firstObject copy] : @"";
+}
+
 - (NSArray *)matchWithRegex:(NSString *)regex {
     NSRegularExpression *regexpression = [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray * matches = [regexpression matchesInString:self options:0 range:NSMakeRange(0, [self length])];
@@ -174,6 +180,28 @@
         }
     }
     return array;
+}
+
+- (NSString *)getCHTagName {
+    NSString *chTag = self;
+    //如果标签有多个含义,则第一个为最原始的含义
+    if ([chTag containsString:@"|"]) {
+        chTag = [chTag componentsSeparatedByString:@" | "].firstObject;
+    }
+    NSString *exStr = @"";
+    if ([chTag containsString:@":"]) {
+        NSArray *array = [chTag componentsSeparatedByString:@":"];
+        exStr = array.firstObject;
+        chTag = array.lastObject;
+    }
+    Tag *tagObj = [Tag MR_findFirstByAttribute:@"name" withValue:chTag];
+    if (tagObj) {
+        chTag = [tagObj.cname removeHtmlString];
+    }
+    if (exStr.length) {
+        chTag = [NSString stringWithFormat:@"%@:%@", exStr, chTag];
+    }
+    return [chTag copy];
 }
 
 @end

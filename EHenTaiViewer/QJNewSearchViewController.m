@@ -12,7 +12,6 @@
 #import "QJSearchSiftHeadView.h"
 #import "QJSearchSettingViewController.h"
 #import "QJHenTaiParser.h"
-#import "QJEnum.h"
 #import "QJNewInfoViewController.h"
 #import "QJSearchController.h"
 
