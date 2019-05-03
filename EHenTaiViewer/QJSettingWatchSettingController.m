@@ -106,6 +106,7 @@ static NSString *const kSaveSettingInfoNoti = @"SaveSettingInfoNoti";
         if (![[QJHenTaiParser parser] checkCookie]) {
             Toast(@"请先前往设置页面进行登录");
             [QJGlobalInfo setExHentaiStatus:NO];
+            [switchBtn setOn:NO animated:YES];
         }
         else {
             [QJGlobalInfo setExHentaiStatus:switchBtn.on];

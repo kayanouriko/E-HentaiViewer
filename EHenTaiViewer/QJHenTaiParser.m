@@ -168,6 +168,8 @@
     NSObjSetForKey(@"loginName", @"未登录");
     NSObjSetForKey(@"xl_0", @"");
     NSObjSynchronize();
+    [QJGlobalInfo setExHentaiUserDes:@""];
+    [QJGlobalInfo setExHentaiUserImageUrl:@""];
     [QJGlobalInfo setExHentaiStatus:NO];
     return YES;
 }
