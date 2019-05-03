@@ -8,8 +8,11 @@
 
 #import "QJAllCommentController.h"
 #import "QJCommentCell.h"
+#import <SafariServices/SafariServices.h>
+#import "QJPasteManager.h"
+#import "QJNewSearchViewController.h"
 
-@interface QJAllCommentController ()<UITableViewDelegate, UITableViewDataSource>
+@interface QJAllCommentController ()<UITableViewDelegate, UITableViewDataSource, QJCommentCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign, getter=isNeedChangeRow) BOOL needChangeRow;
@@ -28,8 +31,9 @@
     self.title = @"全部评论";
     self.needChangeRow = YES;
     [self.view addSubview:self.tableView];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -49,8 +53,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     QJCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([QJCommentCell class])];
+    cell.delegate = self;
     [cell refreshUI:self.allComments[indexPath.row]];
     return cell;
+}
+
+#pragma mark - QJCommentCellDelegate
+- (void)commentCell:(QJCommentCell *)cell didClickUserImageWithUserName:(NSString *)userName {
+    QJNewSearchViewController *vc = [QJNewSearchViewController new];
+    vc.title = [NSString stringWithFormat:@"uploader:\"%@\"", userName];
+    vc.type = QJNewSearchViewControllerTypeTag;
+    vc.searchKey = @"";
+    [vc.settings addObject:[NSString stringWithFormat:@"uploader-%@", userName]];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)commentCell:(QJCommentCell *)cell didClickContentUrlWithURL:(NSURL *)URL {
+    if (![[QJPasteManager sharedInstance] checkInfoWithUrl:URL.absoluteString]) {
+        // 这里直接跳转内置浏览器
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:URL];
+        [self presentViewController:safariVC animated:YES completion:nil];
+    }
 }
 
 #pragma mark -getter

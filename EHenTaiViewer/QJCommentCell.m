@@ -7,9 +7,6 @@
 //
 
 #import "QJCommentCell.h"
-#import "QJSearchViewController.h"
-#import "QJGalleryItem.h"
-#import <SafariServices/SafariServices.h>
 
 @interface QJCommentCell ()<UITextViewDelegate>
 
@@ -51,9 +48,9 @@
 
 //拦截URL,高于iOS9的不跳safari浏览器
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
-    if ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0) {
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:URL];
-        [[self viewController] presentViewController:safariVC animated:YES completion:nil];
+    // 这里拦截url,交由外面处理
+    if (self.delegate && [self.delegate respondsToSelector:@selector(commentCell:didClickContentUrlWithURL:)]) {
+        [self.delegate commentCell:self didClickContentUrlWithURL:URL];
         return NO;
     }
     return YES;
@@ -62,24 +59,9 @@
 //跳转
 - (IBAction)btnAction:(UIButton *)sender {
     NSString *uploader = [self.titleBtn titleForState:UIControlStateNormal];
-    NSString *searchKey = [NSString stringWithFormat:@"uploader:%@", uploader];
-    NSString *url = [NSString stringWithFormat:@"uploader/%@/", [uploader urlEncode]];
-    QJGalleryTagItem *model = [QJGalleryTagItem new];
-    model.searchKey = searchKey;
-    model.url = url;
-    QJSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([QJSearchViewController class])];
-    vc.model = model;
-    [[self viewController].navigationController pushViewController:vc animated:YES];
-}
-
-- (UIViewController*)viewController {
-    for (UIView* next = [self superview]; next; next = next.superview) {
-        UIResponder* nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController*)nextResponder;
-        }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(commentCell:didClickUserImageWithUserName:)]) {
+        [self.delegate commentCell:self didClickUserImageWithUserName:uploader];
     }
-    return nil;
 }
 
 @end

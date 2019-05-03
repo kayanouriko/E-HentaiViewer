@@ -16,7 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedInstance;
 
+// 检测剪切板里面的url
 - (void)checkInfoFromPasteBoard;
+// 通过外部传入的url识别画廊
+- (BOOL)checkInfoWithUrl:(NSString *)url;
 
 @end
 

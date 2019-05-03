@@ -418,11 +418,6 @@
 }
 
 - (void)pushSearchVCWithModel:(QJGalleryTagItem *)model title:(NSString *)title {
-    /*
-    QJSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([QJSearchViewController class])];
-    vc.model = model;
-    [self.navigationController pushViewController:vc animated:YES];
-     */
     QJNewSearchViewController *vc = [QJNewSearchViewController new];
     vc.title = title;
     vc.type = QJNewSearchViewControllerTypeTag;

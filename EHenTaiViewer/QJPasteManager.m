@@ -87,4 +87,32 @@
     }
 }
 
+- (BOOL)checkInfoWithUrl:(NSString *)url {
+    // 解析数据
+    NSArray *array = [url matchWithRegex:@"http.*?e[x-]hentai\\.org\\/g\\/.*?\\/.*?\\/"];
+    if (array.count == 0) return NO;
+    Toast(@"检测到为画廊链接,正在解析请稍后");
+    url = array.firstObject;
+    [[QJHenTaiParser parser] updateOneUrlInfoWithUrl:url complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
+        if (status == QJHenTaiParserStatusSuccess && listArray.count >= 1) {
+            QJListItem *model = listArray.firstObject;
+            UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+            // 执行弹窗
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"画廊解析成功" message:[NSString stringWithFormat:@"%@", ([QJGlobalInfo isExHentaiTitleJnMode] && model.title_jpn.length) ? model.title_jpn : model.title] preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"暂不前往" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"前往" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                // 这里前往画廊
+                QJNewInfoViewController *infoVC = [QJNewInfoViewController new];
+                infoVC.model = model;
+                [[QJTool visibleNavigationController] pushViewController:infoVC animated:YES];
+            }]];
+            [vc presentViewController:alert animated:YES completion:nil];
+        }
+        else {
+            Toast(@"该画廊暂时无法跳转");
+        }
+    }];
+    return YES;
+}
+
 @end
