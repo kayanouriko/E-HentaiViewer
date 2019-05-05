@@ -267,8 +267,7 @@
 - (void)updateCommentWithContent:(NSString *)content url:(NSString *)url complete:(LoginHandler)completion {
     [[QJNetworkTool shareTool] showNetworkActivity];
     NSDictionary *dict = @{
-                           @"commenttext":content,
-                           @"postcomment":@"Post Comment"
+                           @"commenttext_new":content,
                            };
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"POST";

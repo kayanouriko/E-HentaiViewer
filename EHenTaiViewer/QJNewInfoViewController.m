@@ -350,9 +350,6 @@
 }
 
 - (IBAction)discussAction:(UIButton *)sender {
-    Toast(@"暂不支持撰写评论");
-    return;
-    
     if (![[QJHenTaiParser parser] checkCookie]) {
         Toast(@"请先前往设置页面进行登录");
         return;
