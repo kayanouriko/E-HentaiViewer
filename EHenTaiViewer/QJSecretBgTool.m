@@ -26,14 +26,24 @@
 }
 
 - (void)showSecretBackground {
+    self.bgView.alpha = 0;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.bgView];
-    [window addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_bgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_bgView)]];
-    [window addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_bgView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_bgView)]];
+    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(window);
+    }];
+    
+    [UIView animateWithDuration:0.26f animations:^{
+        self.bgView.alpha = 1;
+    }];
 }
 
 - (void)hiddenSecretBackground {
-    [self.bgView removeFromSuperview];
+    [UIView animateWithDuration:0.26f animations:^{
+        self.bgView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.bgView removeFromSuperview];
+    }];
 }
 
 #pragma mark - Setter
@@ -41,15 +51,15 @@
     if (nil == _bgView) {
         _bgView = [UIView new];
         _bgView.backgroundColor = [UIColor whiteColor];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LOGO"]];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"launch"]];
         imageView.translatesAutoresizingMaskIntoConstraints = NO;
         [_bgView addSubview:imageView];
-        [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[imageView(230)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(imageView)]];
-        [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[imageView(230)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(imageView)]];
-        [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_bgView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_bgView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         
-        _bgView.translatesAutoresizingMaskIntoConstraints = NO;
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(imageView.mas_width).multipliedBy(111.f / 71.f);
+            make.width.equalTo(@200);
+            make.center.equalTo(self -> _bgView);
+        }];
     }
     return _bgView;
 }

@@ -40,7 +40,7 @@
     self.semaphore = dispatch_semaphore_create(0);
     @autoreleasepool {
         
-        NSLog(@"开始单个图片的下载任务");
+        // NSLog(@"开始单个图片的下载任务");
         
         // 执行任务之前，先把参数置为NO
         if (self.isCancel) {
@@ -112,7 +112,7 @@
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.model.failed = YES;
-                NSLog(@"网络错误，大图url没获取到");
+                // NSLog(@"网络错误，大图url没获取到");
                 if (self.delegate && [self.delegate respondsToSelector:@selector(imageDownloadFinishWithLoader:)]) {
                     [self.delegate imageDownloadFinishWithLoader:self];
                 }
@@ -140,7 +140,7 @@
                 // 虽然获取到了Json，但是图片url没有获取到
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.model.failed = YES;
-                    NSLog(@"api请求错误，大图url没获取到");
+                    // NSLog(@"api请求错误，大图url没获取到");
                     if (self.delegate && [self.delegate respondsToSelector:@selector(imageDownloadFinishWithLoader:)]) {
                         [self.delegate imageDownloadFinishWithLoader:self];
                     }
@@ -190,7 +190,7 @@
         return;
     }
     // 构建下载图片的方法，并且监听下载进度，并随时监测cancel状态
-    NSLog(@"准备下载图片数据！");
+    // NSLog(@"准备下载图片数据！");
     
     // 检查一下model是否有备份data
     NSURLSession *session = [self getSessionWithDelegate:YES];
@@ -216,7 +216,7 @@
 }
 
 - (void)cancelTask {
-    NSLog(@"请求还在继续，手动取消");
+    // NSLog(@"请求还在继续，手动取消");
     self.isCancel = YES;
     // 如果退出了，则停止任务
     __weak typeof(self) weakSelf = self;
@@ -231,7 +231,7 @@
 #pragma mark - NSURLSessionDownloadDelegate
 // 下载完成
 - (void)URLSession:(nonnull NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(nonnull NSURL *)location {
-    NSLog(@"图片%ld下载完成", self.model.page);
+    // NSLog(@"图片%ld下载完成", self.model.page);
     // 图片存储起来
     // 下载完成时调用
     // 保存到本地
@@ -285,7 +285,7 @@
 
 // 取消任务和下载失败都会走didCompleteWithError方法
 - (void)downloadingFail {
-    NSLog(@"图片%ld下载失败", self.model.page);
+    // NSLog(@"图片%ld下载失败", self.model.page);
     // 如果不是取消任务，则把数据参数清空
     if (!self.isCancel) {
         self.model.currentData = nil;

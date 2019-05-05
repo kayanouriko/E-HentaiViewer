@@ -11,7 +11,7 @@
 @interface QJTipViewController ()
 
 @property (nonatomic, strong) NSString *tip;
-@property (nonatomic, strong) UIActivityIndicatorView *activity;
+@property (nonatomic, strong) YYAnimatedImageView *loadingImageView;
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel *tiplabel;
 
@@ -28,8 +28,10 @@
 - (void)setContent {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.bgView];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_bgView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_bgView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.view);
+    }];
 }
 
 - (void)startAnimateWithTip:(NSString *)tip {
@@ -39,7 +41,7 @@
     else {
         self.tiplabel.text = @"正在载入";
     }
-    [self.activity startAnimating];
+    self.loadingImageView.hidden = NO;
 }
 
 - (void)stopAnimateWithTip:(NSString *)tip {
@@ -49,41 +51,46 @@
     else {
         self.tiplabel.text = @"载入出错";
     }
-    [self.activity stopAnimating];
+    self.loadingImageView.hidden = YES;
 }
 
 #pragma mark -getter
 - (UIView *)bgView {
     if (nil == _bgView) {
         _bgView = [UIView new];
-        _bgView.translatesAutoresizingMaskIntoConstraints = NO;
         _bgView.backgroundColor = [UIColor clearColor];
-        [_bgView addSubview:self.activity];
+        [_bgView addSubview:self.loadingImageView];
         [_bgView addSubview:self.tiplabel];
-        [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_activity]-5-[_tiplabel]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_activity, _tiplabel)]];
-        [_bgView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tiplabel]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tiplabel)]];
-        [_bgView addConstraint:[NSLayoutConstraint constraintWithItem:_activity attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_bgView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self.loadingImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(self.loadingImageView.mas_width).multipliedBy(97.f / 71.f);
+            make.width.equalTo(@90);
+            make.top.equalTo(self -> _bgView);
+            make.centerX.equalTo(self -> _bgView);
+        }];
+        
+        [self.tiplabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.loadingImageView.mas_bottom).offset(5);
+            make.left.right.bottom.equalTo(self -> _bgView);
+        }];
     }
     return _bgView;
-}
-
-- (UIActivityIndicatorView *)activity {
-    if (nil == _activity) {
-        _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _activity.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _activity;
 }
 
 - (UILabel *)tiplabel {
     if (nil == _tiplabel) {
         _tiplabel = [UILabel new];
-        _tiplabel.translatesAutoresizingMaskIntoConstraints = NO;
         _tiplabel.textColor = [UIColor lightGrayColor];
         _tiplabel.font = [UIFont systemFontOfSize:12.f];
         _tiplabel.text = @"正在载入";
     }
     return _tiplabel;
+}
+
+- (YYAnimatedImageView *)loadingImageView {
+    if (!_loadingImageView) {
+        _loadingImageView = [[YYAnimatedImageView alloc] initWithImage:[YYImage imageNamed:@"loading.gif"]];
+    }
+    return _loadingImageView;
 }
 
 @end

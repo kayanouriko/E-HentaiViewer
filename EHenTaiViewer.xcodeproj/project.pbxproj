@@ -35,6 +35,7 @@
 		5A1F18F91FAFF4F3009E7B89 /* QJSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1F18F81FAFF4F3009E7B89 /* QJSearchBar.xib */; };
 		5A23B3671FCFE64C0053C003 /* QJTipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A23B3661FCFE64C0053C003 /* QJTipViewController.m */; };
 		5A25A2371EE2F8EE00A62DCF /* QJBigImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25A2361EE2F8EE00A62DCF /* QJBigImageItem.m */; };
+		5A2C16F7227EF31E00C49BAA /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2C16F6227EF31E00C49BAA /* launch.png */; };
 		5A2F792F1ECD2CB900745DA0 /* QJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F792E1ECD2CB900745DA0 /* QJViewController.m */; };
 		5A2F79471ECD787500745DA0 /* QJHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F79461ECD787500745DA0 /* QJHomeViewController.m */; };
 		5A2F795A1ECD8C7A00745DA0 /* QJSearchSoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F79581ECD8C7A00745DA0 /* QJSearchSoreCell.m */; };
@@ -89,6 +90,7 @@
 		5A7481E21FFDBB90000ADA0B /* TBCityIconInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7481DD1FFDBB8F000ADA0B /* TBCityIconInfo.m */; };
 		5A7481E31FFDBB90000ADA0B /* TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7481DE1FFDBB8F000ADA0B /* TBCityIconFont.m */; };
 		5A7481E41FFDBB90000ADA0B /* UIImage+TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7481E01FFDBB90000ADA0B /* UIImage+TBCityIconFont.m */; };
+		5A7C3013227EE1DC00589B55 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5A7C3012227EE1DC00589B55 /* loading.gif */; };
 		5A82B5E11F5403100005B6B8 /* QJSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82B5E01F5403100005B6B8 /* QJSettingModel.m */; };
 		5A82B5E31F5403320005B6B8 /* QJSettingModel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A82B5E21F5403320005B6B8 /* QJSettingModel.plist */; };
 		5A842FDD1FC7AC260069AD4C /* QJAllCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A842FDC1FC7AC260069AD4C /* QJAllCommentController.m */; };
@@ -252,6 +254,7 @@
 		5A23B3661FCFE64C0053C003 /* QJTipViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJTipViewController.m; sourceTree = "<group>"; };
 		5A25A2351EE2F8EE00A62DCF /* QJBigImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJBigImageItem.h; sourceTree = "<group>"; };
 		5A25A2361EE2F8EE00A62DCF /* QJBigImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJBigImageItem.m; sourceTree = "<group>"; };
+		5A2C16F6227EF31E00C49BAA /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
 		5A2F792A1ECD2A8500745DA0 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		5A2F792D1ECD2CB900745DA0 /* QJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJViewController.h; sourceTree = "<group>"; };
 		5A2F792E1ECD2CB900745DA0 /* QJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJViewController.m; sourceTree = "<group>"; };
@@ -355,6 +358,7 @@
 		5A7481DF1FFDBB90000ADA0B /* TBCityIconInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCityIconInfo.h; sourceTree = "<group>"; };
 		5A7481E01FFDBB90000ADA0B /* UIImage+TBCityIconFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TBCityIconFont.m"; sourceTree = "<group>"; };
 		5A7481E11FFDBB90000ADA0B /* UIImage+TBCityIconFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TBCityIconFont.h"; sourceTree = "<group>"; };
+		5A7C3012227EE1DC00589B55 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 		5A82B5DF1F5403100005B6B8 /* QJSettingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJSettingModel.h; sourceTree = "<group>"; };
 		5A82B5E01F5403100005B6B8 /* QJSettingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJSettingModel.m; sourceTree = "<group>"; };
 		5A82B5E21F5403320005B6B8 /* QJSettingModel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QJSettingModel.plist; sourceTree = "<group>"; };
@@ -996,6 +1000,14 @@
 			name = IconFont;
 			sourceTree = "<group>";
 		};
+		5A7C3011227EE1C000589B55 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				5A7C3012227EE1DC00589B55 /* loading.gif */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
 		5A82B5DE1F5402F30005B6B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1143,6 +1155,8 @@
 				5A90DAE61ECC3D5900575145 /* List */,
 				5A8EC0751F725F3B005C0DF5 /* HotList */,
 				5A39773F1EF75AEE009A2273 /* TabBar */,
+				5A7C3011227EE1C000589B55 /* Resource */,
+				5A90DACF1ECC3D3F00575145 /* Supporting Files */,
 				5A90DAD21ECC3D3F00575145 /* AppDelegate.h */,
 				5A90DAD31ECC3D3F00575145 /* AppDelegate.m */,
 				5AD8559720F10C3300A21F9A /* QJSecretBgTool.h */,
@@ -1150,8 +1164,8 @@
 				5A90DAD81ECC3D3F00575145 /* Main.storyboard */,
 				5A90DADB1ECC3D3F00575145 /* Assets.xcassets */,
 				5A90DADD1ECC3D3F00575145 /* LaunchScreen.storyboard */,
+				5A2C16F6227EF31E00C49BAA /* launch.png */,
 				5A90DAE01ECC3D3F00575145 /* Info.plist */,
-				5A90DACF1ECC3D3F00575145 /* Supporting Files */,
 			);
 			path = EHenTaiViewer;
 			sourceTree = "<group>";
@@ -1489,6 +1503,7 @@
 				5A8D33441ED2928D009567C2 /* QJLoginViewController.xib in Resources */,
 				5A93CF871FE29026009E9C5A /* QJRankingViewController.xib in Resources */,
 				5A6ECC991EDE771C00DBF9DA /* QJImageCollectionViewCell.xib in Resources */,
+				5A2C16F7227EF31E00C49BAA /* launch.png in Resources */,
 				5A34DBA61FC26011007B0A5F /* QJNewInfoViewController.xib in Resources */,
 				5A56B69D1F57B37800F30BD5 /* QJLanguageOutHeadView.xib in Resources */,
 				5A57E0461F4EC4310033663B /* QJSettingListCell.xib in Resources */,
@@ -1510,6 +1525,7 @@
 				5A958CB11EF11DC400AF3D68 /* QJGoCommentController.xib in Resources */,
 				5AFE3B0A2272E0D80059DC01 /* QJSettingMyTagsCell.xib in Resources */,
 				5A48AF2F1FDFC60F00E9F35B /* QJFavoritesSelectCell.xib in Resources */,
+				5A7C3013227EE1DC00589B55 /* loading.gif in Resources */,
 				5A1999D21ED6A78800DB6B9D /* QJTouchIDViewController.xib in Resources */,
 				5AD6FFD9213C3D8600D34BCB /* QJMainSettingListCell.xib in Resources */,
 			);

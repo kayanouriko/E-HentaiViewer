@@ -30,7 +30,7 @@
 
 // 开始任务
 - (void)main {
-    NSLog(@"开始解析页码为%ld的所有图片", self.count);
+    // NSLog(@"开始解析页码为%ld的所有图片", self.count);
     // 随时监测队列的退出情况
     if (self.isCancelled) return;
     
@@ -81,7 +81,7 @@
             }
             // 这里任务结束,回调出去
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"图片链接解析完成");
+                // NSLog(@"图片链接解析完成");
                 if (self.delegate && [self.delegate respondsToSelector:@selector(imageUrlDidParserWithArray:smallUrls:page:parser:)]) {
                     [self.delegate imageUrlDidParserWithArray:urls smallUrls:smallUrls page:self.count parser:self];
                 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,26 +19,30 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WhZ-9K-4pw">
-                        <rect key="frame" x="88" y="131" width="61.5" height="40"/>
+                        <rect key="frame" x="88" y="100.5" width="61.5" height="102"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="图片获取中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGS-NK-Vl2">
-                                <rect key="frame" x="0.0" y="25" width="61.5" height="15"/>
+                                <rect key="frame" x="0.0" y="87" width="61.5" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="RSH-Ri-SZe">
-                                <rect key="frame" x="20.5" y="0.0" width="20" height="20"/>
-                            </activityIndicatorView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qQT-iJ-RWS" customClass="YYAnimatedImageView">
+                                <rect key="frame" x="0.5" y="0.0" width="60" height="82"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="uOV-ob-klN"/>
+                                    <constraint firstAttribute="width" secondItem="qQT-iJ-RWS" secondAttribute="height" multiplier="71:97" id="ykW-H8-49i"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="RSH-Ri-SZe" firstAttribute="centerX" secondItem="WhZ-9K-4pw" secondAttribute="centerX" id="0Cg-JY-KZF"/>
                             <constraint firstAttribute="trailing" secondItem="JGS-NK-Vl2" secondAttribute="trailing" id="CK1-18-SZH"/>
-                            <constraint firstItem="RSH-Ri-SZe" firstAttribute="top" secondItem="WhZ-9K-4pw" secondAttribute="top" id="Nnp-U7-eVQ"/>
                             <constraint firstAttribute="bottom" secondItem="JGS-NK-Vl2" secondAttribute="bottom" id="Wcq-D8-aWC"/>
+                            <constraint firstItem="qQT-iJ-RWS" firstAttribute="top" secondItem="WhZ-9K-4pw" secondAttribute="top" id="Wdq-sg-kjt"/>
+                            <constraint firstItem="qQT-iJ-RWS" firstAttribute="centerX" secondItem="WhZ-9K-4pw" secondAttribute="centerX" id="bAT-dn-jKK"/>
                             <constraint firstItem="JGS-NK-Vl2" firstAttribute="leading" secondItem="WhZ-9K-4pw" secondAttribute="leading" id="e8t-JS-ZEW"/>
-                            <constraint firstItem="JGS-NK-Vl2" firstAttribute="top" secondItem="RSH-Ri-SZe" secondAttribute="bottom" constant="5" id="wum-FL-Fwb"/>
+                            <constraint firstItem="JGS-NK-Vl2" firstAttribute="top" secondItem="qQT-iJ-RWS" secondAttribute="bottom" constant="5" id="wX8-SE-KQa"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -49,11 +53,11 @@
             </constraints>
             <size key="customSize" width="237" height="303"/>
             <connections>
-                <outlet property="activity" destination="RSH-Ri-SZe" id="YWm-8n-ya7"/>
                 <outlet property="bgView" destination="WhZ-9K-4pw" id="d8B-E8-yhe"/>
+                <outlet property="loadingImageView" destination="qQT-iJ-RWS" id="aaC-Tn-FbF"/>
                 <outlet property="tipLabel" destination="JGS-NK-Vl2" id="OEm-q1-Lub"/>
             </connections>
-            <point key="canvasLocation" x="-366" y="13"/>
+            <point key="canvasLocation" x="-367.19999999999999" y="12.143928035982009"/>
         </collectionViewCell>
     </objects>
 </document>

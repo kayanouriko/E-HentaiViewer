@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) YYAnimatedImageView *mangaImageView;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+@property (weak, nonatomic) IBOutlet YYAnimatedImageView *loadingImageView;
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
 
 @end
@@ -24,6 +24,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self addSubview:self.scrollView];
+    
+    self.loadingImageView.image = [YYImage imageNamed:@"loading.gif"];
 }
 
 // 感谢KNPhotoBrowerImageView
@@ -98,15 +100,13 @@
 
 - (void)showTip {
     self.bgView.hidden = NO;
-    self.activity.hidden = NO;
-    [self.activity startAnimating];
+    self.loadingImageView.hidden = NO;
     self.tipLabel.text = @"图片获取中";
 }
 
 - (void)hiddenTip {
     self.bgView.hidden = YES;
-    self.activity.hidden = YES;
-    [self.activity stopAnimating];
+    self.loadingImageView.hidden = YES;
     self.tipLabel.text = @"";
 }
 
@@ -125,8 +125,7 @@
 
 - (void)imageDidDownloadFailWithModel:(QJMangaImageModel *)model {
     self.bgView.hidden = NO;
-    self.activity.hidden = YES;
-    [self.activity stopAnimating];
+    self.loadingImageView.hidden = YES;
     self.tipLabel.text = @"图片获取失败！";
 }
 
