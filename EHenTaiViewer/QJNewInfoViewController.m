@@ -27,10 +27,6 @@
 #import "QJNewBrowerViewController.h"
 #import "QJNewSearchViewController.h"
 
-//iconfont
-#import "TBCityIconFont.h"
-#import "UIImage+TBCityIconFont.h"
-
 @interface QJNewInfoViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, QJNewCommentCellDelegate, XHStarRateViewDelegate, QJFavouriteViewControllerDelagate, QJTagViewDelegate>
 
 //导航栏部分
@@ -534,7 +530,7 @@
 
 - (UIBarButtonItem *)actionItem {
     if (nil == _actionItem) {
-        _actionItem = [[UIBarButtonItem alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e610", 25, [UIColor whiteColor])] style:UIBarButtonItemStylePlain target:self action:@selector(shareAction)];;
+        _actionItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_share"] style:UIBarButtonItemStylePlain target:self action:@selector(shareAction)];;
     }
     return _actionItem;
 }

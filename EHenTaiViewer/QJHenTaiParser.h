@@ -50,6 +50,7 @@ typedef void (^MyTagsHandler)(QJHenTaiParserStatus status ,NSDictionary *json);
 //列表
 - (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion total:(TotalHandler)total;
 - (void)updateHotListInfoComplete:(ListHandler)completion;
+- (void)updateWatchedListInfoWithUrl:(NSString *)url complete:(ListHandler)completion total:(TotalHandler)total;
 - (void)updateLikeListInfoWithUrl:(NSString *)url complete:(ListHandler)completion;
 - (void)updateOtherListInfoWithUrl:(NSString *)url complete:(ListHandler)completion;
 //获取单个链接的画廊信息

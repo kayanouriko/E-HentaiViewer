@@ -47,14 +47,9 @@
     self.timeLabel.text = dict[@"repostTime"];
 }
 
-//拦截URL,高于iOS9的不跳safari浏览器
+//拦截URL,高于iOS9的不跳safari浏览器,在外面不让跳转
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
-    if ([UIDevice currentDevice].systemVersion.doubleValue >= 9.0) {
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:URL];
-        [[self viewController] presentViewController:safariVC animated:YES completion:nil];
-        return NO;
-    }
-    return YES;
+    return NO;
 }
 
 - (IBAction)btnAction:(UIButton *)sender {
@@ -66,26 +61,6 @@
         }
         return;
     }
-    //跳转上传者搜索
-    NSString *uploader = [self.titleBtn titleForState:UIControlStateNormal];
-    NSString *searchKey = [NSString stringWithFormat:@"uploader:%@", uploader];
-    NSString *url = [NSString stringWithFormat:@"uploader/%@/", [uploader urlEncode]];
-    QJGalleryTagItem *model = [QJGalleryTagItem new];
-    model.searchKey = searchKey;
-    model.url = url;
-    QJSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([QJSearchViewController class])];
-    vc.model = model;
-    [[self viewController].navigationController pushViewController:vc animated:YES];
-}
-
-- (UIViewController*)viewController {
-    for (UIView* next = [self superview]; next; next = next.superview) {
-        UIResponder* nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController*)nextResponder;
-        }
-    }
-    return nil;
 }
 
 @end

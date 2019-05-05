@@ -26,8 +26,9 @@
 
 - (void)initUI {
     [self.view addSubview:self.tableView];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction)];
     self.navigationItem.rightBarButtonItem = item;
@@ -104,10 +105,11 @@
 - (NSDictionary *)imageDatas {
     if (!_imageDatas) {
         _imageDatas = @{
-                        @"当前热门": @"today",
-                        @"画廊": @"games",
-                        @"收藏": @"updates",
-                        @"设置": @"apps",
+                        @"当前热门": @"ic_whatshot",
+                        @"画廊": @"ic_format_list_bulleted",
+                        @"关注": @"ic_notifications",
+                        @"收藏": @"ic_favorite",
+                        @"设置": @"ic_settings",
                         };
     }
     return _imageDatas;

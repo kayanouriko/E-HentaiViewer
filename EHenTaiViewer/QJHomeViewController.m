@@ -161,7 +161,7 @@
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
     
     self.totalPage = 0;
-    
+    /*
     UIView *logoView = [UIView new];
     logoView.frame = CGRectMake(0, 0, 97.5f, 30.f);
     UIImageView *imageView = [UIImageView new];
@@ -170,7 +170,7 @@
     imageView.frame = logoView.frame;
     [logoView addSubview:imageView];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:logoView];
-    
+    */
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.pageButton];
     self.navigationItem.rightBarButtonItem = item;
     

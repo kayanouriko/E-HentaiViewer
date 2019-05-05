@@ -70,9 +70,11 @@
 
 - (void)commentCell:(QJCommentCell *)cell didClickContentUrlWithURL:(NSURL *)URL {
     if (![[QJPasteManager sharedInstance] checkInfoWithUrl:URL.absoluteString]) {
-        // 这里直接跳转内置浏览器
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:URL];
-        [self presentViewController:safariVC animated:YES completion:nil];
+        if ([URL.absoluteString hasPrefix:@"http"]) {
+            // 这里直接跳转内置浏览器
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:URL];
+            [self presentViewController:safariVC animated:YES completion:nil];
+        }
     }
 }
 

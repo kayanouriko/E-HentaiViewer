@@ -96,7 +96,7 @@
 }
 
 - (void)updateSearchDatas {
-    if (self.type == QJNewSearchViewControllerTypeSearch || self.type == QJNewSearchViewControllerTypeTag) {
+    if (self.type == QJNewSearchViewControllerTypeSearch || self.type == QJNewSearchViewControllerTypeWatched || self.type == QJNewSearchViewControllerTypeTag) {
         [self updateNormalSearchDatas];
     }
     else if(self.type == QJNewSearchViewControllerTypeFavorites) {
@@ -150,7 +150,7 @@
 }
 
 - (NSString *)makeUrl {
-    NSMutableString *url = [NSMutableString stringWithString:@"?"];
+    NSMutableString *url = [NSMutableString stringWithString:self.type == QJNewSearchViewControllerTypeWatched ? @"watched?" : @"?"];
     // 先添加筛选项
     NSArray *normalStatus = [QJGlobalInfo getExHentaiSearchSettingArr];
     NSMutableArray *params = [NSMutableArray new];

@@ -11,9 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, QJNewSearchViewControllerType) {
-    QJNewSearchViewControllerTypeSearch, // 普通搜索
+    QJNewSearchViewControllerTypeSearch,    // 普通搜索
     QJNewSearchViewControllerTypeFavorites, // 收藏夹搜索
-    QJNewSearchViewControllerTypeTag, // 标签跳转
+    QJNewSearchViewControllerTypeTag,       // 标签跳转
+    QJNewSearchViewControllerTypeWatched,   // 关注搜索
 };
 
 @interface QJNewSearchViewController : QJViewController

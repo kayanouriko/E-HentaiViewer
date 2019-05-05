@@ -55,8 +55,8 @@ static NSString * const ExHentaiUserImageUrl = @"ExHentaiUserImageUrl";
 #pragma mark - 全局配置
 + (NSArray<NSString *> *)customTabbarItems {
     NSArray *array = NSObjForKey(ExHentaiTabbarItems);
-    if (nil == array || array.count != 4) {
-        [self setCustomTabbarItems:@[@"当前热门", @"画廊", @"收藏", @"设置"]];
+    if (nil == array || array.count != 5 || ![array containsObject:@"关注"]) {
+        [self setCustomTabbarItems:@[@"当前热门", @"画廊", @"关注", @"收藏", @"设置"]];
     }
     NSArray<NSString *> *customTabbarItems = NSObjForKey(ExHentaiTabbarItems);
     return customTabbarItems;

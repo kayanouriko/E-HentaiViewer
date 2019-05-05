@@ -306,14 +306,19 @@
     completionHandler(nil);
 }
 
-#pragma mark -列表爬取
+#pragma mark - 列表爬取
 - (void)updateListInfoWithUrl:(NSString *)url complete:(ListHandler)completion total:(TotalHandler)total {
     [self requestListInfo:url searchRule:@"//td[@class='gl3c glname']" complete:completion total:total];
 }
 
-#pragma mark -热门爬取
+#pragma mark - 热门爬取
 - (void)updateHotListInfoComplete:(ListHandler)completion {
     [self requestListInfo:@"popular" searchRule:@"//td[@class='gl3c glname']" complete:completion total:nil];
+}
+
+#pragma mark - 关注爬取
+- (void)updateWatchedListInfoWithUrl:(NSString *)url complete:(ListHandler)completion total:(TotalHandler)total {
+    [self requestListInfo:url searchRule:@"//td[@class='gl3c glname']" complete:completion total:total];
 }
 
 #pragma mark -收藏爬取

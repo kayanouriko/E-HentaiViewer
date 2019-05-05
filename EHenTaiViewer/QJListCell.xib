@@ -57,7 +57,7 @@
                         <color key="textColor" red="1" green="0.7746543884" blue="0.0063153319060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list_download" translatesAutoresizingMaskIntoConstraints="NO" id="2sT-am-2qR">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2sT-am-2qR">
                         <rect key="frame" x="371" y="248.33333333333334" width="13" height="13.000000000000028"/>
                         <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
@@ -71,7 +71,7 @@
                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list_page" translatesAutoresizingMaskIntoConstraints="NO" id="ciu-ga-Mhh">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ciu-ga-Mhh">
                         <rect key="frame" x="430" y="248.33333333333334" width="13" height="13.000000000000028"/>
                         <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
@@ -161,8 +161,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="list_download" width="10.666666984558105" height="10.666666984558105"/>
-        <image name="list_page" width="10.666666984558105" height="10.666666984558105"/>
         <image name="thumb" width="200" height="283"/>
     </resources>
 </document>
