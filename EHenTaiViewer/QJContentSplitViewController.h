@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QJContentSplitViewController : UISplitViewController
 
+@property(nonatomic, assign) CGFloat maximumPrimaryColumnWidth NS_AVAILABLE_IOS(8_0);
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -487,18 +487,21 @@
 #pragma mark -收藏夹名字的爬取
 - (void)parserFavoritesInfoWithHpple:(TFHpple *)xpathParser {
     NSMutableArray *favorites = [NSMutableArray new];
-    NSArray *facats = [xpathParser searchWithXPathQuery:@"//div[@class='ido']//div[@class='nosel']//div[@class='fp']"];
+    NSArray *facats = [xpathParser searchWithXPathQuery:@"//div[@class='ido']//div[@class='nosel']/div"];
     NSInteger total = 0;
-    for (TFHppleElement *facatElement in facats) {
-        NSArray<TFHppleElement *> *divs = [facatElement searchWithXPathQuery:@"//div"];
-        if (divs.count >= 3) {
-            //收藏夹名字,收藏数
-            NSMutableArray *subArr = [NSMutableArray new];
-            [subArr addObject:divs.lastObject.text];
-            NSString *count = divs[1].text;
-            [subArr addObject:count];
-            total += [count integerValue];
-            [favorites addObject:subArr];
+    for (NSInteger i = 0; i < 11; i++) {
+        if (i < facats.count) {
+            TFHppleElement *facatElement = facats[i];
+            NSArray<TFHppleElement *> *divs = [facatElement searchWithXPathQuery:@"//div"];
+            if (divs.count >= 3) {
+                //收藏夹名字,收藏数
+                NSMutableArray *subArr = [NSMutableArray new];
+                [subArr addObject:divs.lastObject.text];
+                NSString *count = divs[1].text;
+                [subArr addObject:count];
+                total += [count integerValue];
+                [favorites addObject:subArr];
+            }
         }
     }
     //最后加入全部收藏夹的信息

@@ -90,6 +90,17 @@
             [self.likeTableview reloadData];
         }
         else if (status == QJHenTaiParserStatusParseNoMore) {
+            //收藏夹按钮设置
+            if (nil == self.navigationItem.rightBarButtonItem) {
+                self.navigationItem.rightBarButtonItem = self.bookmarksItem;
+            }
+            //多功能操作按钮实现
+            if (listArray.count && nil == self.navigationItem.leftBarButtonItem) {
+                self.navigationItem.leftBarButtonItem = self.editItem;
+            }
+            else if (listArray.count == 0 && nil != self.navigationItem.leftBarButtonItem) {
+                self.navigationItem.leftBarButtonItem = nil;
+            }
             [self.likeTableview reloadData];
         }
         self.status = listArray.count ? QJFreshStatusNone : QJFreshStatusNotMore;

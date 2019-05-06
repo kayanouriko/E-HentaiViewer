@@ -46,7 +46,7 @@
         vc.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
         self.window.rootViewController = vc;
     }
-    */
+     */
     return YES;
 }
 

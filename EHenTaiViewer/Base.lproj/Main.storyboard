@@ -347,7 +347,6 @@
         <!--Now View Controller-->
         <scene sceneID="op1-Iu-aXS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Qkm-ah-aMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="hPB-nM-AcR" customClass="QJNowViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xes-4D-9Wq"/>
@@ -360,6 +359,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="rHq-ai-N7E"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qkm-ah-aMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2872" y="4212"/>
         </scene>
@@ -369,7 +369,7 @@
                 <splitViewController storyboardIdentifier="ipad" presentsWithGesture="NO" id="qgj-PC-26a" customClass="QJMainSplitViewController" sceneMemberID="viewController">
                     <connections>
                         <segue destination="9BU-PP-mOq" kind="relationship" relationship="masterViewController" id="dxh-Nq-Rx8"/>
-                        <segue destination="Og5-9f-LCL" kind="relationship" relationship="detailViewController" id="al5-LF-X1a"/>
+                        <segue destination="Nxy-ud-sR4" kind="relationship" relationship="detailViewController" id="YCn-dd-ueP"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fy-Pu-xYd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -469,7 +469,4 @@
         <image name="ic_settings" width="24" height="24"/>
         <image name="ic_whatshot" width="24" height="24"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="al5-LF-X1a"/>
-    </inferredMetricsTieBreakers>
 </document>

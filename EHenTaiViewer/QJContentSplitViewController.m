@@ -14,10 +14,13 @@
 
 @implementation QJContentSplitViewController
 
+@dynamic maximumPrimaryColumnWidth;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-    self.preferredPrimaryColumnWidthFraction = 0.4f;
+    self.preferredPrimaryColumnWidthFraction = 1.f;
+    self.maximumPrimaryColumnWidth = self.view.bounds.size.width;
 }
 
 @end
