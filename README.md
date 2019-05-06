@@ -34,11 +34,13 @@
 ![](https://ws3.sinaimg.cn/large/006tNc79gy1g2rmakblg1j32790u01ky.jpg)
 
 # 感谢
-应用借鉴和参考以下项目的部分代码和逻辑进行开发\
-* [Dai-Hentai](https://github.com/DaidoujiChen/Dai-Hentai)\
-* [EhViewer](https://github.com/seven332/EhViewer)\
-ehentai标签汉化项目\
-* [EhTagTranslator](https://github.com/Mapaler/EhTagTranslator)\
+应用借鉴和参考以下项目的部分代码和逻辑进行开发
+* [Dai-Hentai](https://github.com/DaidoujiChen/Dai-Hentai)
+* [EhViewer](https://github.com/seven332/EhViewer)
+
+ehentai标签汉化项目
+* [EhTagTranslator](https://github.com/Mapaler/EhTagTranslator)
+
 诸多开源项目框架，详情参看应用-关于\
 还有捉虫和提建议的e友们、拿这项目卖钱的js们
 
