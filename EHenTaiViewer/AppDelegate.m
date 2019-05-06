@@ -39,7 +39,14 @@
     // 密码验证相关
     [[QJGlobalInfo sharedInstance] putAttribute:@"BackgroundTime" value:@([[NSProcessInfo processInfo] systemUptime] - 120)];
     self.fristTime = YES;
-    
+    /** TODO:测试功能, 平板模式跳转
+    if (isPad) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UISplitViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ipad"];
+        vc.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+        self.window.rootViewController = vc;
+    }
+    */
     return YES;
 }
 

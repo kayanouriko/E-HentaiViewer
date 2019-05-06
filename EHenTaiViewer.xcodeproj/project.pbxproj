@@ -134,6 +134,8 @@
 		5ABF18301FE7612400B28660 /* QJRankingUploadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ABF182E1FE7612400B28660 /* QJRankingUploadCell.xib */; };
 		5ACA2B671F2867BE003DF3D0 /* QJTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA2B661F2867BE003DF3D0 /* QJTableViewCell.m */; };
 		5ACFFC362106290B00F64B57 /* QJCustomTabbarSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACFFC352106290B00F64B57 /* QJCustomTabbarSettingController.m */; };
+		5AD64D4E227FD0E9001B6872 /* QJMainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD64D4D227FD0E9001B6872 /* QJMainSplitViewController.m */; };
+		5AD64D51227FD125001B6872 /* QJContentSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD64D50227FD125001B6872 /* QJContentSplitViewController.m */; };
 		5AD6FFD8213C3D8600D34BCB /* QJMainSettingListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6FFD6213C3D8600D34BCB /* QJMainSettingListCell.m */; };
 		5AD6FFD9213C3D8600D34BCB /* QJMainSettingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD6FFD7213C3D8600D34BCB /* QJMainSettingListCell.xib */; };
 		5AD8557320F1093A00A21F9A /* QJNewBrowerImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8557020F1093A00A21F9A /* QJNewBrowerImageCell.xib */; };
@@ -433,6 +435,10 @@
 		5ACA2B661F2867BE003DF3D0 /* QJTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTableViewCell.m; sourceTree = "<group>"; };
 		5ACFFC342106290B00F64B57 /* QJCustomTabbarSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJCustomTabbarSettingController.h; sourceTree = "<group>"; };
 		5ACFFC352106290B00F64B57 /* QJCustomTabbarSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJCustomTabbarSettingController.m; sourceTree = "<group>"; };
+		5AD64D4C227FD0E9001B6872 /* QJMainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJMainSplitViewController.h; sourceTree = "<group>"; };
+		5AD64D4D227FD0E9001B6872 /* QJMainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJMainSplitViewController.m; sourceTree = "<group>"; };
+		5AD64D4F227FD125001B6872 /* QJContentSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJContentSplitViewController.h; sourceTree = "<group>"; };
+		5AD64D50227FD125001B6872 /* QJContentSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJContentSplitViewController.m; sourceTree = "<group>"; };
 		5AD6FFD5213C3D8600D34BCB /* QJMainSettingListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJMainSettingListCell.h; sourceTree = "<group>"; };
 		5AD6FFD6213C3D8600D34BCB /* QJMainSettingListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJMainSettingListCell.m; sourceTree = "<group>"; };
 		5AD6FFD7213C3D8600D34BCB /* QJMainSettingListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJMainSettingListCell.xib; sourceTree = "<group>"; };
@@ -1155,6 +1161,7 @@
 				5A90DAE61ECC3D5900575145 /* List */,
 				5A8EC0751F725F3B005C0DF5 /* HotList */,
 				5A39773F1EF75AEE009A2273 /* TabBar */,
+				5AD64D4B227FD0A1001B6872 /* iPadMain */,
 				5A7C3011227EE1C000589B55 /* Resource */,
 				5A90DACF1ECC3D3F00575145 /* Supporting Files */,
 				5A90DAD21ECC3D3F00575145 /* AppDelegate.h */,
@@ -1297,6 +1304,17 @@
 				5ACFFC352106290B00F64B57 /* QJCustomTabbarSettingController.m */,
 			);
 			name = CustomTabbarSetting;
+			sourceTree = "<group>";
+		};
+		5AD64D4B227FD0A1001B6872 /* iPadMain */ = {
+			isa = PBXGroup;
+			children = (
+				5AD64D4C227FD0E9001B6872 /* QJMainSplitViewController.h */,
+				5AD64D4D227FD0E9001B6872 /* QJMainSplitViewController.m */,
+				5AD64D4F227FD125001B6872 /* QJContentSplitViewController.h */,
+				5AD64D50227FD125001B6872 /* QJContentSplitViewController.m */,
+			);
+			name = iPadMain;
 			sourceTree = "<group>";
 		};
 		5AD8557520F1094E00A21F9A /* View */ = {
@@ -1664,6 +1682,7 @@
 				5A0780BD1ECEE9C900EF00E6 /* QJListCell.m in Sources */,
 				5A0A1F4F1EE0146E002C8AF8 /* QJGoCommentController.m in Sources */,
 				5ABA40F21ED4386400B21707 /* NJKWebViewProgressView.m in Sources */,
+				5AD64D4E227FD0E9001B6872 /* QJMainSplitViewController.m in Sources */,
 				5A1EE0D61FB3E0F000AA3DE4 /* QJButton.m in Sources */,
 				5A0245041ED7C55C00C3FE26 /* NSString+StringHeight.m in Sources */,
 				5A717ECB2251F464000F9B55 /* QJSearchSettingTagSearchViewController.m in Sources */,
@@ -1682,6 +1701,7 @@
 				5A86C3241ED1A07300A8CD80 /* QJGlobalInfo.m in Sources */,
 				5AD8558820F1098D00A21F9A /* QJMangaImageParser.m in Sources */,
 				5AB595051EEE28CB005D7CF3 /* QJHeadFreshingView.m in Sources */,
+				5AD64D51227FD125001B6872 /* QJContentSplitViewController.m in Sources */,
 				5A0A25662266CD2F00A54EFB /* QJTool.m in Sources */,
 				5A6ECCAE1EDE9D8B00DBF9DA /* QJGalleryItem.m in Sources */,
 				5A89EAD61EDF1A1500DA434F /* QJCommentCell.m in Sources */,
