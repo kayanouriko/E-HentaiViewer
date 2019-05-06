@@ -60,14 +60,14 @@
         case QJLikeButtonStateLike:
         {
             self.likeImageView.hidden = NO;
-            self.likeImageView.image = [[UIImage imageNamed:@"like"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.likeImageView.image = [[UIImage imageNamed:@"ic_favorite"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [self.activity stopAnimating];
         }
             break;
         case QJLikeButtonStateUnLike:
         {
             self.likeImageView.hidden = NO;
-            self.likeImageView.image = [[UIImage imageNamed:@"unlike"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.likeImageView.image = [[UIImage imageNamed:@"ic_favorite_border"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [self.activity stopAnimating];
         }
             break;
@@ -88,7 +88,7 @@
         _likeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
         _likeImageView.translatesAutoresizingMaskIntoConstraints = NO;
         _likeImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _likeImageView.image = [[UIImage imageNamed:@"unlike"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _likeImageView.image = [[UIImage imageNamed:@"ic_favorite_border"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return _likeImageView;
 }
