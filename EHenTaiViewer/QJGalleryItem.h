@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *cname;//汉化标签
+@property (strong, nonatomic) NSString *group; // 分组
 @property (nonatomic, strong) NSString *searchKey;//用于在搜索页面显示
 @property (nonatomic, strong) NSString *url;
 //日语的位置

@@ -215,10 +215,10 @@
 
 #pragma mark - QJTagViewDelegate
 - (void)tagView:(QJTagView *)tagView didClickTagWithModel:(QJGalleryTagItem *)model {
-    NSString *title = model.searchKey;
-    NSString *cat = [model.searchKey componentsSeparatedByString:@":"].firstObject;
+    NSString *title = [NSString stringWithFormat:@"%@:\"%@\"", model.group, model.name];
     model.searchKey = @"";
-    model.url = [NSString stringWithFormat:@"%@-%@", cat, model.name];
+    model.url = [NSString stringWithFormat:@"%@-%@", model.group, model.name];
+    NSLog(@"%@ -- %@", model.url, title);
     [self pushSearchVCWithModel:model title:title];
 }
 

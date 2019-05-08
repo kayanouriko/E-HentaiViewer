@@ -134,7 +134,6 @@
 // 普通搜索
 - (void)updateNormalSearchDatas {
     NSString *url = [self makeUrl];
-    NSLog(@"%@", url);
     // 开始请求数据
     [[QJHenTaiParser parser] updateListInfoWithUrl:url complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
         if ([self.refrshControl isRefreshing]) {

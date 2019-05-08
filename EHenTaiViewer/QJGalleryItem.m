@@ -117,6 +117,7 @@
             model.url = [rightTagElement objectForKey:@"href"];
             //拼接用于在搜索界面显示的关键字
             model.searchKey = [NSString stringWithFormat:@"%@:\"%@\"", leftStr, model.name];
+            model.group = leftStr;
             [rightTagArr addObject:model];
         }
         CGFloat tagViewHeight = [self getTagViewHeightWithLaftStr:leftStr rightArr:rightTagArr isCN:NO];
