@@ -19,7 +19,6 @@
         self.rating = [isnull(@"rating", dict) floatValue];
         self.category = [self getCategoryNameAndColor:isnull(@"category", dict) classifyArr:classifyArr colorArr:colorArr];
         self.thumb = isnull(@"thumb", dict);
-        [[YYWebImageManager sharedManager] requestImageWithURL:[NSURL URLWithString:self.thumb] options:YYWebImageOptionProgressiveBlur | YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionHandleCookies progress:nil transform:nil completion:nil];
         self.uploader = isnull(@"uploader", dict);
         self.expunged = [isnull(@"expunged", dict) boolValue];
         self.tags = dict[@"tags"];

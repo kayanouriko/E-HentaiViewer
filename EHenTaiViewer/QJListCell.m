@@ -40,7 +40,7 @@
     
     self.titleLabel.text = ([QJGlobalInfo isExHentaiTitleJnMode] && item.title_jpn.length) ? item.title_jpn : item.title;
     self.uploaderLabel.text = item.uploader;
-    self.rateLabel.text = [NSString stringWithFormat:@"%.2f", item.rating];
+    self.rateLabel.text = [NSString stringWithFormat:@"%.2f", item.rating * 2];
     self.starView.currentScore = item.rating;
     self.categoryLabel.text = [NSString stringWithFormat:@"  %@  ",item.category];
     self.categoryLabel.backgroundColor = item.categoryColor;

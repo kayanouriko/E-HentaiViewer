@@ -50,8 +50,15 @@
 
 + (void)recoverPortraitOrienttation {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    appDelegate.orientation = UIInterfaceOrientationMaskPortrait;
-    [UIDevice switchNewOrientation:UIInterfaceOrientationPortrait];
+    // 设置应用可设置的方向
+    if (isPad) {
+        appDelegate.orientation = UIInterfaceOrientationMaskAll;
+    }
+    else {
+        appDelegate.orientation = UIInterfaceOrientationMaskPortrait;
+        // iphone的时候同时让屏幕强制恢复竖屏状态
+        [UIDevice switchNewOrientation:UIInterfaceOrientationPortrait];
+    }
 }
 
 + (void)setOrientationWithSelected:(NSInteger)selectedIndex {

@@ -25,6 +25,7 @@
 		5A0A1F371EDFB7C3002C8AF8 /* QJTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F361EDFB7C3002C8AF8 /* QJTagView.m */; };
 		5A0A1F4F1EE0146E002C8AF8 /* QJGoCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A1F4D1EE0146E002C8AF8 /* QJGoCommentController.m */; };
 		5A0A25662266CD2F00A54EFB /* QJTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0A25652266CD2F00A54EFB /* QJTool.m */; };
+		5A11320B2285612700853165 /* QJBrowerSystemInfoShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11320A2285612700853165 /* QJBrowerSystemInfoShowView.m */; };
 		5A1999C21ED6891100DB6B9D /* QJListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1999C11ED6891100DB6B9D /* QJListTableView.m */; };
 		5A1999C61ED68C9800DB6B9D /* QJProtectTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1999C51ED68C9800DB6B9D /* QJProtectTool.m */; };
 		5A1999C81ED6A49300DB6B9D /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A1999C71ED6A49300DB6B9D /* LocalAuthentication.framework */; };
@@ -36,6 +37,8 @@
 		5A23B3671FCFE64C0053C003 /* QJTipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A23B3661FCFE64C0053C003 /* QJTipViewController.m */; };
 		5A25A2371EE2F8EE00A62DCF /* QJBigImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25A2361EE2F8EE00A62DCF /* QJBigImageItem.m */; };
 		5A2C16F7227EF31E00C49BAA /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2C16F6227EF31E00C49BAA /* launch.png */; };
+		5A2CA7CD22867A53004171EC /* QJBrowerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2CA7CB22867A53004171EC /* QJBrowerSettingViewController.m */; };
+		5A2CA7CE22867A53004171EC /* QJBrowerSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A2CA7CC22867A53004171EC /* QJBrowerSettingViewController.xib */; };
 		5A2F792F1ECD2CB900745DA0 /* QJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F792E1ECD2CB900745DA0 /* QJViewController.m */; };
 		5A2F79471ECD787500745DA0 /* QJHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F79461ECD787500745DA0 /* QJHomeViewController.m */; };
 		5A2F795A1ECD8C7A00745DA0 /* QJSearchSoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F79581ECD8C7A00745DA0 /* QJSearchSoreCell.m */; };
@@ -134,14 +137,10 @@
 		5ABF18301FE7612400B28660 /* QJRankingUploadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ABF182E1FE7612400B28660 /* QJRankingUploadCell.xib */; };
 		5ACA2B671F2867BE003DF3D0 /* QJTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACA2B661F2867BE003DF3D0 /* QJTableViewCell.m */; };
 		5ACFFC362106290B00F64B57 /* QJCustomTabbarSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACFFC352106290B00F64B57 /* QJCustomTabbarSettingController.m */; };
-		5AD64D4E227FD0E9001B6872 /* QJMainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD64D4D227FD0E9001B6872 /* QJMainSplitViewController.m */; };
-		5AD64D51227FD125001B6872 /* QJContentSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD64D50227FD125001B6872 /* QJContentSplitViewController.m */; };
 		5AD6FFD8213C3D8600D34BCB /* QJMainSettingListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6FFD6213C3D8600D34BCB /* QJMainSettingListCell.m */; };
 		5AD6FFD9213C3D8600D34BCB /* QJMainSettingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD6FFD7213C3D8600D34BCB /* QJMainSettingListCell.xib */; };
 		5AD8557320F1093A00A21F9A /* QJNewBrowerImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8557020F1093A00A21F9A /* QJNewBrowerImageCell.xib */; };
 		5AD8557420F1093A00A21F9A /* QJNewBrowerImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8557220F1093A00A21F9A /* QJNewBrowerImageCell.m */; };
-		5AD8557920F1096700A21F9A /* QJBrowerSettingPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD8557720F1096700A21F9A /* QJBrowerSettingPopView.xib */; };
-		5AD8557A20F1096700A21F9A /* QJBrowerSettingPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8557820F1096700A21F9A /* QJBrowerSettingPopView.m */; };
 		5AD8558520F1098D00A21F9A /* QJMangaImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8557E20F1098C00A21F9A /* QJMangaImageDownloader.m */; };
 		5AD8558620F1098D00A21F9A /* QJMangaImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8557F20F1098C00A21F9A /* QJMangaImageModel.m */; };
 		5AD8558720F1098D00A21F9A /* QJMangaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8558020F1098C00A21F9A /* QJMangaManager.m */; };
@@ -239,6 +238,8 @@
 		5A0A1F4D1EE0146E002C8AF8 /* QJGoCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJGoCommentController.m; sourceTree = "<group>"; };
 		5A0A25642266CD2F00A54EFB /* QJTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJTool.h; sourceTree = "<group>"; };
 		5A0A25652266CD2F00A54EFB /* QJTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJTool.m; sourceTree = "<group>"; };
+		5A1132092285612700853165 /* QJBrowerSystemInfoShowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJBrowerSystemInfoShowView.h; sourceTree = "<group>"; };
+		5A11320A2285612700853165 /* QJBrowerSystemInfoShowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJBrowerSystemInfoShowView.m; sourceTree = "<group>"; };
 		5A1999C01ED6891100DB6B9D /* QJListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJListTableView.h; sourceTree = "<group>"; };
 		5A1999C11ED6891100DB6B9D /* QJListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJListTableView.m; sourceTree = "<group>"; };
 		5A1999C41ED68C9800DB6B9D /* QJProtectTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJProtectTool.h; sourceTree = "<group>"; };
@@ -257,6 +258,9 @@
 		5A25A2351EE2F8EE00A62DCF /* QJBigImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJBigImageItem.h; sourceTree = "<group>"; };
 		5A25A2361EE2F8EE00A62DCF /* QJBigImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJBigImageItem.m; sourceTree = "<group>"; };
 		5A2C16F6227EF31E00C49BAA /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
+		5A2CA7CA22867A53004171EC /* QJBrowerSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJBrowerSettingViewController.h; sourceTree = "<group>"; };
+		5A2CA7CB22867A53004171EC /* QJBrowerSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJBrowerSettingViewController.m; sourceTree = "<group>"; };
+		5A2CA7CC22867A53004171EC /* QJBrowerSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJBrowerSettingViewController.xib; sourceTree = "<group>"; };
 		5A2F792A1ECD2A8500745DA0 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		5A2F792D1ECD2CB900745DA0 /* QJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJViewController.h; sourceTree = "<group>"; };
 		5A2F792E1ECD2CB900745DA0 /* QJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJViewController.m; sourceTree = "<group>"; };
@@ -435,19 +439,12 @@
 		5ACA2B661F2867BE003DF3D0 /* QJTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJTableViewCell.m; sourceTree = "<group>"; };
 		5ACFFC342106290B00F64B57 /* QJCustomTabbarSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJCustomTabbarSettingController.h; sourceTree = "<group>"; };
 		5ACFFC352106290B00F64B57 /* QJCustomTabbarSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJCustomTabbarSettingController.m; sourceTree = "<group>"; };
-		5AD64D4C227FD0E9001B6872 /* QJMainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJMainSplitViewController.h; sourceTree = "<group>"; };
-		5AD64D4D227FD0E9001B6872 /* QJMainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJMainSplitViewController.m; sourceTree = "<group>"; };
-		5AD64D4F227FD125001B6872 /* QJContentSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJContentSplitViewController.h; sourceTree = "<group>"; };
-		5AD64D50227FD125001B6872 /* QJContentSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJContentSplitViewController.m; sourceTree = "<group>"; };
 		5AD6FFD5213C3D8600D34BCB /* QJMainSettingListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJMainSettingListCell.h; sourceTree = "<group>"; };
 		5AD6FFD6213C3D8600D34BCB /* QJMainSettingListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJMainSettingListCell.m; sourceTree = "<group>"; };
 		5AD6FFD7213C3D8600D34BCB /* QJMainSettingListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QJMainSettingListCell.xib; sourceTree = "<group>"; };
 		5AD8557020F1093A00A21F9A /* QJNewBrowerImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJNewBrowerImageCell.xib; sourceTree = "<group>"; };
 		5AD8557120F1093A00A21F9A /* QJNewBrowerImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJNewBrowerImageCell.h; sourceTree = "<group>"; };
 		5AD8557220F1093A00A21F9A /* QJNewBrowerImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJNewBrowerImageCell.m; sourceTree = "<group>"; };
-		5AD8557620F1096600A21F9A /* QJBrowerSettingPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJBrowerSettingPopView.h; sourceTree = "<group>"; };
-		5AD8557720F1096700A21F9A /* QJBrowerSettingPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QJBrowerSettingPopView.xib; sourceTree = "<group>"; };
-		5AD8557820F1096700A21F9A /* QJBrowerSettingPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJBrowerSettingPopView.m; sourceTree = "<group>"; };
 		5AD8557D20F1098B00A21F9A /* QJMangaImageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QJMangaImageParser.h; sourceTree = "<group>"; };
 		5AD8557E20F1098C00A21F9A /* QJMangaImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJMangaImageDownloader.m; sourceTree = "<group>"; };
 		5AD8557F20F1098C00A21F9A /* QJMangaImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QJMangaImageModel.m; sourceTree = "<group>"; };
@@ -1161,7 +1158,6 @@
 				5A90DAE61ECC3D5900575145 /* List */,
 				5A8EC0751F725F3B005C0DF5 /* HotList */,
 				5A39773F1EF75AEE009A2273 /* TabBar */,
-				5AD64D4B227FD0A1001B6872 /* iPadMain */,
 				5A7C3011227EE1C000589B55 /* Resource */,
 				5A90DACF1ECC3D3F00575145 /* Supporting Files */,
 				5A90DAD21ECC3D3F00575145 /* AppDelegate.h */,
@@ -1306,23 +1302,9 @@
 			name = CustomTabbarSetting;
 			sourceTree = "<group>";
 		};
-		5AD64D4B227FD0A1001B6872 /* iPadMain */ = {
-			isa = PBXGroup;
-			children = (
-				5AD64D4C227FD0E9001B6872 /* QJMainSplitViewController.h */,
-				5AD64D4D227FD0E9001B6872 /* QJMainSplitViewController.m */,
-				5AD64D4F227FD125001B6872 /* QJContentSplitViewController.h */,
-				5AD64D50227FD125001B6872 /* QJContentSplitViewController.m */,
-			);
-			name = iPadMain;
-			sourceTree = "<group>";
-		};
 		5AD8557520F1094E00A21F9A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5AD8557620F1096600A21F9A /* QJBrowerSettingPopView.h */,
-				5AD8557820F1096700A21F9A /* QJBrowerSettingPopView.m */,
-				5AD8557720F1096700A21F9A /* QJBrowerSettingPopView.xib */,
 				5AD8557120F1093A00A21F9A /* QJNewBrowerImageCell.h */,
 				5AD8557220F1093A00A21F9A /* QJNewBrowerImageCell.m */,
 				5AD8557020F1093A00A21F9A /* QJNewBrowerImageCell.xib */,
@@ -1332,6 +1314,8 @@
 				5AD8674F21076B040040ED5E /* QJBrowserBookMarkPopViewCell.h */,
 				5AD8674D21076B040040ED5E /* QJBrowserBookMarkPopViewCell.m */,
 				5AD8675021076B040040ED5E /* QJBrowserBookMarkPopViewCell.xib */,
+				5A1132092285612700853165 /* QJBrowerSystemInfoShowView.h */,
+				5A11320A2285612700853165 /* QJBrowerSystemInfoShowView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1391,6 +1375,9 @@
 				5AD8558E20F109A700A21F9A /* QJNewBrowerViewController.h */,
 				5AD8558D20F109A700A21F9A /* QJNewBrowerViewController.m */,
 				5AD8558C20F109A600A21F9A /* QJNewBrowerViewController.xib */,
+				5A2CA7CA22867A53004171EC /* QJBrowerSettingViewController.h */,
+				5A2CA7CB22867A53004171EC /* QJBrowerSettingViewController.m */,
+				5A2CA7CC22867A53004171EC /* QJBrowerSettingViewController.xib */,
 			);
 			name = NewBrower;
 			sourceTree = "<group>";
@@ -1526,8 +1513,8 @@
 				5A56B69D1F57B37800F30BD5 /* QJLanguageOutHeadView.xib in Resources */,
 				5A57E0461F4EC4310033663B /* QJSettingListCell.xib in Resources */,
 				5A2F79671ECD945100745DA0 /* QJSearchClassifyCell.xib in Resources */,
-				5AD8557920F1096700A21F9A /* QJBrowerSettingPopView.xib in Resources */,
 				5A56B6981F57AEAC00F30BD5 /* QJLanguageOutCell.xib in Resources */,
+				5A2CA7CE22867A53004171EC /* QJBrowerSettingViewController.xib in Resources */,
 				5A2F795B1ECD8C7A00745DA0 /* QJSearchSoreCell.xib in Resources */,
 				5ABF18301FE7612400B28660 /* QJRankingUploadCell.xib in Resources */,
 				5A4D64331FE3512F00E5555B /* QJRankingHeadInfoCell.xib in Resources */,
@@ -1638,6 +1625,7 @@
 				5A34889F1FD07CE000134B1D /* QJLikeButton.m in Sources */,
 				5ABA40ED1ED4326B00B21707 /* QJWebViewController.m in Sources */,
 				5A0780B81ECE8A5600EF00E6 /* QJListItem.m in Sources */,
+				5A2CA7CD22867A53004171EC /* QJBrowerSettingViewController.m in Sources */,
 				5AD8558620F1098D00A21F9A /* QJMangaImageModel.m in Sources */,
 				5AA0DDE31F2AD0C600ED3020 /* QJScrollView.m in Sources */,
 				5A9FA5C42249B6C00099DDCF /* QJNewSearchViewController.m in Sources */,
@@ -1676,13 +1664,11 @@
 				5A6ECC981EDE771C00DBF9DA /* QJImageCollectionViewCell.m in Sources */,
 				5A7481E21FFDBB90000ADA0B /* TBCityIconInfo.m in Sources */,
 				5A4523AF22769323006CAF00 /* QJColorPickSlider.m in Sources */,
-				5AD8557A20F1096700A21F9A /* QJBrowerSettingPopView.m in Sources */,
 				5A6F94831F2ECA000085F0EE /* Tag+CoreDataProperties.m in Sources */,
 				5AD8559620F10AF100A21F9A /* QJLabel.m in Sources */,
 				5A0780BD1ECEE9C900EF00E6 /* QJListCell.m in Sources */,
 				5A0A1F4F1EE0146E002C8AF8 /* QJGoCommentController.m in Sources */,
 				5ABA40F21ED4386400B21707 /* NJKWebViewProgressView.m in Sources */,
-				5AD64D4E227FD0E9001B6872 /* QJMainSplitViewController.m in Sources */,
 				5A1EE0D61FB3E0F000AA3DE4 /* QJButton.m in Sources */,
 				5A0245041ED7C55C00C3FE26 /* NSString+StringHeight.m in Sources */,
 				5A717ECB2251F464000F9B55 /* QJSearchSettingTagSearchViewController.m in Sources */,
@@ -1701,7 +1687,6 @@
 				5A86C3241ED1A07300A8CD80 /* QJGlobalInfo.m in Sources */,
 				5AD8558820F1098D00A21F9A /* QJMangaImageParser.m in Sources */,
 				5AB595051EEE28CB005D7CF3 /* QJHeadFreshingView.m in Sources */,
-				5AD64D51227FD125001B6872 /* QJContentSplitViewController.m in Sources */,
 				5A0A25662266CD2F00A54EFB /* QJTool.m in Sources */,
 				5A6ECCAE1EDE9D8B00DBF9DA /* QJGalleryItem.m in Sources */,
 				5A89EAD61EDF1A1500DA434F /* QJCommentCell.m in Sources */,
@@ -1716,6 +1701,7 @@
 				5A3FBC7D1EEA488200373F36 /* QJTorrentInfoCell.m in Sources */,
 				5AF72BC61F443ED100C226F1 /* QJSettingWatchSettingController.m in Sources */,
 				5AB17CA5227CB0E30068A218 /* QJWatchedViewController.m in Sources */,
+				5A11320B2285612700853165 /* QJBrowerSystemInfoShowView.m in Sources */,
 				5A6F94821F2ECA000085F0EE /* Tag+CoreDataClass.m in Sources */,
 				5AFE3B092272E0D80059DC01 /* QJSettingMyTagsCell.m in Sources */,
 				5A1999C61ED68C9800DB6B9D /* QJProtectTool.m in Sources */,

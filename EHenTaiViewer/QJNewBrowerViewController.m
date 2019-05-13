@@ -13,9 +13,10 @@
 #import "QJCollectionViewFlowLayout.h"
 #import "QJNewBrowerImageCell.h"
 #import "QJOrientationManager.h"
-#import "QJBrowerSettingPopView.h"
 #import "QJLabel.h"
 #import "QJBrowserBookMarkPopView.h"
+#import "QJBrowerSettingViewController.h"
+#import "QJBrowerSystemInfoShowView.h"
 
 //iconfont
 #import "TBCityIconFont.h"
@@ -24,7 +25,7 @@
 // coredata
 #import "QJBrowerCollectManager.h"
 
-@interface QJNewBrowerViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, QJBrowerSettingPopViewDelegate, UIGestureRecognizerDelegate, QJNewBrowerImageCellDelegate, QJBrowserBookMarkPopViewDelegate>
+@interface QJNewBrowerViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, QJNewBrowerImageCellDelegate, QJBrowserBookMarkPopViewDelegate, QJBrowerSettingViewControllerDelegate>
 
 // 导航栏部分
 @property (nonatomic, strong) UIBarButtonItem *funcItem;
@@ -37,7 +38,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mangaNameLabelTopLine;
 
 //弹出框
-@property (nonatomic, strong) QJBrowerSettingPopView *popView;
+@property (strong, nonatomic) UIView *backgroundView;
 @property (nonatomic, strong) QJBrowserBookMarkPopView *bookmarkPopView;
 
 // 图片部分
@@ -55,7 +56,7 @@
 - (IBAction)sliderTouchDown:(UISlider *)sender;
 - (IBAction)sliderUpInside:(UISlider *)sender;
 
-@property (weak, nonatomic) IBOutlet QJLabel *pageCountLabel;
+@property (weak, nonatomic) IBOutlet QJBrowerSystemInfoShowView *infoView;
 
 // 当前页数
 @property (nonatomic, assign) UIInterfaceOrientation orientation;
@@ -95,7 +96,7 @@
     // 设置画廊名字和当前页码
     self.mangaNameLabel.text = self.mangaName;
     self.mangaNameLabelTopLine.constant = UINavigationBarHeight() + 20;
-    self.pageCountLabel.text = [NSString stringWithFormat:@"1 / %ld", self.count];
+    self.infoView.progessLabel.text = [NSString stringWithFormat:@"1/%ld", self.count];
     // 工具栏的初始化
     // 修复底部安全区域的问题
     if (@available(iOS 11.0, *)) {
@@ -180,9 +181,6 @@
     self.orientation = orientation;
     // 刷新布局
     self.mangaNameLabelTopLine.constant = (isAppOrientationPortrait ? UINavigationBarHeight() : UISearchBarHeight()) + 20;
-    if (self.popView.isShowed) {
-        [self.popView changeFrameIfNeed];
-    }
     if (self.bookmarkPopView.isShowed) {
         [self.bookmarkPopView changeFrameIfNeedWithIndexPath:[NSIndexPath indexPathForItem:self.currentPage inSection:0]];
     }
@@ -331,7 +329,6 @@
     [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden];
     [self prefersStatusBarHidden];
     self.toolBar.hidden = self.navigationController.navigationBarHidden;
-    self.pageCountLabel.hidden = self.navigationController.navigationBarHidden;
     self.mangaNameLabel.hidden = self.navigationController.navigationBarHidden;
 }
 
@@ -374,7 +371,18 @@
 
 // 右上角更多功能item
 - (void)showFuncAction {
-    [self.popView show];
+    QJBrowerSettingViewController *vc = [QJBrowerSettingViewController new];
+    vc.delegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
+    
+    [self.view addSubview:self.backgroundView];
+    [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [UIView animateWithDuration:.26f animations:^{
+        self.backgroundView.alpha = 1;
+    }];
 }
 
 - (void)saveAction {
@@ -394,7 +402,7 @@
 
 - (void)changeBrowserInfo {
     self.pageCountBigLabel.text = [NSString stringWithFormat:@"%ld", self.currentPage + 1];
-    self.pageCountLabel.text = [NSString stringWithFormat:@"%ld / %ld", self.currentPage + 1, self.count];
+    self.infoView.progessLabel.text = [NSString stringWithFormat:@"%ld/%ld", self.currentPage + 1, self.count];
 }
 
 - (IBAction)sliderTouchDown:(UISlider *)sender {
@@ -436,24 +444,24 @@
     }
 }
 
-#pragma mark - QJBrowerSettingPopView Delegate
-- (NSInteger)currentOrientationSegSelectedIndex {
+#pragma mark - QJBrowerSettingViewControllerDelegate
+- (NSInteger)currentOrientationSegSelectedIndexWithController:(QJBrowerSettingViewController *)controller {
     return [QJOrientationManager getOrientationSegSelected];
 }
 
-- (NSInteger)currentDirectionSegSelectedIndex {
+- (NSInteger)currentDirectionSegSelectedIndexWithController:(QJBrowerSettingViewController *)controller {
     return [QJOrientationManager getDiretionSegSelected];
 }
 
-- (CGFloat)currentBrightness {
+- (CGFloat)currentBrightnessWithController:(QJBrowerSettingViewController *)controller {
     return [UIScreen mainScreen].brightness;
 }
 
-- (void)orientationSegDidClickBtnWithSelectedIndex:(NSInteger)selectedIndex {
+- (void)controller:(QJBrowerSettingViewController *)controller orientationSegDidClickBtnWithSelectedIndex:(NSInteger)selectedIndex {
     [QJOrientationManager setOrientationWithSelected:selectedIndex];
 }
 
-- (void)directionSegDidClickBtnWithSelectedIndex:(NSInteger)selectedIndex {
+- (void)controller:(QJBrowerSettingViewController *)controller directionSegDidClickBtnWithSelectedIndex:(NSInteger)selectedIndex {
     [QJOrientationManager setDiretionWithSelected:selectedIndex];
     // 这里刷新collectionview的滚动方式
     UICollectionViewScrollDirection customDirection = [QJGlobalInfo customScrollDiretion];
@@ -472,8 +480,20 @@
     [self.collectionView setContentOffset:contentOffset];
 }
 
-- (void)brightnessSliderDidChangeValue:(CGFloat)value {
+- (void)controller:(QJBrowerSettingViewController *)controller brightnessSliderDidChangeValue:(CGFloat)value {
     [UIScreen mainScreen].brightness = value;
+}
+
+- (void)dismissController:(QJBrowerSettingViewController *)controller {
+    [self dismissBgView];
+}
+
+- (void)dismissBgView {
+    [UIView animateWithDuration:.26f animations:^{
+        self.backgroundView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.backgroundView removeFromSuperview];
+    }];
 }
 
 #pragma mark - QJBrowserBookMarkPopView Delegate
@@ -507,7 +527,7 @@
         self.currentPage = page;
     }
     self.progressSlider.value = self.currentPage + 1;
-    self.pageCountLabel.text = [NSString stringWithFormat:@"%ld / %ld", self.currentPage + 1, (long)self.count];
+    self.infoView.progessLabel.text = [NSString stringWithFormat:@"%ld/%ld", self.currentPage + 1, (long)self.count];
 }
 
 #pragma mark -getter
@@ -570,11 +590,13 @@
     return _layout;
 }
 
-- (QJBrowerSettingPopView *)popView {
-    if (nil == _popView) {
-        _popView = [QJBrowerSettingPopView initWithDelegate:self];
+- (UIView *)backgroundView {
+    if (!_backgroundView) {
+        _backgroundView = [UIView new];
+        _backgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:.5f];
+        _backgroundView.alpha = 0;
     }
-    return _popView;
+    return _backgroundView;
 }
 
 - (QJBrowserBookMarkPopView *)bookmarkPopView {
