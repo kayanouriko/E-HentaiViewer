@@ -22,6 +22,7 @@ static NSString * const ExHentaiSmallStar = @"ExHentaiSmallStar";
 static NSString * const ExHentaiUserName = @"loginName";
 static NSString * const ExHentaiUserDes = @"ExHentaiUserDes";
 static NSString * const ExHentaiUserImageUrl = @"ExHentaiUserImageUrl";
+static NSString * const ExHentaiKeepLight = @"ExHentaiKeepLight";
 
 
 @interface QJGlobalInfo ()
@@ -230,6 +231,19 @@ static NSString * const ExHentaiUserImageUrl = @"ExHentaiUserImageUrl";
 
 + (void)setExHentaiUserImageUrl:(NSString *)userImageUrl {
     NSObjSetForKey(ExHentaiUserImageUrl, userImageUrl);
+    NSObjSynchronize();
+}
+
++ (BOOL)isExHentaiKeepLight {
+    // 默认屏幕高亮
+    if (nil == NSObjForKey(ExHentaiKeepLight)) {
+        [self setExHentaiKeepLight:YES];
+    }
+    return [NSObjForKey(ExHentaiTitleJnMode) boolValue];
+}
+
++ (void)setExHentaiKeepLight:(BOOL)isExHentaiKeepLight {
+    NSObjSetForKey(ExHentaiKeepLight, @(isExHentaiKeepLight));
     NSObjSynchronize();
 }
 

@@ -53,6 +53,10 @@
 + (BOOL)isExHentaiTitleJnMode;
 + (void)setExHentaiTitleJnMode:(BOOL)isExHentaiTitleJnMode;
 
+/** 屏幕常亮 */
++ (BOOL)isExHentaiKeepLight;
++ (void)setExHentaiKeepLight:(BOOL)isExHentaiKeepLight;
+
 /** 设置搜索的条件 */
 // 存储搜索的设置信息
 + (NSArray *)getExHentaiSearchSettingArr;

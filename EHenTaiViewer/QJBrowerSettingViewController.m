@@ -10,6 +10,9 @@
 
 @interface QJBrowerSettingViewController ()
 
+// 保持屏幕常亮
+@property (weak, nonatomic) IBOutlet UISwitch *lightSwitch;
+
 // 亮度
 @property (weak, nonatomic) IBOutlet UISlider *lightSlider;
 
@@ -45,6 +48,7 @@
         [self changeBgViewWithTag:300 buttonTag:200 selectIndex:[self.delegate currentDirectionSegSelectedIndexWithController:self]];
         [self changeBgViewWithTag:310 buttonTag:210 selectIndex:[self.delegate currentOrientationSegSelectedIndexWithController:self]];
         self.lightSlider.value = [self.delegate currentBrightnessWithController:self];
+        self.lightSwitch.on = [self.delegate currentKeepLightWithController:self];
     }
 }
 
@@ -95,6 +99,12 @@
                 bgView.backgroundColor = [UIColor colorWithWhite:1.f alpha:.6f];
             }
         }
+    }
+}
+
+- (IBAction)keepLightValueChangeAction:(UISwitch *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(controller:keepLight:)]) {
+        [self.delegate controller:self keepLight:sender.on];
     }
 }
 

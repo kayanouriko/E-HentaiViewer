@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (CGFloat)currentBrightnessWithController:(QJBrowerSettingViewController *)controller;
 
+/** 返回当前是否需要屏幕常亮 */
+- (BOOL)currentKeepLightWithController:(QJBrowerSettingViewController *)controller;
+
 @optional
 /** 旋转方式响应事件
  @param selectedIndex 选中的Seg下标
@@ -45,6 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param value 改变的亮度值
  */
 - (void)controller:(QJBrowerSettingViewController *)controller brightnessSliderDidChangeValue:(CGFloat)value;
+
+/** 保持屏幕高亮响应事件 */
+- (void)controller:(QJBrowerSettingViewController *)controller keepLight:(BOOL)keepLight;
 
 /** 已经点击完成操作 */
 - (void)dismissController:(QJBrowerSettingViewController *)controller;

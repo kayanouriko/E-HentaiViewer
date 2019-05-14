@@ -64,6 +64,7 @@
 
 // 杂项
 @property (nonatomic, assign, getter=isFristRefresh) BOOL fristRefresh;
+@property (assign, nonatomic, getter=isKeepLight) BOOL keepLight; // 是否保持高亮
 
 @end
 
@@ -85,6 +86,7 @@
     // 数据初始化
     self.currentPage = 0;
     self.fristRefresh = YES;
+    self.keepLight = [QJGlobalInfo isExHentaiKeepLight];
     // 当状态栏变动的时候不调整collectionView的frame
     self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     // 状态栏,导航栏初始化
@@ -140,6 +142,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange) name:UIDeviceOrientationDidChangeNotification object:nil];
     //禁用侧滑手势方法
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    // 设置屏幕常亮
+    [UIApplication sharedApplication].idleTimerDisabled = self.isKeepLight;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -158,6 +162,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     // 重新启动侧滑手势方法
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    // 恢复
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
     // 下载任务退出
     [self.manager cancelAllOperations];
     self.manager = nil;
@@ -457,6 +463,10 @@
     return [UIScreen mainScreen].brightness;
 }
 
+- (BOOL)currentKeepLightWithController:(QJBrowerSettingViewController *)controller {
+    return self.isKeepLight;
+}
+
 - (void)controller:(QJBrowerSettingViewController *)controller orientationSegDidClickBtnWithSelectedIndex:(NSInteger)selectedIndex {
     [QJOrientationManager setOrientationWithSelected:selectedIndex];
 }
@@ -482,6 +492,11 @@
 
 - (void)controller:(QJBrowerSettingViewController *)controller brightnessSliderDidChangeValue:(CGFloat)value {
     [UIScreen mainScreen].brightness = value;
+}
+
+- (void)controller:(QJBrowerSettingViewController *)controller keepLight:(BOOL)keepLight {
+    self.keepLight = keepLight;
+    [QJGlobalInfo setExHentaiKeepLight:keepLight];
 }
 
 - (void)dismissController:(QJBrowerSettingViewController *)controller {
