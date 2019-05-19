@@ -19,7 +19,6 @@
 
 @property (strong, nonatomic) QJSearchSiftHeadView *headView;
 @property (strong, nonatomic) QJListTableView *tableView;
-@property (assign, nonatomic) CGPoint initContentOffset;
 @property (strong, nonatomic) UIRefreshControl *refrshControl;
 @property (assign, nonatomic) QJFreshStatus status;
 @property (assign, nonatomic) NSInteger pageIndex; // 页面
@@ -40,12 +39,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    // 只有在界面加载完成之后才能获取到偏移量
-    self.initContentOffset = self.tableView.contentOffset;
     if (self.type == QJNewSearchViewControllerTypeTag && self.isFrist) {
         self.isFrist = NO;
         self.headView.keys = self.settings;
-        [self refreshControlAutoAnimate];
+        [self refreshDatas];
     }
 }
 
@@ -59,6 +56,7 @@
     if ([self.refrshControl isRefreshing]) {
         [self.refrshControl endRefreshing];
     }
+    [self hiddenFreshingView];
 }
 
 #pragma mark - Init UI
@@ -73,24 +71,15 @@
     }];
 }
 
-// 手动控制刷新控件进行刷新动作
-- (void)refreshControlAutoAnimate {
-    if (self.tableView.contentOffset.y == 0) {
-        [self.tableView setContentOffset:self.initContentOffset animated:NO];
-    }
-    if (!self.refrshControl.refreshing) {
-        [UIView animateWithDuration:0.26f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^(void){
-            self.tableView.contentOffset = CGPointMake(self.initContentOffset.x, self.initContentOffset.y - self.refrshControl.frame.size.height);
-        } completion:^(BOOL finished){
-            [self.refrshControl beginRefreshing];
-            [self.refrshControl sendActionsForControlEvents:UIControlEventValueChanged];
-        }];
-    }
-}
-
 #pragma mark - Update Datas
 // 下拉刷新,重新请求的时候调用
 - (void)refreshDatas {
+    self.pageIndex = 0;
+    [self showFreshingViewWithTip:nil];
+    [self updateSearchDatas];
+}
+
+- (void)refreshDatasWithoutAnimate {
     self.pageIndex = 0;
     [self updateSearchDatas];
 }
@@ -107,15 +96,7 @@
 // 收藏搜索
 - (void)updateFavoritesSearchDatas {
     [[QJHenTaiParser parser] updateLikeListInfoWithUrl:[self getLikeUrl] complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
-        if ([self.refrshControl isRefreshing]) {
-            [self.datas removeAllObjects];
-        }
-        if (status == QJHenTaiParserStatusSuccess) {
-            [self.datas addObjectsFromArray:listArray];
-            [self.tableView reloadData];
-        }
-        self.status = listArray.count ? QJFreshStatusNone : QJFreshStatusNotMore;
-        [self stopSomethingCommon];
+        [self getDatasWithStatus:status listArray:listArray];
     }];
 }
 
@@ -136,15 +117,7 @@
     NSString *url = [self makeUrl];
     // 开始请求数据
     [[QJHenTaiParser parser] updateListInfoWithUrl:url complete:^(QJHenTaiParserStatus status, NSArray<QJListItem *> *listArray) {
-        if ([self.refrshControl isRefreshing]) {
-            [self.datas removeAllObjects];
-        }
-        if (status == QJHenTaiParserStatusSuccess) {
-            [self.datas addObjectsFromArray:listArray];
-            [self.tableView reloadData];
-        }
-        self.status = listArray.count ? QJFreshStatusNone : QJFreshStatusNotMore;
-        [self stopSomethingCommon];
+        [self getDatasWithStatus:status listArray:listArray];
     } total:nil];
 }
 
@@ -186,6 +159,18 @@
     return url.copy;
 }
 
+- (void)getDatasWithStatus:(QJHenTaiParserStatus)status listArray:(NSArray<QJListItem *> *)listArray {
+    if ([self.refrshControl isRefreshing]) {
+        [self.datas removeAllObjects];
+    }
+    if (status == QJHenTaiParserStatusSuccess) {
+        [self.datas addObjectsFromArray:listArray];
+    }
+    [self.tableView reloadData];
+    self.status = listArray.count ? QJFreshStatusNone : QJFreshStatusNotMore;
+    [self stopSomethingCommon];
+}
+
 #pragma mark - ScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat current = scrollView.contentOffset.y + scrollView.frame.size.height;
@@ -220,7 +205,7 @@
     }
     
     self.searchKey = searchBar.text;
-    [self refreshControlAutoAnimate];
+    [self refreshDatas];
 }
 
 - (void)viewsShouldSearchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
@@ -343,7 +328,7 @@
 - (UIRefreshControl *)refrshControl {
     if (nil == _refrshControl) {
         _refrshControl = [UIRefreshControl new];
-        [_refrshControl addTarget:self action:@selector(refreshDatas) forControlEvents:UIControlEventValueChanged];
+        [_refrshControl addTarget:self action:@selector(refreshDatasWithoutAnimate) forControlEvents:UIControlEventValueChanged];
     }
     return _refrshControl;
 }
