@@ -7,6 +7,13 @@
 ![platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v1.4.1-brightgreen.svg)](https://github.com/kayanouriko/E-HentaiViewer/releases)  ![support](https://img.shields.io/badge/support-11.0-blue.svg)
 
 # 说明
+
+OC版本能用的情况下暂时停更
+项目起初是我刚开始做开发的时候模仿老前辈写的，留下了许多问题和不成熟的地方
+所以已下定决心swift重写了，这三个月基本在做底层基础的功课
+加上最近现实也挺倒霉的，换了两个东家折腾了不少事情
+莫急，新版真的有在做了
+
 主要是自用应用,而且还是新手,更新周期可能会比较长,有刚性需求的同学可以用DaidoujiChen的成熟应用\
 测试: Xcode10.2.1 / iPhone Xs Max / iOS 12.3 Beta\
 要求: 推荐 iPhone 7 或更新机型使用 / 需要 iOS 11.0 或更高版本\
